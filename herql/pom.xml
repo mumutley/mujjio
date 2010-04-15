@@ -19,7 +19,11 @@
             <artifactId>cglib</artifactId>
             <version>2.2</version>
         </dependency>
-
+		<dependency>
+            <groupId>aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.5.4</version>                        
+        </dependency>		
     </dependencies>
     <build>
         <plugins>
