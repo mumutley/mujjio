@@ -60,6 +60,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public DirectionalQuerySortImpl desc(Object instance) {
 
         return new DirectionalQuerySortImpl(
@@ -71,6 +72,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
+    @Override
     public QueryValue<Long> count(Object selection) {
         return (QueryValue) createAggregateSelection(selection, QueryAggregate.COUNT);
     }
@@ -78,6 +80,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> min(T selection) {
         return createAggregateSelection(selection, QueryAggregate.MIN);
     }
@@ -85,6 +88,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> max(T selection) {
         return createAggregateSelection(selection, QueryAggregate.MAX);
     }
@@ -92,6 +96,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> sum(T selection) {
         return createAggregateSelection(selection, QueryAggregate.SUM);
     }
@@ -100,6 +105,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
+    @Override
     public QueryValue<Long> sum(Integer selection) {
         return (QueryValue) createAggregateSelection(selection, QueryAggregate.SUM);
     }
@@ -108,6 +114,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
+    @Override
     public QueryValue<Double> avg(Number selection) {
         return (QueryValue) createAggregateSelection(selection, QueryAggregate.AVG);
     }
@@ -124,6 +131,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
+    @Override
     public QueryValue<Long> count(StrictQueryValue<?> selection) {
         QueryValue<Long> value = (QueryValue<Long>) createAggregateSelectionSrict(
                 selection, QueryAggregate.COUNT);
@@ -134,6 +142,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
+    @Override
     public QueryValue<Long> size(StrictQueryValue selection) {
         QueryValue<Long> aggValue = (QueryValue<Long>) selection;
         return createAggregateSelectionSrict(aggValue, QueryAggregate.SIZE);
@@ -142,6 +151,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> min(StrictQueryValue<T> selection) {
         return createAggregateSelectionSrict(selection, QueryAggregate.MIN);
     }
@@ -149,6 +159,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> max(StrictQueryValue<T> selection) {
         return createAggregateSelectionSrict(selection, QueryAggregate.MAX);
     }
@@ -156,11 +167,13 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> sum(StrictQueryValue<T> selection) {
         return createAggregateSelectionSrict(selection, QueryAggregate.SUM);
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public <T, X> QueryValue<X> sum(StrictQueryValue<T> selection, Class<X> returnType) {
         return (QueryValue) createAggregateSelectionSrict(selection, QueryAggregate.SUM);
     }
@@ -169,6 +182,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
+    @Override
     public QueryValue<Double> avg(StrictQueryValue<? extends Number> selection) {
         return (QueryValue) createAggregateSelectionSrict(selection, QueryAggregate.AVG);
     }
@@ -182,6 +196,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Conditional<?> or() {
 
         getSession().setNextLogicGate(LogicGate.OR);
@@ -193,6 +208,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
+    @Override
     public Conditional exists(Subquery subquery) {
         LogicGate logicGate = getSession().getNextLogicGate();
 
@@ -203,6 +219,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
+    @Override
     public Conditional notExists(Subquery subquery) {
         LogicGate logicGate = getSession().getNextLogicGate();
 
@@ -212,6 +229,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> Subquery<T> all(Subquery<T> subquery) {
 
         return new SubqueryDecoratorImpl<T>(SubqueryOperator.ALL, subquery);
@@ -220,6 +238,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> Subquery<T> any(Subquery<T> subquery) {
 
         return new SubqueryDecoratorImpl<T>(SubqueryOperator.ANY, subquery);
@@ -228,6 +247,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> Subquery<T> some(Subquery<T> subquery) {
 
         return new SubqueryDecoratorImpl<T>(SubqueryOperator.SOME, subquery);
@@ -236,6 +256,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Conditional<?> group(Conditional<?>... conditionalExpressions) {
 
         LogicGate logicGate = getSession().getNextLogicGate();
@@ -252,6 +273,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
+    @Override
     public <T> QueryValue<T> get(Object instance, Class<T> returnType) {
 
         QueryValue<T> column;
@@ -277,6 +299,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> get(T instance) {
 
         return get(instance, null);
@@ -286,6 +309,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
+    @Override
     public DirectionalQuerySortImpl desc(StrictQueryValue selection) {
         return new DirectionalQuerySortImpl(selection, QuerySortOperator.DESC);
     }
@@ -293,6 +317,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryLiteral<T> literal(T target) {
         return new QueryLiteral<T>(target);
     }
@@ -300,6 +325,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> createQueryValue(T target) {
         return createQueryValue(target, true);
     }
@@ -308,6 +334,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
+    @Override
     public <T> QueryValue<T> createQueryValue(T target, boolean getFirst) {
         if (target != null) {
             if (MethodCallUtils.isProxy(target)) {
@@ -342,6 +369,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryParameter<T> param(T target) {
         return new QueryParameter<T>(target);
     }
@@ -349,6 +377,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryParameter<T> param(String name, Class<T> returnType) {
         return new QueryParameter<T>(null, name);
     }
@@ -356,6 +385,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> multiply(T leftOperand, T rightOperand) {
         return new ArithmeticValueImpl<T>(
                 createQueryValue(leftOperand),
@@ -366,6 +396,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> divide(T leftOperand, T rightOperand) {
         return new ArithmeticValueImpl<T>(
                 createQueryValue(leftOperand),
@@ -376,6 +407,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> add(T leftOperand, T rightOperand) {
         return new ArithmeticValueImpl<T>(
                 createQueryValue(leftOperand),
@@ -386,6 +418,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> subtract(T leftOperand, T rightOperand) {
         return new ArithmeticValueImpl<T>(
                 createQueryValue(leftOperand),
@@ -398,6 +431,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> multiply(
             StrictQueryValue<T> leftOperand,
             StrictQueryValue<T> rightOperand) {
@@ -410,6 +444,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> divide(
             StrictQueryValue<T> leftOperand,
             StrictQueryValue<T> rightOperand) {
@@ -422,6 +457,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> add(
             StrictQueryValue<T> leftOperand,
             StrictQueryValue<T> rightOperand) {
@@ -434,6 +470,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> subtract(
             StrictQueryValue<T> leftOperand,
             StrictQueryValue<T> rightOperand) {
@@ -446,6 +483,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> abs(StrictQueryValue<T> operand) {
         return new QueryFunctionValueImpl<T>(QueryFunction.ABS, true, operand);
     }
@@ -453,6 +491,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> concat(
             StrictQueryValue<String> string1,
             StrictQueryValue<String> string2) {
@@ -462,6 +501,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<Date> currentDate() {
         return new QueryFunctionValueImpl<Date>(QueryFunction.CURRENT_DATE, false);
     }
@@ -469,6 +509,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<Date> currentTime() {
         return new QueryFunctionValueImpl<Date>(QueryFunction.CURRENT_TIME, false);
     }
@@ -476,6 +517,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<Date> currentTimestamp() {
         return new QueryFunctionValueImpl<Date>(QueryFunction.CURRENT_TIMESTAMP, false);
     }
@@ -483,6 +525,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<Integer> length(StrictQueryValue<String> string) {
         return new QueryFunctionValueImpl<Integer>(QueryFunction.LENGTH, false, string);
     }
@@ -490,6 +533,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<String> trim(StrictQueryValue<String> string) {
         return new QueryFunctionValueImpl<String>(QueryFunction.TRIM, false, string);
     }
@@ -497,6 +541,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<String> trim(TrimOption option, StrictQueryValue<String> string) {
         return new QueryFunctionValueImpl<String>(QueryFunction.TRIM, false, option, string);
     }
@@ -504,6 +549,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<String> trim(
             TrimOption option,
             StrictQueryValue<Character> character,
@@ -519,6 +565,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<Integer> locate(
             StrictQueryValue<String> targetString,
             StrictQueryValue<String> searchString) {
@@ -531,6 +578,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<Integer> locate(
             StrictQueryValue<String> targetString,
             StrictQueryValue<String> searchString,
@@ -545,6 +593,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<String> lower(StrictQueryValue<String> string) {
         return new QueryFunctionValueImpl<String>(
                 QueryFunction.LOWER, true, string);
@@ -553,6 +602,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<Integer> mod(
             StrictQueryValue<? extends Number> leftOperand,
             StrictQueryValue<? extends Number> rightOperand) {
@@ -563,6 +613,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<Double> sqrt(StrictQueryValue<? extends Number> number) {
         return new QueryFunctionValueImpl<Double>(
                 QueryFunction.SQRT, true, number);
@@ -571,6 +622,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<String> substring(
             StrictQueryValue<String> string,
             int start,
@@ -585,6 +637,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<String> upper(StrictQueryValue<String> string) {
         return new QueryFunctionValueImpl<String>(
                 QueryFunction.UPPER, true, string);
@@ -593,6 +646,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> abs(T operand) {
         return new QueryFunctionValueImpl<T>(QueryFunction.ABS, true,
                 createQueryValue(operand));
@@ -601,6 +655,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> QueryValue<T> concat(String string1, String string2) {
         return new QueryFunctionValueImpl<T>(QueryFunction.CONCAT, true,
                 createQueryValue(string1),
@@ -610,6 +665,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<Integer> length(String string) {
         return new QueryFunctionValueImpl<Integer>(QueryFunction.LENGTH, false,
                 createQueryValue(string));
@@ -618,6 +674,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<String> trim(String string) {
         return new QueryFunctionValueImpl<String>(QueryFunction.TRIM, false,
                 createQueryValue(string));
@@ -626,6 +683,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<String> trim(TrimOption option, String string) {
         return new QueryFunctionValueImpl<String>(
                 QueryFunction.TRIM, false,
@@ -636,6 +694,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<String> trim(
             TrimOption option,
             Character character,
@@ -651,6 +710,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<Integer> locate(String targetString, String searchString) {
         return new QueryFunctionValueImpl<Integer>(
                 QueryFunction.LOCATE, true,
@@ -661,6 +721,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<Integer> locate(
             String targetString,
             String searchString,
@@ -675,6 +736,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<String> lower(String string) {
         return new QueryFunctionValueImpl<String>(
                 QueryFunction.LOWER, true, createQueryValue(string));
@@ -683,6 +745,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<Integer> mod(Number leftOperand, Number rightOperand) {
         return new QueryFunctionValueImpl<Integer>(
                 QueryFunction.MOD, true,
@@ -693,6 +756,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<Double> sqrt(Number number) {
         return new QueryFunctionValueImpl<Double>(
                 QueryFunction.SQRT, true, createQueryValue(number));
@@ -701,6 +765,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<String> substring(
             String string,
             int start,
@@ -715,6 +780,7 @@ class ProxyQueryBuilderImpl implements ProxyQueryBuilder {
     /**
      * {@inheritDoc}
      */
+    @Override
     public QueryValue<String> upper(String string) {
         return new QueryFunctionValueImpl<String>(
                 QueryFunction.UPPER, true, createQueryValue(string));

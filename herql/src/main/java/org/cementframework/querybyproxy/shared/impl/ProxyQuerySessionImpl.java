@@ -30,6 +30,7 @@ public class ProxyQuerySessionImpl implements ProxyQuerySession {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setNextLogicGate(LogicGate logicGate) {
         nextLogicGate = logicGate;
     }
@@ -37,6 +38,7 @@ public class ProxyQuerySessionImpl implements ProxyQuerySession {
     /**
      * {@inheritDoc}
      */
+    @Override
     public LogicGate getNextLogicGate() {
         LogicGate theNextLogicGate = nextLogicGate;
 

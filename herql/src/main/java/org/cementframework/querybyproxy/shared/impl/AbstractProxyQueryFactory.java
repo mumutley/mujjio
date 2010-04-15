@@ -40,6 +40,7 @@ public abstract class AbstractProxyQueryFactory implements ProxyQueryFactory {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ProxyQueryBuilder getQueryBuilder() {
         return queryBuilder;
     }
