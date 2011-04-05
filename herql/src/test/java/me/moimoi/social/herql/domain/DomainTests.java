@@ -161,8 +161,6 @@ public class DomainTests {
         Assert.assertNotNull("there should be an account here", agent);
         LOG.log(Level.INFO, "age is {0}", agent.getAge());        
     }
-    
-    
-        
+               
     private static final Logger LOG = Logger.getAnonymousLogger();
 }
