@@ -31,7 +31,7 @@ public class AppTest extends TestCase {
 
     public void testEmbeddedEjb() throws NamingException {
         if(true) return;
-        EJBContainer ejbC = EJBContainer.createEJBContainer();
+        /*EJBContainer ejbC = EJBContainer.createEJBContainer();
         Context ctx = ejbC.getContext();
         App app = (App) ctx.lookup("java:global/classes/App");
         assertNotNull(app);
@@ -39,6 +39,6 @@ public class AppTest extends TestCase {
         String greeting = app.sayHello(NAME);
         assertNotNull(greeting);
         assertTrue(greeting.equals("Hello " + NAME));
-        ejbC.close();
+        ejbC.close();*/
     }
 }
