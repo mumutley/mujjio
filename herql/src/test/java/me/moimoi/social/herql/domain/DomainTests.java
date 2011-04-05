@@ -45,7 +45,7 @@ public class DomainTests {
         db = mongo.getDB("social");
         ds = morphia.createDatastore(mongo, db.getName());
         //setup default person        
-        person = new Agent();
+        person = Agent.create();
         person.setAboutMe("I have an example of every piece of data");
         person.setAge(Integer.valueOf("32"));
         Calendar date = Calendar.getInstance();
@@ -81,7 +81,7 @@ public class DomainTests {
         person.setSmoker("now and again");
         person.setStatus("up up and away");
         person.setThumbnailUrl("http://www.moimoi.me/theonetest/catalog/01/theone.mp4");
-        person.setUpdated(date.getTime());
+        person.setUpdated(date.getTime());                
     }
 
     @AfterClass
@@ -91,14 +91,31 @@ public class DomainTests {
 
     @Test
     public void addAgent() {
-        //adding two agent instances 
+        ds.delete(ds.createQuery(Agent.class));
+        
+        //adding two agent instances
+        Account account = new Account();
+        account.setDomain("moimoi.me");
+        account.setUserId("suhailski");
+        account.setUsername("Suhail M");
+        
+        person.getAccount().add(account);
+        
         Key<Agent> key = ds.save(person);
         Assert.assertNotNull("there should be a key here", key);
         LOG.log(Level.INFO, "{0} {1}", new Object[]{key.toString(), person.getId().toString()});
 
+        account = new Account();
+        account.setDomain("moimoi.me");
+        account.setUserId("suhail");
+        account.setUsername("Suhail Manzoor");
+
         person.setAge(Integer.valueOf("53"));
         person.setAboutMe("This is not baout me");
         person.setId(null);
+        person.getAccount().clear();
+        person.getAccount().add(account);
+        
         key = ds.save(person);
         Assert.assertNotNull("there should be a key here", key);
 
@@ -137,6 +154,15 @@ public class DomainTests {
         Assert.assertEquals("the age should be equal", agent.getAge(), Integer.valueOf("61"));
         LOG.log(Level.INFO, "gender is {0}", agent.getAge());
     }
+    
+    @Test
+    public void getEmbeddedAccount() {        
+        Agent agent = ds.find(Agent.class, "account.userId", "suhail").get();
+        Assert.assertNotNull("there should be an account here", agent);
+        LOG.log(Level.INFO, "age is {0}", agent.getAge());        
+    }
+    
+    
         
     private static final Logger LOG = Logger.getAnonymousLogger();
 }

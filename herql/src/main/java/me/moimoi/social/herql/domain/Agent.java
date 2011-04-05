@@ -1,12 +1,15 @@
 package me.moimoi.social.herql.domain;
 
 
+import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import org.bson.types.ObjectId;
 
-@Entity
+@Entity("agent")
 public class Agent {
 
     @Id private ObjectId id;
@@ -44,7 +47,16 @@ public class Agent {
     private String thumbnailUrl;
     private Date updated;
 
-    public Agent() {        
+    @Embedded(concreteClass = LinkedList.class)
+    private List<Account> account;
+    
+    public static Agent create() {
+        return new Agent();
+    }
+    
+    private Agent() { 
+        super();
+        account = new LinkedList<Account>();
     }
     
     /**
@@ -507,5 +519,19 @@ public class Agent {
      */
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    /**
+     * @return the account
+     */
+    public List<Account> getAccount() {
+        return account;
+    }
+
+    /**
+     * @param account the account to set
+     */
+    public void setAccount(List<Account> account) {
+        this.account = account;
     }
 }
