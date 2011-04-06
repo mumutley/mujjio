@@ -15,10 +15,13 @@
  */
 package me.moimoi.social.herql.domain;
 
+import com.google.code.morphia.annotations.Embedded;
+
 /**
  *
  * @author Suhail
  */
+@Embedded
 public class PluralField<T> {
     
     private T value;

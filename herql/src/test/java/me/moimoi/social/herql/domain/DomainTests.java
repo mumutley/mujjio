@@ -154,14 +154,14 @@ public class DomainTests {
     
     @Test
     public void getEmbeddedAccount() {        
-        Agent agent = ds.find(Agent.class, "account.userId", "suhail").get();
+        Agent agent = ds.find(Agent.class, "accounts.userId", "suhail").get();
         Assert.assertNotNull("there should be an account here", agent);
         LOG.log(Level.INFO, "age is {0}", agent.getAge());        
     }
     
     //@Test
     public void removeAccountAndUpdateAgent() {
-        Agent agent = ds.find(Agent.class, "account.userId", "suhail").get();               
+        Agent agent = ds.find(Agent.class, "accounts.userId", "suhail").get();               
         final boolean removed = agent
                 .getAccounts()
                 .remove(Account.create("suhail", "Suhail Manzoor", "moimoi.me"));
@@ -176,7 +176,7 @@ public class DomainTests {
     
     @Test
     public void updateAccountField() {
-        Agent agent = ds.find(Agent.class, "account.userId", "suhail").get();    
+        Agent agent = ds.find(Agent.class, "accounts.userId", "suhail").get();    
         Iterator<Account> ita = agent.getAccounts().iterator();
         while(ita.hasNext()) {
             Account account = ita.next();
