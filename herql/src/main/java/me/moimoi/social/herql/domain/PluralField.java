@@ -16,21 +16,22 @@
 package me.moimoi.social.herql.domain;
 
 import com.google.code.morphia.annotations.Embedded;
+import org.apache.shindig.social.opensocial.model.ListField;
 
 /**
  *
  * @author Suhail
  */
 @Embedded
-public class PluralField<T> {
+public class PluralField implements ListField {
     
-    private T value;
+    private String value;
     private String type;
     private Boolean primary;
     
     public PluralField() {}
     
-    public PluralField(T value, String type, Boolean primary ) {
+    public PluralField(String value, String type, Boolean primary ) {
         this.value = value;
         this.type = type;
         this.primary = primary;
@@ -39,20 +40,23 @@ public class PluralField<T> {
     /**
      * @return the value
      */
-    public T getValue() {
+    @Override
+    public String getValue() {
         return value;
     }
 
     /**
      * @param value the value to set
      */
-    public void setValue(T value) {
+    @Override
+    public void setValue(String value) {
         this.value = value;
     }
 
     /**
      * @return the type
      */
+    @Override
     public String getType() {
         return type;
     }
@@ -60,6 +64,7 @@ public class PluralField<T> {
     /**
      * @param type the type to set
      */
+    @Override
     public void setType(String type) {
         this.type = type;
     }
@@ -67,6 +72,7 @@ public class PluralField<T> {
     /**
      * @return the primary
      */
+    @Override
     public Boolean getPrimary() {
         return primary;
     }

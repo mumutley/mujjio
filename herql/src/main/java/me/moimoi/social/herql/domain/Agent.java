@@ -4,11 +4,9 @@ package me.moimoi.social.herql.domain;
 import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import org.bson.types.ObjectId;
 
 @Entity(value="agent", noClassnameStored=true)
@@ -50,7 +48,7 @@ public class Agent {
     private Date updated;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField<String>> activities;
+    private List<PluralField> activities;
     
     @Embedded(concreteClass = LinkedList.class)
     private List<Account> accounts;
@@ -67,7 +65,7 @@ public class Agent {
         super();
         accounts = new LinkedList<Account>();
         addresses = new LinkedList<Address>();
-        activities = new LinkedList<PluralField<String>>();
+        activities = new LinkedList<PluralField>();
     }
     
     /**
@@ -563,14 +561,14 @@ public class Agent {
     /**
      * @return the activities
      */
-    public List<PluralField<String>> getActivities() {
+    public List<PluralField> getActivities() {
         return activities;
     }
 
     /**
      * @param activities the activities to set
      */
-    public void setActivities(List<PluralField<String>> activities) {
+    public void setActivities(List<PluralField> activities) {
         this.activities = activities;
     }
 }

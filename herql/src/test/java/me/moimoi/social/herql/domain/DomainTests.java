@@ -81,7 +81,7 @@ public class DomainTests {
         person.setThumbnailUrl("http://www.moimoi.me/theonetest/catalog/01/theone.mp4");
         person.setUpdated(date.getTime()); 
         
-        PluralField<String> activity = new PluralField("Watching film", Type.other.name(), Boolean.TRUE);
+        PluralField activity = new PluralField("Watching film", Type.other.name(), Boolean.TRUE);
         person.getActivities().add(activity);
         activity = new PluralField("Reading books", Type.other.name(), Boolean.TRUE);
         person.getActivities().add(activity);
