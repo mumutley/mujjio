@@ -96,7 +96,6 @@ public class Account {
                     && this.getUserId().equals(that.getUserId())
                     && this.getUsername().equals(that.getUsername());
         }
-
         return false;
     }
 

@@ -4,9 +4,11 @@ package me.moimoi.social.herql.domain;
 import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import org.bson.types.ObjectId;
 
 @Entity(value="agent", noClassnameStored=true)
@@ -46,9 +48,16 @@ public class Agent {
     private String smoker;
     private String thumbnailUrl;
     private Date updated;
-
+    
     @Embedded(concreteClass = LinkedList.class)
-    private List<Account> account;
+    private List<PluralField<String>> activities;
+    
+    @Embedded(concreteClass = LinkedList.class)
+    private List<Account> accounts;
+    
+    @Embedded(concreteClass = LinkedList.class)
+    private List<Address> addresses;
+    
     
     public static Agent create() {
         return new Agent();
@@ -56,7 +65,9 @@ public class Agent {
     
     private Agent() { 
         super();
-        account = new LinkedList<Account>();
+        accounts = new LinkedList<Account>();
+        addresses = new LinkedList<Address>();
+        activities = new LinkedList<PluralField<String>>();
     }
     
     /**
@@ -524,14 +535,42 @@ public class Agent {
     /**
      * @return the account
      */
-    public List<Account> getAccount() {
-        return account;
+    public List<Account> getAccounts() {
+        return accounts;
     }
 
     /**
      * @param account the account to set
      */
-    public void setAccount(List<Account> account) {
-        this.account = account;
+    public void setAccounts(List<Account> account) {
+        this.accounts = account;
+    }
+
+    /**
+     * @return the address
+     */
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddresses(List<Address> address) {
+        this.addresses = address;
+    }
+
+    /**
+     * @return the activities
+     */
+    public List<PluralField<String>> getActivities() {
+        return activities;
+    }
+
+    /**
+     * @param activities the activities to set
+     */
+    public void setActivities(List<PluralField<String>> activities) {
+        this.activities = activities;
     }
 }

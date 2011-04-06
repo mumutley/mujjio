@@ -9,7 +9,6 @@ import com.google.code.morphia.Key;
 import com.google.code.morphia.Morphia;
 import com.google.code.morphia.query.Query;
 import com.google.code.morphia.query.UpdateOperations;
-import com.google.code.morphia.query.UpdateResults;
 import com.mongodb.DB;
 import com.mongodb.Mongo;
 import java.net.UnknownHostException;
@@ -80,7 +79,12 @@ public class DomainTests {
         person.setSmoker("now and again");
         person.setStatus("up up and away");
         person.setThumbnailUrl("http://www.moimoi.me/theonetest/catalog/01/theone.mp4");
-        person.setUpdated(date.getTime());                
+        person.setUpdated(date.getTime()); 
+        
+        PluralField<String> activity = new PluralField("Watching film", Type.other.name(), Boolean.TRUE);
+        person.getActivities().add(activity);
+        activity = new PluralField("Reading books", Type.other.name(), Boolean.TRUE);
+        person.getActivities().add(activity);
     }
 
     @AfterClass
@@ -95,7 +99,7 @@ public class DomainTests {
         //adding two agent instances
         Account account = Account.create("suhailski", "Suhail M", "moimoi.me");
         
-        person.getAccount().add(account);
+        person.getAccounts().add(account);
         
         Key<Agent> key = ds.save(person);
         Assert.assertNotNull("there should be a key here", key);
@@ -106,8 +110,8 @@ public class DomainTests {
         person.setAge(Integer.valueOf("53"));
         person.setAboutMe("This is not baout me");
         person.setId(null);
-        person.getAccount().clear();
-        person.getAccount().add(account);
+        person.getAccounts().clear();
+        person.getAccounts().add(account);
         
         key = ds.save(person);
         Assert.assertNotNull("there should be a key here", key);
@@ -157,14 +161,14 @@ public class DomainTests {
     
     //@Test
     public void removeAccountAndUpdateAgent() {
-        Agent agent = ds.find(Agent.class, "account.userId", "suhail").get();                
+        Agent agent = ds.find(Agent.class, "account.userId", "suhail").get();               
         final boolean removed = agent
-                .getAccount()
+                .getAccounts()
                 .remove(Account.create("suhail", "Suhail Manzoor", "moimoi.me"));
         
         if(removed) {
             ds.save(agent);
-            LOG.log(Level.INFO, "{0}", "Modified account saved " + agent.getAccount());
+            LOG.log(Level.INFO, "{0}", "Modified account saved " + agent.getAccounts());
         } else {
             LOG.log(Level.INFO, "{0}", "Account not saved");
         }        
@@ -172,9 +176,16 @@ public class DomainTests {
     
     @Test
     public void updateAccountField() {
-        Query<Agent> query = ds.find(Agent.class).field("account.userId").equal("suhail");
-        UpdateOperations<Agent> ops = ds.createUpdateOperations(Agent.class).set("account.userId", "rubicon");
-        ds.update(query, ops);
+        Agent agent = ds.find(Agent.class, "account.userId", "suhail").get();    
+        Iterator<Account> ita = agent.getAccounts().iterator();
+        while(ita.hasNext()) {
+            Account account = ita.next();
+            if(account.getUserId().equals("suhail")) {
+                account.setUserId("rubicon");
+                break;                                
+            }
+        }
+        ds.save(agent);        
     }
     
     private static final Logger LOG = Logger.getAnonymousLogger();
