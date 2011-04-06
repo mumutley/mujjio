@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import org.bson.types.ObjectId;
 
-@Entity("agent")
+@Entity(value="agent", noClassnameStored=true)
 public class Agent {
 
     @Id private ObjectId id;

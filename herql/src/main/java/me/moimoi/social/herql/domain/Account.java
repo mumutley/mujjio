@@ -12,13 +12,25 @@ import com.google.code.morphia.annotations.Embedded;
  */
 @Embedded
 public class Account {
-    
+
     private String userId;
     private String username;
     private String domain;
     private String password;
+
+    public Account() {
+      //NOOP  
+    }
     
-    public Account() {}
+    public static Account create(String userId, String userName, String domain) {
+        return new Account(userId, userName, domain);
+    }
+    
+    public Account(String userId, String userName, String domain) {
+        setUserId(userId);
+        setDomain(domain);
+        setUsername(userName);
+    }
 
     /**
      * @return the userId
@@ -30,10 +42,9 @@ public class Account {
     /**
      * @param userId the userId to set
      */
-    public void setUserId(String userId) {
+    public final void setUserId(String userId) {
         this.userId = userId;
     }
-   
 
     /**
      * @return the username
@@ -45,7 +56,7 @@ public class Account {
     /**
      * @param username the username to set
      */
-    public void setUsername(String username) {
+    public final void setUsername(String username) {
         this.username = username;
     }
 
@@ -59,7 +70,7 @@ public class Account {
     /**
      * @param domain the domain to set
      */
-    public void setDomain(String domain) {
+    public final void setDomain(String domain) {
         this.domain = domain;
     }
 
@@ -75,5 +86,25 @@ public class Account {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Account) {
+            Account that = (Account) obj;
+            return this.getDomain().equals(that.getDomain())
+                    && this.getUserId().equals(that.getUserId())
+                    && this.getUsername().equals(that.getUsername());
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = domain != null ? domain.hashCode() : 0;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        return result;
     }
 }
