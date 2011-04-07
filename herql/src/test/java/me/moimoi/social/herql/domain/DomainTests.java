@@ -159,21 +159,6 @@ public class DomainTests {
         LOG.log(Level.INFO, "age is {0}", agent.getAge());        
     }
     
-    //@Test
-    public void removeAccountAndUpdateAgent() {
-        Agent agent = ds.find(Agent.class, "accounts.userId", "suhail").get();               
-        final boolean removed = agent
-                .getAccounts()
-                .remove(Account.create("suhail", "Suhail Manzoor", "moimoi.me"));
-        
-        if(removed) {
-            ds.save(agent);
-            LOG.log(Level.INFO, "{0}", "Modified account saved " + agent.getAccounts());
-        } else {
-            LOG.log(Level.INFO, "{0}", "Account not saved");
-        }        
-    }
-    
     @Test
     public void updateAccountField() {
         Agent agent = ds.find(Agent.class, "accounts.userId", "suhail").get();    
@@ -186,6 +171,21 @@ public class DomainTests {
             }
         }
         ds.save(agent);        
+    }
+        
+    @Test
+    public void removeAccountAndUpdateAgent() {
+        Agent agent = ds.find(Agent.class, "accounts.userId", "suhailski").get();               
+        final boolean removed = agent
+                .getAccounts()
+                .remove(Account.create("suhailski", "Suhail M", "moimoi.me"));
+        
+        if(removed) {
+            ds.save(agent);
+            LOG.log(Level.INFO, "{0}", "Modified account saved " + agent.getAccounts());
+        } else {
+            LOG.log(Level.INFO, "{0}", "Account not saved");
+        }        
     }
     
     private static final Logger LOG = Logger.getAnonymousLogger();
