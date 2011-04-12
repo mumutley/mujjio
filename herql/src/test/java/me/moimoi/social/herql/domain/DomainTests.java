@@ -97,26 +97,26 @@ public class DomainTests {
         ds.delete(ds.createQuery(Agent.class));
         
         //adding two agent instances
-        Account account = Account.create("suhailski", "Suhail M", "moimoi.me");
+        SocialAccount account = SocialAccount.create("suhailski", "Suhail M", "moimoi.me");
         
         person.getAccounts().add(account);
         
         Key<Agent> key = ds.save(person);
         Assert.assertNotNull("there should be a key here", key);
-        LOG.log(Level.INFO, "{0} {1}", new Object[]{key.toString(), person.getId().toString()});
+        LOG.log(Level.INFO, "{0} {1}", new Object[]{key.toString(), person.getObjectId().toString()});
 
-        account = Account.create("suhail", "Suhail Manzoor", "moimoi.me");
+        account = SocialAccount.create("suhail", "Suhail Manzoor", "moimoi.me");
 
         person.setAge(Integer.valueOf("53"));
         person.setAboutMe("This is not baout me");
-        person.setId(null);
+        person.setObjectId(null);
         person.getAccounts().clear();
         person.getAccounts().add(account);
         
         key = ds.save(person);
         Assert.assertNotNull("there should be a key here", key);
 
-        LOG.log(Level.INFO, "{0} {1}", new Object[]{key.toString(), person.getId().toString()});
+        LOG.log(Level.INFO, "{0} {1}", new Object[]{key.toString(), person.getObjectId().toString()});
     }
 
     @Test
@@ -162,9 +162,9 @@ public class DomainTests {
     @Test
     public void updateAccountField() {
         Agent agent = ds.find(Agent.class, "accounts.userId", "suhail").get();    
-        Iterator<Account> ita = agent.getAccounts().iterator();
+        Iterator<SocialAccount> ita = agent.getAccounts().iterator();
         while(ita.hasNext()) {
-            Account account = ita.next();
+            SocialAccount account = ita.next();
             if(account.getUserId().equals("suhail")) {
                 account.setUserId("rubicon");
                 break;                                
@@ -178,7 +178,7 @@ public class DomainTests {
         Agent agent = ds.find(Agent.class, "accounts.userId", "suhailski").get();               
         final boolean removed = agent
                 .getAccounts()
-                .remove(Account.create("suhailski", "Suhail M", "moimoi.me"));
+                .remove(SocialAccount.create("suhailski", "Suhail M", "moimoi.me"));
         
         if(removed) {
             ds.save(agent);

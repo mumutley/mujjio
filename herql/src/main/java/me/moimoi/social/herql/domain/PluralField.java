@@ -80,6 +80,7 @@ public class PluralField implements ListField {
     /**
      * @param primary the primary to set
      */
+    @Override
     public void setPrimary(Boolean primary) {
         this.primary = primary;
     }

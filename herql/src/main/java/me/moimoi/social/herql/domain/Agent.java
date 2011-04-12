@@ -12,7 +12,7 @@ import org.bson.types.ObjectId;
 @Entity(value="agent", noClassnameStored=true)
 public class Agent {
 
-    @Id private ObjectId id;
+    @Id private ObjectId objectId;
     
     private String aboutMe;
     private Integer age;
@@ -58,10 +58,10 @@ public class Agent {
     private List<PluralField> cars;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<Account> accounts;
+    private List<SocialAccount> accounts;
 
     @Embedded(concreteClass = LinkedList.class)
-    private List<Account> children;
+    private List<SocialAccount> children;
     
     @Embedded(concreteClass = LinkedList.class)
     private List<Address> addresses;
@@ -129,7 +129,7 @@ public class Agent {
     
     private Agent() { 
         super();
-        accounts = new LinkedList<Account>();
+        accounts = new LinkedList<SocialAccount>();
         addresses = new LinkedList<Address>();
         activities = new LinkedList<PluralField>();
         books = new LinkedList<PluralField>();
@@ -139,15 +139,15 @@ public class Agent {
     /**
      * @return the id
      */
-    public ObjectId getId() {
-        return id;
+    public ObjectId getObjectId() {
+        return objectId;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(ObjectId id) {
-        this.id = id;
+    public void setObjectId(ObjectId id) {
+        this.objectId = id;
     }
 
     /**
@@ -601,14 +601,14 @@ public class Agent {
     /**
      * @return the account
      */
-    public List<Account> getAccounts() {
+    public List<SocialAccount> getAccounts() {
         return accounts;
     }
 
     /**
      * @param account the account to set
      */
-    public void setAccounts(List<Account> account) {
+    public void setAccounts(List<SocialAccount> account) {
         this.accounts = account;
     }
 
@@ -671,14 +671,14 @@ public class Agent {
     /**
      * @return the children
      */
-    public List<Account> getChildren() {
+    public List<SocialAccount> getChildren() {
         return children;
     }
 
     /**
      * @param children the children to set
      */
-    public void setChildren(List<Account> children) {
+    public void setChildren(List<SocialAccount> children) {
         this.children = children;
     }
 

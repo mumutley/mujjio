@@ -5,28 +5,29 @@
 package me.moimoi.social.herql.domain;
 
 import com.google.code.morphia.annotations.Embedded;
+import org.apache.shindig.social.opensocial.model.Account;
 
 /**
  *
  * @author Suhail
  */
 @Embedded
-public class Account {
+public class SocialAccount implements Account {
 
     private String userId;
     private String username;
     private String domain;
     private String password;
 
-    public Account() {
+    public SocialAccount() {
       //NOOP  
     }
     
-    public static Account create(String userId, String userName, String domain) {
-        return new Account(userId, userName, domain);
+    public static SocialAccount create(String userId, String userName, String domain) {
+        return new SocialAccount(userId, userName, domain);
     }
     
-    public Account(String userId, String userName, String domain) {
+    public SocialAccount(String userId, String userName, String domain) {
         setUserId(userId);
         setDomain(domain);
         setUsername(userName);
@@ -35,6 +36,7 @@ public class Account {
     /**
      * @return the userId
      */
+    @Override
     public String getUserId() {
         return userId;
     }
@@ -42,6 +44,7 @@ public class Account {
     /**
      * @param userId the userId to set
      */
+    @Override
     public final void setUserId(String userId) {
         this.userId = userId;
     }
@@ -49,6 +52,7 @@ public class Account {
     /**
      * @return the username
      */
+    @Override
     public String getUsername() {
         return username;
     }
@@ -56,6 +60,7 @@ public class Account {
     /**
      * @param username the username to set
      */
+    @Override
     public final void setUsername(String username) {
         this.username = username;
     }
@@ -63,6 +68,7 @@ public class Account {
     /**
      * @return the domain
      */
+    @Override
     public String getDomain() {
         return domain;
     }
@@ -70,6 +76,7 @@ public class Account {
     /**
      * @param domain the domain to set
      */
+    @Override
     public final void setDomain(String domain) {
         this.domain = domain;
     }
@@ -90,8 +97,8 @@ public class Account {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Account) {
-            Account that = (Account) obj;
+        if (obj instanceof SocialAccount) {
+            SocialAccount that = (SocialAccount) obj;
             return this.getDomain().equals(that.getDomain())
                     && this.getUserId().equals(that.getUserId())
                     && this.getUsername().equals(that.getUsername());
