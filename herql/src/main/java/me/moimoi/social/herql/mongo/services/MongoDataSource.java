@@ -21,7 +21,7 @@ import me.moimoi.social.herql.services.SimpleDatasource;
  *
  * @author Suhail
  */
-public class MongoDataSource implements Provider<SimpleDatasource>, SimpleDatasource {
+public class MongoDataSource implements SimpleDatasource, Provider<SimpleDatasource> {
 
     private static Mongo mongo;
     private static DB db;

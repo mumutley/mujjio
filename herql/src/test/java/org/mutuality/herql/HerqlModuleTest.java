@@ -4,8 +4,6 @@
  */
 package org.mutuality.herql;
 
-import javax.ejb.embeddable.EJBContainer;
-import javax.naming.Context;
 import javax.naming.NamingException;
 import junit.framework.TestCase;
 
@@ -13,9 +11,9 @@ import junit.framework.TestCase;
  *
  * @author manzoors
  */
-public class AppTest extends TestCase {
+public class HerqlModuleTest extends TestCase {
 
-    public AppTest(String testName) {
+    public HerqlModuleTest(String testName) {
         super(testName);
     }
 
