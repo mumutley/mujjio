@@ -7,6 +7,7 @@ package me.moimoi.social.herql.domain;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import org.apache.shindig.protocol.model.Enum;
@@ -93,7 +94,11 @@ public class SocialPersonImpl implements Person {
     private String profileUrl;
     private String thumbnailUrl;
     private boolean owner;
-   
+    
+    public SocialPersonImpl() {
+        accounts = new LinkedList<Account>();
+    }
+    
     @Override
     public String getDisplayName() {
         return this.displayName;

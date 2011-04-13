@@ -37,10 +37,6 @@ public class HerqlModuleTest extends TestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
     }
-
-    public void testEb() throws NamingException {
-        
-    }
     
     public void testSavePersons() throws NamingException {
         SimpleDatasource sd = injector.getInstance(SimpleDatasource.class);
@@ -53,6 +49,8 @@ public class HerqlModuleTest extends TestCase {
         
         Person person = new SocialPersonImpl();
         person.setId(account.getUserId());
+        
+        person.getAccounts().add(account);
         
         Key<Person> key = profiles.register(person); 
         System.out.println(key.getId());
