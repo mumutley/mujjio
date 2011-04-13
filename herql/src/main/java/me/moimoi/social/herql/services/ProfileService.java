@@ -4,7 +4,9 @@
  */
 package me.moimoi.social.herql.services;
 
+import com.google.code.morphia.Key;
 import org.apache.shindig.social.opensocial.model.Account;
+import org.apache.shindig.social.opensocial.model.Person;
 import org.apache.shindig.social.opensocial.spi.PersonService;
 
 /**
@@ -15,9 +17,10 @@ public interface ProfileService extends PersonService {
     
     /**
      * This operation allows the client to register a new user account.
-     * @param account 
+     * @param account to be saved in the system
+     * @return the key of the account just saved.
      */
-    public void register(Account account);
+    public Key<Person> register(Person account);
     
     /**
      * <code>find</code> allows the client of the service to find a user by the

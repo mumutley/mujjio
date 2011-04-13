@@ -4,6 +4,8 @@
  */
 package me.moimoi.social.herql.domain;
 
+import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Id;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +27,11 @@ import org.apache.shindig.social.opensocial.model.Url;
  * Implementing the Person Object
  * @author Suhail
  */
+@Entity(value="person", noClassnameStored=false)
 public class SocialPersonImpl implements Person {
-
+    
+    @Id private String id;
+    
     private String displayName;
     private String aboutMe;
     private List<Account> accounts;    
@@ -48,8 +53,7 @@ public class SocialPersonImpl implements Person {
     private String happiestWhen;
     private Boolean hasApp;
     private List<String> heroes;
-    private String humor;
-    private String id;
+    private String humor;    
     private List<ListField> ims;
     private List<String> interests;
     private String jobInterests;
@@ -89,7 +93,7 @@ public class SocialPersonImpl implements Person {
     private String profileUrl;
     private String thumbnailUrl;
     private boolean owner;
-    
+   
     @Override
     public String getDisplayName() {
         return this.displayName;

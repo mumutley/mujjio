@@ -4,6 +4,7 @@
  */
 package me.moimoi.social.herql.mongo.services;
 
+import com.google.code.morphia.Key;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.Set;
@@ -47,8 +48,11 @@ public class MongoAccountServicesImpl implements ProfileService {
     } */
     
     @Override
-    public void register(Account account) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Key<Person> register(Person account) {
+        LOG.log(Level.INFO, "saved {0}", account);
+        Key<Person> key = dataSource.getDataSource().save(account);
+        LOG.log(Level.INFO, "saved {0}", key);
+        return key;
     }
 
     @Override
