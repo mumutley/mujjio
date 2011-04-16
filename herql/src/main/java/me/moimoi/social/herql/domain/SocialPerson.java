@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
+import me.moimoi.social.herql.services.interceptors.NewInstance;
 import org.apache.shindig.protocol.model.Enum;
 import org.apache.shindig.social.opensocial.model.Account;
 import org.apache.shindig.social.opensocial.model.Address;
@@ -29,7 +31,7 @@ import org.apache.shindig.social.opensocial.model.Url;
  * @author Suhail
  */
 @Entity(value="person", noClassnameStored=false)
-public class SocialPersonImpl implements Person {
+public class SocialPerson implements Person {
     
     @Id private String id;
     
@@ -95,7 +97,15 @@ public class SocialPersonImpl implements Person {
     private String thumbnailUrl;
     private boolean owner;
     
-    public SocialPersonImpl() {
+        
+    @NewInstance
+    public static SocialPerson create() {
+        return new SocialPerson();
+    }
+    
+    
+    
+    private SocialPerson() {
         accounts = new LinkedList<Account>();
     }
     
@@ -728,5 +738,11 @@ public class SocialPersonImpl implements Person {
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
+    
+    public void register() {
+        
+    }
+    
+    private static final Logger LOG = Logger.getLogger(SocialPerson.class.getName());
     
 }

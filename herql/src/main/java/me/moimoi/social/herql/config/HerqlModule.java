@@ -21,10 +21,8 @@ public class HerqlModule extends AbstractModule {
     protected void configure() {
         bind(String.class).annotatedWith(Names.named("mongo.db.host")).toInstance("localhost");
         bind(String.class).annotatedWith(Names.named("mongo.db.name")).toInstance("social");
-        
-        
-        bind(SimpleDatasource.class).toProvider(MongoDataSource.class);    
-        bind(ProfileService.class).to(MongoAccountServicesImpl.class);
-        
+
+        bind(SimpleDatasource.class).toProvider(MongoDataSource.class);
+        bind(ProfileService.class).to(MongoAccountServicesImpl.class);        
     }
 }

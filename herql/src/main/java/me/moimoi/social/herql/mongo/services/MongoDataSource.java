@@ -15,6 +15,8 @@ import com.mongodb.MongoException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import me.moimoi.social.herql.domain.SocialAccount;
+import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.SimpleDatasource;
 
 /**
@@ -34,6 +36,8 @@ public class MongoDataSource implements SimpleDatasource, Provider<SimpleDatasou
     public MongoDataSource(@Named("mongo.db.host")  final String host, @Named("mongo.db.name")  final String name) {
         this.host = host;
         this.dbName = name;
+        morphia.map(SocialPerson.class)
+               .map(SocialAccount.class);
     }
    
     @Override
