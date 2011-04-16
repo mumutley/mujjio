@@ -96,16 +96,13 @@ public class SocialPerson implements Person {
     private String profileUrl;
     private String thumbnailUrl;
     private boolean owner;
-    
         
-    @NewInstance
     public static SocialPerson create() {
         return new SocialPerson();
     }
     
     
-    
-    private SocialPerson() {
+    public SocialPerson() {
         accounts = new LinkedList<Account>();
     }
     
@@ -737,12 +734,5 @@ public class SocialPerson implements Person {
     @Override
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
-    }
-    
-    public void register() {
-        
-    }
-    
-    private static final Logger LOG = Logger.getLogger(SocialPerson.class.getName());
-    
+    }              
 }

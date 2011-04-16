@@ -11,8 +11,10 @@ import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.ProfileService;
 import me.moimoi.social.herql.services.SimpleDatasource;
+import me.moimoi.social.herql.services.interceptors.NewInstance;
 import org.apache.shindig.auth.SecurityToken;
 import org.apache.shindig.protocol.ProtocolException;
 import org.apache.shindig.protocol.RestfulCollection;
@@ -37,15 +39,7 @@ public class MongoAccountServicesImpl implements ProfileService {
     public MongoAccountServicesImpl(final SimpleDatasource dataSource) {
         this.dataSource = dataSource;
         LOG.log(Level.INFO, "initializing {0}", dataSource.getDataSource().getDB().getName());
-    }
-      /*      @Named("mongo.db.host")  final String host,
-            @Named("mongo.db.port")  final String port) {
-        
-        LOG.log(Level.INFO, "--->> initializing {0} ", MongoAccountServicesImpl.class.getCanonicalName() + " " + host);
-        
-        this.host = host;
-        this.port = Integer.valueOf(port).intValue();        
-    } */
+    }      
     
     @Override
     public Key<Person> register(Person account) {
@@ -74,4 +68,9 @@ public class MongoAccountServicesImpl implements ProfileService {
     }
     
     private static final Logger LOG = Logger.getLogger(MongoAccountServicesImpl.class.getCanonicalName());
+
+    @Override @NewInstance
+    public Person create() {
+        return SocialPerson.create();
+    }
 }

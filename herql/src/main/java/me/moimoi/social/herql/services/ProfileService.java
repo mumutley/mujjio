@@ -15,6 +15,9 @@ import org.apache.shindig.social.opensocial.spi.PersonService;
  */
 public interface ProfileService extends PersonService {
     
+    
+    public Person create();
+    
     /**
      * This operation allows the client to register a new user account.
      * @param account to be saved in the system
@@ -31,4 +34,5 @@ public interface ProfileService extends PersonService {
      * @return An account instance if found
      */
     public Account find(String userId, String domain);
+        
 }

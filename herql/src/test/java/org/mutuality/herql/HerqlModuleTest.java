@@ -19,6 +19,7 @@ import me.moimoi.social.herql.domain.SocialAccount;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.ProfileService;
 import me.moimoi.social.herql.services.SimpleDatasource;
+import org.apache.shindig.social.opensocial.model.Account;
 import org.apache.shindig.social.opensocial.model.Person;
 import org.junit.After;
 import org.junit.Before;
@@ -48,11 +49,10 @@ public class HerqlModuleTest  {
     @Test
     public void testSaveAccount() {
         SimpleDatasource sd = injector.getInstance(SimpleDatasource.class);                       
-        ProfileService profiles = injector.getInstance(ProfileService.class);                
-        SocialAccount account = SocialAccount.create("suhail", "suhailski", "moimoi.me");
-        account.setPassword("veritas");
+        ProfileService profiles = injector.getInstance(ProfileService.class);              
+        Account account = SocialAccount.create("suhail", "suhailski", "moimoi.me", "veritas");
         
-        Person person =  SocialPerson.create();
+        Person person =  profiles.create();
         
         person.setId(account.getUserId());
         
@@ -65,8 +65,7 @@ public class HerqlModuleTest  {
     
     @Test
     public void testUpdateAccount() {
-        SimpleDatasource sd = injector.getInstance(SimpleDatasource.class);       
-        ProfileService profiles = injector.getInstance(ProfileService.class);
+        SimpleDatasource sd = injector.getInstance(SimpleDatasource.class);               
         
         Person person = sd.getDataSource().get(SocialPerson.class, "suhail");
         Assert.assertEquals(person.getId(), "suhail");

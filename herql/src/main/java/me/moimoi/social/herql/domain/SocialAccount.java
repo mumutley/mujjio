@@ -20,14 +20,14 @@ public class SocialAccount implements Account {
     private String password;
 
     public SocialAccount() {
-      //NOOP  
+      //NOOP for mongo
     }
     
-    public static SocialAccount create(String userId, String userName, String domain) {
-        return new SocialAccount(userId, userName, domain);
+    public static SocialAccount create(String userId, String userName, String domain, String password) {
+        return new SocialAccount(userId, userName, domain, password);
     }
     
-    public SocialAccount(String userId, String userName, String domain) {
+    private SocialAccount(String userId, String userName, String domain, String password) {
         setUserId(userId);
         setDomain(domain);
         setUsername(userName);
