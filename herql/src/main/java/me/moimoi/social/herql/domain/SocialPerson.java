@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import me.moimoi.social.herql.services.interceptors.Mutator;
 import org.apache.shindig.protocol.model.Enum;
 import org.apache.shindig.social.opensocial.model.Account;
 import org.apache.shindig.social.opensocial.model.Address;
@@ -98,8 +99,7 @@ public class SocialPerson implements Person {
     public static SocialPerson create() {
         return new SocialPerson();
     }
-    
-    
+        
     public SocialPerson() {
         accounts = new LinkedList<Account>();
     }

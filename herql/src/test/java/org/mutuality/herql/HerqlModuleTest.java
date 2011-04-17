@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import junit.framework.Assert;
 import me.moimoi.social.herql.config.HerqlModule;
 import me.moimoi.social.herql.config.MutatorModule;
+import me.moimoi.social.herql.domain.MutablePerson;
 import me.moimoi.social.herql.domain.SocialAccount;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.ProfileService;
@@ -70,16 +71,27 @@ public class HerqlModuleTest  {
     @Test
     public void testUpdateAccount() {
         SimpleDatasource sd = injector.getInstance(SimpleDatasource.class);               
+        ProfileService profiles = injector.getInstance(ProfileService.class);   
         
-        Person person = sd.getDataSource().get(SocialPerson.class, "suhail");
+        MutablePerson person = profiles.find("suhail");        
+        person.setUpdateOperations(profiles.getUpdateOperation());                
+        
         Assert.assertEquals(person.getId(), "suhail");
+        
         person.setAboutMe("Its really good.");        
+        person.setAge(61);
         
-        UpdateOperations<SocialPerson> ops = sd.getDataSource().createUpdateOperations(SocialPerson.class).set("age", 61);
-        ops.set("aboutMe", "I love cats");
+        profiles.update(person);
         
-        Query<SocialPerson> query = sd.getDataSource().find(SocialPerson.class).field(Mapper.ID_KEY).equal("suhail");        
-        sd.getDataSource().update(query, ops);        
+        //UpdateOperations<SocialPerson> ops = sd.getDataSource().createUpdateOperations(SocialPerson.class).set("age", 61);
+        //ops.set("aboutMe", "I love cats");
+        
+        //UpdateOperations<SocialPerson> ops =  person.getUpdateOperation();
+        //Query<SocialPerson> query = profiles.getQuery();
+        
+        
+        /*Query<SocialPerson> query = sd.getDataSource().find(SocialPerson.class).field(Mapper.ID_KEY).equal("suhail");        
+        sd.getDataSource().update(query, ops);  
         
         Query<SocialPerson> list = sd.getDataSource().find(SocialPerson.class);
         Iterator<SocialPerson> agents = list.fetch().iterator();
@@ -88,7 +100,7 @@ public class HerqlModuleTest  {
         while (agents.hasNext()) {
             Person agent = agents.next();
             LOG.info(agent.getId());
-        }                
+        }*/             
     }
     
     private static final Logger LOG = Logger.getAnonymousLogger();

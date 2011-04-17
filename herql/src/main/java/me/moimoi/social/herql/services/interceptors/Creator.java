@@ -14,5 +14,5 @@ import java.lang.annotation.Target;
  * @author Suhail
  */
 @Retention(RetentionPolicy.RUNTIME) @Target(ElementType.METHOD)
-public @interface NewInstance {    
+public @interface Creator {    
 }
