@@ -4,7 +4,6 @@
  */
 package me.moimoi.social.herql.services;
 
-import com.google.code.morphia.Datastore;
 import com.google.code.morphia.query.UpdateOperations;
 import org.apache.shindig.social.opensocial.model.Person;
 

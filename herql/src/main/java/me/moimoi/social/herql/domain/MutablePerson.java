@@ -53,42 +53,52 @@ public class MutablePerson implements MutableObject, Person {
         this.delegate = delegate;
     }
     
+    @Override @Mutator(name="utcOffset")
     public void setUtcOffset(Long utcOffset) {
         delegate.setUtcOffset(utcOffset);
     }
 
+    @Override @Mutator(name="urls")
     public void setUrls(List<Url> urls) {
         delegate.setUrls(urls);
     }
 
+    @Override @Mutator(name="updated")
     public void setUpdated(Date updated) {
         delegate.setUpdated(updated);
     }
-
+    
+    @Override @Mutator(name="tvShows")
     public void setTvShows(List<String> tvShows) {
         delegate.setTvShows(tvShows);
     }
 
+    @Override @Mutator(name="turnOns")
     public void setTurnOns(List<String> turnOns) {
         delegate.setTurnOns(turnOns);
     }
 
+    @Override @Mutator(name="turnOffs")
     public void setTurnOffs(List<String> turnOffs) {
         delegate.setTurnOffs(turnOffs);
     }
 
+    @Override @Mutator(name="thumbnailUrl")
     public void setThumbnailUrl(String thumbnailUrl) {
         delegate.setThumbnailUrl(thumbnailUrl);
     }
 
+    @Override @Mutator(name="tags")    
     public void setTags(List<String> tags) {
         delegate.setTags(tags);
     }
 
+    @Override @Mutator(name="status")    
     public void setStatus(String status) {
         delegate.setStatus(status);
     }
 
+    @Override @Mutator(name="sports")    
     public void setSports(List<String> sports) {
         delegate.setSports(sports);
     }

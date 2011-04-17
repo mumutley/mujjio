@@ -99,15 +99,15 @@ public class MongoAccountServicesImpl implements ProfileService {
     }
     
     @Override
-    public Query<SocialPerson> getQuery() {
-        String _id = ((MutablePerson)this.instance).getId();
-        return dataSource.getDataSource().find(SocialPerson.class).field(Mapper.ID_KEY).equal(_id);
-    }
-
-    @Override
     public void update(Person account) {
         UpdateOperations<SocialPerson> ops = ((MutablePerson)this.instance).getUpdateOperation();
         Query<SocialPerson> query = getQuery();
         dataSource.getDataSource().update(query, ops);
     }
+    
+    private Query<SocialPerson> getQuery() {
+        String _id = ((MutablePerson)this.instance).getId();
+        return dataSource.getDataSource().find(SocialPerson.class).field(Mapper.ID_KEY).equal(_id);
+    }
+
 }

@@ -57,12 +57,6 @@ public interface ProfileService extends PersonService {
      * 
      * @return 
      */
-    public UpdateOperations<SocialPerson> getUpdateOperation();
-    
-    /**
-     * 
-     * @return 
-     */
-    public Query<SocialPerson> getQuery();
+    public UpdateOperations<SocialPerson> getUpdateOperation();        
         
 }

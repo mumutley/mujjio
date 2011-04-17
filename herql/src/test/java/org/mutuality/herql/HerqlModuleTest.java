@@ -52,8 +52,7 @@ public class HerqlModuleTest  {
     }
     
     @Test
-    public void testSaveAccount() {
-        SimpleDatasource sd = injector.getInstance(SimpleDatasource.class);                       
+    public void testSaveAccount() {        
         ProfileService profiles = injector.getInstance(ProfileService.class);              
         Account account = SocialAccount.create("suhail", "suhailski", "moimoi.me", "veritas");
         
@@ -69,8 +68,7 @@ public class HerqlModuleTest  {
     }
     
     @Test
-    public void testUpdateAccount() {
-        SimpleDatasource sd = injector.getInstance(SimpleDatasource.class);               
+    public void testUpdateAccount() {        
         ProfileService profiles = injector.getInstance(ProfileService.class);   
         
         MutablePerson person = profiles.find("suhail");        
@@ -80,20 +78,10 @@ public class HerqlModuleTest  {
         
         person.setAboutMe("Its really good.");        
         person.setAge(61);
-        
+        person.setStatus("I have completed a good design for updating the state of objects.");
         profiles.update(person);
-        
-        //UpdateOperations<SocialPerson> ops = sd.getDataSource().createUpdateOperations(SocialPerson.class).set("age", 61);
-        //ops.set("aboutMe", "I love cats");
-        
-        //UpdateOperations<SocialPerson> ops =  person.getUpdateOperation();
-        //Query<SocialPerson> query = profiles.getQuery();
-        
-        
-        /*Query<SocialPerson> query = sd.getDataSource().find(SocialPerson.class).field(Mapper.ID_KEY).equal("suhail");        
-        sd.getDataSource().update(query, ops);  
-        
-        Query<SocialPerson> list = sd.getDataSource().find(SocialPerson.class);
+                          
+        /*Query<SocialPerson> list = sd.getDataSource().find(SocialPerson.class);
         Iterator<SocialPerson> agents = list.fetch().iterator();
         LOG.log(Level.INFO, "{0}", list.fetch().iterator().hasNext());        
         
