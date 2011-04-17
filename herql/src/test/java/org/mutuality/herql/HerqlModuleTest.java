@@ -15,10 +15,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.Assert;
 import me.moimoi.social.herql.config.HerqlModule;
+import me.moimoi.social.herql.config.MutatorModule;
 import me.moimoi.social.herql.domain.SocialAccount;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.ProfileService;
 import me.moimoi.social.herql.services.SimpleDatasource;
+import net.guts.common.injection.InjectionListeners;
+import net.guts.event.EventModule;
 import org.apache.shindig.social.opensocial.model.Account;
 import org.apache.shindig.social.opensocial.model.Person;
 import org.junit.After;
@@ -38,8 +41,9 @@ public class HerqlModuleTest  {
     }
 
     @Before
-    public void setUp() throws Exception {
-        injector = Guice.createInjector(new HerqlModule());
+    public void setUp() throws Exception {        
+        injector = Guice.createInjector(new EventModule(), new MutatorModule(), new HerqlModule());
+        InjectionListeners.injectListeners(injector);
     }
 
     @After

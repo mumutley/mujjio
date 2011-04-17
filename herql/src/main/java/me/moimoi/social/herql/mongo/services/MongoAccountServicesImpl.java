@@ -15,6 +15,7 @@ import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.ProfileService;
 import me.moimoi.social.herql.services.SimpleDatasource;
 import me.moimoi.social.herql.services.interceptors.NewInstance;
+import net.guts.event.Channel;
 import org.apache.shindig.auth.SecurityToken;
 import org.apache.shindig.protocol.ProtocolException;
 import org.apache.shindig.protocol.RestfulCollection;
@@ -33,11 +34,12 @@ import org.apache.shindig.social.opensocial.spi.UserId;
 public class MongoAccountServicesImpl implements ProfileService {
 
     private final SimpleDatasource dataSource;
-    
+    private final Channel<Person> channel;
     
     @Inject
-    public MongoAccountServicesImpl(final SimpleDatasource dataSource) {
+    public MongoAccountServicesImpl(final SimpleDatasource dataSource, Channel<Person> channel) {
         this.dataSource = dataSource;
+        this.channel = channel;        
         LOG.log(Level.INFO, "initializing {0}", dataSource.getDataSource().getDB().getName());
     }      
     
@@ -71,6 +73,8 @@ public class MongoAccountServicesImpl implements ProfileService {
 
     @Override @NewInstance
     public Person create() {
-        return SocialPerson.create();
+        Person p = SocialPerson.create();
+        channel.publish(p);
+        return p;
     }
 }

@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 import me.moimoi.social.herql.domain.SocialAccount;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.SimpleDatasource;
+import net.guts.event.Consumes;
+import org.apache.shindig.social.opensocial.model.Person;
 
 /**
  *
@@ -36,6 +38,7 @@ public class MongoDataSource implements SimpleDatasource, Provider<SimpleDatasou
     public MongoDataSource(@Named("mongo.db.host")  final String host, @Named("mongo.db.name")  final String name) {
         this.host = host;
         this.dbName = name;
+        //TODO, this shold be injected into the datasource as an object.
         morphia.map(SocialPerson.class)
                .map(SocialAccount.class);
     }
@@ -47,9 +50,9 @@ public class MongoDataSource implements SimpleDatasource, Provider<SimpleDatasou
             db = mongo.getDB(dbName);            
             ds = morphia.createDatastore(mongo, db.getName());            
         } catch (UnknownHostException ex) {
-            Logger.getLogger(MongoDataSource.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
         } catch (MongoException ex) {
-            Logger.getLogger(MongoDataSource.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
         }
         return this;
     }
@@ -58,4 +61,11 @@ public class MongoDataSource implements SimpleDatasource, Provider<SimpleDatasou
     public Datastore getDataSource() {
         return ds;
     }
+    
+    @Consumes(type = Person.class)
+    public void push(Person p) {
+       LOG.log(Level.INFO, "push called on things {0}", p);         
+    }
+    
+    private static final Logger LOG = Logger.getLogger(MongoDataSource.class.getCanonicalName());
 }

@@ -7,9 +7,9 @@ package org.mutuality.herql;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import me.moimoi.social.herql.config.HerqlModule;
-import me.moimoi.social.herql.domain.SocialPerson;
+import me.moimoi.social.herql.config.MutatorModule;
 import net.guts.common.injection.InjectionListeners;
-import org.apache.shindig.social.opensocial.model.Person;
+import net.guts.event.EventModule;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -37,7 +37,7 @@ public class MutatorModuleTest {
 
     @Before
     public void setUp() {
-        injector = Guice.createInjector(new HerqlModule());
+        injector = Guice.createInjector(new EventModule(), new MutatorModule(), new HerqlModule());
         InjectionListeners.injectListeners(injector);
     }
 
