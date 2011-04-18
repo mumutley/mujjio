@@ -26,15 +26,14 @@ public class SetMethodInterceptor implements MethodInterceptor {
             MutablePerson person = (MutablePerson)invocation.getThis();
             Mutator m = invocation.getMethod().getAnnotation(Mutator.class);
 
-            Object arg = invocation.getArguments()[0];
-            Class param  = invocation.getMethod().getParameterTypes()[0];       
-
+            Object arg = invocation.getArguments()[0];            
             UpdateOperations ops =  person.getUpdateOperation();
-            ops.set(m.name(), arg);
-
-            LOG.log(Level.INFO, "RegisterSideEffect {0}", invocation.getMethod().getName() + " <> " + m.name() + " <> " + arg + " <> " + param.getSimpleName());            
-        }
-                
+            if(arg != null) {                
+                ops.set(m.name(), arg);
+            } else {
+                ops.unset(m.name());
+            }            
+        }                
         return invocation.proceed();
     }    
 }

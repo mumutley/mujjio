@@ -71,9 +71,7 @@ public class HerqlModuleTest  {
     public void testUpdateAccount() {        
         ProfileService profiles = injector.getInstance(ProfileService.class);   
         
-        MutablePerson person = profiles.find("suhail");        
-        person.setUpdateOperations(profiles.getUpdateOperation());                
-        
+        MutablePerson person = profiles.find("suhail");                        
         Assert.assertEquals(person.getId(), "suhail");
         
         person.setAboutMe("Its really good.");        
@@ -89,6 +87,15 @@ public class HerqlModuleTest  {
             Person agent = agents.next();
             LOG.info(agent.getId());
         }*/             
+    }
+    
+    @Test
+    public void testUpdateUnsetAccount() {        
+        ProfileService profiles = injector.getInstance(ProfileService.class);           
+        MutablePerson person = profiles.find("suhail");                        
+        Assert.assertEquals(person.getId(), "suhail");                
+        person.setAge(null);
+        profiles.update(person);                          
     }
     
     private static final Logger LOG = Logger.getAnonymousLogger();
