@@ -15,11 +15,12 @@ import com.mongodb.MongoException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import me.moimoi.social.herql.domain.EnumType;
 import me.moimoi.social.herql.domain.SocialAccount;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.SimpleDatasource;
 import net.guts.event.Consumes;
-import org.apache.shindig.social.opensocial.model.MutablePerson;
+import org.apache.shindig.social.opensocial.model.Person;
 
 /**
  *
@@ -40,7 +41,8 @@ public class MongoDataSource implements SimpleDatasource, Provider<SimpleDatasou
         this.dbName = name;
         //TODO, this shold be injected into the datasource as an object.
         morphia.map(SocialPerson.class)
-               .map(SocialAccount.class);
+               .map(SocialAccount.class)
+               .map(EnumType.class);
     }
    
     @Override
@@ -62,8 +64,8 @@ public class MongoDataSource implements SimpleDatasource, Provider<SimpleDatasou
         return ds;
     }
     
-    @Consumes(type = MutablePerson.class)
-    public void push(MutablePerson p) {
+    @Consumes(type = Person.class)
+    public void push(Person p) {
        LOG.log(Level.INFO, "push called on things {0}", p);         
     }
     

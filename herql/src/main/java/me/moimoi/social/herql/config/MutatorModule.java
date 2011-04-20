@@ -4,8 +4,8 @@
  */
 package me.moimoi.social.herql.config;
 import com.google.inject.AbstractModule;
+import me.moimoi.social.herql.domain.SocialPerson;
 import net.guts.event.Events;
-import org.apache.shindig.social.opensocial.model.MutablePerson;
 
 /**
  *
@@ -16,7 +16,7 @@ public class MutatorModule extends AbstractModule {
     @Override
     protected void configure() {                 
         Events.bindChannel(binder(), Integer.class);                      
-        Events.bindChannel(binder(), MutablePerson.class);
+        Events.bindChannel(binder(), SocialPerson.class);
     }
     
     

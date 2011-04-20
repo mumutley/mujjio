@@ -25,7 +25,7 @@ import org.apache.shindig.auth.SecurityToken;
 import org.apache.shindig.protocol.ProtocolException;
 import org.apache.shindig.protocol.RestfulCollection;
 import org.apache.shindig.social.opensocial.model.Account;
-import org.apache.shindig.social.opensocial.model.MutablePerson;
+import org.apache.shindig.social.opensocial.model.Person;
 import org.apache.shindig.social.opensocial.spi.CollectionOptions;
 import org.apache.shindig.social.opensocial.spi.GroupId;
 import org.apache.shindig.social.opensocial.spi.UserId;
@@ -36,26 +36,24 @@ import org.apache.shindig.social.opensocial.spi.UserId;
  */
 
 @Singleton
-public class MongoAccountServicesImpl implements ProfileService {
+public class MongoProfileServicesImpl implements ProfileService {
 
-    private static final Logger LOG = Logger.getLogger(MongoAccountServicesImpl.class.getCanonicalName());
+    private static final Logger LOG = Logger.getLogger(MongoProfileServicesImpl.class.getCanonicalName());
     
     private final SimpleDatasource dataSource;
-    private final Channel<MutablePerson> channel;
     private final MutableObject instance;
     
     @Inject
-    public MongoAccountServicesImpl(final SimpleDatasource dataSource, Channel<MutablePerson> channel, MutableObject instance) {
+    public MongoProfileServicesImpl(final SimpleDatasource dataSource, MutableObject instance) {
         this.dataSource = dataSource;
-        this.channel = channel;        
         this.instance = instance;
         LOG.log(Level.INFO, "initializing {0}", dataSource.getDataSource().getDB().getName() + " " + this.instance.getClass().getName());
     }      
     
     @Override
-    public Key<MutablePerson> register(MutablePerson account) {
+    public Key<Person> register(Person account) {
         LOG.log(Level.INFO, "saved {0}", account);
-        Key<MutablePerson> key = dataSource.getDataSource().save(account);
+        Key<Person> key = dataSource.getDataSource().save(account);
         LOG.log(Level.INFO, "saved {0}", key);
         return key;
     }
@@ -66,7 +64,7 @@ public class MongoAccountServicesImpl implements ProfileService {
     }
 
     @Override
-    public Future<RestfulCollection<MutablePerson>> getPeople(Set<UserId> userIds, 
+    public Future<RestfulCollection<Person>> getPeople(Set<UserId> userIds, 
         GroupId groupId, CollectionOptions collectionOptions, Set<String> fields, 
         SecurityToken token) throws ProtocolException {
         
@@ -74,12 +72,12 @@ public class MongoAccountServicesImpl implements ProfileService {
     }
 
     @Override
-    public Future<MutablePerson> getPerson(UserId id, Set<String> fields, SecurityToken token) throws ProtocolException {
+    public Future<Person> getPerson(UserId id, Set<String> fields, SecurityToken token) throws ProtocolException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     @Override
-    public MutablePerson find(String _id) {
+    public Person find(String _id) {
         SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, _id);
         this.instance.setDelegate(person);
         ((MutableSocialPerson)this.instance).setUpdateOperations(getUpdateOperation());        
@@ -87,9 +85,8 @@ public class MongoAccountServicesImpl implements ProfileService {
     }
 
     @Override @Creator
-    public MutablePerson create() {
-        MutablePerson p = SocialPerson.create();
-        channel.publish(p);
+    public Person create() {
+        SocialPerson p = SocialPerson.create();
         return p;
     }        
 
@@ -99,7 +96,7 @@ public class MongoAccountServicesImpl implements ProfileService {
     }
     
     @Override
-    public void update(MutablePerson account) {
+    public void update(Person account) {
         UpdateOperations<SocialPerson> ops = ((MutableSocialPerson)this.instance).getUpdateOperation();
         Query<SocialPerson> query = getQuery();
         dataSource.getDataSource().update(query, ops);

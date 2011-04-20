@@ -4,7 +4,7 @@
  */
 package me.moimoi.social.herql.services;
 
-import org.apache.shindig.social.opensocial.model.MutablePerson;
+import me.moimoi.social.herql.domain.SocialPerson;
 
 /**
  *
@@ -12,5 +12,5 @@ import org.apache.shindig.social.opensocial.model.MutablePerson;
  */
 public interface MutationObserver {
     
-    public void register(MutablePerson person);
+    public void register(SocialPerson person);
 }

@@ -4,17 +4,29 @@
  */
 package me.moimoi.social.herql.domain;
 
+import com.google.code.morphia.annotations.Embedded;
+import com.google.code.morphia.annotations.PostLoad;
+import com.google.code.morphia.annotations.PreLoad;
+import com.mongodb.BasicDBObject;
+import java.util.Iterator;
 import org.apache.shindig.protocol.model.Enum;
 
 /**
  *
  * @author ManzoorS
  */
+@Embedded
 public final class EnumType<E extends Enum.EnumKey> implements Enum<E> {
 
     private String displayValue;
     private E value = null;
 
+    /**
+     * 
+     */
+    public EnumType() {
+        
+    }
     /**
      * Constructs a Enum object.
      * 
@@ -53,5 +65,17 @@ public final class EnumType<E extends Enum.EnumKey> implements Enum<E> {
     @Override
     public void setValue(E value) {
         this.value = value;
+    }
+    
+    @PreLoad void preLoad(BasicDBObject dbObj) {
+        Iterator ita =  dbObj.keySet().iterator();
+        while(ita.hasNext()) {
+            System.out.println(ita.next());
+        }
+        System.out.println(" --->> " + this.getValue());
+    }
+    
+    @PostLoad void postLoad(BasicDBObject dbObj) {
+        System.out.println(" --->> " + dbObj.getClass().getName());
     }
 }

@@ -17,11 +17,11 @@ import org.apache.shindig.social.opensocial.model.BodyType;
 import org.apache.shindig.social.opensocial.model.Drinker;
 import org.apache.shindig.social.opensocial.model.ListField;
 import org.apache.shindig.social.opensocial.model.LookingFor;
-import org.apache.shindig.social.opensocial.model.MutablePerson;
+import org.apache.shindig.social.opensocial.model.Person;
 import org.apache.shindig.social.opensocial.model.Name;
 import org.apache.shindig.social.opensocial.model.NetworkPresence;
 import org.apache.shindig.social.opensocial.model.Organization;
-import org.apache.shindig.social.opensocial.model.MutablePerson.Gender;
+import org.apache.shindig.social.opensocial.model.Person.Gender;
 import org.apache.shindig.social.opensocial.model.Smoker;
 import org.apache.shindig.social.opensocial.model.Url;
 
@@ -29,7 +29,7 @@ import org.apache.shindig.social.opensocial.model.Url;
  *
  * @author Suhail
  */
-public class MutableSocialPerson implements MutableObject, MutablePerson {
+public class MutableSocialPerson implements MutableObject, Person {
     
     private SocialPerson delegate;
     private UpdateOperations update;        

@@ -7,10 +7,9 @@ package me.moimoi.social.herql.services;
 import com.google.code.morphia.Key;
 import com.google.code.morphia.query.Query;
 import com.google.code.morphia.query.UpdateOperations;
-//import me.moimoi.social.herql.domain.MutablePerson;
 import me.moimoi.social.herql.domain.SocialPerson;
 import org.apache.shindig.social.opensocial.model.Account;
-import org.apache.shindig.social.opensocial.model.MutablePerson;
+import org.apache.shindig.social.opensocial.model.Person;
 import org.apache.shindig.social.opensocial.spi.PersonService;
 
 /**
@@ -20,21 +19,21 @@ import org.apache.shindig.social.opensocial.spi.PersonService;
 public interface ProfileService extends PersonService {
     
     
-    public MutablePerson create();
+    public Person create();
     
     /**
      * This operation allows the client to register a new user account.
      * @param account to be saved in the system
      * @return the key of the account just saved.
      */
-    public Key<MutablePerson> register(MutablePerson account);
+    public Key<Person> register(Person account);
     
     
     /**
      * 
      * @param account 
      */
-    public void update(MutablePerson account);
+    public void update(Person account);
     
     /**
      * <code>find</code> allows the client of the service to find a user by the
@@ -51,7 +50,7 @@ public interface ProfileService extends PersonService {
      * @param _id
      * @return 
      */
-    public MutablePerson find(String _id);
+    public Person find(String _id);
 
     /**
      * 
