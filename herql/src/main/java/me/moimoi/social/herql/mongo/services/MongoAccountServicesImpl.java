@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.moimoi.social.herql.domain.MutablePerson;
+import me.moimoi.social.herql.domain.MutableAgent;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.MutableObject;
 import me.moimoi.social.herql.services.ProfileService;
@@ -25,7 +25,7 @@ import org.apache.shindig.auth.SecurityToken;
 import org.apache.shindig.protocol.ProtocolException;
 import org.apache.shindig.protocol.RestfulCollection;
 import org.apache.shindig.social.opensocial.model.Account;
-import org.apache.shindig.social.opensocial.model.Person;
+import org.apache.shindig.social.opensocial.model.MutablePerson;
 import org.apache.shindig.social.opensocial.spi.CollectionOptions;
 import org.apache.shindig.social.opensocial.spi.GroupId;
 import org.apache.shindig.social.opensocial.spi.UserId;
@@ -41,11 +41,11 @@ public class MongoAccountServicesImpl implements ProfileService {
     private static final Logger LOG = Logger.getLogger(MongoAccountServicesImpl.class.getCanonicalName());
     
     private final SimpleDatasource dataSource;
-    private final Channel<Person> channel;
+    private final Channel<MutablePerson> channel;
     private final MutableObject instance;
     
     @Inject
-    public MongoAccountServicesImpl(final SimpleDatasource dataSource, Channel<Person> channel, MutableObject instance) {
+    public MongoAccountServicesImpl(final SimpleDatasource dataSource, Channel<MutablePerson> channel, MutableObject instance) {
         this.dataSource = dataSource;
         this.channel = channel;        
         this.instance = instance;
@@ -53,9 +53,9 @@ public class MongoAccountServicesImpl implements ProfileService {
     }      
     
     @Override
-    public Key<Person> register(Person account) {
+    public Key<MutablePerson> register(MutablePerson account) {
         LOG.log(Level.INFO, "saved {0}", account);
-        Key<Person> key = dataSource.getDataSource().save(account);
+        Key<MutablePerson> key = dataSource.getDataSource().save(account);
         LOG.log(Level.INFO, "saved {0}", key);
         return key;
     }
@@ -66,7 +66,7 @@ public class MongoAccountServicesImpl implements ProfileService {
     }
 
     @Override
-    public Future<RestfulCollection<Person>> getPeople(Set<UserId> userIds, 
+    public Future<RestfulCollection<MutablePerson>> getPeople(Set<UserId> userIds, 
         GroupId groupId, CollectionOptions collectionOptions, Set<String> fields, 
         SecurityToken token) throws ProtocolException {
         
@@ -74,21 +74,21 @@ public class MongoAccountServicesImpl implements ProfileService {
     }
 
     @Override
-    public Future<Person> getPerson(UserId id, Set<String> fields, SecurityToken token) throws ProtocolException {
+    public Future<MutablePerson> getPerson(UserId id, Set<String> fields, SecurityToken token) throws ProtocolException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     @Override
     public MutablePerson find(String _id) {
-        Person person = dataSource.getDataSource().get(SocialPerson.class, _id);
+        MutablePerson person = dataSource.getDataSource().get(SocialPerson.class, _id);
         this.instance.setDelegate(person);
-        ((MutablePerson)this.instance).setUpdateOperations(getUpdateOperation());        
-        return (MutablePerson)this.instance;       
+        ((MutableAgent)this.instance).setUpdateOperations(getUpdateOperation());        
+        return (MutableAgent)this.instance;       
     }
 
     @Override @Creator
-    public Person create() {
-        Person p = SocialPerson.create();
+    public MutablePerson create() {
+        MutablePerson p = SocialPerson.create();
         channel.publish(p);
         return p;
     }        
@@ -99,14 +99,14 @@ public class MongoAccountServicesImpl implements ProfileService {
     }
     
     @Override
-    public void update(Person account) {
-        UpdateOperations<SocialPerson> ops = ((MutablePerson)this.instance).getUpdateOperation();
+    public void update(MutablePerson account) {
+        UpdateOperations<SocialPerson> ops = ((MutableAgent)this.instance).getUpdateOperation();
         Query<SocialPerson> query = getQuery();
         dataSource.getDataSource().update(query, ops);
     }
     
     private Query<SocialPerson> getQuery() {
-        String _id = ((MutablePerson)this.instance).getId();
+        String _id = ((MutableAgent)this.instance).getId();
         return dataSource.getDataSource().find(SocialPerson.class).field(Mapper.ID_KEY).equal(_id);
     }
 

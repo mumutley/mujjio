@@ -19,7 +19,7 @@ import me.moimoi.social.herql.domain.SocialAccount;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.SimpleDatasource;
 import net.guts.event.Consumes;
-import org.apache.shindig.social.opensocial.model.Person;
+import org.apache.shindig.social.opensocial.model.MutablePerson;
 
 /**
  *
@@ -62,8 +62,8 @@ public class MongoDataSource implements SimpleDatasource, Provider<SimpleDatasou
         return ds;
     }
     
-    @Consumes(type = Person.class)
-    public void push(Person p) {
+    @Consumes(type = MutablePerson.class)
+    public void push(MutablePerson p) {
        LOG.log(Level.INFO, "push called on things {0}", p);         
     }
     

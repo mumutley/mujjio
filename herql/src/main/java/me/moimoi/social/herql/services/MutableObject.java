@@ -5,7 +5,7 @@
 package me.moimoi.social.herql.services;
 
 import com.google.code.morphia.query.UpdateOperations;
-import org.apache.shindig.social.opensocial.model.Person;
+import org.apache.shindig.social.opensocial.model.MutablePerson;
 
 /**
  *
@@ -17,7 +17,7 @@ public interface MutableObject {
      * 
      * @param delegate 
      */
-    public void setDelegate(Person delegate);    
+    public void setDelegate(MutablePerson delegate);    
     
     /**
      * 

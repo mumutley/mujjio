@@ -7,7 +7,7 @@ package me.moimoi.social.herql.services.interceptors;
 import com.google.code.morphia.query.UpdateOperations;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.moimoi.social.herql.domain.MutablePerson;
+import me.moimoi.social.herql.domain.MutableAgent;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
@@ -22,8 +22,8 @@ public class SetMethodInterceptor implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {        
         
-        if((invocation.getThis() instanceof MutablePerson)) {
-            MutablePerson person = (MutablePerson)invocation.getThis();
+        if((invocation.getThis() instanceof MutableAgent)) {
+            MutableAgent person = (MutableAgent)invocation.getThis();
             Mutator m = invocation.getMethod().getAnnotation(Mutator.class);
 
             Object arg = invocation.getArguments()[0];            

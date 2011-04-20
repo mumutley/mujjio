@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.Assert;
-import org.apache.shindig.social.opensocial.model.Person;
+import org.apache.shindig.social.opensocial.model.MutablePerson;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -59,7 +59,7 @@ public class DomainTests {
         person.setDrinker("now and again");
         person.setEthnicity("vulcan");
         person.setFashion("like to dress like a pirate");
-        person.setGender(Person.Gender.male.name());
+        person.setGender(MutablePerson.Gender.male.name());
         person.setHappiestWhen("listening to music");
         person.setHumor("you have to love the english veriety");
         person.setLivingArrangement("mostly happily married");

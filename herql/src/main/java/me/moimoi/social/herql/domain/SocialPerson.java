@@ -21,7 +21,7 @@ import org.apache.shindig.social.opensocial.model.LookingFor;
 import org.apache.shindig.social.opensocial.model.Name;
 import org.apache.shindig.social.opensocial.model.NetworkPresence;
 import org.apache.shindig.social.opensocial.model.Organization;
-import org.apache.shindig.social.opensocial.model.Person;
+import org.apache.shindig.social.opensocial.model.MutablePerson;
 import org.apache.shindig.social.opensocial.model.Smoker;
 import org.apache.shindig.social.opensocial.model.Url;
 
@@ -30,7 +30,7 @@ import org.apache.shindig.social.opensocial.model.Url;
  * @author Suhail
  */
 @Entity(value="person", noClassnameStored=false)
-public class SocialPerson implements Person {
+public class SocialPerson implements MutablePerson {
     
     @Id private String id;
     

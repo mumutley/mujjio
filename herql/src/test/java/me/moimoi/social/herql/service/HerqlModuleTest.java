@@ -5,26 +5,18 @@
 package me.moimoi.social.herql.service;
 
 import com.google.code.morphia.Key;
-import com.google.code.morphia.mapping.Mapper;
-import com.google.code.morphia.query.Query;
-import com.google.code.morphia.query.UpdateOperations;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import java.util.Iterator;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.Assert;
 import me.moimoi.social.herql.config.HerqlModule;
 import me.moimoi.social.herql.config.MutatorModule;
-import me.moimoi.social.herql.domain.MutablePerson;
 import me.moimoi.social.herql.domain.SocialAccount;
-import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.ProfileService;
-import me.moimoi.social.herql.services.SimpleDatasource;
 import net.guts.common.injection.InjectionListeners;
 import net.guts.event.EventModule;
 import org.apache.shindig.social.opensocial.model.Account;
-import org.apache.shindig.social.opensocial.model.Person;
+import org.apache.shindig.social.opensocial.model.MutablePerson;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,13 +48,13 @@ public class HerqlModuleTest  {
         ProfileService profiles = injector.getInstance(ProfileService.class);              
         Account account = SocialAccount.create("suhail", "suhailski", "moimoi.me", "veritas");
         
-        Person person =  profiles.create();
+        MutablePerson person =  profiles.create();
         
         person.setId(account.getUserId());
         
         person.getAccounts().add(account);
         person.setIsOwner(Boolean.TRUE);        
-        Key<Person> key = profiles.register(person);       
+        Key<MutablePerson> key = profiles.register(person);       
         
         Assert.assertEquals(key.getId(), person.getId());
     }

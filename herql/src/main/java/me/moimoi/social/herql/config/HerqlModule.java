@@ -7,7 +7,7 @@ package me.moimoi.social.herql.config;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.name.Names;
-import me.moimoi.social.herql.domain.MutablePerson;
+import me.moimoi.social.herql.domain.MutableAgent;
 import me.moimoi.social.herql.mongo.services.MongoAccountServicesImpl;
 import me.moimoi.social.herql.mongo.services.MongoDataSource;
 import me.moimoi.social.herql.services.MutableObject;
@@ -31,7 +31,7 @@ public class HerqlModule extends AbstractModule {
         bind(SimpleDatasource.class).toProvider(MongoDataSource.class);
         bind(ProfileService.class).to(MongoAccountServicesImpl.class);
         
-        bind(MutableObject.class).to(MutablePerson.class);
+        bind(MutableObject.class).to(MutableAgent.class);
         
         bindInterceptor(Matchers.any(), Matchers.annotatedWith(Creator.class), new SetMethodInterceptor());
         bindInterceptor(Matchers.any(),Matchers.annotatedWith(Mutator.class), new SetMethodInterceptor());

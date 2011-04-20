@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.services.MutationObserver;
 import net.guts.event.Consumes;
-import org.apache.shindig.social.opensocial.model.Person;
+import org.apache.shindig.social.opensocial.model.MutablePerson;
 
 /**
  *
@@ -23,7 +23,7 @@ public class MutationObserverImpl implements MutationObserver {
     }
     
     @Override @Consumes
-    public void register(Person person) {
+    public void register(MutablePerson person) {
         LOG.log(Level.INFO, "person here {0}", person);
     }
     

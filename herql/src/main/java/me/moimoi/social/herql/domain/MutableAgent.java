@@ -4,7 +4,6 @@
  */
 package me.moimoi.social.herql.domain;
 
-import com.google.code.morphia.Datastore;
 import com.google.code.morphia.query.UpdateOperations;
 import java.util.Date;
 import java.util.List;
@@ -18,11 +17,11 @@ import org.apache.shindig.social.opensocial.model.BodyType;
 import org.apache.shindig.social.opensocial.model.Drinker;
 import org.apache.shindig.social.opensocial.model.ListField;
 import org.apache.shindig.social.opensocial.model.LookingFor;
+import org.apache.shindig.social.opensocial.model.MutablePerson;
 import org.apache.shindig.social.opensocial.model.Name;
 import org.apache.shindig.social.opensocial.model.NetworkPresence;
 import org.apache.shindig.social.opensocial.model.Organization;
-import org.apache.shindig.social.opensocial.model.Person;
-import org.apache.shindig.social.opensocial.model.Person.Gender;
+import org.apache.shindig.social.opensocial.model.MutablePerson.Gender;
 import org.apache.shindig.social.opensocial.model.Smoker;
 import org.apache.shindig.social.opensocial.model.Url;
 
@@ -30,12 +29,12 @@ import org.apache.shindig.social.opensocial.model.Url;
  *
  * @author Suhail
  */
-public class MutablePerson implements MutableObject, Person {
+public class MutableAgent implements MutableObject, MutablePerson {
     
-    private Person delegate;
+    private MutablePerson delegate;
     private UpdateOperations update;        
     
-    public MutablePerson() {        
+    public MutableAgent() {        
     }
     
     @Override
@@ -49,7 +48,7 @@ public class MutablePerson implements MutableObject, Person {
     }
     
     @Override
-    public void setDelegate(Person delegate) {
+    public void setDelegate(MutablePerson delegate) {
         this.delegate = delegate;
     }
     
@@ -103,118 +102,147 @@ public class MutablePerson implements MutableObject, Person {
         delegate.setSports(sports);
     }
 
+    @Override @Mutator(name="smoker")
     public void setSmoker(Enum<Smoker> newSmoker) {
         delegate.setSmoker(newSmoker);
     }
 
+    @Override @Mutator(name="sexualOrientation")
     public void setSexualOrientation(String sexualOrientation) {
         delegate.setSexualOrientation(sexualOrientation);
     }
 
+    @Override @Mutator(name="scaredOf")
     public void setScaredOf(String scaredOf) {
         delegate.setScaredOf(scaredOf);
     }
 
+    @Override @Mutator(name="romance")
     public void setRomance(String romance) {
         delegate.setRomance(romance);
     }
 
+    @Override @Mutator(name="religion")
     public void setReligion(String religion) {
         delegate.setReligion(religion);
     }
 
+    @Override @Mutator(name="relationshipStatus")
     public void setRelationshipStatus(String relationshipStatus) {
         delegate.setRelationshipStatus(relationshipStatus);
     }
 
+    @Override @Mutator(name="quotes")
     public void setQuotes(List<String> quotes) {
         delegate.setQuotes(quotes);
     }
 
+    @Override @Mutator(name="profileVideo")
     public void setProfileVideo(Url profileVideo) {
         delegate.setProfileVideo(profileVideo);
     }
 
+    @Override @Mutator(name="profileUrl")    
     public void setProfileUrl(String profileUrl) {
         delegate.setProfileUrl(profileUrl);
     }
 
+    @Override @Mutator(name="profileSong")    
     public void setProfileSong(Url profileSong) {
         delegate.setProfileSong(profileSong);
     }
 
+    @Override @Mutator(name="preferredString")    
     public void setPreferredUsername(String preferredString) {
         delegate.setPreferredUsername(preferredString);
     }
 
+    @Override @Mutator(name="politicalViews")    
     public void setPoliticalViews(String politicalViews) {
         delegate.setPoliticalViews(politicalViews);
     }
 
+    @Override @Mutator(name="photos")        
     public void setPhotos(List<ListField> photos) {
         delegate.setPhotos(photos);
     }
 
+    @Override @Mutator(name="phoneNumbers")            
     public void setPhoneNumbers(List<ListField> phoneNumbers) {
         delegate.setPhoneNumbers(phoneNumbers);
     }
 
+    @Override @Mutator(name="phoneNumbers")                
     public void setPets(String pets) {
         delegate.setPets(pets);
     }
 
+    @Override @Mutator(name="organizations")    
     public void setOrganizations(List<Organization> organizations) {
         delegate.setOrganizations(organizations);
     }
 
+    @Override @Mutator(name="nickname")        
     public void setNickname(String nickname) {
         delegate.setNickname(nickname);
     }
 
+    @Override @Mutator(name="networkPresence")    
     public void setNetworkPresence(Enum<NetworkPresence> networkPresence) {
         delegate.setNetworkPresence(networkPresence);
     }
 
+    @Override @Mutator(name="name")        
     public void setName(Name name) {
         delegate.setName(name);
     }
 
+    @Override @Mutator(name="music")            
     public void setMusic(List<String> music) {
         delegate.setMusic(music);
     }
 
+    @Override @Mutator(name="movies")    
     public void setMovies(List<String> movies) {
         delegate.setMovies(movies);
     }
 
+    @Override @Mutator(name="lookingFor")    
     public void setLookingFor(List<Enum<LookingFor>> lookingFor) {
         delegate.setLookingFor(lookingFor);
     }
 
+    @Override @Mutator(name="livingArrangement")    
     public void setLivingArrangement(String livingArrangement) {
         delegate.setLivingArrangement(livingArrangement);
     }
 
+    @Override @Mutator(name="languagesSpoken")    
     public void setLanguagesSpoken(List<String> languagesSpoken) {
         delegate.setLanguagesSpoken(languagesSpoken);
     }
 
+    @Override @Mutator(name="jobInterests")    
     public void setJobInterests(String jobInterests) {
         delegate.setJobInterests(jobInterests);
     }
 
+    @Override @Mutator(name="isViewer")        
     public void setIsViewer(boolean isViewer) {
         delegate.setIsViewer(isViewer);
     }
 
+    @Override @Mutator(name="isOwner")            
     public void setIsOwner(boolean isOwner) {
         delegate.setIsOwner(isOwner);
     }
 
+    @Override @Mutator(name="interests")            
     public void setInterests(List<String> interests) {
         delegate.setInterests(interests);
     }
 
+    @Override @Mutator(name="ims")            
     public void setIms(List<ListField> ims) {
         delegate.setIms(ims);
     }
@@ -223,70 +251,87 @@ public class MutablePerson implements MutableObject, Person {
         delegate.setId(id);
     }
 
+    @Override @Mutator(name="humor")                
     public void setHumor(String humor) {
         delegate.setHumor(humor);
     }
 
+    @Override @Mutator(name="heroes")                
     public void setHeroes(List<String> heroes) {
         delegate.setHeroes(heroes);
     }
 
+    @Override @Mutator(name="hasApp")                
     public void setHasApp(Boolean hasApp) {
         delegate.setHasApp(hasApp);
     }
 
+    @Override @Mutator(name="happiestWhen")                
     public void setHappiestWhen(String happiestWhen) {
         delegate.setHappiestWhen(happiestWhen);
     }
 
+    @Override @Mutator(name="newGender")                    
     public void setGender(Gender newGender) {
         delegate.setGender(newGender);
     }
 
+    @Override @Mutator(name="food")                        
     public void setFood(List<String> food) {
         delegate.setFood(food);
     }
 
+    @Override @Mutator(name="fashion")                            
     public void setFashion(String fashion) {
         delegate.setFashion(fashion);
     }
 
+    @Override @Mutator(name="ethnicity")                            
     public void setEthnicity(String ethnicity) {
         delegate.setEthnicity(ethnicity);
     }
 
+    @Override @Mutator(name="emails")                            
     public void setEmails(List<ListField> emails) {
         delegate.setEmails(emails);
     }
 
+    @Override @Mutator(name="newDrinker")    
     public void setDrinker(Enum<Drinker> newDrinker) {
         delegate.setDrinker(newDrinker);
     }
 
+    @Override @Mutator(name="displayName")    
     public void setDisplayName(String displayName) {
         delegate.setDisplayName(displayName);
     }
 
+    @Override @Mutator(name="currentLocation")    
     public void setCurrentLocation(Address currentLocation) {
         delegate.setCurrentLocation(currentLocation);
     }
 
+    @Override @Mutator(name="children")    
     public void setChildren(String children) {
         delegate.setChildren(children);
     }
 
+    @Override @Mutator(name="cars")    
     public void setCars(List<String> cars) {
         delegate.setCars(cars);
     }
 
+    @Override @Mutator(name="books")    
     public void setBooks(List<String> books) {
         delegate.setBooks(books);
     }
 
+    @Override @Mutator(name="bodyType")    
     public void setBodyType(BodyType bodyType) {
         delegate.setBodyType(bodyType);
     }
 
+    @Override @Mutator(name="birthday")    
     public void setBirthday(Date birthday) {
         delegate.setBirthday(birthday);
     }
@@ -300,14 +345,17 @@ public class MutablePerson implements MutableObject, Person {
         delegate.setAge(age);
     }
 
+    @Override @Mutator(name="addresses")    
     public void setAddresses(List<Address> addresses) {
         delegate.setAddresses(addresses);
     }
 
+    @Override @Mutator(name="activities")    
     public void setActivities(List<String> activities) {
         delegate.setActivities(activities);
     }
 
+    @Override @Mutator(name="accounts")    
     public void setAccounts(List<Account> accounts) {
         delegate.setAccounts(accounts);
     }
