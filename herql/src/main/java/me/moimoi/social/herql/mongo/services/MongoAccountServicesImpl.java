@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.moimoi.social.herql.domain.MutableAgent;
+import me.moimoi.social.herql.domain.MutableSocialPerson;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.MutableObject;
 import me.moimoi.social.herql.services.ProfileService;
@@ -80,10 +80,10 @@ public class MongoAccountServicesImpl implements ProfileService {
     
     @Override
     public MutablePerson find(String _id) {
-        MutablePerson person = dataSource.getDataSource().get(SocialPerson.class, _id);
+        SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, _id);
         this.instance.setDelegate(person);
-        ((MutableAgent)this.instance).setUpdateOperations(getUpdateOperation());        
-        return (MutableAgent)this.instance;       
+        ((MutableSocialPerson)this.instance).setUpdateOperations(getUpdateOperation());        
+        return (MutableSocialPerson)this.instance;       
     }
 
     @Override @Creator
@@ -100,13 +100,13 @@ public class MongoAccountServicesImpl implements ProfileService {
     
     @Override
     public void update(MutablePerson account) {
-        UpdateOperations<SocialPerson> ops = ((MutableAgent)this.instance).getUpdateOperation();
+        UpdateOperations<SocialPerson> ops = ((MutableSocialPerson)this.instance).getUpdateOperation();
         Query<SocialPerson> query = getQuery();
         dataSource.getDataSource().update(query, ops);
     }
     
     private Query<SocialPerson> getQuery() {
-        String _id = ((MutableAgent)this.instance).getId();
+        String _id = ((MutableSocialPerson)this.instance).getId();
         return dataSource.getDataSource().find(SocialPerson.class).field(Mapper.ID_KEY).equal(_id);
     }
 

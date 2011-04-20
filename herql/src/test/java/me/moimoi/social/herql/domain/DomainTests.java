@@ -12,16 +12,25 @@ import com.google.code.morphia.query.UpdateOperations;
 import com.mongodb.DB;
 import com.mongodb.Mongo;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.Assert;
+import org.apache.shindig.social.core.model.BodyTypeImpl;
+import org.apache.shindig.social.opensocial.model.BodyType;
 import org.apache.shindig.social.opensocial.model.MutablePerson;
+import org.apache.shindig.social.opensocial.model.NetworkPresence;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
+import org.apache.shindig.protocol.model.Enum;
+import org.apache.shindig.social.core.model.UrlImpl;
+import org.apache.shindig.social.opensocial.model.Drinker;
+import org.apache.shindig.social.opensocial.model.LookingFor;
+import org.apache.shindig.social.opensocial.model.Smoker;
 /**
  *
  * @author ManzoorS
@@ -32,7 +41,7 @@ public class DomainTests {
     private static DB db;
     private static Morphia morphia = new Morphia();
     private static Datastore ds;
-    private static Agent person;
+    private static SocialPerson person;
 
     public DomainTests() {
     }
@@ -43,48 +52,66 @@ public class DomainTests {
         db = mongo.getDB("social");
         ds = morphia.createDatastore(mongo, db.getName());
         //setup default person        
-        person = Agent.create();
+        person = new SocialPerson();
         person.setAboutMe("I have an example of every piece of data");
         person.setAge(Integer.valueOf("32"));
         Calendar date = Calendar.getInstance();
         date.clear();
         date.set(Calendar.YEAR, 1985);
         date.set(Calendar.MONTH, Calendar.MARCH);
-        date.set(Calendar.DAY_OF_MONTH, 22);
-        person.setAnniversary(date.getTime());
+        date.set(Calendar.DAY_OF_MONTH, 22);        
         person.setBirthday(date.getTime());
-        person.setBodyType("nice and slim");
-        person.setConnected(Boolean.TRUE);
+        
+        BodyType df = new BodyTypeImpl();
+        df.setBuild("sleek and slim");
+        df.setEyeColor("brown");
+        df.setHairColor("dark brown");
+        df.setHeight(new Float(1.78));
+        df.setWeight(new Float(68));        
+        person.setBodyType(df);
+        
+        Enum<NetworkPresence> networkPresence = new EnumType<NetworkPresence>(NetworkPresence.XA);        
+        person.setNetworkPresence(new EnumType<NetworkPresence>(NetworkPresence.XA));
+        
         person.setDisplayName("Foo Bar Was Here");
-        person.setDrinker("now and again");
+        
+        Enum<Drinker> drinker = new EnumType<Drinker>(Drinker.SOCIALLY);        
+        person.setDrinker(drinker);
+        
         person.setEthnicity("vulcan");
         person.setFashion("like to dress like a pirate");
-        person.setGender(MutablePerson.Gender.male.name());
+        person.setGender(MutablePerson.Gender.male);        
         person.setHappiestWhen("listening to music");
         person.setHumor("you have to love the english veriety");
-        person.setLivingArrangement("mostly happily married");
-        person.setLocation("London, United Kingdom");
-        person.setLookingFor("a good time");
-        person.setNickname("devil is in the detail");
-        person.setNote("don't forget this");
+        person.setLivingArrangement("mostly happily married");      
+        
+        List<Enum<LookingFor>> lookingFor = new ArrayList();
+        Enum<LookingFor> looking = new EnumType<LookingFor>(LookingFor.ACTIVITY_PARTNERS);
+        lookingFor.add(looking);
+        looking = new EnumType<LookingFor>(LookingFor.FRIENDS);
+        lookingFor.add(looking);                        
+        person.setLookingFor(lookingFor);
+        
+        person.setNickname("devil is in the detail");        
         person.setPreferredUsername("the one test");
         person.setProfileUrl("http://www.moimoi.me/theonetest");
-        person.setProfileSong("http://www.moimoi.me/theonetest/albums/01/theone.mp3");
-        person.setProfileVideo("http://www.moimoi.me/theonetest/catalog/01/theone.mp4");
+        person.setProfileSong(new UrlImpl("http://www.moimoi.me/theonetest/albums/01/theone.mp3","My Song", "MUSIC"));
+        person.setProfileVideo(new UrlImpl("http://www.moimoi.me/theonetest/catalog/01/theone.mp4","My Song", "VIDEO"));
         date = Calendar.getInstance();
-        person.setPublished(date.getTime());
+        
         person.setRelationshipStatus("married");
         person.setReligion("budhist");
         person.setSexualOrientation("straight");
-        person.setSmoker("now and again");
+        
+        Enum<Smoker> smoker = new EnumType<Smoker>(Smoker.SOCIALLY);
+        person.setSmoker(smoker);
+        
         person.setStatus("up up and away");
         person.setThumbnailUrl("http://www.moimoi.me/theonetest/catalog/01/theone.mp4");
         person.setUpdated(date.getTime()); 
         
-        PluralField activity = new PluralField("Watching film", Type.other.name(), Boolean.TRUE);
-        person.getActivities().add(activity);
-        activity = new PluralField("Reading books", Type.other.name(), Boolean.TRUE);
-        person.getActivities().add(activity);
+        person.getActivities().add("Watching film");
+        person.getActivities().add("Reading books");
     }
 
     @AfterClass
@@ -101,22 +128,22 @@ public class DomainTests {
         
         person.getAccounts().add(account);
         
-        Key<Agent> key = ds.save(person);
+        Key<SocialPerson> key = ds.save(person);
         Assert.assertNotNull("there should be a key here", key);
-        LOG.log(Level.INFO, "{0} {1}", new Object[]{key.toString(), person.getObjectId().toString()});
+        LOG.log(Level.INFO, "{0} {1}", new Object[]{key.toString(), person.getId()});
 
         account = SocialAccount.create("suhail", "Suhail Manzoor", "moimoi.me", null);
 
         person.setAge(Integer.valueOf("53"));
         person.setAboutMe("This is not baout me");
-        person.setObjectId(null);
+        person.setId(null);
         person.getAccounts().clear();
         person.getAccounts().add(account);
         
         key = ds.save(person);
         Assert.assertNotNull("there should be a key here", key);
 
-        LOG.log(Level.INFO, "{0} {1}", new Object[]{key.toString(), person.getObjectId().toString()});
+        LOG.log(Level.INFO, "{0} {1}", new Object[]{key.toString(), person.getId().toString()});
     }
 
     @Test

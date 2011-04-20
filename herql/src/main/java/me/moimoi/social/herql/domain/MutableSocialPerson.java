@@ -29,12 +29,12 @@ import org.apache.shindig.social.opensocial.model.Url;
  *
  * @author Suhail
  */
-public class MutableAgent implements MutableObject, MutablePerson {
+public class MutableSocialPerson implements MutableObject, MutablePerson {
     
-    private MutablePerson delegate;
+    private SocialPerson delegate;
     private UpdateOperations update;        
     
-    public MutableAgent() {        
+    public MutableSocialPerson() {        
     }
     
     @Override
@@ -48,7 +48,7 @@ public class MutableAgent implements MutableObject, MutablePerson {
     }
     
     @Override
-    public void setDelegate(MutablePerson delegate) {
+    public void setDelegate(SocialPerson delegate) {
         this.delegate = delegate;
     }
     
@@ -366,254 +366,317 @@ public class MutableAgent implements MutableObject, MutablePerson {
         delegate.setAboutMe(aboutMe);
     }
 
+    @Override
     public Long getUtcOffset() {
         return delegate.getUtcOffset();
     }
 
+    @Override
     public List<Url> getUrls() {
         return delegate.getUrls();
     }
 
+    @Override
     public Date getUpdated() {
         return delegate.getUpdated();
     }
 
+    @Override
     public List<String> getTvShows() {
         return delegate.getTvShows();
     }
 
+    @Override
     public List<String> getTurnOns() {
         return delegate.getTurnOns();
     }
 
+    @Override
     public List<String> getTurnOffs() {
         return delegate.getTurnOffs();
     }
 
+    @Override
     public String getThumbnailUrl() {
         return delegate.getThumbnailUrl();
     }
 
+    @Override
     public List<String> getTags() {
         return delegate.getTags();
     }
 
+    @Override
     public String getStatus() {
         return delegate.getStatus();
     }
 
+    @Override
     public List<String> getSports() {
         return delegate.getSports();
     }
 
+    @Override
     public Enum<Smoker> getSmoker() {
         return delegate.getSmoker();
     }
 
+    @Override
     public String getSexualOrientation() {
         return delegate.getSexualOrientation();
     }
 
+    @Override
     public String getScaredOf() {
         return delegate.getScaredOf();
     }
 
+    @Override
     public String getRomance() {
         return delegate.getRomance();
     }
 
+    @Override
     public String getReligion() {
         return delegate.getReligion();
     }
 
+    @Override
     public String getRelationshipStatus() {
         return delegate.getRelationshipStatus();
     }
 
+    @Override
     public List<String> getQuotes() {
         return delegate.getQuotes();
     }
 
+    @Override
     public Url getProfileVideo() {
         return delegate.getProfileVideo();
     }
 
+    @Override
     public String getProfileUrl() {
         return delegate.getProfileUrl();
     }
 
+    @Override
     public Url getProfileSong() {
         return delegate.getProfileSong();
     }
 
+    @Override
     public String getPreferredUsername() {
         return delegate.getPreferredUsername();
     }
 
+    @Override
     public String getPoliticalViews() {
         return delegate.getPoliticalViews();
     }
 
+    @Override
     public List<ListField> getPhotos() {
         return delegate.getPhotos();
     }
 
+    @Override
     public List<ListField> getPhoneNumbers() {
         return delegate.getPhoneNumbers();
     }
 
+    @Override
     public String getPets() {
         return delegate.getPets();
     }
 
+    @Override
     public List<Organization> getOrganizations() {
         return delegate.getOrganizations();
     }
 
+    @Override
     public String getNickname() {
         return delegate.getNickname();
     }
 
+    @Override
     public Enum<NetworkPresence> getNetworkPresence() {
         return delegate.getNetworkPresence();
     }
 
+    @Override
     public Name getName() {
         return delegate.getName();
     }
 
+    @Override
     public List<String> getMusic() {
         return delegate.getMusic();
     }
 
+    @Override
     public List<String> getMovies() {
         return delegate.getMovies();
     }
 
+    @Override
     public List<Enum<LookingFor>> getLookingFor() {
         return delegate.getLookingFor();
     }
 
+    @Override
     public String getLivingArrangement() {
         return delegate.getLivingArrangement();
     }
 
+    @Override
     public List<String> getLanguagesSpoken() {
         return delegate.getLanguagesSpoken();
     }
 
+    @Override
     public String getJobInterests() {
         return delegate.getJobInterests();
     }
 
+    @Override
     public boolean getIsViewer() {
         return delegate.getIsViewer();
     }
 
+    @Override
     public boolean getIsOwner() {
         return delegate.getIsOwner();
     }
 
+    @Override
     public List<String> getInterests() {
         return delegate.getInterests();
     }
 
+    @Override
     public List<ListField> getIms() {
         return delegate.getIms();
     }
 
+    @Override
     public String getId() {
         return delegate.getId();
     }
 
+    @Override
     public String getHumor() {
         return delegate.getHumor();
     }
 
+    @Override
     public List<String> getHeroes() {
         return delegate.getHeroes();
     }
 
+    @Override
     public Boolean getHasApp() {
         return delegate.getHasApp();
     }
 
+    @Override
     public String getHappiestWhen() {
         return delegate.getHappiestWhen();
     }
 
+    @Override
     public Gender getGender() {
         return delegate.getGender();
     }
 
+    @Override
     public List<String> getFood() {
         return delegate.getFood();
     }
 
+    @Override
     public String getFashion() {
         return delegate.getFashion();
     }
 
+    @Override
     public String getEthnicity() {
         return delegate.getEthnicity();
     }
 
+    @Override
     public List<ListField> getEmails() {
         return delegate.getEmails();
     }
 
+    @Override
     public Enum<Drinker> getDrinker() {
         return delegate.getDrinker();
     }
 
+    @Override
     public String getDisplayName() {
         return delegate.getDisplayName();
     }
 
+    @Override
     public Address getCurrentLocation() {
         return delegate.getCurrentLocation();
     }
 
+    @Override
     public String getChildren() {
         return delegate.getChildren();
     }
 
+    @Override
     public List<String> getCars() {
         return delegate.getCars();
     }
 
+    @Override
     public List<String> getBooks() {
         return delegate.getBooks();
     }
 
+    @Override
     public BodyType getBodyType() {
         return delegate.getBodyType();
     }
 
+    @Override
     public Date getBirthday() {
         return delegate.getBirthday();
     }
 
+    @Override
     public Map<String, ?> getAppData() {
         return delegate.getAppData();
     }
 
+    @Override
     public Integer getAge() {
         return delegate.getAge();
     }
 
+    @Override
     public List<Address> getAddresses() {
         return delegate.getAddresses();
     }
 
+    @Override
     public List<String> getActivities() {
         return delegate.getActivities();
     }
 
+    @Override
     public List<Account> getAccounts() {
         return delegate.getAccounts();
     }
 
+    @Override
     public String getAboutMe() {
         return delegate.getAboutMe();
     }    
