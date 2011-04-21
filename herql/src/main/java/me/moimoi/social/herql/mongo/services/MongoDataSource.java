@@ -19,7 +19,6 @@ import me.moimoi.social.herql.domain.EnumType;
 import me.moimoi.social.herql.domain.SocialAccount;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.SimpleDatasource;
-import net.guts.event.Consumes;
 import org.apache.shindig.social.opensocial.model.Person;
 
 /**
@@ -63,8 +62,7 @@ public class MongoDataSource implements SimpleDatasource, Provider<SimpleDatasou
     public Datastore getDataSource() {
         return ds;
     }
-    
-    @Consumes(type = Person.class)
+        
     public void push(Person p) {
        LOG.log(Level.INFO, "push called on things {0}", p);         
     }

@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.MutationObserver;
-import net.guts.event.Consumes;
 
 /**
  *

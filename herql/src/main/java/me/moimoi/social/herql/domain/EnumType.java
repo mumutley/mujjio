@@ -4,20 +4,22 @@
  */
 package me.moimoi.social.herql.domain;
 
-import com.google.code.morphia.annotations.Embedded;
+import com.google.code.morphia.annotations.Id;
 import com.google.code.morphia.annotations.PostLoad;
 import com.google.code.morphia.annotations.PreLoad;
 import com.mongodb.BasicDBObject;
 import java.util.Iterator;
 import org.apache.shindig.protocol.model.Enum;
+import org.bson.types.ObjectId;
 
 /**
  *
  * @author ManzoorS
  */
-@Embedded
+
 public final class EnumType<E extends Enum.EnumKey> implements Enum<E> {
 
+    private @Id ObjectId id;
     private String displayValue;
     private E value = null;
 
@@ -26,6 +28,20 @@ public final class EnumType<E extends Enum.EnumKey> implements Enum<E> {
      */
     public EnumType() {
         
+    }
+
+    /**
+     * @return the id
+     */
+    public ObjectId getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(ObjectId id) {
+        this.id = id;
     }
     /**
      * Constructs a Enum object.
