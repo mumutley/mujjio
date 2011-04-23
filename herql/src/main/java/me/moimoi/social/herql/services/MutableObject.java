@@ -5,7 +5,6 @@
 package me.moimoi.social.herql.services;
 
 import com.google.code.morphia.query.UpdateOperations;
-import me.moimoi.social.herql.domain.SocialPerson;
 
 /**
  *
@@ -17,7 +16,7 @@ public interface MutableObject {
      * 
      * @param delegate 
      */
-    public void setDelegate(SocialPerson delegate);    
+    public void setDelegate(Object delegate);    
     
     /**
      * 

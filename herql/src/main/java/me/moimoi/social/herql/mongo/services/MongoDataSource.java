@@ -19,6 +19,7 @@ import me.moimoi.social.herql.domain.EnumType;
 import me.moimoi.social.herql.domain.SocialAccount;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.SimpleDatasource;
+import org.apache.shindig.social.opensocial.model.NetworkPresence;
 import org.apache.shindig.social.opensocial.model.Person;
 
 /**
@@ -40,8 +41,7 @@ public class MongoDataSource implements SimpleDatasource, Provider<SimpleDatasou
         this.dbName = name;
         //TODO, this shold be injected into the datasource as an object.
         morphia.map(SocialPerson.class)
-               .map(SocialAccount.class)
-               .map(EnumType.class);
+               .map(SocialAccount.class);
     }
    
     @Override

@@ -16,4 +16,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME) @Target(ElementType.METHOD)
 public @interface Mutator {        
     String name();
+    boolean compound() default false;
+    String accessor() default "none";
 }

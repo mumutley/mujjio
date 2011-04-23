@@ -7,6 +7,7 @@ package me.moimoi.social.herql.service;
 import com.google.code.morphia.Key;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.Assert;
 import me.moimoi.social.herql.config.HerqlModule;
@@ -18,6 +19,7 @@ import org.apache.shindig.social.opensocial.model.NetworkPresence;
 import org.apache.shindig.social.opensocial.model.Person;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 /**
  *
@@ -40,7 +42,7 @@ public class HerqlModuleTest  {
     public void tearDown() throws Exception {        
     }
     
-    @Test
+    @Test 
     public void testSaveAccount() {        
         ProfileService profiles = injector.getInstance(ProfileService.class);              
         Account account = SocialAccount.create("suhail", "suhailski", "moimoi.me", "veritas");
@@ -52,14 +54,14 @@ public class HerqlModuleTest  {
         person.getAccounts().add(account);
         person.setIsOwner(Boolean.TRUE);
                 
-       person.setNetworkPresence(new EnumType<NetworkPresence>(NetworkPresence.XA));
+        person.setNetworkPresence(new EnumType<NetworkPresence>(NetworkPresence.XA));
         
         Key<Person> key = profiles.register(person);       
         
         Assert.assertEquals(key.getId(), person.getId());
     }
     
-    @Test
+    @Test @Ignore
     public void testUpdateSimpleAccountProperty() {        
         ProfileService profiles = injector.getInstance(ProfileService.class);   
         
@@ -80,14 +82,32 @@ public class HerqlModuleTest  {
             LOG.info(agent.getId());
         }*/             
     }
-    
+        
     @Test
-    public void testUpdateUnsetAccount() {        
+    public void testUpdatePresence() { 
         ProfileService profiles = injector.getInstance(ProfileService.class);           
         Person person = profiles.find("suhail");                        
-        Assert.assertEquals(person.getId(), "suhail");                
-        person.setAge(null);
+        person.setNetworkPresence(new EnumType<NetworkPresence>(NetworkPresence.OFFLINE));
+        profiles.update(person);
+    }
+    
+    @Test
+    public void testUpdateUnset() {        
+        ProfileService profiles = injector.getInstance(ProfileService.class);           
+        Person person = profiles.find("suhail");                        
+        Assert.assertEquals(person.getId(), "suhail"); 
+        LOG.log(Level.INFO, " network presence {0}", person.getNetworkPresence().getDisplayValue());
+        person.setAge(null);        
         profiles.update(person);                          
+    }
+    
+    @Test
+    public void testFetchAccountAndUpdate() {
+        ProfileService profiles = injector.getInstance(ProfileService.class);           
+        Person person = profiles.find("suhail", Account.class);
+        Account account = person.getAccounts().get(0);
+        account.setUserId("biscuit");        
+        profiles.register(person);
     }
     
     private static final Logger LOG = Logger.getAnonymousLogger();

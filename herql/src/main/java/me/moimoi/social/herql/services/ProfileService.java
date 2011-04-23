@@ -56,6 +56,8 @@ public interface ProfileService extends PersonService {
      * 
      * @return 
      */
-    public UpdateOperations<SocialPerson> getUpdateOperation();        
+    public UpdateOperations<SocialPerson> getUpdateOperation();
+
+    Person find(String _id, Class type);
         
 }

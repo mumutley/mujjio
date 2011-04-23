@@ -6,11 +6,13 @@ package me.moimoi.social.herql.domain;
 
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import me.moimoi.social.herql.services.interceptors.Mutator;
+import me.moimoi.social.herql.domain.EnumType;
 import org.apache.shindig.protocol.model.Enum;
 import org.apache.shindig.social.opensocial.model.Account;
 import org.apache.shindig.social.opensocial.model.Address;
@@ -18,10 +20,10 @@ import org.apache.shindig.social.opensocial.model.BodyType;
 import org.apache.shindig.social.opensocial.model.Drinker;
 import org.apache.shindig.social.opensocial.model.ListField;
 import org.apache.shindig.social.opensocial.model.LookingFor;
+import org.apache.shindig.social.opensocial.model.LookingFor;
 import org.apache.shindig.social.opensocial.model.Name;
 import org.apache.shindig.social.opensocial.model.NetworkPresence;
 import org.apache.shindig.social.opensocial.model.Organization;
-import org.apache.shindig.social.opensocial.model.Person;
 import org.apache.shindig.social.opensocial.model.Person;
 import org.apache.shindig.social.opensocial.model.Smoker;
 import org.apache.shindig.social.opensocial.model.Url;
@@ -37,66 +39,67 @@ public class SocialPerson implements Person {
     
     private String displayName;
     private String aboutMe;
-    private List<Account> accounts;    
-    private List<String> activities;
-    private List<Address> addresses;
     private Integer age;
     private BodyType bodyType;
     private Date birthday;
-    private List<String> books;
-    private List<String> cars;
     private String children;
-    private Address currentLocation;
-    private Enum<Drinker> newDrinker;
-    private List<ListField> emails;
     private String ethnicity;
     private String fashion;
     private Gender gender;
-    private List<String> food;
     private String happiestWhen;
     private Boolean hasApp;
-    private List<String> heroes;
     private String humor;    
-    private List<ListField> ims;
-    private List<String> interests;
     private String jobInterests;
-    private List<String> languagesSpoken;
     private Date updated;
     private String livingArrangement;
-    private List<Enum<LookingFor>> lookingFor;
-    private List<String> movies;
     private Name name;
-    private List<String> music;
-    private Enum<NetworkPresence> networkPresence;
     private String nickname;
     private String pets;
-    private List<Organization> organizations;
-    private List<ListField> phoneNumbers;
-    private List<ListField> photos;
     private String preferredUsername;
     private String politicalViews;
     private Url profileVideo;
     private Url profileSong;
-    private List<String> quotes;
     private String relationshipStatus;
     private String religion;
     private String scaredOf;
     private String romance;
     private String sexualOrientation;
-    private List<String> sports;
     private String status;
-    private List<String> tags;
-    private Enum<Smoker> smoker;
-    private List<String> turnOffs;
     private Long utcOffset;
-    private List<String> turnOns;
-    private List<String> tvShows;
-    private List<Url> urls;
     private boolean viewer;
     private String profileUrl;
     private String thumbnailUrl;
     private boolean owner;
-        
+
+    private Presence presence;
+    private Nicotine nicotine;
+    private Alcohol alcohol;
+    private Address currentLocation;    
+    private List<Seeking> seeking;    
+    private List<Organization> organizations;
+    private List<ListField> phoneNumbers;
+    private List<ListField> photos;    
+    private List<Account> accounts;    
+    private List<String> activities;
+    private List<Address> addresses;
+    private List<String> food;
+    private List<String> languagesSpoken;
+    private List<String> heroes;
+    private List<ListField> ims;
+    private List<String> interests;
+    private List<String> books;
+    private List<String> cars;
+    private List<ListField> emails;
+    private List<String> music;
+    private List<String> movies;    
+    private List<String> quotes;
+    private List<String> sports;
+    private List<String> tags;
+    private List<String> turnOffs;
+    private List<String> turnOns;
+    private List<String> tvShows;
+    private List<Url> urls;
+    
     public static SocialPerson create() {
         return new SocialPerson();
     }
@@ -104,6 +107,7 @@ public class SocialPerson implements Person {
     public SocialPerson() {
         accounts = new LinkedList<Account>();
         activities = new LinkedList<String>();
+        seeking = new LinkedList<Seeking>();
     }
     
     @Override
@@ -238,12 +242,12 @@ public class SocialPerson implements Person {
 
     @Override
     public Enum<Drinker> getDrinker() {
-        return newDrinker;
+        return new EnumType<Drinker>(Drinker.valueOf(presence.getKey()));
     }
 
     @Override
     public void setDrinker(Enum<Drinker> newDrinker) {
-        this.newDrinker = newDrinker;
+        alcohol = new Alcohol(newDrinker.getValue().name(), newDrinker.getDisplayValue());
     }
 
     @Override
@@ -408,12 +412,25 @@ public class SocialPerson implements Person {
 
     @Override
     public List<Enum<LookingFor>> getLookingFor() {
-        return lookingFor;
+        Iterator<Seeking> ita = this.seeking.iterator();
+        List<Enum<LookingFor>> values = new LinkedList<Enum<LookingFor>>();
+        while(ita.hasNext()) {
+            Seeking seek = ita.next();
+            values.add(new EnumType<LookingFor>(LookingFor.valueOf(seek.getKey())));
+        }
+        return values;
     }
 
     @Override
     public void setLookingFor(List<Enum<LookingFor>> lookingFor) {
-        this.lookingFor = lookingFor;
+        seeking.clear();
+        Iterator<Enum<LookingFor>> ita = lookingFor.iterator();
+        Seeking seek = null;
+        while(ita.hasNext()) {
+            Enum<LookingFor> looking = ita.next();
+            seek = new Seeking(looking.getValue().name(), looking.getDisplayValue());
+            this.seeking.add(seek);
+        }
     }
 
     @Override
@@ -448,12 +465,14 @@ public class SocialPerson implements Person {
 
     @Override
     public Enum<NetworkPresence> getNetworkPresence() {
-        return networkPresence;
+        return new EnumType<NetworkPresence>(NetworkPresence.valueOf(presence.getKey()));
     }
 
     @Override
     public void setNetworkPresence(Enum<NetworkPresence> networkPresence) {
-        this.networkPresence = networkPresence;
+        presence = new Presence();
+        presence.setDisplayName(networkPresence.getDisplayValue());
+        presence.setKey(networkPresence.getValue().name());
     }
 
     @Override
@@ -608,12 +627,12 @@ public class SocialPerson implements Person {
 
     @Override
     public Enum<Smoker> getSmoker() {
-        return this.smoker;
+        return new EnumType<Smoker>(Smoker.valueOf(nicotine.getKey()));        
     }
 
     @Override
     public void setSmoker(Enum<Smoker> smoker) {
-        this.smoker = smoker;
+        this.nicotine = new Nicotine(smoker.getValue().name(), smoker.getDisplayValue());        
     }
 
     @Override
@@ -734,5 +753,9 @@ public class SocialPerson implements Person {
     @Override
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
-    }              
+    } 
+    
+    public Presence getPresence () {
+        return this.presence;
+    }
 }

@@ -7,7 +7,7 @@ package me.moimoi.social.herql.config;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.name.Names;
-import me.moimoi.social.herql.domain.MutableSocialPerson;
+import me.moimoi.social.herql.domain.mutable.MutableSocialPerson;
 import me.moimoi.social.herql.mongo.services.MongoProfileServicesImpl;
 import me.moimoi.social.herql.mongo.services.MongoDataSource;
 import me.moimoi.social.herql.services.MutableObject;

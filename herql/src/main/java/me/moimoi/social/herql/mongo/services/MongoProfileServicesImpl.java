@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.moimoi.social.herql.domain.MutableSocialPerson;
+import me.moimoi.social.herql.domain.mutable.MutableSocialPerson;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.MutableObject;
 import me.moimoi.social.herql.services.ProfileService;
@@ -83,6 +83,12 @@ public class MongoProfileServicesImpl implements ProfileService {
         return (MutableSocialPerson)this.instance;       
     }
 
+    @Override
+    public Person find(String _id, Class type) {
+        SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, _id);
+        return person;     
+    }
+    
     @Override @Creator
     public Person create() {
         SocialPerson p = SocialPerson.create();

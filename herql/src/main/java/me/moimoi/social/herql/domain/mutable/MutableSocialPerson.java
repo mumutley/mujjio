@@ -2,12 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package me.moimoi.social.herql.domain;
+package me.moimoi.social.herql.domain.mutable;
 
 import com.google.code.morphia.query.UpdateOperations;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import me.moimoi.social.herql.domain.Presence;
+import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.MutableObject;
 import me.moimoi.social.herql.services.interceptors.Mutator;
 import org.apache.shindig.protocol.model.Enum;
@@ -48,8 +50,8 @@ public class MutableSocialPerson implements MutableObject, Person {
     }
     
     @Override
-    public void setDelegate(SocialPerson delegate) {
-        this.delegate = delegate;
+    public void setDelegate(Object delegate) {
+        this.delegate = (SocialPerson)delegate;
     }
     
     @Override @Mutator(name="utcOffset")
@@ -187,7 +189,7 @@ public class MutableSocialPerson implements MutableObject, Person {
         delegate.setNickname(nickname);
     }
 
-    @Override @Mutator(name="networkPresence")    
+    @Override @Mutator(name="presence",compound=true, accessor="getPresence")    
     public void setNetworkPresence(Enum<NetworkPresence> networkPresence) {
         delegate.setNetworkPresence(networkPresence);
     }
@@ -247,6 +249,7 @@ public class MutableSocialPerson implements MutableObject, Person {
         delegate.setIms(ims);
     }
 
+    @Override
     public void setId(String id) {
         delegate.setId(id);
     }
@@ -680,5 +683,8 @@ public class MutableSocialPerson implements MutableObject, Person {
     public String getAboutMe() {
         return delegate.getAboutMe();
     }    
-        
+    
+    public Presence getPresence () {
+        return delegate.getPresence();
+    }
 }
