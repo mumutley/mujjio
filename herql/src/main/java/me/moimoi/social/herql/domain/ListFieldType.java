@@ -8,7 +8,7 @@ package me.moimoi.social.herql.domain;
  *
  * @author Suhail
  */
-public enum Type {
+public enum ListFieldType {
     work,
     home,
     other    

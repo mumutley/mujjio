@@ -26,7 +26,7 @@ public interface ProfileService extends PersonService {
      * @param account to be saved in the system
      * @return the key of the account just saved.
      */
-    public Key<Person> register(Person account);
+    public Key<Person> save(Person account);
     
     
     /**
@@ -58,6 +58,12 @@ public interface ProfileService extends PersonService {
      */
     public UpdateOperations<SocialPerson> getUpdateOperation();
 
-    Person find(String _id, Class type);
+    /**
+     * 
+     * @param _id
+     * @param type
+     * @return 
+     */
+    public Person find(String _id, Class type);
         
 }

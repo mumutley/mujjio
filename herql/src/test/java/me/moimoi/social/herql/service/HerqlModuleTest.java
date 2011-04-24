@@ -12,11 +12,16 @@ import java.util.logging.Logger;
 import junit.framework.Assert;
 import me.moimoi.social.herql.config.HerqlModule;
 import me.moimoi.social.herql.domain.EnumType;
+import me.moimoi.social.herql.domain.ListFieldType;
 import me.moimoi.social.herql.domain.SocialAccount;
 import me.moimoi.social.herql.services.ProfileService;
+import org.apache.shindig.social.core.model.ListFieldImpl;
+import org.apache.shindig.social.core.model.UrlImpl;
 import org.apache.shindig.social.opensocial.model.Account;
+import org.apache.shindig.social.opensocial.model.ListField;
 import org.apache.shindig.social.opensocial.model.NetworkPresence;
 import org.apache.shindig.social.opensocial.model.Person;
+import org.apache.shindig.social.opensocial.model.Url;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -56,7 +61,18 @@ public class HerqlModuleTest  {
                 
         person.setNetworkPresence(new EnumType<NetworkPresence>(NetworkPresence.XA));
         
-        Key<Person> key = profiles.register(person);       
+        ListField email = new ListFieldImpl();
+        email.setType(ListFieldType.home.name());
+        email.setPrimary(Boolean.TRUE);
+        email.setValue("suhailski@gmail.com");
+        person.getEmails().add(email);
+        
+        Url url = new UrlImpl();
+        url.setLinkText("Standard Model");
+        url.setValue("http://goo.gl/Ed27t");
+        person.getUrls().add(url);
+                
+        Key<Person> key = profiles.save(person);       
         
         Assert.assertEquals(key.getId(), person.getId());
     }
@@ -105,9 +121,13 @@ public class HerqlModuleTest  {
     public void testFetchAccountAndUpdate() {
         ProfileService profiles = injector.getInstance(ProfileService.class);           
         Person person = profiles.find("suhail", Account.class);
+        
+        LOG.log(Level.INFO, "email {0}", person.getEmails().get(0).getValue());
+        LOG.log(Level.INFO, "urls {0}", person.getUrls().get(0).getValue());
+        
         Account account = person.getAccounts().get(0);
         account.setUserId("biscuit");        
-        profiles.register(person);
+        profiles.save(person);
     }
     
     private static final Logger LOG = Logger.getAnonymousLogger();

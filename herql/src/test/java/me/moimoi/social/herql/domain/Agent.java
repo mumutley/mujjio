@@ -7,6 +7,9 @@ import com.google.code.morphia.annotations.Id;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import me.moimoi.social.herql.domain.Address;
+import me.moimoi.social.herql.domain.SocialAccount;
+import org.apache.shindig.social.opensocial.model.ListField;
 import org.bson.types.ObjectId;
 
 @Entity(value="agent", noClassnameStored=true)
@@ -49,13 +52,13 @@ public class Agent {
     private String utcOffset;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> activities;
+    private List<ListField> activities;
 
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> books;
+    private List<ListField> books;
 
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> cars;
+    private List<ListField> cars;
     
     @Embedded(concreteClass = LinkedList.class)
     private List<SocialAccount> accounts;
@@ -67,61 +70,61 @@ public class Agent {
     private List<Address> addresses;
 
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> emails;
+    private List<ListField> emails;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> heroes;
+    private List<ListField> heroes;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> ims;
+    private List<ListField> ims;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> interests;
+    private List<ListField> interests;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> jobInterests;
+    private List<ListField> jobInterests;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> languagesSpoken;
+    private List<ListField> languagesSpoken;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> movies;
+    private List<ListField> movies;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> music;
+    private List<ListField> music;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> networkPresence;
+    private List<ListField> networkPresence;
 
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> pets;
+    private List<ListField> pets;
 
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> photos;
+    private List<ListField> photos;
 
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> politicalViews;
+    private List<ListField> politicalViews;
 
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> quotes;
+    private List<ListField> quotes;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> relationships;
+    private List<ListField> relationships;
 
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> sports;
+    private List<ListField> sports;
 
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> tags;
+    private List<ListField> tags;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> turnOffs;
+    private List<ListField> turnOffs;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> tvShows;
+    private List<ListField> tvShows;
 
     @Embedded(concreteClass = LinkedList.class)
-    private List<PluralField> urls;
+    private List<ListField> urls;
     
     public static Agent create() {
         return new Agent();
@@ -131,9 +134,9 @@ public class Agent {
         super();
         accounts = new LinkedList<SocialAccount>();
         addresses = new LinkedList<Address>();
-        activities = new LinkedList<PluralField>();
-        books = new LinkedList<PluralField>();
-        cars = new  LinkedList<PluralField>();
+        activities = new LinkedList<ListField>();
+        books = new LinkedList<ListField>();
+        cars = new  LinkedList<ListField>();
     }
     
     /**
@@ -629,42 +632,42 @@ public class Agent {
     /**
      * @return the activities
      */
-    public List<PluralField> getActivities() {
+    public List<ListField> getActivities() {
         return activities;
     }
 
     /**
      * @param activities the activities to set
      */
-    public void setActivities(List<PluralField> activities) {
+    public void setActivities(List<ListField> activities) {
         this.activities = activities;
     }
 
     /**
      * @return the books
      */
-    public List<PluralField> getBooks() {
+    public List<ListField> getBooks() {
         return books;
     }
 
     /**
      * @param books the books to set
      */
-    public void setBooks(List<PluralField> books) {
+    public void setBooks(List<ListField> books) {
         this.books = books;
     }
 
     /**
      * @return the cars
      */
-    public List<PluralField> getCars() {
+    public List<ListField> getCars() {
         return cars;
     }
 
     /**
      * @param cars the cars to set
      */
-    public void setCars(List<PluralField> cars) {
+    public void setCars(List<ListField> cars) {
         this.cars = cars;
     }
 
@@ -699,266 +702,266 @@ public class Agent {
     /**
      * @return the emails
      */
-    public List<PluralField> getEmails() {
+    public List<ListField> getEmails() {
         return emails;
     }
 
     /**
      * @param emails the emails to set
      */
-    public void setEmails(List<PluralField> emails) {
+    public void setEmails(List<ListField> emails) {
         this.emails = emails;
     }
 
     /**
      * @return the heroes
      */
-    public List<PluralField> getHeroes() {
+    public List<ListField> getHeroes() {
         return heroes;
     }
 
     /**
      * @param heroes the heroes to set
      */
-    public void setHeroes(List<PluralField> heroes) {
+    public void setHeroes(List<ListField> heroes) {
         this.heroes = heroes;
     }
 
     /**
      * @return the ims
      */
-    public List<PluralField> getIms() {
+    public List<ListField> getIms() {
         return ims;
     }
 
     /**
      * @param ims the ims to set
      */
-    public void setIms(List<PluralField> ims) {
+    public void setIms(List<ListField> ims) {
         this.ims = ims;
     }
 
     /**
      * @return the interests
      */
-    public List<PluralField> getInterests() {
+    public List<ListField> getInterests() {
         return interests;
     }
 
     /**
      * @param interests the interests to set
      */
-    public void setInterests(List<PluralField> interests) {
+    public void setInterests(List<ListField> interests) {
         this.interests = interests;
     }
 
     /**
      * @return the jobInterests
      */
-    public List<PluralField> getJobInterests() {
+    public List<ListField> getJobInterests() {
         return jobInterests;
     }
 
     /**
      * @param jobInterests the jobInterests to set
      */
-    public void setJobInterests(List<PluralField> jobInterests) {
+    public void setJobInterests(List<ListField> jobInterests) {
         this.jobInterests = jobInterests;
     }
 
     /**
      * @return the languagesSpoken
      */
-    public List<PluralField> getLanguagesSpoken() {
+    public List<ListField> getLanguagesSpoken() {
         return languagesSpoken;
     }
 
     /**
      * @param languagesSpoken the languagesSpoken to set
      */
-    public void setLanguagesSpoken(List<PluralField> languagesSpoken) {
+    public void setLanguagesSpoken(List<ListField> languagesSpoken) {
         this.languagesSpoken = languagesSpoken;
     }
 
     /**
      * @return the movies
      */
-    public List<PluralField> getMovies() {
+    public List<ListField> getMovies() {
         return movies;
     }
 
     /**
      * @param movies the movies to set
      */
-    public void setMovies(List<PluralField> movies) {
+    public void setMovies(List<ListField> movies) {
         this.movies = movies;
     }
 
     /**
      * @return the music
      */
-    public List<PluralField> getMusic() {
+    public List<ListField> getMusic() {
         return music;
     }
 
     /**
      * @param music the music to set
      */
-    public void setMusic(List<PluralField> music) {
+    public void setMusic(List<ListField> music) {
         this.music = music;
     }
 
     /**
      * @return the networkPresence
      */
-    public List<PluralField> getNetworkPresence() {
+    public List<ListField> getNetworkPresence() {
         return networkPresence;
     }
 
     /**
      * @param networkPresence the networkPresence to set
      */
-    public void setNetworkPresence(List<PluralField> networkPresence) {
+    public void setNetworkPresence(List<ListField> networkPresence) {
         this.networkPresence = networkPresence;
     }
 
     /**
      * @return the pets
      */
-    public List<PluralField> getPets() {
+    public List<ListField> getPets() {
         return pets;
     }
 
     /**
      * @param pets the pets to set
      */
-    public void setPets(List<PluralField> pets) {
+    public void setPets(List<ListField> pets) {
         this.pets = pets;
     }
 
     /**
      * @return the photos
      */
-    public List<PluralField> getPhotos() {
+    public List<ListField> getPhotos() {
         return photos;
     }
 
     /**
      * @param photos the photos to set
      */
-    public void setPhotos(List<PluralField> photos) {
+    public void setPhotos(List<ListField> photos) {
         this.photos = photos;
     }
 
     /**
      * @return the politicalViews
      */
-    public List<PluralField> getPoliticalViews() {
+    public List<ListField> getPoliticalViews() {
         return politicalViews;
     }
 
     /**
      * @param politicalViews the politicalViews to set
      */
-    public void setPoliticalViews(List<PluralField> politicalViews) {
+    public void setPoliticalViews(List<ListField> politicalViews) {
         this.politicalViews = politicalViews;
     }
 
     /**
      * @return the quotes
      */
-    public List<PluralField> getQuotes() {
+    public List<ListField> getQuotes() {
         return quotes;
     }
 
     /**
      * @param quotes the quotes to set
      */
-    public void setQuotes(List<PluralField> quotes) {
+    public void setQuotes(List<ListField> quotes) {
         this.quotes = quotes;
     }
 
     /**
      * @return the relationships
      */
-    public List<PluralField> getRelationships() {
+    public List<ListField> getRelationships() {
         return relationships;
     }
 
     /**
      * @param relationships the relationships to set
      */
-    public void setRelationships(List<PluralField> relationships) {
+    public void setRelationships(List<ListField> relationships) {
         this.relationships = relationships;
     }
 
     /**
      * @return the sports
      */
-    public List<PluralField> getSports() {
+    public List<ListField> getSports() {
         return sports;
     }
 
     /**
      * @param sports the sports to set
      */
-    public void setSports(List<PluralField> sports) {
+    public void setSports(List<ListField> sports) {
         this.sports = sports;
     }
 
     /**
      * @return the tags
      */
-    public List<PluralField> getTags() {
+    public List<ListField> getTags() {
         return tags;
     }
 
     /**
      * @param tags the tags to set
      */
-    public void setTags(List<PluralField> tags) {
+    public void setTags(List<ListField> tags) {
         this.tags = tags;
     }
 
     /**
      * @return the turnOffs
      */
-    public List<PluralField> getTurnOffs() {
+    public List<ListField> getTurnOffs() {
         return turnOffs;
     }
 
     /**
      * @param turnOffs the turnOffs to set
      */
-    public void setTurnOffs(List<PluralField> turnOffs) {
+    public void setTurnOffs(List<ListField> turnOffs) {
         this.turnOffs = turnOffs;
     }
 
     /**
      * @return the tvShows
      */
-    public List<PluralField> getTvShows() {
+    public List<ListField> getTvShows() {
         return tvShows;
     }
 
     /**
      * @param tvShows the tvShows to set
      */
-    public void setTvShows(List<PluralField> tvShows) {
+    public void setTvShows(List<ListField> tvShows) {
         this.tvShows = tvShows;
     }
 
     /**
      * @return the urls
      */
-    public List<PluralField> getUrls() {
+    public List<ListField> getUrls() {
         return urls;
     }
 
     /**
      * @param urls the urls to set
      */
-    public void setUrls(List<PluralField> urls) {
+    public void setUrls(List<ListField> urls) {
         this.urls = urls;
     }
 }

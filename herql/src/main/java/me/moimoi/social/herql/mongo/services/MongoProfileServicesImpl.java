@@ -50,7 +50,7 @@ public class MongoProfileServicesImpl implements ProfileService {
     }      
     
     @Override
-    public Key<Person> register(Person account) {
+    public Key<Person> save(Person account) {
         LOG.log(Level.INFO, "saved {0}", account);
         Key<Person> key = dataSource.getDataSource().save(account);
         LOG.log(Level.INFO, "saved {0}", key);

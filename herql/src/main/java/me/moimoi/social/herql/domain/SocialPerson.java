@@ -6,20 +6,17 @@ package me.moimoi.social.herql.domain;
 
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import me.moimoi.social.herql.domain.EnumType;
 import org.apache.shindig.protocol.model.Enum;
 import org.apache.shindig.social.opensocial.model.Account;
 import org.apache.shindig.social.opensocial.model.Address;
 import org.apache.shindig.social.opensocial.model.BodyType;
 import org.apache.shindig.social.opensocial.model.Drinker;
 import org.apache.shindig.social.opensocial.model.ListField;
-import org.apache.shindig.social.opensocial.model.LookingFor;
 import org.apache.shindig.social.opensocial.model.LookingFor;
 import org.apache.shindig.social.opensocial.model.Name;
 import org.apache.shindig.social.opensocial.model.NetworkPresence;
@@ -108,6 +105,9 @@ public class SocialPerson implements Person {
         accounts = new LinkedList<Account>();
         activities = new LinkedList<String>();
         seeking = new LinkedList<Seeking>();
+        
+        emails = new LinkedList<ListField>();
+        urls = new LinkedList<Url>();
     }
     
     @Override
@@ -242,7 +242,7 @@ public class SocialPerson implements Person {
 
     @Override
     public Enum<Drinker> getDrinker() {
-        return new EnumType<Drinker>(Drinker.valueOf(presence.getKey()));
+        return new EnumType<Drinker>(Drinker.valueOf(alcohol.getKey()));
     }
 
     @Override
