@@ -5,11 +5,15 @@
 package me.moimoi.social.herqlweb.spi;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import me.moimoi.social.herql.services.ProfileService;
 import org.apache.shindig.auth.SecurityToken;
 import org.apache.shindig.protocol.DataCollection;
 import org.apache.shindig.protocol.ProtocolException;
@@ -39,10 +43,12 @@ import org.json.JSONObject;
  */
 public class HerqlOpensocialDataService implements ActivityService, PersonService, AppDataService,
         MessageService, AlbumService, MediaItemService, ActivityStreamService {
-
+    
+    private ProfileService profile;
     @Inject
-    public HerqlOpensocialDataService(@Named("json.db") String jsonLocation) throws Exception {
-        System.out.println(" ---->>>> HerqlOpensocialService ");
+    public HerqlOpensocialDataService(@Named("json.db") String jsonLocation, ProfileService profile) throws Exception {
+        System.out.println(" ---->>>> HerqlOpensocialService " + profile.toString());
+        this.profile = profile;
     }
 
     /**
@@ -103,6 +109,7 @@ public class HerqlOpensocialDataService implements ActivityService, PersonServic
 
     @Override
     public Future<Person> getPerson(UserId id, Set<String> fields, SecurityToken token) throws ProtocolException {
+        LOG.log(Level.INFO, "user id {0} fields are {1} security token {2}", new Object[]{id.toString(), fields, token.toString()});
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -255,4 +262,6 @@ public class HerqlOpensocialDataService implements ActivityService, PersonServic
     public Future<Void> createActivityEntry(UserId userId, GroupId groupId, String appId, Set<String> fields, ActivityEntry activity, SecurityToken token) throws ProtocolException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    private static final Logger LOG = Logger.getLogger(HerqlOpensocialDataService.class.getName());
 }

@@ -39,6 +39,7 @@
       org.apache.shindig.extras.ShindigExtrasGuiceModule:
       me.moimoi.social.herqlweb.shiro.ShiroModule:
       me.moimoi.social.herqlweb.DataserviceModule:
+      me.moimoi.social.herql.config.HerqlModule:
       org.apache.shindig.sample.commoncontainer.auth.CommonContainerAuthGuiceModule
     </param-value>
   </context-param>

@@ -25,8 +25,6 @@ public class SampleContainerGuiceModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        // We do this so that jsecurity realms can get access to the jsondbservice singleton
-
         Multibinder<Object> handlerBinder = Multibinder.newSetBinder(binder(), Object.class, Names.named("org.apache.shindig.handlers"));
         handlerBinder.addBinding().toInstance(SampleContainerHandler.class);
     }

@@ -38,46 +38,48 @@ import com.google.inject.Singleton;
 @Singleton
 public class CommonContainerSecurityTokenCodec implements SecurityTokenCodec {
 
-  private static final String SECURITY_TOKEN_TYPE = "gadgets.securityTokenType";
+    private static final String SECURITY_TOKEN_TYPE = "gadgets.securityTokenType";
+    private final SecurityTokenCodec codec;
 
-  private final SecurityTokenCodec codec;
-
-  @Inject
-  public CommonContainerSecurityTokenCodec(ContainerConfig config) {
-    String tokenType = config.getString(ContainerConfig.DEFAULT_CONTAINER,
-        SECURITY_TOKEN_TYPE);
-    if ("insecure".equals(tokenType)) {
-      codec = new BasicSecurityTokenCodec();
-    } else if ("secure".equals(tokenType)) {
-      codec = new BlobCrypterSecurityTokenCodec(config);
-    } else {
-      throw new RuntimeException("Unknown security token type specified in "
-          + ContainerConfig.DEFAULT_CONTAINER + " container configuration. "
-          + SECURITY_TOKEN_TYPE + ": " + tokenType);
+    @Inject
+    public CommonContainerSecurityTokenCodec(ContainerConfig config) {
+        String tokenType = config.getString(ContainerConfig.DEFAULT_CONTAINER,
+                SECURITY_TOKEN_TYPE);
+        if ("insecure".equals(tokenType)) {
+            codec = new BasicSecurityTokenCodec();
+        } else if ("secure".equals(tokenType)) {
+            codec = new BlobCrypterSecurityTokenCodec(config);
+        } else {
+            throw new RuntimeException("Unknown security token type specified in "
+                    + ContainerConfig.DEFAULT_CONTAINER + " container configuration. "
+                    + SECURITY_TOKEN_TYPE + ": " + tokenType);
+        }
     }
-  }
 
-  public SecurityToken createToken(Map<String, String> tokenParameters)
-      throws SecurityTokenException {
-    TestSecurityTokenCodec testSecurityToken = new TestSecurityTokenCodec();
-    return testSecurityToken;
-  }
-
-  public String encodeToken(SecurityToken token) throws SecurityTokenException {
-    if (token != null) {
-      return Joiner.on(":").join(Utf8UrlCoder.encode(token.getOwnerId()),
-          Utf8UrlCoder.encode(token.getViewerId()),
-          Utf8UrlCoder.encode(token.getAppId()),
-          Utf8UrlCoder.encode(token.getDomain()),
-          Utf8UrlCoder.encode(token.getAppUrl()),
-          Long.toString(token.getModuleId()),
-          Utf8UrlCoder.encode(token.getContainer()));
+    @Override
+    public SecurityToken createToken(Map<String, String> tokenParameters)
+            throws SecurityTokenException {
+        TestSecurityTokenCodec testSecurityToken = new TestSecurityTokenCodec();
+        return testSecurityToken;
     }
-    return null;
-  }
 
-  public Long getTokenExpiration(SecurityToken token)
-      throws SecurityTokenException {
-    return codec.getTokenExpiration(token);
-  }
+    @Override
+    public String encodeToken(SecurityToken token) throws SecurityTokenException {
+        if (token != null) {
+            return Joiner.on(":").join(Utf8UrlCoder.encode(token.getOwnerId()),
+                    Utf8UrlCoder.encode(token.getViewerId()),
+                    Utf8UrlCoder.encode(token.getAppId()),
+                    Utf8UrlCoder.encode(token.getDomain()),
+                    Utf8UrlCoder.encode(token.getAppUrl()),
+                    Long.toString(token.getModuleId()),
+                    Utf8UrlCoder.encode(token.getContainer()));
+        }
+        return null;
+    }
+
+    @Override
+    public Long getTokenExpiration(SecurityToken token)
+            throws SecurityTokenException {
+        return codec.getTokenExpiration(token);
+    }
 }
