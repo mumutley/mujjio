@@ -45,6 +45,7 @@ public class HerqlOpensocialDataService implements ActivityService, PersonServic
         MessageService, AlbumService, MediaItemService, ActivityStreamService {
     
     private ProfileService profile;
+    
     @Inject
     public HerqlOpensocialDataService(@Named("json.db") String jsonLocation, ProfileService profile) throws Exception {
         System.out.println(" ---->>>> HerqlOpensocialService " + profile.toString());
@@ -104,17 +105,25 @@ public class HerqlOpensocialDataService implements ActivityService, PersonServic
 
     @Override
     public Future<RestfulCollection<Person>> getPeople(Set<UserId> userIds, GroupId groupId, CollectionOptions collectionOptions, Set<String> fields, SecurityToken token) throws ProtocolException {
+        LOG.log(Level.INFO, "getPeople user id {0} fields are {1} security token {2}", new Object[]{userIds.toString(), fields, token.toString()});
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Future<Person> getPerson(UserId id, Set<String> fields, SecurityToken token) throws ProtocolException {
-        LOG.log(Level.INFO, "user id {0} fields are {1} security token {2}", new Object[]{id.toString(), fields, token.toString()});
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Future<Person> getPerson(UserId id, Set<String> fields, SecurityToken token) throws ProtocolException {                
+        for(String field : fields) {
+            if(token.getViewerId().equals("-1")) {
+                LOG.log(Level.INFO, "field {0} user id {1}", new Object[]{field, id.getUserId()});
+            }
+        }
+        
+        //need authorization filters here. but what about shiro?
+        return null;       
     }
 
     @Override
     public Future<DataCollection> getPersonData(Set<UserId> userIds, GroupId groupId, String appId, Set<String> fields, SecurityToken token) throws ProtocolException {
+        LOG.log(Level.INFO, "getPersonData user id {0} fields are {1} security token {2}", new Object[]{userIds.toString(), fields, token.toString()});        
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

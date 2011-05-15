@@ -42,7 +42,9 @@ public class DataserviceModule extends AbstractModule {
   @Override
   protected void configure() {
     bind(String.class).annotatedWith(Names.named("json.db")).toInstance("WEB-INF/canonicaldb.json");
-    //bind(String.class).annotatedWith(Names.named("shindig.canonical.json.db")).toInstance("sampledata/canonicaldb.json");
+    bind(String.class).annotatedWith(Names.named("shindig.canonical.json.db")).toInstance("sampledata/canonicaldb.json");
+    bind(String.class).annotatedWith(Names.named("shindig.oauth.base-url")).toInstance("someurl");
+    
     bind(ActivityService.class).to(HerqlOpensocialDataService.class);
     bind(ActivityStreamService.class).to(HerqlOpensocialDataService.class);
     bind(AlbumService.class).to(HerqlOpensocialDataService.class);
