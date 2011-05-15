@@ -15,11 +15,9 @@ import com.mongodb.MongoException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.moimoi.social.herql.domain.EnumType;
 import me.moimoi.social.herql.domain.SocialAccount;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.SimpleDatasource;
-import org.apache.shindig.social.opensocial.model.NetworkPresence;
 import org.apache.shindig.social.opensocial.model.Person;
 
 /**
