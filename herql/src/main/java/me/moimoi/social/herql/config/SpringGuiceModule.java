@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContext;
  *
  * @author ManzoorS
  */
-public class SpringGuiceModule extends SocialApiGuiceModule{
+public class SpringGuiceModule extends SocialApiGuiceModule {
     
      /** The Constant PERSON_SPI_BEAN_NAME. */
   private static final String PERSON_SPI_BEAN_NAME = "personSpi";
@@ -26,7 +26,7 @@ public class SpringGuiceModule extends SocialApiGuiceModule{
     ApplicationContext applicationContext = ApplicationContextFactory.getApplicationContext();
 
     // Bind Mock Person Spi
-    this.bind(PersonService.class).toInstance((PersonService) applicationContext.getBean(PERSON_SPI_BEAN_NAME));
+    this.bind(PersonService.class).toInstance((PersonService)applicationContext.getBean(PERSON_SPI_BEAN_NAME));
 
     // Use SocialApiGuiceModule to configure shindig
     super.configure();

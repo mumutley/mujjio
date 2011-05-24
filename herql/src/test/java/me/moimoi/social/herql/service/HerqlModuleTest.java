@@ -15,6 +15,7 @@ import me.moimoi.social.herql.domain.EnumType;
 import me.moimoi.social.herql.domain.ListFieldType;
 import me.moimoi.social.herql.domain.SocialAccount;
 import me.moimoi.social.herql.services.ProfileService;
+import me.moimoi.social.herqlweb.DataserviceModule;
 import org.apache.shindig.social.core.model.ListFieldImpl;
 import org.apache.shindig.social.core.model.UrlImpl;
 import org.apache.shindig.social.opensocial.model.Account;
@@ -40,7 +41,7 @@ public class HerqlModuleTest  {
 
     @Before
     public void setUp() throws Exception {        
-        injector = Guice.createInjector(new HerqlModule());
+        injector = Guice.createInjector(new HerqlModule(), new DataserviceModule());
     }
 
     @After
