@@ -9,11 +9,8 @@ import com.google.inject.name.Named;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.services.PermissionService;
-import org.jredis.JRedis;
-import org.jredis.RedisException;
-import org.jredis.connector.ConnectionSpec;
-import org.jredis.ri.alphazero.JRedisClient;
-import org.jredis.ri.alphazero.connection.DefaultConnectionSpec;
+import sma.RedisClient;
+import sma.RedisClient.RedisException;
 
 /**
  *
@@ -21,16 +18,15 @@ import org.jredis.ri.alphazero.connection.DefaultConnectionSpec;
  */
 public class RedisPermissionServiceImpl implements PermissionService {
     
-    private JRedis jredis = null;
+    private RedisClient client;
     
     @Inject
     public RedisPermissionServiceImpl(@Named("redis.db.host")  final String host, 
             @Named("redis.db.port")  final Integer port,
             @Named("redis.db.name")  final Integer database,
-            @Named("redis.db.creds")  final String creds) {
-                
-        ConnectionSpec spec = DefaultConnectionSpec.newSpec(host, port, database, creds.getBytes());
-        jredis = new JRedisClient(spec);
+            @Named("redis.db.creds")  final String creds) {                                
+        client = new RedisClient(host, port);
+        client.selectdb(database);
     }
     
     /**
@@ -41,7 +37,7 @@ public class RedisPermissionServiceImpl implements PermissionService {
     @Override
     public void getPermission(String principle, String role) {
         try {
-            jredis.ping();
+            client.ping();
         } catch (RedisException ex) {
             LOG.log(Level.SEVERE, null, ex);
         }

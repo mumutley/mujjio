@@ -55,20 +55,73 @@
         </dependency>
         <dependency>
             <groupId>org.apache.shindig</groupId>
-            <artifactId>shindig-social-api</artifactId>      
+            <artifactId>shindig-gadgets</artifactId>            
             <version>3.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.jredis</groupId>
-            <artifactId>jredis-core-all</artifactId>
-            <version>a.0-SNAPSHOT</version>
-        </dependency>        
-        <!--dependency>
-            <groupId>net.guts</groupId>
-            <artifactId>guts-events</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-        </dependency-->        
-
+            <groupId>org.apache.shindig</groupId>
+            <artifactId>shindig-social-api</artifactId>            
+            <version>3.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shindig</groupId>
+            <artifactId>shindig-features</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shindig</groupId>
+            <artifactId>shindig-extras</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+        </dependency> 
+        
+        <dependency>
+             <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+            <version>2.5.6.SEC02</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>3.0.5.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>3.0.5.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>3.0.5.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>3.0.5.RELEASE</version>
+        </dependency>      
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>compile</scope>
+        </dependency>               
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>1.2.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>el-api</artifactId>
+            <version>6.0.32</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>jasper-el</artifactId>
+            <version>6.0.32</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -117,6 +170,14 @@
             <releases>
                 <enabled>false</enabled>
             </releases>
+        </repository>
+        <repository>
+            <id>apache-repo</id>
+            <url>https://repository.apache.org</url>
+        </repository>
+        <repository>
+            <id>apache-repo-snapshots</id>
+            <url>https://repository.apache.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
     <properties>

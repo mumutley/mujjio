@@ -18,6 +18,8 @@ import me.moimoi.social.herql.services.SimpleDatasource;
 import me.moimoi.social.herql.services.interceptors.Mutator;
 import me.moimoi.social.herql.services.interceptors.Creator;
 import me.moimoi.social.herql.services.interceptors.SetMethodInterceptor;
+import me.moimoi.social.herqlweb.spi.HerqlOAuthDataStore;
+import org.apache.shindig.social.opensocial.oauth.OAuthDataStore;
 
 /**
  *
@@ -34,13 +36,14 @@ public class HerqlModule extends AbstractModule {
         bind(Integer.class).annotatedWith(Names.named("redis.db.port")).toInstance(6379);
         bind(Integer.class).annotatedWith(Names.named("redis.db.name")).toInstance(11);
         bind(String.class).annotatedWith(Names.named("redis.db.creds")).toInstance("jredis");
-        
+        bind(String.class).annotatedWith(Names.named("oauth.base-url")).toInstance("http://localhost/");
         
         bind(SimpleDatasource.class).toProvider(MongoDataSource.class);
         bind(ProfileService.class).to(MongoProfileServicesImpl.class);
         bind(PermissionService.class).to(RedisPermissionServiceImpl.class);
         
         bind(MutableObject.class).to(MutableSocialPerson.class);
+        bind(OAuthDataStore.class).to(HerqlOAuthDataStore.class);
         
         bindInterceptor(Matchers.any(), Matchers.annotatedWith(Creator.class), new SetMethodInterceptor());
         bindInterceptor(Matchers.any(),Matchers.annotatedWith(Mutator.class), new SetMethodInterceptor());

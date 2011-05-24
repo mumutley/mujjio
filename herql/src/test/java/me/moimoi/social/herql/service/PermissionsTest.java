@@ -56,9 +56,9 @@ public class PermissionsTest {
         //service.getPermission("suhailski", "ANONYMOUS");
         Assert.assertEquals("PONG", client.ping());
     }
-    
+
     @Test
-    public void testAddPermission() {
+    public void testAddPermissionWithSet() {
         client.set("profile.aboutMe.read.janedoe.janedoe", "1");
         client.set("profile.aboutMe.write.janedoe.janedoe", "1");
         client.set("profile.aboutMe.read.janedoe.anonymous", "1");
@@ -69,4 +69,8 @@ public class PermissionsTest {
         System.out.println("result " + result);
     }
 
+    @Test
+    public void testAddPermissionWithHSet() {        
+        client.hset("janedoe.janedoe", "profile.aboutMe", "rw");
+    }
 }
