@@ -43,12 +43,6 @@
         <listener-class>org.apache.shindig.common.servlet.GuiceServletContextListener</listener-class>
     </listener>
   
-  <!-- ApplicationServletContextListener -->
-  <!-- Destroys Spring's ApplicationContext at shutdown, forcing bean defined destroy-methods to be invoked -->
-    <listener>
-        <listener-class>me.moimoi.social.herql.config.servlet.ApplicationServletContextListener</listener-class>
-    </listener>  
-  
   <!-- Serve REST api -->
     <servlet>
         <servlet-name>restapiServlet</servlet-name>
