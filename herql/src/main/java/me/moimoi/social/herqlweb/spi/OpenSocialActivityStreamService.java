@@ -40,15 +40,18 @@ public class OpenSocialActivityStreamService implements ActivityStreamService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public Future<Void> deleteActivityEntries(UserId userId, GroupId groupId, String appId, Set<String> activityIds, SecurityToken token) throws ProtocolException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }   
+
+    @Override
+    public Future<ActivityEntry> updateActivityEntry(UserId userid, GroupId gi, String string, Set<String> set, ActivityEntry ae, String string1, SecurityToken st) throws ProtocolException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Future<Void> updateActivityEntry(UserId userId, GroupId groupId, String appId, Set<String> fields, ActivityEntry activity, String activityId, SecurityToken token) throws ProtocolException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-   
-    public Future<Void> createActivityEntry(UserId userId, GroupId groupId, String appId, Set<String> fields, ActivityEntry activity, SecurityToken token) throws ProtocolException {
+    @Override
+    public Future<ActivityEntry> createActivityEntry(UserId userid, GroupId gi, String string, Set<String> set, ActivityEntry ae, SecurityToken st) throws ProtocolException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

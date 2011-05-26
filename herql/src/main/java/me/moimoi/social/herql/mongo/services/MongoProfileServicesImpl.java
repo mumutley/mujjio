@@ -37,13 +37,11 @@ public class MongoProfileServicesImpl implements ProfileService {
     private static final Logger LOG = Logger.getLogger(MongoProfileServicesImpl.class.getCanonicalName());
     
     private final SimpleDatasource dataSource;
-    private final MutableObject instance;
     
     @Inject
-    public MongoProfileServicesImpl(final SimpleDatasource dataSource, MutableObject instance) {
+    public MongoProfileServicesImpl(final SimpleDatasource dataSource) {
         this.dataSource = dataSource;
-        this.instance = instance;
-        LOG.log(Level.INFO, "initializing {0}", dataSource.getDataSource().getDB().getName() + " " + this.instance.getClass().getName());
+        LOG.log(Level.INFO, "initializing {0}", dataSource.getDataSource().getDB().getName());
     }      
     
     @Override

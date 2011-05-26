@@ -18,14 +18,7 @@ public class SpringGuiceModule extends SocialApiGuiceModule {
    * @see org.apache.shindig.social.core.config.SocialApiGuiceModule#configure()
    */
   @Override
-  protected void configure() {
-    // Get spring application context
-    //ApplicationContext applicationContext = ApplicationContextFactory.getApplicationContext();
-
-    // Bind Mock Person Spi
-    //this.bind(PersonService.class).toInstance((PersonService)applicationContext.getBean(PERSON_SPI_BEAN_NAME));
-
-    // Use SocialApiGuiceModule to configure shindig
+  protected void configure() {   
     this.bind(PersonService.class).to(MockPersonSpi.class);
     super.configure();
   }
