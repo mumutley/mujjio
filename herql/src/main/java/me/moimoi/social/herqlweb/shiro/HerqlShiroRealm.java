@@ -7,7 +7,7 @@ package me.moimoi.social.herqlweb.shiro;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Inject;
 import java.util.Set;
-import me.moimoi.social.herqlweb.spi.HerqlOpensocialDataService;
+import me.moimoi.social.herqlweb.spi.OpenSocialDataService;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -28,7 +28,7 @@ public class HerqlShiroRealm extends AuthorizingRealm {
 
     // HACK, apache.shiro relies upon no-arg constructors..
     @Inject
-    private static HerqlOpensocialDataService jsonDbService;
+    private static OpenSocialDataService jsonDbService;
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {

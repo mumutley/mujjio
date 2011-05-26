@@ -35,18 +35,18 @@ import org.apache.shindig.gadgets.http.HttpResponse;
 import java.util.concurrent.Future;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
 import com.google.inject.Inject;
-import me.moimoi.social.herqlweb.spi.HerqlOpensocialDataService;
+import javax.servlet.http.HttpServletResponse;
+import me.moimoi.social.herqlweb.spi.OpenSocialDataService;
+
 
 @Service(name = "samplecontainer", path = "/{type}/{doevil}")
 public class SampleContainerHandler {
 
-  private final HerqlOpensocialDataService service;
+  private final OpenSocialDataService service;
   private final HttpFetcher fetcher;
   @Inject
-  public SampleContainerHandler(HerqlOpensocialDataService dbService, HttpFetcher fetcher) {
+  public SampleContainerHandler(OpenSocialDataService dbService, HttpFetcher fetcher) {
     this.service = dbService;
     this.fetcher = fetcher;
   }

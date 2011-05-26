@@ -4,9 +4,16 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.moimoi.opensocial</groupId>
     <artifactId>herql</artifactId>
-    <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>    
     <name>herql</name>
+    
+    <parent>
+        <groupId>org.apache.shindig</groupId>
+        <artifactId>shindig-project</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+    
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -55,15 +62,41 @@
         </dependency>
         <dependency>
             <groupId>org.apache.shindig</groupId>
-            <artifactId>shindig-gadgets</artifactId>            
-            <version>3.0.0-SNAPSHOT</version>
+            <artifactId>shindig-common</artifactId>
+            <classifier>${shindig.jdk.classifier}</classifier>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.shindig</groupId>
-            <artifactId>shindig-social-api</artifactId>            
-            <version>3.0.0-SNAPSHOT</version>
+            <artifactId>shindig-common</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.shindig</groupId>
+            <artifactId>shindig-gadgets</artifactId>
+            <classifier>${shindig.jdk.classifier}</classifier>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shindig</groupId>
+            <artifactId>shindig-social-api</artifactId>
+            <classifier>${shindig.jdk.classifier}</classifier>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shindig</groupId>
+            <artifactId>shindig-features</artifactId>
+            <classifier>${shindig.jdk.classifier}</classifier>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shindig</groupId>
+            <artifactId>shindig-extras</artifactId>
+            <classifier>${shindig.jdk.classifier}</classifier>
+            <version>${project.version}</version>
+        </dependency>
+        <!--dependency>
             <groupId>org.apache.shindig</groupId>
             <artifactId>shindig-features</artifactId>
             <version>3.0.0-SNAPSHOT</version>
@@ -72,56 +105,19 @@
             <groupId>org.apache.shindig</groupId>
             <artifactId>shindig-extras</artifactId>
             <version>3.0.0-SNAPSHOT</version>
-        </dependency> 
-        
-        <dependency>
-             <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
-            <version>2.5.6.SEC02</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>3.0.5.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>3.0.5.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>3.0.5.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-            <version>3.0.5.RELEASE</version>
-        </dependency>      
+        </dependency --> 
+                        
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <scope>compile</scope>
-        </dependency>               
+        </dependency>   
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-web</artifactId>
             <version>1.2.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>el-api</artifactId>
-            <version>6.0.32</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>jasper-el</artifactId>
-            <version>6.0.32</version>
-            <scope>runtime</scope>
-        </dependency>
+        </dependency>  
     </dependencies>
     <build>
         <plugins>
@@ -156,8 +152,7 @@
         <repository>
             <id>maven2-repository.dev.java.net</id>
             <name>Java.net Repository for Maven</name>
-            <url>http://download.java.net/maven/glassfish</url>
-            <layout>default</layout>
+            <url>http://download.java.net/maven/glassfish</url>            
         </repository>
         <repository>
             <id>morphia.googlecode.com</id>
@@ -179,8 +174,19 @@
             <id>apache-repo-snapshots</id>
             <url>https://repository.apache.org/content/repositories/snapshots/</url>
         </repository>
+        <repository>
+            <id>spring-snapshot</id>
+            <name>Spring Maven SNAPSHOT Repository</name>
+            <url>http://s3.amazonaws.com/maven.springframework.org/snapshot</url>
+        </repository>
+        <repository>
+            <id>spring-milestone</id>
+            <name>Spring Maven MILESTONE Repository</name>
+            <url>http://maven.springframework.org/milestone</url>
+        </repository>
     </repositories>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.framework.version>3.0.5.RELEASE</spring.framework.version>
     </properties>
 </project>

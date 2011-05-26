@@ -4,9 +4,9 @@
  */
 package me.moimoi.social.herql.config;
 
+import org.apache.shindig.samples.springexample.spi.MockPersonSpi;
 import org.apache.shindig.social.core.config.SocialApiGuiceModule;
 import org.apache.shindig.social.opensocial.spi.PersonService;
-import org.springframework.context.ApplicationContext;
 
 /**
  *
@@ -14,21 +14,19 @@ import org.springframework.context.ApplicationContext;
  */
 public class SpringGuiceModule extends SocialApiGuiceModule {
     
-     /** The Constant PERSON_SPI_BEAN_NAME. */
-  private static final String PERSON_SPI_BEAN_NAME = "personSpi";
-
   /* (non-Javadoc)
    * @see org.apache.shindig.social.core.config.SocialApiGuiceModule#configure()
    */
   @Override
   protected void configure() {
     // Get spring application context
-    ApplicationContext applicationContext = ApplicationContextFactory.getApplicationContext();
+    //ApplicationContext applicationContext = ApplicationContextFactory.getApplicationContext();
 
     // Bind Mock Person Spi
-    this.bind(PersonService.class).toInstance((PersonService)applicationContext.getBean(PERSON_SPI_BEAN_NAME));
+    //this.bind(PersonService.class).toInstance((PersonService)applicationContext.getBean(PERSON_SPI_BEAN_NAME));
 
     // Use SocialApiGuiceModule to configure shindig
+    this.bind(PersonService.class).to(MockPersonSpi.class);
     super.configure();
   }
 }

@@ -37,10 +37,10 @@ public class HerqlOAuthDataStore implements OAuthDataStore {
     private static final int CALLBACK_TOKEN_ATTEMPTS = 5;
     // used to get samplecontainer data from canonicaldb.json
     private final OAuthServiceProvider SERVICE_PROVIDER;
-    private HerqlOpensocialDataService service;
+    private OpenSocialDataService service;
 
     @Inject
-    public HerqlOAuthDataStore(HerqlOpensocialDataService dbService, @Named("oauth.base-url") String baseUrl) {
+    public HerqlOAuthDataStore(OpenSocialDataService dbService, @Named("oauth.base-url") String baseUrl) {
         this.service = dbService;
         this.SERVICE_PROVIDER = new OAuthServiceProvider(baseUrl + "requestToken", baseUrl + "authorize", baseUrl + "accessToken");
     }

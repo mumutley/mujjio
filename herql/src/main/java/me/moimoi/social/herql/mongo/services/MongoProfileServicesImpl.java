@@ -77,10 +77,8 @@ public class MongoProfileServicesImpl implements ProfileService {
     
     @Override
     public Person find(String _id) {
-        SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, _id);
-        this.instance.setDelegate(person);
-        ((MutableSocialPerson)this.instance).setUpdateOperations(getUpdateOperation());        
-        return (MutableSocialPerson)this.instance;       
+        SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, _id);        
+        return person;       
     }
 
     @Override

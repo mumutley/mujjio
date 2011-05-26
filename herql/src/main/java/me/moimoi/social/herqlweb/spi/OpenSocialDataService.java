@@ -41,13 +41,13 @@ import org.json.JSONObject;
  *
  * @author Suhail
  */
-public class HerqlOpensocialDataService implements ActivityService, PersonService, AppDataService,
-        MessageService, AlbumService, MediaItemService, ActivityStreamService {
+public class OpenSocialDataService implements ActivityService, PersonService, AppDataService,
+        MessageService, AlbumService, MediaItemService {
     
     private ProfileService profile;
     
     @Inject
-    public HerqlOpensocialDataService(@Named("json.db") String jsonLocation, ProfileService profile) throws Exception {
+    public OpenSocialDataService(@Named("json.db") String jsonLocation, ProfileService profile) throws Exception {
         System.out.println(" ---->>>> HerqlOpensocialService " + profile.toString());
         this.profile = profile;
     }
@@ -235,35 +235,7 @@ public class HerqlOpensocialDataService implements ActivityService, PersonServic
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public Future<RestfulCollection<ActivityEntry>> getActivityEntries(Set<UserId> userIds, GroupId groupId, String appId, Set<String> fields, CollectionOptions options, SecurityToken token) throws ProtocolException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Future<RestfulCollection<ActivityEntry>> getActivityEntries(UserId userId, GroupId groupId, String appId, Set<String> fields, CollectionOptions options, Set<String> activityIds, SecurityToken token) throws ProtocolException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Future<ActivityEntry> getActivityEntry(UserId userId, GroupId groupId, String appId, Set<String> fields, String activityId, SecurityToken token) throws ProtocolException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Future<Void> deleteActivityEntries(UserId userId, GroupId groupId, String appId, Set<String> activityIds, SecurityToken token) throws ProtocolException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Future<Void> updateActivityEntry(UserId userId, GroupId groupId, String appId, Set<String> fields, ActivityEntry activity, String activityId, SecurityToken token) throws ProtocolException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Future<Void> createActivityEntry(UserId userId, GroupId groupId, String appId, Set<String> fields, ActivityEntry activity, SecurityToken token) throws ProtocolException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
     
-    private static final Logger LOG = Logger.getLogger(HerqlOpensocialDataService.class.getName());
+    
+    private static final Logger LOG = Logger.getLogger(OpenSocialDataService.class.getName());
 }

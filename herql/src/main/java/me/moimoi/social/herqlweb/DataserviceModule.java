@@ -24,12 +24,12 @@ import org.apache.shindig.social.opensocial.spi.AlbumService;
 import org.apache.shindig.social.opensocial.spi.AppDataService;
 import org.apache.shindig.social.opensocial.spi.MediaItemService;
 import org.apache.shindig.social.opensocial.spi.MessageService;
-import org.apache.shindig.social.opensocial.spi.PersonService;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
 import me.moimoi.social.herqlweb.spi.HerqlOAuthDataStore;
-import me.moimoi.social.herqlweb.spi.HerqlOpensocialDataService;
+import me.moimoi.social.herqlweb.spi.OpenSocialDataService;
+import me.moimoi.social.herqlweb.spi.OpenSocialActivityStreamService;
 
 /**
  * Provides bindings for sample-only implementations of social API
@@ -43,13 +43,13 @@ public class DataserviceModule extends AbstractModule {
   protected void configure() {
     bind(String.class).annotatedWith(Names.named("json.db")).toInstance("WEB-INF/canonicaldb.json");
     //bind(String.class).annotatedWith(Names.named("shindig.canonical.json.db")).toInstance("sampledata/canonicaldb.json");
-    bind(ActivityService.class).to(HerqlOpensocialDataService.class);
-    bind(ActivityStreamService.class).to(HerqlOpensocialDataService.class);
-    bind(AlbumService.class).to(HerqlOpensocialDataService.class);
-    bind(MediaItemService.class).to(HerqlOpensocialDataService.class);
-    bind(AppDataService.class).to(HerqlOpensocialDataService.class);
+    bind(ActivityService.class).to(OpenSocialDataService.class);
+    bind(ActivityStreamService.class).to(OpenSocialActivityStreamService.class);
+    bind(AlbumService.class).to(OpenSocialDataService.class);
+    bind(MediaItemService.class).to(OpenSocialDataService.class);
+    bind(AppDataService.class).to(OpenSocialDataService.class);
     //bind(PersonService.class).to(HerqlOpensocialDataService.class);
-    bind(MessageService.class).to(HerqlOpensocialDataService.class);
+    bind(MessageService.class).to(OpenSocialDataService.class);
     bind(OAuthDataStore.class).to(HerqlOAuthDataStore.class);
   }
 }
