@@ -5,7 +5,6 @@
 package me.moimoi.social.herql.mongo.services;
 
 import com.google.code.morphia.Key;
-import com.google.code.morphia.mapping.Mapper;
 import com.google.code.morphia.query.Query;
 import com.google.code.morphia.query.UpdateOperations;
 import com.google.inject.Inject;
@@ -14,12 +13,10 @@ import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.moimoi.social.herql.domain.mutable.MutableSocialPerson;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.MutableObject;
 import me.moimoi.social.herql.services.ProfileService;
 import me.moimoi.social.herql.services.SimpleDatasource;
-import me.moimoi.social.herql.services.interceptors.Creator;
 import org.apache.shindig.auth.SecurityToken;
 import org.apache.shindig.protocol.ProtocolException;
 import org.apache.shindig.protocol.RestfulCollection;
@@ -87,7 +84,7 @@ public class MongoProfileServicesImpl implements ProfileService {
         return person;     
     }
     
-    @Override @Creator
+    @Override
     public Person create() {
         SocialPerson p = SocialPerson.create();
         return p;
@@ -100,14 +97,11 @@ public class MongoProfileServicesImpl implements ProfileService {
     
     @Override
     public void update(Person account) {
-        UpdateOperations<SocialPerson> ops = ((MutableSocialPerson)this.instance).getUpdateOperation();
-        Query<SocialPerson> query = getQuery();
-        dataSource.getDataSource().update(query, ops);
+        
     }
     
-    private Query<SocialPerson> getQuery() {
-        String _id = ((MutableSocialPerson)this.instance).getId();
-        return dataSource.getDataSource().find(SocialPerson.class).field(Mapper.ID_KEY).equal(_id);
+    private Query<SocialPerson> getQuery() {        
+        return null;
     }
 
 }
