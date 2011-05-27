@@ -9,16 +9,13 @@
     
     <display-name>mu</display-name>
     <!-- configuration -->
-  <!-- If you have your own Guice module(s), put them here as a colon-separated list. -->
+    <!-- If you have your own Guice module(s), put them here as a colon-separated list. -->
     <context-param>
         <param-name>guice-modules</param-name>
         <param-value>      
             org.apache.shindig.common.PropertiesModule:
-            org.apache.shindig.gadgets.DefaultGuiceModule:            
-            org.apache.shindig.gadgets.oauth.OAuthModule:
             org.apache.shindig.common.cache.ehcache.EhCacheModule:     
-            org.apache.shindig.sample.container.SampleContainerGuiceModule:            
-            org.apache.shindig.extras.ShindigExtrasGuiceModule:
+            org.apache.shindig.sample.container.SampleContainerGuiceModule:                        
             me.moimoi.social.herqlweb.shiro.ShiroModule:
             me.moimoi.social.herql.config.SpringGuiceModule:            
             me.moimoi.social.herqlweb.DataserviceModule:
@@ -26,8 +23,13 @@
             org.apache.shindig.sample.commoncontainer.auth.CommonContainerAuthGuiceModule
         </param-value>
     </context-param>
-  
-  <!-- Shindig authentication filter -->  
+    <!--
+    org.apache.shindig.gadgets.DefaultGuiceModule:            
+    org.apache.shindig.gadgets.oauth.OAuthModule:
+    org.apache.shindig.extras.ShindigExtrasGuiceModule:
+    -->
+    
+    <!-- Shindig authentication filter -->  
     <filter>
         <filter-name>authFilter</filter-name>
         <filter-class>org.apache.shindig.auth.AuthenticationServletFilter</filter-class>
@@ -38,12 +40,12 @@
         <url-pattern>/social/*</url-pattern>
     </filter-mapping>
   
-  <!-- GuiceServletContextListener -->
+    <!-- GuiceServletContextListener -->
     <listener>
         <listener-class>org.apache.shindig.common.servlet.GuiceServletContextListener</listener-class>
     </listener>
   
-  <!-- Serve REST api -->
+    <!-- Serve REST api -->
     <servlet>
         <servlet-name>restapiServlet</servlet-name>
         <servlet-class>org.apache.shindig.protocol.DataServiceServlet</servlet-class>
@@ -53,7 +55,7 @@
         </init-param>
     </servlet>
 
-  <!-- Serve RPC api -->
+    <!-- Serve RPC api -->
     <servlet>
         <servlet-name>jsonRpcServlet</servlet-name>
         <servlet-class>org.apache.shindig.protocol.JsonRpcServlet</servlet-class>
