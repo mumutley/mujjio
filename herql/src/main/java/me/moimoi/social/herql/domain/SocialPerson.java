@@ -71,45 +71,38 @@ public class SocialPerson implements Person {
     private Presence presence;
     private Nicotine nicotine;
     private Alcohol alcohol;
-    private Address currentLocation;    
-    private List<Seeking> seeking;    
-    private List<Organization> organizations;
-    private List<ListField> phoneNumbers;
-    private List<ListField> photos;    
-    private List<Account> accounts;    
-    private List<String> activities;
-    private List<Address> addresses;
-    private List<String> food;
-    private List<String> languagesSpoken;
-    private List<String> heroes;
-    private List<ListField> ims;
-    private List<String> interests;
-    private List<String> books;
-    private List<String> cars;
-    private List<ListField> emails;
-    private List<String> music;
-    private List<String> movies;    
-    private List<String> quotes;
-    private List<String> sports;
-    private List<String> tags;
-    private List<String> turnOffs;
-    private List<String> turnOns;
-    private List<String> tvShows;
-    private List<Url> urls;
+    private Address currentLocation;
+    
+    private List<Seeking> seeking = new LinkedList<Seeking>();    
+    private List<Organization> organizations = new LinkedList<Organization>();
+    private List<ListField> phoneNumbers = new LinkedList<ListField>();
+    private List<ListField> photos = new LinkedList<ListField>();    
+    private List<Account> accounts = new LinkedList<Account>();    
+    private List<String> activities = new LinkedList<String>();
+    private List<Address> addresses = new LinkedList<Address>();
+    private List<String> food = new LinkedList<String>();
+    private List<String> languagesSpoken = new LinkedList<String>();
+    private List<String> heroes = new LinkedList<String>();
+    private List<ListField> ims = new LinkedList<ListField>();
+    private List<String> interests = new LinkedList<String>();
+    private List<String> books = new LinkedList<String>();
+    private List<String> cars = new LinkedList<String>();
+    private List<ListField> emails = new LinkedList<ListField>();
+    private List<String> music = new LinkedList<String>();
+    private List<String> movies = new LinkedList<String>();
+    private List<String> quotes = new LinkedList<String>();
+    private List<String> sports = new LinkedList<String>(); 
+    private List<String> tags = new LinkedList<String>();
+    private List<String> turnOffs = new LinkedList<String>();
+    private List<String> turnOns = new LinkedList<String>();
+    private List<String> tvShows = new LinkedList<String>();
+    private List<Url> urls = new LinkedList<Url>();
     
     public static SocialPerson create() {
         return new SocialPerson();
     }
         
     public SocialPerson() {
-        accounts = new LinkedList<Account>();
-        activities = new LinkedList<String>();
-        seeking = new LinkedList<Seeking>();
-        
-        emails = new LinkedList<ListField>();
-        urls = new LinkedList<Url>();
-        
-        languagesSpoken = new LinkedList<String>();
     }
     
     @Override
@@ -174,7 +167,7 @@ public class SocialPerson implements Person {
 
     @Override
     public Map<String, ?> getAppData() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
@@ -244,7 +237,10 @@ public class SocialPerson implements Person {
 
     @Override
     public Enum<Drinker> getDrinker() {
-        return new EnumType<Drinker>(Drinker.valueOf(alcohol.getKey()));
+        if(alcohol != null) {
+            return new EnumType<Drinker>(Drinker.valueOf(alcohol.getKey()));
+        }
+        return null;
     }
 
     @Override
@@ -467,7 +463,10 @@ public class SocialPerson implements Person {
 
     @Override
     public Enum<NetworkPresence> getNetworkPresence() {
-        return new EnumType<NetworkPresence>(NetworkPresence.valueOf(presence.getKey()));
+        if(presence != null) {
+            return new EnumType<NetworkPresence>(NetworkPresence.valueOf(presence.getKey()));
+        }        
+        return null;
     }
 
     @Override
@@ -629,7 +628,11 @@ public class SocialPerson implements Person {
 
     @Override
     public Enum<Smoker> getSmoker() {
-        return new EnumType<Smoker>(Smoker.valueOf(nicotine.getKey()));        
+        if(nicotine != null) {
+            return new EnumType<Smoker>(Smoker.valueOf(nicotine.getKey()));        
+        }
+        
+        return null;
     }
 
     @Override
