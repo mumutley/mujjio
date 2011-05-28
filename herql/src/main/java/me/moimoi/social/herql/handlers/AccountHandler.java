@@ -55,7 +55,6 @@ public class AccountHandler {
     @Operation(httpMethods = "GET", path = "/@supportedFields")
     public List<Object> supportedFields(RequestItem request) {
         String container = Objects.firstNonNull(request.getToken().getContainer(), ContainerConfig.DEFAULT_CONTAINER);
-        return config.getList(container,
-                "${Cur['gadgets.features'].opensocial.supportedFields.activity}");
+        return config.getList(container,"${Cur['gadgets.features'].opensocial.supportedFields.account}");
     }
 }

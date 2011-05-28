@@ -131,6 +131,19 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
+            <resource>
+                <directory>conf</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+            <resource>
+                <targetPath>containers/default</targetPath>
+                <directory>container</directory>
+                <includes>
+                    <include>herql.json</include>
+                </includes>
+            </resource>
         </resources>
         <finalName>herql</finalName>
     </build>
