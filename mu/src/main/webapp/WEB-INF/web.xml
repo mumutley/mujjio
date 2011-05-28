@@ -13,13 +13,11 @@
     <context-param>
         <param-name>guice-modules</param-name>
         <param-value>      
-            org.apache.shindig.common.PropertiesModule:
+            me.moimoi.social.herql.config.PropertiesModule:
             org.apache.shindig.common.cache.ehcache.EhCacheModule:     
             org.apache.shindig.sample.container.SampleContainerGuiceModule:                        
             me.moimoi.social.herqlweb.shiro.ShiroModule:
-            me.moimoi.social.herql.config.SpringGuiceModule:            
-            me.moimoi.social.herqlweb.DataserviceModule:
-            me.moimoi.social.herql.config.HerqlModule:
+            me.moimoi.social.herql.config.HerqlGuiceModule:                        
             org.apache.shindig.sample.commoncontainer.auth.CommonContainerAuthGuiceModule
         </param-value>
     </context-param>
