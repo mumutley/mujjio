@@ -19,6 +19,7 @@ import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import java.util.List;
 import java.util.concurrent.Future;
+import me.moimoi.social.herql.domain.Registration;
 import me.moimoi.social.herql.domain.SocialAccount;
 import me.moimoi.social.herql.services.AccountService;
 import org.apache.shindig.common.util.ImmediateFuture;
@@ -34,7 +35,7 @@ import org.apache.shindig.social.opensocial.service.SocialRequestItem;
  *
  * @author suhail
  */
-@Service(name = "account", path = "/{userId}/{domain}")
+@Service(name = "account", path = "/{userId}/{groupId}")
 public class AccountHandler {
 
     private final AccountService accountService;
@@ -52,6 +53,16 @@ public class AccountHandler {
         return ImmediateFuture.newInstance(account);
     }
 
+    @Operation(httpMethods = "POST" ,bodyParam = "entity")
+    public Future<?> create(SocialRequestItem request) throws ProtocolException {
+        //{"userName":"ski","gender":"MALE","birthday":"11/10/1968","language":"EN", "password":"password","email":"email@example.com"}
+        //http://localhost:8084/social/rest/account
+        //Content-Type:application/json
+        //Accept:application/json        
+        Registration register = request.getTypedParameter("entity", Registration.class);                
+        return ImmediateFuture.newInstance(accountService.register(register));
+    }
+    
     @Operation(httpMethods = "GET", path = "/@supportedFields")
     public List<Object> supportedFields(RequestItem request) {
         String container = Objects.firstNonNull(request.getToken().getContainer(), ContainerConfig.DEFAULT_CONTAINER);

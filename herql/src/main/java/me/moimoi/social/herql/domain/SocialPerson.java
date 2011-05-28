@@ -108,6 +108,8 @@ public class SocialPerson implements Person {
         
         emails = new LinkedList<ListField>();
         urls = new LinkedList<Url>();
+        
+        languagesSpoken = new LinkedList<String>();
     }
     
     @Override

@@ -4,7 +4,9 @@
  */
 package me.moimoi.social.herql.services;
 
+import me.moimoi.social.herql.domain.Registration;
 import org.apache.shindig.social.opensocial.model.Account;
+import org.apache.shindig.social.opensocial.model.Person;
 
 /**
  *
@@ -16,7 +18,7 @@ public interface AccountService {
      * This operation allows the client to register a new user account.
      * @param account 
      */
-    public void register(Account account);
+    public Person register(Registration register);
     
     /**
      * <code>find</code> allows the client of the service to find a user by the

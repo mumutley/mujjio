@@ -15,8 +15,13 @@
  */
 package org.apache.shindig.samples.springexample.spi;
 
+import java.util.Date;
+import me.moimoi.social.herql.domain.Registration;
+import me.moimoi.social.herql.domain.SocialAccount;
+import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.AccountService;
 import org.apache.shindig.social.opensocial.model.Account;
+import org.apache.shindig.social.opensocial.model.Person;
 
 /**
  *
@@ -24,14 +29,22 @@ import org.apache.shindig.social.opensocial.model.Account;
  */
 public class AccountServiceImpl implements AccountService {
 
-    @Override
-    public void register(Account account) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+   
 
     @Override
     public Account find(String userId, String domain) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Person register(Registration register) {
+        Person person = SocialPerson.create();        
+        person.setId(register.getUserName());
+        SocialAccount account = SocialAccount.create(register.getEmail(), register.getUserName(), "moimoi.com", register.getPassword());        
+        person.getAccounts().add(account);
+        person.getLanguagesSpoken().add(register.getLanguage());
+        person.setBirthday(new Date());
+        return person;
     }
     
 }
