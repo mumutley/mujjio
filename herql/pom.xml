@@ -31,12 +31,10 @@
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>3.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.inject.extensions</groupId>
             <artifactId>guice-multibindings</artifactId>
-            <version>3.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.inject.extensions</groupId>
@@ -47,7 +45,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
-            <version>1.6.1</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.morphia</groupId>
@@ -95,18 +92,7 @@
             <artifactId>shindig-extras</artifactId>
             <classifier>${shindig.jdk.classifier}</classifier>
             <version>${project.version}</version>
-        </dependency>
-        <!--dependency>
-            <groupId>org.apache.shindig</groupId>
-            <artifactId>shindig-features</artifactId>
-            <version>3.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shindig</groupId>
-            <artifactId>shindig-extras</artifactId>
-            <version>3.0.0-SNAPSHOT</version>
-        </dependency --> 
-                        
+        </dependency>                               
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -116,7 +102,6 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-web</artifactId>
-            <version>1.2.0-SNAPSHOT</version>
         </dependency>  
     </dependencies>
     <build>
@@ -129,6 +114,7 @@
                     <source>1.6</source>
                     <target>1.6</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <showDeprecation>false</showDeprecation>
                 </configuration>
             </plugin>
             <plugin>
@@ -187,6 +173,5 @@
     </repositories>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.framework.version>3.0.5.RELEASE</spring.framework.version>
     </properties>
 </project>

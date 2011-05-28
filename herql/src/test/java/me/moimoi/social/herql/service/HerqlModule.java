@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package me.moimoi.social.herql.config;
+package me.moimoi.social.herql.service;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
