@@ -15,8 +15,17 @@
  */
 package org.apache.shindig.samples.springexample.spi;
 
+import com.google.code.morphia.Key;
+import com.google.code.morphia.query.Query;
+import com.google.inject.Inject;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import me.moimoi.social.herql.domain.Registration;
+import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.AccountService;
+import me.moimoi.social.herql.services.SimpleDatasource;
 import org.apache.shindig.social.opensocial.model.Account;
 import org.apache.shindig.social.opensocial.model.Person;
 
@@ -26,11 +35,43 @@ import org.apache.shindig.social.opensocial.model.Person;
  */
 public class AccountServiceImpl implements AccountService {
 
-   
+    
+    @Inject
+    public AccountServiceImpl(final SimpleDatasource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
     public Account find(String userId, String domain) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        LOG.log(Level.INFO, "userId {0} domain {1}", new Object[]{userId, domain});
+        Query<SocialPerson> q = dataSource.getDataSource().createQuery(SocialPerson.class).disableValidation();
+        q.and(
+            q.criteria("accounts.userId").equal(userId),
+            q.criteria("accounts.domain").equal(domain)
+        ); 
+        SocialPerson person = q.get();
+        
+        if(person == null) return null;
+        
+        Iterator<Account> ita = person.getAccounts().iterator();
+        //in case there are multiple accounts, get the right one
+        while(ita.hasNext()) {
+            Account account = ita.next();
+            if(account.getUserId().equals(userId) && account.getDomain().equals(domain)) {
+                return account;
+            }
+        }        
+        return null;
+    }
+    
+    @Override
+    public List<Account> find(String id) {
+        SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, id); 
+        if(person.getAccounts() != null) {
+            return person.getAccounts();
+        }
+        
+        return null;
     }
     
     public Person update(Registration register) {
@@ -39,8 +80,13 @@ public class AccountServiceImpl implements AccountService {
     
     
     @Override
-    public Person register(Person person) {                                
-        return person;
+    public Key<Person> register(Person person) {
+        Key<Person> key = dataSource.getDataSource().save(person);
+        
+        return key;
     }
     
+    final private SimpleDatasource dataSource;
+    
+    private static final Logger LOG = Logger.getLogger(AccountServiceImpl.class.getCanonicalName());
 }

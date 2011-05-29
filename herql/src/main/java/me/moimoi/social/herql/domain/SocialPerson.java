@@ -4,6 +4,7 @@
  */
 package me.moimoi.social.herql.domain;
 
+import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 import java.util.Date;
@@ -73,29 +74,53 @@ public class SocialPerson implements Person {
     private Alcohol alcohol;
     private Address currentLocation;
     
+    @Embedded(concreteClass = LinkedList.class)
     private List<Seeking> seeking = new LinkedList<Seeking>();    
+    @Embedded(concreteClass = LinkedList.class)
     private List<Organization> organizations = new LinkedList<Organization>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<ListField> phoneNumbers = new LinkedList<ListField>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<ListField> photos = new LinkedList<ListField>();    
+    @Embedded(concreteClass = LinkedList.class)
     private List<Account> accounts = new LinkedList<Account>();    
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> activities = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<Address> addresses = new LinkedList<Address>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> food = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> languagesSpoken = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> heroes = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<ListField> ims = new LinkedList<ListField>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> interests = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> books = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> cars = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<ListField> emails = new LinkedList<ListField>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> music = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> movies = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> quotes = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> sports = new LinkedList<String>(); 
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> tags = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> turnOffs = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> turnOns = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<String> tvShows = new LinkedList<String>();
+    @Embedded(concreteClass = LinkedList.class)
     private List<Url> urls = new LinkedList<Url>();
     
     public static SocialPerson create() {

@@ -4,7 +4,8 @@
  */
 package me.moimoi.social.herql.services;
 
-import me.moimoi.social.herql.domain.Registration;
+import com.google.code.morphia.Key;
+import java.util.List;
 import org.apache.shindig.social.opensocial.model.Account;
 import org.apache.shindig.social.opensocial.model.Person;
 
@@ -29,5 +30,12 @@ public interface AccountService {
      * This operation allows the client to register a new user account.
      * @param account 
      */
-    Person register(Person person);
+    Key<Person> register(Person person);
+
+    /**
+     * 
+     * @param userId
+     * @return 
+     */
+    List<Account> find(String userId);
 }
