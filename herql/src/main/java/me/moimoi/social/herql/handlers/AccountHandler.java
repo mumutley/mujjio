@@ -33,7 +33,6 @@ import org.apache.shindig.protocol.Service;
 import org.apache.shindig.social.opensocial.model.Account;
 import org.apache.shindig.social.opensocial.model.Person;
 import org.apache.shindig.social.opensocial.service.SocialRequestItem;
-import org.apache.shindig.social.opensocial.spi.GroupId;
 
 /**
  *

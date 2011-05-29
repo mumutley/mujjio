@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.shindig.samples.springexample.spi;
+package me.moimoi.social.herqlweb.spi;
 
 import com.google.code.morphia.Key;
 import com.google.code.morphia.query.Query;
