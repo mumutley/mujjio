@@ -19,7 +19,6 @@ import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import java.util.List;
 import java.util.concurrent.Future;
-import me.moimoi.social.herql.domain.Registration;
 import me.moimoi.social.herql.domain.SocialAccount;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.AccountService;
@@ -29,7 +28,6 @@ import org.apache.shindig.protocol.Operation;
 import org.apache.shindig.protocol.ProtocolException;
 import org.apache.shindig.protocol.RequestItem;
 import org.apache.shindig.protocol.Service;
-import org.apache.shindig.social.core.model.PersonImpl;
 import org.apache.shindig.social.opensocial.model.Account;
 import org.apache.shindig.social.opensocial.model.Person;
 import org.apache.shindig.social.opensocial.service.SocialRequestItem;
@@ -51,14 +49,27 @@ public class AccountHandler {
     }
 
     @Operation(httpMethods = "GET")
-    public Future<?> get(SocialRequestItem request) throws ProtocolException {
-        Account account = SocialAccount.create("suhail", "ski", "moimoi", "password");
+    public Future<?> findOne(SocialRequestItem request) throws ProtocolException {
+        //http://localhost:8084/social/rest/account/ski/moimoi.me
+        String userId = request.getParameter("userId");
+        String gourpId = request.getParameter("groupId");        
+        accountService.find(userId, gourpId);        
+        Account account = SocialAccount.create(null, userId, gourpId, null);
+        return ImmediateFuture.newInstance(account);
+    }
+    
+    @Operation(httpMethods = "GET", path = "/{userId}")
+    public Future<?> findAll(SocialRequestItem request) throws ProtocolException {
+        //http://localhost:8084/social/rest/account/ski
+        String userId = request.getParameter("userId");
+        Account account = SocialAccount.create(null, userId, null, null);
         return ImmediateFuture.newInstance(account);
     }
 
     @Operation(httpMethods = "POST", bodyParam = "entity")
     public Future<?> create(SocialRequestItem request) throws ProtocolException {
         //{"id": "suhailski", "languagesSpoken":["EN"],"birthday":"2011-05-28T18:43:22.038Z","accounts":[{"username":"ski","userId":"email@example.com","domain":"moimoi.com"}], "emails":[{"value":"email@example.com","type":"home"}]}        
+        //{"id": "suhailski", "languagesSpoken":["EN"],"birthday":"2011-05-28T18:43:22.038Z","accounts":[{"username":"ski","userId":"email@example.com","domain":"moimoi.com","password":"password"}], "emails":[{"value":"email@example.com","type":"home"}]}
         //http://localhost:8084/social/rest/account
         //Content-Type:application/json
         //Accept:application/json        
@@ -68,6 +79,8 @@ public class AccountHandler {
     
     @Operation(httpMethods = "PUT", bodyParam = "entity")
     public Future<?> update(SocialRequestItem request) throws ProtocolException {
+        //{"username":"ski","userId":"email@example.com","domain":"moimoi.com","password":"password"}
+        //http://localhost:8084/social/rest/account/ski
         Account account = request.getTypedParameter("entity", SocialAccount.class);        
         return ImmediateFuture.newInstance(account);
     }
