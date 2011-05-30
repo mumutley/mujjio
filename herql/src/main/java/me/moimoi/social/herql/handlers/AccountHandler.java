@@ -52,7 +52,7 @@ public class AccountHandler {
 
     @Operation(httpMethods = "GET")
     public Future<?> find(SocialRequestItem request) throws ProtocolException {
-        //http://localhost:8084/social/rest/account/ski/moimoi.me
+        //http://localhost:8084/social/rest/account/email@example.com/moimoi.com
         String userId = request.getParameter("userId");
         String gourpId = request.getParameter("groupId");
         if(gourpId != null) {
@@ -79,17 +79,21 @@ public class AccountHandler {
     @Operation(httpMethods = "PUT", bodyParam = "entity")
     public Future<?> update(SocialRequestItem request) throws ProtocolException {
         //{"username":"ski","userId":"email@example.com","domain":"moimoi.com","password":"password"}
-        //http://localhost:8084/social/rest/account/ski
+        //http://localhost:8084/social/rest/account/suhailski
         String userId = request.getParameter("userId");
         Account account = request.getTypedParameter("entity", SocialAccount.class);        
         Boolean outcome = accountService.add(userId, account);
         return ImmediateFuture.newInstance(outcome);
     }
     
-    @Operation(httpMethods = "DELETE", bodyParam = "entity", path = "/@account")
-    public Future<?> deleteAccount(SocialRequestItem request) throws ProtocolException {        
+    @Operation(httpMethods = "DELETE", bodyParam = "entity")
+    public Future<?> deleteAccount(SocialRequestItem request) throws ProtocolException {
+        //http://localhost:8084/social/rest/account/suhailski
+        //{"userId":"email@example.com","domain":"moimoi.com"}
+        String userId = request.getParameter("userId");
         Account account = request.getTypedParameter("entity", SocialAccount.class);  
-        return ImmediateFuture.newInstance(account);
+        Boolean outcome = accountService.delete(userId, account);
+        return ImmediateFuture.newInstance(outcome);
     }
     
     @Operation(httpMethods = "GET", path = "/@supportedFields")

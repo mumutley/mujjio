@@ -54,4 +54,12 @@ public interface AccountService {
      * @return 
      */
     boolean update(String id, Account account);
+
+    /**
+     * 
+     * @param id
+     * @param account
+     * @return 
+     */
+    boolean delete(String id, Account account);
 }

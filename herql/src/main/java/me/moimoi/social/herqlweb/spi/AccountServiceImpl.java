@@ -41,7 +41,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account find(String userId, String domain) {
-        LOG.log(Level.INFO, "userId {0} domain {1}", new Object[]{userId, domain});
         Query<SocialPerson> q = dataSource.getDataSource().createQuery(SocialPerson.class).disableValidation();
         q.and(
                 q.criteria("accounts.userId").equal(userId),
@@ -66,6 +65,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<Account> find(String id) {
         SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, id);
+        if(person == null) return null;
         if (person.getAccounts() != null) {
             return person.getAccounts();
         }
@@ -94,30 +94,57 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean update(String id, Account account) {
         SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, id);
-        if(person == null) return Boolean.FALSE;
-        
-        if (person.getAccounts() != null) {
-            Iterator<Account> ita = person.getAccounts().iterator();
-            //in case there are multiple accounts, get the right one
-            while (ita.hasNext()) {
-                Account existing = ita.next();
-                if (account.getUserId().equals(account.getUserId()) && account.getDomain().equals(account.getDomain())) {
-                    existing.setUsername(account.getUsername());
-                    dataSource.getDataSource().save(person);
-                    return Boolean.TRUE;
-                }
-            }            
+        if (person == null) {
+            return Boolean.FALSE;
         }
+
+        Iterator<Account> ita = person.getAccounts().iterator();
+        //in case there are multiple accounts, get the right one
+        while (ita.hasNext()) {
+            Account existing = ita.next();
+            if (account.getUserId().equals(account.getUserId()) && account.getDomain().equals(account.getDomain())) {
+                existing.setUsername(account.getUsername());
+                dataSource.getDataSource().save(person);
+                return Boolean.TRUE;
+            }
+        }
+
         return Boolean.FALSE;
+    }
+
+    public boolean delete(String id, Account account) {
+        SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, id);
+        if (person == null) {
+            return Boolean.FALSE;
+        }
+
+        //cannot delete the only account
+        if(person.getAccounts().size() == 1) {
+            return Boolean.FALSE;
+        }
+        
+        Iterator<Account> ita = person.getAccounts().iterator();
+        //in case there are multiple accounts, get the right one
+        Account toRemove = null;
+        while (ita.hasNext()) {
+            Account existing = ita.next();
+            if (account.getUserId().equals(account.getUserId()) && account.getDomain().equals(account.getDomain())) {
+                person.getAccounts().remove(existing);
+                dataSource.getDataSource().save(person);
+                return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;        
     }
 
     @Override
     public Key<Person> register(Person person) {
-        Key<Person> key = dataSource.getDataSource().save(person);
-
-        return key;
+        SocialPerson existing = dataSource.getDataSource().get(SocialPerson.class, person.getId());
+        if (existing != null) {
+            return null; //cannot add an exisiting person
+        }
+        return dataSource.getDataSource().save(person);
     }
-    
     final private SimpleDatasource dataSource;
     private static final Logger LOG = Logger.getLogger(AccountServiceImpl.class.getCanonicalName());
 }
