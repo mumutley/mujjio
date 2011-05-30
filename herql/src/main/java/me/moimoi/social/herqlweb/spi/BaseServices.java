@@ -15,6 +15,7 @@
  */
 package me.moimoi.social.herqlweb.spi;
 
+import com.google.code.morphia.Datastore;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.SimpleDatasource;
 
@@ -26,6 +27,7 @@ public abstract class BaseServices {
     
     public BaseServices(SimpleDatasource dataSource) {
         this.dataSource = dataSource;
+        this.ds = dataSource.getDataSource();
     }
     
     protected SocialPerson getPerson(String id) {
@@ -36,5 +38,6 @@ public abstract class BaseServices {
         dataSource.getDataSource().save(person);
     }
             
-    final protected SimpleDatasource dataSource;    
+    final protected SimpleDatasource dataSource; 
+    final protected Datastore ds;
 }

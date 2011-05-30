@@ -15,6 +15,8 @@
  */
 package me.moimoi.social.herqlweb.spi;
 
+import com.google.code.morphia.query.Query;
+import com.google.code.morphia.query.UpdateOperations;
 import com.google.inject.Inject;
 import java.util.List;
 import java.util.logging.Logger;
@@ -34,25 +36,33 @@ public class ProfileServiceImpl extends BaseServices implements ProfileService {
     public ProfileServiceImpl(SimpleDatasource ds) {
         super(ds);
     }
-    
+
     @Override
     public boolean addLookingFor(String id, Enum<LookingFor> looking) {
-        SocialPerson person = getPerson(id);
-        if(person == null) return Boolean.FALSE;
-        
-        person.getLookingFor().add(looking);
-        this.save(person);
-        
+        Query<SocialPerson> q = ds.createQuery(SocialPerson.class).disableValidation();
+        Query<SocialPerson> updateQuery = ds.createQuery(SocialPerson.class).field(SocialPerson.KEY).equal(id);
+        UpdateOperations<SocialPerson> ops = ds.createUpdateOperations(SocialPerson.class).add("seeking", looking, true);
+        this.dataSource.getDataSource().update(updateQuery, ops);
+        return Boolean.TRUE;
+    }
+    
+    @Override
+    public boolean removeLookingFor(String id, Enum<LookingFor> looking) {
+        Query<SocialPerson> q = ds.createQuery(SocialPerson.class).disableValidation();
+        Query<SocialPerson> updateQuery = ds.createQuery(SocialPerson.class).field(SocialPerson.KEY).equal(id);
+        UpdateOperations<SocialPerson> ops = ds.createUpdateOperations(SocialPerson.class).removeAll("seeking", looking);
+        this.dataSource.getDataSource().update(updateQuery, ops);
         return Boolean.TRUE;
     }
     
     @Override
     public List<Enum<LookingFor>> getLookingFor(String id) {
         SocialPerson person = getPerson(id);
-        if(person != null) return person.getLookingFor();
-        
+        if (person != null) {
+            return person.getLookingFor();
+        }
+
         return null;
     }
-    
     private static final Logger LOG = Logger.getLogger(ProfileServiceImpl.class.getCanonicalName());
 }

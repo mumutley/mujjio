@@ -790,4 +790,6 @@ public class SocialPerson implements Person {
     public Presence getPresence () {
         return this.presence;
     }
+    
+    public static final String KEY = "_id";
 }
