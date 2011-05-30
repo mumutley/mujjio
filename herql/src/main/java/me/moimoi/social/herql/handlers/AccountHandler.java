@@ -66,8 +66,7 @@ public class AccountHandler {
     }
         
     @Operation(httpMethods = "POST", bodyParam = "entity")
-    public Future<?> create(SocialRequestItem request) throws ProtocolException {
-        //{"id": "suhailski", "languagesSpoken":["EN"],"birthday":"2011-05-28T18:43:22.038Z","accounts":[{"username":"ski","userId":"email@example.com","domain":"moimoi.com"}], "emails":[{"value":"email@example.com","type":"home"}]}        
+    public Future<?> create(SocialRequestItem request) throws ProtocolException {        
         //{"id": "suhailski", "languagesSpoken":["EN"],"birthday":"2011-05-28T18:43:22.038Z","accounts":[{"username":"ski","userId":"email@example.com","domain":"moimoi.com","password":"password"}], "emails":[{"value":"email@example.com","type":"home"}]}
         //http://localhost:8084/social/rest/account
         //Content-Type:application/json
@@ -81,8 +80,10 @@ public class AccountHandler {
     public Future<?> update(SocialRequestItem request) throws ProtocolException {
         //{"username":"ski","userId":"email@example.com","domain":"moimoi.com","password":"password"}
         //http://localhost:8084/social/rest/account/ski
+        String userId = request.getParameter("userId");
         Account account = request.getTypedParameter("entity", SocialAccount.class);        
-        return ImmediateFuture.newInstance(account);
+        Boolean outcome = accountService.add(userId, account);
+        return ImmediateFuture.newInstance(outcome);
     }
     
     @Operation(httpMethods = "DELETE", bodyParam = "entity", path = "/@account")

@@ -38,4 +38,20 @@ public interface AccountService {
      * @return 
      */
     List<Account> find(String userId);
+
+    /**
+     * 
+     * @param id
+     * @param account
+     * @return 
+     */
+    boolean add(String id, Account account);
+
+    /**
+     * 
+     * @param id
+     * @param account
+     * @return 
+     */
+    boolean update(String id, Account account);
 }

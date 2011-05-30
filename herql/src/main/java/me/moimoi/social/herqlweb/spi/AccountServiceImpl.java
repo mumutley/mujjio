@@ -22,7 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.moimoi.social.herql.domain.Registration;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.AccountService;
 import me.moimoi.social.herql.services.SimpleDatasource;
@@ -35,7 +34,6 @@ import org.apache.shindig.social.opensocial.model.Person;
  */
 public class AccountServiceImpl implements AccountService {
 
-    
     @Inject
     public AccountServiceImpl(final SimpleDatasource dataSource) {
         this.dataSource = dataSource;
@@ -46,47 +44,80 @@ public class AccountServiceImpl implements AccountService {
         LOG.log(Level.INFO, "userId {0} domain {1}", new Object[]{userId, domain});
         Query<SocialPerson> q = dataSource.getDataSource().createQuery(SocialPerson.class).disableValidation();
         q.and(
-            q.criteria("accounts.userId").equal(userId),
-            q.criteria("accounts.domain").equal(domain)
-        ); 
+                q.criteria("accounts.userId").equal(userId),
+                q.criteria("accounts.domain").equal(domain));
         SocialPerson person = q.get();
-        
-        if(person == null) return null;
-        
+
+        if (person == null) {
+            return null;
+        }
+
         Iterator<Account> ita = person.getAccounts().iterator();
         //in case there are multiple accounts, get the right one
-        while(ita.hasNext()) {
+        while (ita.hasNext()) {
             Account account = ita.next();
-            if(account.getUserId().equals(userId) && account.getDomain().equals(domain)) {
+            if (account.getUserId().equals(userId) && account.getDomain().equals(domain)) {
                 return account;
             }
-        }        
+        }
         return null;
     }
-    
+
     @Override
     public List<Account> find(String id) {
-        SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, id); 
-        if(person.getAccounts() != null) {
+        SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, id);
+        if (person.getAccounts() != null) {
             return person.getAccounts();
         }
+
+        return null;
+    }
+
+    @Override
+    public boolean add(String id, Account account) {
+        Account existing = this.find(account.getUserId(), account.getDomain());
+        //account already exists so return nothing
+        if (existing != null) {
+            return this.update(id, account);
+        }
+
+        SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, id);
+        if (person.getAccounts() != null) {
+            person.getAccounts().add(account);
+            dataSource.getDataSource().save(person);
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
+    }
+
+    @Override
+    public boolean update(String id, Account account) {
+        SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, id);
+        if(person == null) return Boolean.FALSE;
         
-        return null;
+        if (person.getAccounts() != null) {
+            Iterator<Account> ita = person.getAccounts().iterator();
+            //in case there are multiple accounts, get the right one
+            while (ita.hasNext()) {
+                Account existing = ita.next();
+                if (account.getUserId().equals(account.getUserId()) && account.getDomain().equals(account.getDomain())) {
+                    existing.setUsername(account.getUsername());
+                    dataSource.getDataSource().save(person);
+                    return Boolean.TRUE;
+                }
+            }            
+        }
+        return Boolean.FALSE;
     }
-    
-    public Person update(Registration register) {
-        return null;
-    }
-    
-    
+
     @Override
     public Key<Person> register(Person person) {
         Key<Person> key = dataSource.getDataSource().save(person);
-        
+
         return key;
     }
     
     final private SimpleDatasource dataSource;
-    
     private static final Logger LOG = Logger.getLogger(AccountServiceImpl.class.getCanonicalName());
 }
