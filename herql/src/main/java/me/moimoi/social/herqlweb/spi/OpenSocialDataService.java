@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.moimoi.social.herql.services.ProfileService;
+import me.moimoi.social.herql.services.OldProfileService;
 import org.apache.shindig.auth.SecurityToken;
 import org.apache.shindig.protocol.DataCollection;
 import org.apache.shindig.protocol.ProtocolException;
@@ -44,10 +44,10 @@ import org.json.JSONObject;
 public class OpenSocialDataService implements ActivityService, PersonService, AppDataService,
         MessageService, AlbumService, MediaItemService {
     
-    private ProfileService profile;
+    private OldProfileService profile;
     
     @Inject
-    public OpenSocialDataService(@Named("json.db") String jsonLocation, ProfileService profile) throws Exception {
+    public OpenSocialDataService(@Named("json.db") String jsonLocation, OldProfileService profile) throws Exception {
         System.out.println(" ---->>>> HerqlOpensocialService " + profile.toString());
         this.profile = profile;
     }

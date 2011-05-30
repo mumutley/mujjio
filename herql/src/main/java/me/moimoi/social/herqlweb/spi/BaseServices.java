@@ -13,20 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.moimoi.social.herql.services;
+package me.moimoi.social.herqlweb.spi;
 
-import java.util.List;
-import org.apache.shindig.protocol.model.Enum;
-import org.apache.shindig.social.opensocial.model.LookingFor;
+import me.moimoi.social.herql.domain.SocialPerson;
+import me.moimoi.social.herql.services.SimpleDatasource;
 
 /**
  *
  * @author suhail
  */
-public interface ProfileService {
-
-    boolean addLookingFor(String id, Enum<LookingFor> looking);
-
-    List<Enum<LookingFor>> getLookingFor(String id);
+public abstract class BaseServices {
     
+    public BaseServices(SimpleDatasource dataSource) {
+        this.dataSource = dataSource;
+    }
+    
+    protected SocialPerson getPerson(String id) {
+        return dataSource.getDataSource().get(SocialPerson.class, id);
+    }
+    
+    protected void save(SocialPerson person) {
+        dataSource.getDataSource().save(person);
+    }
+            
+    final protected SimpleDatasource dataSource;    
 }

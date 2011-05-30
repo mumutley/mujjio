@@ -10,10 +10,10 @@ import com.google.inject.Injector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.Assert;
-import me.moimoi.social.herql.domain.EnumType;
 import me.moimoi.social.herql.domain.ListFieldType;
 import me.moimoi.social.herql.domain.SocialAccount;
-import me.moimoi.social.herql.services.ProfileService;
+import me.moimoi.social.herql.services.OldProfileService;
+import org.apache.shindig.protocol.model.EnumImpl;
 import org.apache.shindig.social.core.model.ListFieldImpl;
 import org.apache.shindig.social.core.model.UrlImpl;
 import org.apache.shindig.social.opensocial.model.Account;
@@ -48,7 +48,7 @@ public class HerqlModuleTest  {
     
     @Test 
     public void testSaveAccount() {        
-        ProfileService profiles = injector.getInstance(ProfileService.class);              
+        OldProfileService profiles = injector.getInstance(OldProfileService.class);              
         Account account = SocialAccount.create("suhail", "suhailski", "moimoi.me", "veritas");
         
         Person person =  profiles.create();
@@ -58,7 +58,7 @@ public class HerqlModuleTest  {
         person.getAccounts().add(account);
         person.setIsOwner(Boolean.TRUE);
                 
-        person.setNetworkPresence(new EnumType<NetworkPresence>(NetworkPresence.XA));
+        person.setNetworkPresence(new EnumImpl<NetworkPresence>(NetworkPresence.XA));
         
         ListField email = new ListFieldImpl();
         email.setType(ListFieldType.home.name());
@@ -78,7 +78,7 @@ public class HerqlModuleTest  {
     
     @Test @Ignore
     public void testUpdateSimpleAccountProperty() {        
-        ProfileService profiles = injector.getInstance(ProfileService.class);   
+        OldProfileService profiles = injector.getInstance(OldProfileService.class);   
         
         Person person = profiles.find("suhail");                        
         Assert.assertEquals(person.getId(), "suhail");
@@ -91,15 +91,15 @@ public class HerqlModuleTest  {
         
     @Test
     public void testUpdatePresence() { 
-        ProfileService profiles = injector.getInstance(ProfileService.class);           
+        OldProfileService profiles = injector.getInstance(OldProfileService.class);           
         Person person = profiles.find("suhail");                        
-        person.setNetworkPresence(new EnumType<NetworkPresence>(NetworkPresence.OFFLINE));
+        person.setNetworkPresence(new EnumImpl<NetworkPresence>(NetworkPresence.OFFLINE));
         profiles.update(person);
     }
     
     @Test
     public void testUpdateUnset() {        
-        ProfileService profiles = injector.getInstance(ProfileService.class);           
+        OldProfileService profiles = injector.getInstance(OldProfileService.class);           
         Person person = profiles.find("suhail");                        
         Assert.assertEquals(person.getId(), "suhail"); 
         LOG.log(Level.INFO, " network presence {0}", person.getNetworkPresence().getDisplayValue());
@@ -109,7 +109,7 @@ public class HerqlModuleTest  {
     
     @Test
     public void testFetchAccountAndUpdate() {
-        ProfileService profiles = injector.getInstance(ProfileService.class);           
+        OldProfileService profiles = injector.getInstance(OldProfileService.class);           
         Person person = profiles.find("suhail", Account.class);
         
         LOG.log(Level.INFO, "email {0}", person.getEmails().get(0).getValue());

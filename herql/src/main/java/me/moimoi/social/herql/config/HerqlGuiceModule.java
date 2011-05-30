@@ -8,10 +8,11 @@ import com.google.common.collect.ImmutableSet;
 import com.google.inject.name.Names;
 import java.util.Set;
 import me.moimoi.social.herql.handlers.AccountHandler;
+import me.moimoi.social.herql.handlers.ProfileHandler;
 import me.moimoi.social.herql.mongo.services.MongoDataSource;
 import me.moimoi.social.herql.mongo.services.MongoProfileServicesImpl;
 import me.moimoi.social.herql.services.AccountService;
-import me.moimoi.social.herql.services.ProfileService;
+import me.moimoi.social.herql.services.OldProfileService;
 import me.moimoi.social.herql.services.SimpleDatasource;
 import me.moimoi.social.herqlweb.spi.HerqlOAuthDataStore;
 import me.moimoi.social.herqlweb.spi.OpenSocialActivityStreamService;
@@ -54,7 +55,7 @@ public class HerqlGuiceModule extends SocialApiGuiceModule {
         bind(String.class).annotatedWith(Names.named("oauth.base-url")).toInstance("http://localhost/");
 
         bind(SimpleDatasource.class).toProvider(MongoDataSource.class);
-        bind(ProfileService.class).to(MongoProfileServicesImpl.class);
+        bind(OldProfileService.class).to(MongoProfileServicesImpl.class);
 
         bind(OAuthDataStore.class).to(HerqlOAuthDataStore.class);
 
@@ -73,6 +74,7 @@ public class HerqlGuiceModule extends SocialApiGuiceModule {
     protected Set<Class<?>> getHandlers() {
         return ImmutableSet.of(ActivityHandler.class, AppDataHandler.class,
                 PersonHandler.class, MessageHandler.class, AlbumHandler.class,
-                MediaItemHandler.class, ActivityStreamHandler.class, AccountHandler.class);
+                MediaItemHandler.class, ActivityStreamHandler.class, AccountHandler.class,
+                ProfileHandler.class);
     }
 }

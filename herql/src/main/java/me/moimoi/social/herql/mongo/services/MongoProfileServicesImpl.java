@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.domain.SocialPerson;
-import me.moimoi.social.herql.services.ProfileService;
+import me.moimoi.social.herql.services.OldProfileService;
 import me.moimoi.social.herql.services.SimpleDatasource;
 import org.apache.shindig.auth.SecurityToken;
 import org.apache.shindig.protocol.ProtocolException;
@@ -31,7 +31,7 @@ import org.apache.shindig.social.opensocial.spi.UserId;
  */
 
 @Singleton
-public class MongoProfileServicesImpl implements ProfileService {
+public class MongoProfileServicesImpl implements OldProfileService {
 
     private static final Logger LOG = Logger.getLogger(MongoProfileServicesImpl.class.getCanonicalName());
     

@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import org.apache.shindig.protocol.model.Enum;
+import org.apache.shindig.protocol.model.EnumImpl;
 import org.apache.shindig.social.opensocial.model.Account;
 import org.apache.shindig.social.opensocial.model.Address;
 import org.apache.shindig.social.opensocial.model.BodyType;
@@ -75,7 +76,8 @@ public class SocialPerson implements Person {
     private Address currentLocation;
     
     @Embedded(concreteClass = LinkedList.class)
-    private List<Seeking> seeking = new LinkedList<Seeking>();    
+    private List<Seeking> seeking = new LinkedList<Seeking>(); 
+    
     @Embedded(concreteClass = LinkedList.class)
     private List<Organization> organizations = new LinkedList<Organization>();
     @Embedded(concreteClass = LinkedList.class)
@@ -263,7 +265,7 @@ public class SocialPerson implements Person {
     @Override
     public Enum<Drinker> getDrinker() {
         if(alcohol != null) {
-            return new EnumType<Drinker>(Drinker.valueOf(alcohol.getKey()));
+            return new EnumImpl<Drinker>(Drinker.valueOf(alcohol.getKey()));
         }
         return null;
     }
@@ -439,7 +441,7 @@ public class SocialPerson implements Person {
         List<Enum<LookingFor>> values = new LinkedList<Enum<LookingFor>>();
         while(ita.hasNext()) {
             Seeking seek = ita.next();
-            values.add(new EnumType<LookingFor>(LookingFor.valueOf(seek.getKey())));
+            values.add(new EnumImpl<LookingFor>(LookingFor.valueOf(seek.getKey())));
         }
         return values;
     }
@@ -489,7 +491,7 @@ public class SocialPerson implements Person {
     @Override
     public Enum<NetworkPresence> getNetworkPresence() {
         if(presence != null) {
-            return new EnumType<NetworkPresence>(NetworkPresence.valueOf(presence.getKey()));
+            return new EnumImpl<NetworkPresence>(NetworkPresence.valueOf(presence.getKey()));
         }        
         return null;
     }
@@ -654,7 +656,7 @@ public class SocialPerson implements Person {
     @Override
     public Enum<Smoker> getSmoker() {
         if(nicotine != null) {
-            return new EnumType<Smoker>(Smoker.valueOf(nicotine.getKey()));        
+            return new EnumImpl<Smoker>(Smoker.valueOf(nicotine.getKey()));        
         }
         
         return null;

@@ -7,9 +7,9 @@ package me.moimoi.social.herql.domain;
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.Key;
 import com.google.code.morphia.Morphia;
-import com.google.code.morphia.query.FieldCriteria;
 import com.google.code.morphia.query.Query;
 import com.google.code.morphia.query.UpdateOperations;
+import com.google.javascript.rhino.jstype.EnumType;
 import com.mongodb.DB;
 import com.mongodb.Mongo;
 import java.net.UnknownHostException;
@@ -28,6 +28,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.apache.shindig.protocol.model.Enum;
+import org.apache.shindig.protocol.model.EnumImpl;
 import org.apache.shindig.social.core.model.UrlImpl;
 import org.apache.shindig.social.opensocial.model.Drinker;
 import org.apache.shindig.social.opensocial.model.LookingFor;
@@ -71,12 +72,12 @@ public class DomainTests {
         df.setWeight(new Float(68));        
         person.setBodyType(df);
         
-        Enum<NetworkPresence> networkPresence = new EnumType<NetworkPresence>(NetworkPresence.XA);        
-        person.setNetworkPresence(new EnumType<NetworkPresence>(NetworkPresence.XA));
+        Enum<NetworkPresence> networkPresence = new EnumImpl<NetworkPresence>(NetworkPresence.XA);        
+        person.setNetworkPresence(new EnumImpl<NetworkPresence>(NetworkPresence.XA));
         
         person.setDisplayName("Foo Bar Was Here");
         
-        Enum<Drinker> drinker = new EnumType<Drinker>(Drinker.SOCIALLY);        
+        Enum<Drinker> drinker = new EnumImpl<Drinker>(Drinker.SOCIALLY);        
         person.setDrinker(drinker);
         
         person.setEthnicity("vulcan");
@@ -87,9 +88,9 @@ public class DomainTests {
         person.setLivingArrangement("mostly happily married");      
         
         List<Enum<LookingFor>> lookingFor = new ArrayList();
-        Enum<LookingFor> looking = new EnumType<LookingFor>(LookingFor.ACTIVITY_PARTNERS);
+        Enum<LookingFor> looking = new EnumImpl<LookingFor>(LookingFor.ACTIVITY_PARTNERS);
         lookingFor.add(looking);
-        looking = new EnumType<LookingFor>(LookingFor.FRIENDS);
+        looking = new EnumImpl<LookingFor>(LookingFor.FRIENDS);
         lookingFor.add(looking);                        
         person.setLookingFor(lookingFor);
         
@@ -104,7 +105,7 @@ public class DomainTests {
         person.setReligion("budhist");
         person.setSexualOrientation("straight");
         
-        Enum<Smoker> smoker = new EnumType<Smoker>(Smoker.SOCIALLY);
+        Enum<Smoker> smoker = new EnumImpl<Smoker>(Smoker.SOCIALLY);
         person.setSmoker(smoker);
         
         person.setStatus("up up and away");

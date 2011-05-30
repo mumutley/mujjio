@@ -20,7 +20,6 @@ import com.google.code.morphia.query.Query;
 import com.google.inject.Inject;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.AccountService;
@@ -112,6 +111,7 @@ public class AccountServiceImpl implements AccountService {
         return Boolean.FALSE;
     }
 
+    @Override
     public boolean delete(String id, Account account) {
         SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, id);
         if (person == null) {

@@ -74,8 +74,6 @@ public class AccountServicesTest {
             q.criteria("accounts.userId").equal("email@example.com"),
             q.criteria("accounts.domain").equal("moimoi.com")
         ); 
-        SocialPerson person = q.get();
-        System.out.println(person.getAccounts());        
-        
+        SocialPerson person = q.get();               
     }
 }
