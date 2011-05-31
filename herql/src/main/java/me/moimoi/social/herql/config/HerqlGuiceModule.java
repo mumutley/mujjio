@@ -8,17 +8,22 @@ import com.google.common.collect.ImmutableSet;
 import com.google.inject.name.Names;
 import java.util.Set;
 import me.moimoi.social.herql.handlers.AccountHandler;
+import me.moimoi.social.herql.handlers.IdentityHandler;
 import me.moimoi.social.herql.handlers.ProfileHandler;
 import me.moimoi.social.herql.mongo.services.MongoDataSource;
 import me.moimoi.social.herql.mongo.services.MongoProfileServicesImpl;
 import me.moimoi.social.herql.services.AccountService;
+import me.moimoi.social.herql.services.IdentityService;
 import me.moimoi.social.herql.services.OldProfileService;
+import me.moimoi.social.herql.services.ProfileService;
 import me.moimoi.social.herql.services.SimpleDatasource;
 import me.moimoi.social.herqlweb.spi.HerqlOAuthDataStore;
 import me.moimoi.social.herqlweb.spi.OpenSocialActivityStreamService;
 import me.moimoi.social.herqlweb.spi.OpenSocialDataService;
 import me.moimoi.social.herqlweb.spi.AccountServiceImpl;
+import me.moimoi.social.herqlweb.spi.IdentityServiceImpl;
 import me.moimoi.social.herqlweb.spi.MockPersonSpi;
+import me.moimoi.social.herqlweb.spi.ProfileServiceImpl;
 import org.apache.shindig.social.core.config.SocialApiGuiceModule;
 import org.apache.shindig.social.opensocial.oauth.OAuthDataStore;
 import org.apache.shindig.social.opensocial.service.ActivityHandler;
@@ -67,6 +72,9 @@ public class HerqlGuiceModule extends SocialApiGuiceModule {
         bind(AccountService.class).to(AccountServiceImpl.class);
         bind(MessageService.class).to(OpenSocialDataService.class);
         bind(OAuthDataStore.class).to(HerqlOAuthDataStore.class);
+        bind(ProfileService.class).to(ProfileServiceImpl.class);
+        bind(IdentityService.class).to(IdentityServiceImpl.class);
+        
         super.configure();
     }
 
@@ -75,6 +83,6 @@ public class HerqlGuiceModule extends SocialApiGuiceModule {
         return ImmutableSet.of(ActivityHandler.class, AppDataHandler.class,
                 PersonHandler.class, MessageHandler.class, AlbumHandler.class,
                 MediaItemHandler.class, ActivityStreamHandler.class, AccountHandler.class,
-                ProfileHandler.class);
+                ProfileHandler.class, IdentityHandler.class);
     }
 }

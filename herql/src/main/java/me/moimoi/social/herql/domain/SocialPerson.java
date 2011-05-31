@@ -77,6 +77,7 @@ public class SocialPerson implements Person {
     
     private ProfileType type;
     private List<String> profileManagers;
+    private Boolean defaultProfile;
     
     @Embedded(concreteClass = LinkedList.class)
     private List<Seeking> seeking = new LinkedList<Seeking>();     
@@ -819,6 +820,20 @@ public class SocialPerson implements Person {
      */
     public void setProfileManagers(List<String> profileManagers) {
         this.profileManagers = profileManagers;
+    }
+
+    /**
+     * @return the defaultProfile
+     */
+    public Boolean getDefaultProfile() {
+        return defaultProfile;
+    }
+
+    /**
+     * @param defaultProfile the defaultProfile to set
+     */
+    public void setDefaultProfile(Boolean defaultProfile) {
+        this.defaultProfile = defaultProfile;
     }
     
     public static final String KEY = "_id";
