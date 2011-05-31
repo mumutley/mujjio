@@ -75,9 +75,11 @@ public class SocialPerson implements Person {
     private Alcohol alcohol;
     private Address currentLocation;
     
-    @Embedded(concreteClass = LinkedList.class)
-    private List<Seeking> seeking = new LinkedList<Seeking>(); 
+    private ProfileType type;
+    private List<String> profileManagers;
     
+    @Embedded(concreteClass = LinkedList.class)
+    private List<Seeking> seeking = new LinkedList<Seeking>();     
     @Embedded(concreteClass = LinkedList.class)
     private List<Organization> organizations = new LinkedList<Organization>();
     @Embedded(concreteClass = LinkedList.class)
@@ -789,6 +791,34 @@ public class SocialPerson implements Person {
     
     public Presence getPresence () {
         return this.presence;
+    }
+
+    /**
+     * @return the type
+     */
+    public ProfileType getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(ProfileType type) {
+        this.type = type;
+    }
+
+    /**
+     * @return the profileManagers
+     */
+    public List<String> getProfileManagers() {
+        return profileManagers;
+    }
+
+    /**
+     * @param profileManagers the profileManagers to set
+     */
+    public void setProfileManagers(List<String> profileManagers) {
+        this.profileManagers = profileManagers;
     }
     
     public static final String KEY = "_id";

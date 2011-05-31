@@ -18,7 +18,6 @@ package me.moimoi.social.herql.handlers;
 import com.google.inject.Inject;
 import java.util.concurrent.Future;
 import me.moimoi.social.herqlweb.spi.EnumValue;
-import me.moimoi.social.herql.services.AccountService;
 import me.moimoi.social.herql.services.ProfileService;
 import org.apache.shindig.common.util.ImmediateFuture;
 import org.apache.shindig.config.ContainerConfig;
