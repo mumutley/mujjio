@@ -275,6 +275,7 @@ public class SocialPerson implements Person {
 
     @Override
     public void setDrinker(Enum<Drinker> newDrinker) {
+        if(newDrinker == null) {alcohol = null; return;}
         alcohol = new Alcohol(newDrinker.getValue().name(), newDrinker.getDisplayValue());
     }
 
@@ -440,6 +441,8 @@ public class SocialPerson implements Person {
 
     @Override
     public List<Enum<LookingFor>> getLookingFor() {
+        if(seeking == null) return null;
+        
         Iterator<Seeking> ita = this.seeking.iterator();
         List<Enum<LookingFor>> values = new LinkedList<Enum<LookingFor>>();
         while(ita.hasNext()) {
@@ -451,6 +454,9 @@ public class SocialPerson implements Person {
 
     @Override
     public void setLookingFor(List<Enum<LookingFor>> lookingFor) {
+        
+        if(lookingFor == null){seeking = null; return;}
+        
         seeking.clear();
         Iterator<Enum<LookingFor>> ita = lookingFor.iterator();
         Seeking seek = null;
@@ -501,6 +507,7 @@ public class SocialPerson implements Person {
 
     @Override
     public void setNetworkPresence(Enum<NetworkPresence> networkPresence) {
+        if(networkPresence == null) {presence = null; return; }
         presence = new Presence();
         presence.setDisplayName(networkPresence.getDisplayValue());
         presence.setKey(networkPresence.getValue().name());
@@ -667,6 +674,7 @@ public class SocialPerson implements Person {
 
     @Override
     public void setSmoker(Enum<Smoker> smoker) {
+        if(smoker == null) { nicotine = null; return; }
         this.nicotine = new Nicotine(smoker.getValue().name(), smoker.getDisplayValue());        
     }
 
