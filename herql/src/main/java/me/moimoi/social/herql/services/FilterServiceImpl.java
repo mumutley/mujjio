@@ -15,11 +15,19 @@
  */
 package me.moimoi.social.herql.services;
 
+import java.util.List;
+import me.moimoi.social.herql.domain.SocialPerson;
+import me.moimoi.social.herqlweb.spi.FilterService;
+
 /**
  *
  * @author ManzoorS
  */
-public interface IdentityService {
+public class FilterServiceImpl implements FilterService {
+
+    @Override
+    public SocialPerson filterIdentity(List<String> fields, SocialPerson object) {
+        return null;
+    }
     
-    public void foo();
 }

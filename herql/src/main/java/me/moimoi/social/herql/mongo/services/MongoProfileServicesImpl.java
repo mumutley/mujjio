@@ -14,7 +14,6 @@ import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.domain.SocialPerson;
-import me.moimoi.social.herql.services.OldProfileService;
 import me.moimoi.social.herql.services.SimpleDatasource;
 import org.apache.shindig.auth.SecurityToken;
 import org.apache.shindig.protocol.ProtocolException;
@@ -31,7 +30,7 @@ import org.apache.shindig.social.opensocial.spi.UserId;
  */
 
 @Singleton
-public class MongoProfileServicesImpl implements OldProfileService {
+public class MongoProfileServicesImpl  {
 
     private static final Logger LOG = Logger.getLogger(MongoProfileServicesImpl.class.getCanonicalName());
     
@@ -43,7 +42,7 @@ public class MongoProfileServicesImpl implements OldProfileService {
         LOG.log(Level.INFO, "initializing {0}", dataSource.getDataSource().getDB().getName());
     }      
     
-    @Override
+    
     public Key<Person> save(Person account) {
         LOG.log(Level.INFO, "saved {0}", account);
         Key<Person> key = dataSource.getDataSource().save(account);
@@ -51,12 +50,12 @@ public class MongoProfileServicesImpl implements OldProfileService {
         return key;
     }
 
-    @Override
+    
     public Account find(String userId, String domain) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
+    
     public Future<RestfulCollection<Person>> getPeople(Set<UserId> userIds, 
         GroupId groupId, CollectionOptions collectionOptions, Set<String> fields, 
         SecurityToken token) throws ProtocolException {
@@ -64,35 +63,35 @@ public class MongoProfileServicesImpl implements OldProfileService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
+    
     public Future<Person> getPerson(UserId id, Set<String> fields, SecurityToken token) throws ProtocolException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    @Override
+    
     public Person find(String _id) {
         SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, _id);        
         return person;       
     }
 
-    @Override
+    
     public Person find(String _id, Class type) {
         SocialPerson person = dataSource.getDataSource().get(SocialPerson.class, _id);
         return person;     
     }
     
-    @Override
+    
     public Person create() {
         SocialPerson p = SocialPerson.create();
         return p;
     }        
 
-    @Override
+    
     public UpdateOperations<SocialPerson> getUpdateOperation() {
         return dataSource.getDataSource().createUpdateOperations(SocialPerson.class);
     }
     
-    @Override
+    
     public void update(Person account) {
         
     }

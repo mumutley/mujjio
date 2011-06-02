@@ -99,7 +99,8 @@ public class IdentityHandler {
 
         identity.getProfiles().add(profile);
 
-
+        idService.foo();
+        
         getMethodNames(profile);
 
         return ImmediateFuture.newInstance(identity);
@@ -118,18 +119,17 @@ public class IdentityHandler {
         init();
         Collection<String> zWords = Collections2.filter(fse, filter);
         Iterator<String> properties = zWords.iterator();
+        String name = null;
         while (properties.hasNext()) {     
-            String name = properties.next();
+            name = properties.next();
             int m =  personFields.get(name);                        
             Object[] args = {null};
-            try {
-                LOG.info("name " + name);
+            try {                
                 c.invoke(m, profile, args);
             } catch (IllegalArgumentException ex) {
                 Logger.getLogger(IdentityHandler.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InvocationTargetException ex) {
-                Logger.getLogger(IdentityHandler.class.getName()).log(Level.SEVERE, null, ex);
-            }            
+            }catch (InvocationTargetException ex) {             
+            }           
         }
     }
     
@@ -165,11 +165,11 @@ public class IdentityHandler {
             .put("profile.romance", c.getIndex("setRomance", new Class[]{ String.class }))                     
             .put("profile.sexualOrientation", c.getIndex("setSexualOrientation", new Class[]{ String.class }))                     
             .put("profile.status", c.getIndex("setStatus", new Class[]{ String.class }))                     
-            .put("profile.utcOffset", c.getIndex("setUtcOffset", new Class[]{ Long.class }))                     
-            .put("profile.viewer", c.getIndex("setIsViewer", new Class[]{ boolean.class }))                     
+            .put("profile.utcOffset", c.getIndex("setUtcOffset", new Class[]{ Long.class }))                                 
             .put("profile.profileUrl", c.getIndex("setProfileUrl", new Class[]{ String.class }))                                          
             .put("profile.thumbnailUrl", c.getIndex("setThumbnailUrl", new Class[]{ String.class}))                     
-            .put("profile.owner", c.getIndex("setIsOwner", new Class[]{ boolean.class }))                     
+            .put("profile.owner", c.getIndex("setIsOwner", new Class[]{ boolean.class }))
+            .put("profile.viewer", c.getIndex("setIsViewer", new Class[]{ boolean.class }))                     
             .put("profile.nicotine", c.getIndex("setSmoker", new Class[]{ Enum.class }))                     
             .put("profile.alcohol", c.getIndex("setDrinker", new Class[]{ Enum.class }))                     
             .put("profile.currentLocation", c.getIndex("setCurrentLocation", new Class[]{ Address.class }))                     

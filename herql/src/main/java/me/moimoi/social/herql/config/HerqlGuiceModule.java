@@ -11,10 +11,9 @@ import me.moimoi.social.herql.handlers.AccountHandler;
 import me.moimoi.social.herql.handlers.IdentityHandler;
 import me.moimoi.social.herql.handlers.ProfileHandler;
 import me.moimoi.social.herql.mongo.services.MongoDataSource;
-import me.moimoi.social.herql.mongo.services.MongoProfileServicesImpl;
 import me.moimoi.social.herql.services.AccountService;
+import me.moimoi.social.herql.services.DataAccess;
 import me.moimoi.social.herql.services.IdentityService;
-import me.moimoi.social.herql.services.OldProfileService;
 import me.moimoi.social.herql.services.ProfileService;
 import me.moimoi.social.herql.services.SimpleDatasource;
 import me.moimoi.social.herqlweb.spi.HerqlOAuthDataStore;
@@ -60,8 +59,7 @@ public class HerqlGuiceModule extends SocialApiGuiceModule {
         bind(String.class).annotatedWith(Names.named("oauth.base-url")).toInstance("http://localhost/");
 
         bind(SimpleDatasource.class).toProvider(MongoDataSource.class);
-        bind(OldProfileService.class).to(MongoProfileServicesImpl.class);
-
+        
         bind(OAuthDataStore.class).to(HerqlOAuthDataStore.class);
 
         bind(ActivityService.class).to(OpenSocialDataService.class);

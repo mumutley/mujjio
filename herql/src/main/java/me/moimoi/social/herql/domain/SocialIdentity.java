@@ -16,6 +16,7 @@
 package me.moimoi.social.herql.domain;
 
 import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Id;
 import com.google.code.morphia.annotations.Reference;
 import java.util.Date;
 import java.util.LinkedList;
@@ -29,7 +30,7 @@ import java.util.List;
 public class SocialIdentity {
   
     
-    private String loginName;
+    @Id private String loginName;
     private Date joined;
     private Boolean active;
     private Date lastLogin;    

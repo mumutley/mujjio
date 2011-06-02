@@ -5,7 +5,6 @@
 package me.moimoi.social.herqlweb.spi;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import java.util.List;
 import java.util.Map;
@@ -13,20 +12,17 @@ import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.moimoi.social.herql.services.OldProfileService;
 import org.apache.shindig.auth.SecurityToken;
 import org.apache.shindig.protocol.DataCollection;
 import org.apache.shindig.protocol.ProtocolException;
 import org.apache.shindig.protocol.RestfulCollection;
 import org.apache.shindig.social.opensocial.model.Activity;
-import org.apache.shindig.social.opensocial.model.ActivityEntry;
 import org.apache.shindig.social.opensocial.model.Album;
 import org.apache.shindig.social.opensocial.model.MediaItem;
 import org.apache.shindig.social.opensocial.model.Message;
 import org.apache.shindig.social.opensocial.model.MessageCollection;
 import org.apache.shindig.social.opensocial.model.Person;
 import org.apache.shindig.social.opensocial.spi.ActivityService;
-import org.apache.shindig.social.opensocial.spi.ActivityStreamService;
 import org.apache.shindig.social.opensocial.spi.AlbumService;
 import org.apache.shindig.social.opensocial.spi.AppDataService;
 import org.apache.shindig.social.opensocial.spi.CollectionOptions;
@@ -44,12 +40,12 @@ import org.json.JSONObject;
 public class OpenSocialDataService implements ActivityService, PersonService, AppDataService,
         MessageService, AlbumService, MediaItemService {
     
-    private OldProfileService profile;
+    
     
     @Inject
-    public OpenSocialDataService(@Named("json.db") String jsonLocation, OldProfileService profile) throws Exception {
-        System.out.println(" ---->>>> HerqlOpensocialService " + profile.toString());
-        this.profile = profile;
+    public OpenSocialDataService(@Named("json.db") String jsonLocation) throws Exception {
+        System.out.println(" ---->>>> HerqlOpensocialService ");
+        
     }
 
     /**

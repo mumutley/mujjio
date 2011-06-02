@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.moimoi.social.herql.services;
+package me.moimoi.social.herqlweb.spi;
+
+import java.util.List;
+import me.moimoi.social.herql.domain.SocialPerson;
 
 /**
  *
  * @author ManzoorS
  */
-public interface IdentityService {
+public interface FilterService {
     
-    public void foo();
+    SocialPerson filterIdentity(List<String> fields, SocialPerson object);
 }

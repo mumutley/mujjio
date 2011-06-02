@@ -13,13 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.moimoi.social.herql.services;
+package me.moimoi.social.herql.data;
+
+import com.google.code.morphia.Morphia;
+import com.google.code.morphia.dao.BasicDAO;
+import com.google.inject.Inject;
+import com.mongodb.Mongo;
+import me.moimoi.social.herql.domain.SocialIdentity;
+import me.moimoi.social.herql.services.DataAccess;
+import org.bson.types.ObjectId;
 
 /**
  *
  * @author ManzoorS
  */
-public interface IdentityService {
+public class IdentityDao extends BasicDAO<SocialIdentity, ObjectId> implements DataAccess {
     
-    public void foo();
+    @Inject
+    public IdentityDao(Morphia morphia, Mongo mongo ) {
+        super(mongo, morphia, "social");        
+    }       
 }

@@ -17,6 +17,7 @@ package me.moimoi.social.herqlweb.spi;
 
 import com.google.inject.Inject;
 import java.util.logging.Logger;
+import me.moimoi.social.herql.data.IdentityDao;
 import me.moimoi.social.herql.services.IdentityService;
 import me.moimoi.social.herql.services.SimpleDatasource;
 
@@ -26,9 +27,19 @@ import me.moimoi.social.herql.services.SimpleDatasource;
  */
 public class IdentityServiceImpl extends BaseServices implements IdentityService {
 
+    private final IdentityDao dao;
     @Inject
-    public IdentityServiceImpl(SimpleDatasource ds) {
+    public IdentityServiceImpl(SimpleDatasource ds, IdentityDao dao) {        
         super(ds);
+        this.dao = dao;
+    }
+    
+    
+    
+
+    @Override
+    public void foo() {
+        LOG.info( "dao is here or now " + dao.getClass().getName());
     }
     
     private static final Logger LOG = Logger.getLogger(IdentityServiceImpl.class.getCanonicalName());

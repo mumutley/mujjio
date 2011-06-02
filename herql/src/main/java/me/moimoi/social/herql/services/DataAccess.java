@@ -19,7 +19,6 @@ package me.moimoi.social.herql.services;
  *
  * @author ManzoorS
  */
-public interface IdentityService {
+public interface DataAccess {
     
-    public void foo();
 }
