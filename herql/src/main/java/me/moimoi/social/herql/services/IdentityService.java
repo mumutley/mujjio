@@ -15,11 +15,16 @@
  */
 package me.moimoi.social.herql.services;
 
+import com.google.code.morphia.Key;
+import me.moimoi.social.herql.domain.SocialIdentity;
+
 /**
  *
  * @author ManzoorS
  */
 public interface IdentityService {
     
-    public void foo();
+    public Key<SocialIdentity> register(SocialIdentity identity);
+    
+    public SocialIdentity get(String id);
 }

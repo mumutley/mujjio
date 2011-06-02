@@ -15,6 +15,7 @@
  */
 package me.moimoi.social.herql.handlers;
 
+import com.google.code.morphia.Key;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableMap;
@@ -23,7 +24,6 @@ import com.google.inject.Inject;
 import java.io.UnsupportedEncodingException;
 import java.lang.String;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
@@ -68,16 +68,23 @@ public class IdentityHandler {
         this.config = config;
     }
 
-    @Operation(httpMethods = "POST", bodyParam = "entity", path = "/{userId}")
+    @Operation(httpMethods = "POST", bodyParam = "entity")
     public Future<?> add(RequestItem request) {
+        SocialIdentity identity = request.getTypedParameter("entity", SocialIdentity.class);
+        identity.setJoined(new Date());
+        //{"profiles":[{"nickname":"ski","birthday":"1968-11-10T0:0:0.0Z","id":"suhail","defaultProfile":true}],"password":"password=","loginName":"suhail"}}
         //{"lastLogin":"2011-05-31T18:25:23.846Z","joined":"2011-05-31T18:25:23.846Z","active":true,"profiles":[],"password":"mypassword","loginName":"suhail"}
-        return ImmediateFuture.newInstance(Boolean.TRUE);
+        Key<SocialIdentity> id = idService.register(identity);
+        return ImmediateFuture.newInstance(identity);
     }
 
     @Operation(httpMethods = "GET", path = "/{userId}")
     public Future<?> get(RequestItem request) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
-        SocialIdentity identity = new SocialIdentity();
+        
+        return ImmediateFuture.newInstance(idService.get(request.getParameter("userId")));
+        
+        /*SocialIdentity identity = new SocialIdentity();
         identity.setActive(Boolean.TRUE);
         identity.setJoined(new Date());
         identity.setLastLogin(new Date());
@@ -97,13 +104,11 @@ public class IdentityHandler {
         profile.setDefaultProfile(Boolean.TRUE);
         profile.setNickname("Ole Silver");
 
-        identity.getProfiles().add(profile);
-
-        idService.foo();
+        identity.getProfiles().add(profile);        
         
         getMethodNames(profile);
 
-        return ImmediateFuture.newInstance(identity);
+        return ImmediateFuture.newInstance(identity);*/
     }
 
     private void getMethodNames(SocialPerson profile) {

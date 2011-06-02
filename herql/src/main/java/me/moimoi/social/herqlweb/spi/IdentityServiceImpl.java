@@ -15,11 +15,15 @@
  */
 package me.moimoi.social.herqlweb.spi;
 
+import com.google.code.morphia.Key;
 import com.google.inject.Inject;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.data.IdentityDao;
+import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.services.IdentityService;
 import me.moimoi.social.herql.services.SimpleDatasource;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -38,9 +42,16 @@ public class IdentityServiceImpl extends BaseServices implements IdentityService
     
 
     @Override
-    public void foo() {
-        LOG.info( "dao is here or now " + dao.getClass().getName());
+    public Key<SocialIdentity> register(SocialIdentity identity) {
+        Key<SocialIdentity> key = dao.save(identity);
+        LOG.log( Level.INFO, "dao is here or now {0}", key.getId().toString());
+        return key;
     }
     
+    public SocialIdentity get(String id) {
+        ObjectId ids = new ObjectId("suhail");
+        
+        return dao.get(ids);
+    }
     private static final Logger LOG = Logger.getLogger(IdentityServiceImpl.class.getCanonicalName());
 }
