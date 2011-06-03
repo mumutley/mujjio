@@ -24,7 +24,6 @@ import com.google.inject.Inject;
 import java.io.UnsupportedEncodingException;
 import java.lang.String;
 import java.lang.reflect.InvocationTargetException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Date;
@@ -38,6 +37,7 @@ import me.moimoi.social.herql.domain.ProfileType;
 import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.IdentityService;
+import me.moimoi.social.herql.services.SocialPersonService;
 import net.sf.cglib.reflect.FastClass;
 import org.apache.shindig.common.util.ImmediateFuture;
 import org.apache.shindig.config.ContainerConfig;
@@ -48,7 +48,6 @@ import org.apache.shindig.social.opensocial.model.BodyType;
 import org.apache.shindig.social.opensocial.model.Name;
 import org.apache.shindig.social.opensocial.model.Person.Gender;
 import org.apache.shindig.social.opensocial.model.Url;
-import sun.misc.BASE64Encoder;
 import org.apache.shindig.protocol.model.Enum;
 import org.apache.shindig.social.opensocial.model.Address;
 
@@ -60,11 +59,14 @@ import org.apache.shindig.social.opensocial.model.Address;
 public class IdentityHandler {
 
     private final IdentityService idService;
+    private final SocialPersonService personService;
     private final ContainerConfig config;
-
+    private static final int ONLY = 0;
+    
     @Inject
-    public IdentityHandler(IdentityService idService, ContainerConfig config) {
+    public IdentityHandler(SocialPersonService personService, IdentityService idService, ContainerConfig config) {
         this.idService = idService;
+        this.personService = personService;
         this.config = config;
     }
 
@@ -72,10 +74,11 @@ public class IdentityHandler {
     public Future<?> add(RequestItem request) {
         SocialIdentity identity = request.getTypedParameter("entity", SocialIdentity.class);
         identity.setJoined(new Date());
-        //{"profiles":[{"nickname":"ski","birthday":"1968-11-10T0:0:0.0Z","id":"suhail","defaultProfile":true}],"password":"password=","loginName":"suhail"}}
-        //{"lastLogin":"2011-05-31T18:25:23.846Z","joined":"2011-05-31T18:25:23.846Z","active":true,"profiles":[],"password":"mypassword","loginName":"suhail"}
+        //http://localhost:8080/social/rest/identity
+        //{"profiles":[{"nickname":"ski","birthday":"1968-11-10T0:0:0.0Z","id":"suhail","defaultProfile":true}],"password":"password=","loginName":"suhail"}}        
+        Key<SocialPerson> spid = personService.register(identity.getProfiles().get(IdentityHandler.ONLY));
         Key<SocialIdentity> id = idService.register(identity);
-        return ImmediateFuture.newInstance(identity);
+        return ImmediateFuture.newInstance(identity.getProfiles().get(IdentityHandler.ONLY));
     }
 
     @Operation(httpMethods = "GET", path = "/{userId}")

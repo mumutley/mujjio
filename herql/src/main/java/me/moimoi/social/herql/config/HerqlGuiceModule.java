@@ -16,6 +16,7 @@ import me.moimoi.social.herql.services.DataAccess;
 import me.moimoi.social.herql.services.IdentityService;
 import me.moimoi.social.herql.services.ProfileService;
 import me.moimoi.social.herql.services.SimpleDatasource;
+import me.moimoi.social.herql.services.SocialPersonService;
 import me.moimoi.social.herqlweb.spi.HerqlOAuthDataStore;
 import me.moimoi.social.herqlweb.spi.OpenSocialActivityStreamService;
 import me.moimoi.social.herqlweb.spi.OpenSocialDataService;
@@ -23,6 +24,7 @@ import me.moimoi.social.herqlweb.spi.AccountServiceImpl;
 import me.moimoi.social.herqlweb.spi.IdentityServiceImpl;
 import me.moimoi.social.herqlweb.spi.MockPersonSpi;
 import me.moimoi.social.herqlweb.spi.ProfileServiceImpl;
+import me.moimoi.social.herqlweb.spi.SocialPersonServiceImpl;
 import org.apache.shindig.social.core.config.SocialApiGuiceModule;
 import org.apache.shindig.social.opensocial.oauth.OAuthDataStore;
 import org.apache.shindig.social.opensocial.service.ActivityHandler;
@@ -50,27 +52,31 @@ public class HerqlGuiceModule extends SocialApiGuiceModule {
      * @see org.apache.shindig.social.core.config.SocialApiGuiceModule#configure()
      */
     @Override
-    protected void configure() {
-        this.bind(PersonService.class).to(MockPersonSpi.class);
+    protected void configure() {        
         bind(String.class).annotatedWith(Names.named("json.db")).toInstance("WEB-INF/canonicaldb.json");
 
         bind(String.class).annotatedWith(Names.named("mongo.db.host")).toInstance("localhost");
         bind(String.class).annotatedWith(Names.named("mongo.db.name")).toInstance("social");
         bind(String.class).annotatedWith(Names.named("oauth.base-url")).toInstance("http://localhost/");
 
+        //TODO need to deprecate in favour of the dao pattern
         bind(SimpleDatasource.class).toProvider(MongoDataSource.class);
-        
-        bind(OAuthDataStore.class).to(HerqlOAuthDataStore.class);
 
         bind(ActivityService.class).to(OpenSocialDataService.class);
         bind(ActivityStreamService.class).to(OpenSocialActivityStreamService.class);
         bind(AlbumService.class).to(OpenSocialDataService.class);
         bind(MediaItemService.class).to(OpenSocialDataService.class);
-        bind(AppDataService.class).to(OpenSocialDataService.class);
-        bind(AccountService.class).to(AccountServiceImpl.class);
+        bind(AppDataService.class).to(OpenSocialDataService.class);        
         bind(MessageService.class).to(OpenSocialDataService.class);
         bind(OAuthDataStore.class).to(HerqlOAuthDataStore.class);
-        bind(ProfileService.class).to(ProfileServiceImpl.class);
+        
+        //TODO need to move to person service        
+        bind(SocialPersonService.class).to(SocialPersonServiceImpl.class);
+        bind(PersonService.class).to(SocialPersonServiceImpl.class);
+        
+        bind(ProfileService.class).to(ProfileServiceImpl.class); 
+        bind(AccountService.class).to(AccountServiceImpl.class);
+        
         bind(IdentityService.class).to(IdentityServiceImpl.class);
         
         super.configure();

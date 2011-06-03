@@ -31,7 +31,7 @@ import org.apache.shindig.social.opensocial.model.Url;
  * Implementing the Person Object
  * @author Suhail
  */
-@Entity(value="person", noClassnameStored=false)
+@Entity(value="person")
 public class SocialPerson implements Person {
     
     @Id private String id;

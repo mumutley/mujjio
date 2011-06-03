@@ -22,25 +22,19 @@ import java.util.logging.Logger;
 import me.moimoi.social.herql.data.IdentityDao;
 import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.services.IdentityService;
-import me.moimoi.social.herql.services.SimpleDatasource;
-import org.bson.types.ObjectId;
 
 /**
  *
  * @author suhail
  */
-public class IdentityServiceImpl extends BaseServices implements IdentityService {
+public class IdentityServiceImpl implements IdentityService {
 
     private final IdentityDao dao;
     @Inject
-    public IdentityServiceImpl(SimpleDatasource ds, IdentityDao dao) {        
-        super(ds);
+    public IdentityServiceImpl(IdentityDao dao) {        
         this.dao = dao;
     }
-    
-    
-    
-
+         
     @Override
     public Key<SocialIdentity> register(SocialIdentity identity) {
         Key<SocialIdentity> key = dao.save(identity);
@@ -48,10 +42,11 @@ public class IdentityServiceImpl extends BaseServices implements IdentityService
         return key;
     }
     
-    public SocialIdentity get(String id) {
-        ObjectId ids = new ObjectId("suhail");
-        
-        return dao.get(ids);
+    @Override
+    public SocialIdentity get(String id) {      
+        return dao.findOne(IdentityServiceImpl.IDENTITY_KEY, id);
     }
+    
+    private static final String IDENTITY_KEY = "loginName";    
     private static final Logger LOG = Logger.getLogger(IdentityServiceImpl.class.getCanonicalName());
 }
