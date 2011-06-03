@@ -120,4 +120,15 @@ public class AccountServicesTest {
         System.out.println("HASH " + hashs);
         System.out.println(MessageDigest.isEqual(raw, raws));
     }
+    
+    public void foo() {
+        /**
+         * Class has properties 
+         *  - property has a name
+         * and class has relationships
+         *  - relationship has a name
+         * 
+         * This is a tree structure (potentially without cycles)
+         */
+    }
 }

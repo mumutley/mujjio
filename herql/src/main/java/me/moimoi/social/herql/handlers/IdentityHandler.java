@@ -16,6 +16,7 @@
 package me.moimoi.social.herql.handlers;
 
 import com.google.code.morphia.Key;
+import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableMap;
@@ -83,9 +84,9 @@ public class IdentityHandler {
 
     @Operation(httpMethods = "GET", path = "/{userId}")
     public Future<?> get(RequestItem request) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-
-        
-        return ImmediateFuture.newInstance(idService.get(request.getParameter("userId")));
+        SocialIdentity sid = idService.get(request.getParameter("userId"));
+        getIdentityNames(sid, request);
+        return ImmediateFuture.newInstance(sid);
         
         /*SocialIdentity identity = new SocialIdentity();
         identity.setActive(Boolean.TRUE);
@@ -102,10 +103,10 @@ public class IdentityHandler {
 
 
         SocialPerson profile = new SocialPerson();
-        profile.setId("suhail");
-        profile.setBirthday(new Date());
-        profile.setDefaultProfile(Boolean.TRUE);
-        profile.setNickname("Ole Silver");
+        id.pr.setId("suhail");
+        id.pr.setBirthday(new Date());
+        id.pr.setDefaultProfile(Boolean.TRUE);
+        id.pr.setNickname("Ole Silver");
 
         identity.getProfiles().add(profile);        
         
@@ -114,8 +115,14 @@ public class IdentityHandler {
         return ImmediateFuture.newInstance(identity);*/
     }
 
+    private void getIdentityNames(SocialIdentity si, RequestItem request) {
+        String container = Objects.firstNonNull(request.getToken().getContainer(), ContainerConfig.DEFAULT_CONTAINER);
+        List<Object> fieldNames =  config.getList(container,"${Cur['gadgets.features'].opensocial.supportedFields.identity}");
+        LOG.log(Level.INFO, "identity fields {0}", fieldNames);
+    }
+    
     private void getMethodNames(SocialPerson profile) {
-        final List<String> fe = Lists.newArrayList("profile.birthday", "profile.defaultProfile", "profile.nickname");
+        final List<String> fe = Lists.newArrayList("id.pr.birthday", "id.pr.defaultProfile", "id.pr.nickname");
         Predicate<String> filter = new Predicate<String>() {
 
             @Override
@@ -133,11 +140,11 @@ public class IdentityHandler {
             int m =  personFields.get(name);                        
             Object[] args = {null};
             try {                
-                c.invoke(m, profile, args);
+                personClass.invoke(m, profile, args);
             } catch (IllegalArgumentException ex) {
                 Logger.getLogger(IdentityHandler.class.getName()).log(Level.SEVERE, null, ex);
             }catch (InvocationTargetException ex) {             
-            }           
+            }            
         }
     }
     
@@ -145,70 +152,71 @@ public class IdentityHandler {
         if(personFields != null) return;         
         try {                          
              personFields = new ImmutableMap.Builder<String, Integer>()
-            .put("profile.displayName", c.getIndex("setDisplayName", new Class[]{ String.class }))                                          
-            .put("profile.aboutMe", c.getIndex("setAboutMe", new Class[]{ String.class }))            
-            .put("profile.age", c.getIndex("setAge", new Class[]{ Integer.class }))                     
-            .put("profile.bodyType", c.getIndex("setBodyType", new Class[]{ BodyType.class }))                     
-            .put("profile.birthday", c.getIndex("setBirthday", new Class[]{ Date.class }))                     
-            .put("profile.children", c.getIndex("setChildren", new Class[]{ String.class }))                     
-            .put("profile.ethnicity", c.getIndex("setEthnicity", new Class[]{ String.class }))                     
-            .put("profile.fashion", c.getIndex("setFashion", new Class[]{ String.class }))                     
-            .put("profile.gender", c.getIndex("setGender", new Class[]{ Gender.class }))                     
-            .put("profile.happiestWhen", c.getIndex("setHappiestWhen", new Class[]{ String.class }))                     
-            .put("profile.hasApp", c.getIndex("setHasApp", new Class[]{ Boolean.class }))                     
-            .put("profile.humor", c.getIndex("setHumor", new Class[]{ String.class }))                     
-            .put("profile.jobInterests", c.getIndex("setJobInterests", new Class[]{ String.class }))                     
-            .put("profile.updated", c.getIndex("setUpdated", new Class[]{ Date.class }))                     
-            .put("profile.livingArrangement", c.getIndex("setLivingArrangement", new Class[]{ String.class }))                     
-            .put("profile.name", c.getIndex("setName", new Class[]{ Name.class }))                     
-            .put("profile.nickname", c.getIndex("setNickname", new Class[]{ String.class }))                     
-            .put("profile.pets", c.getIndex("setPets", new Class[]{ String.class }))                     
-            .put("profile.preferredUsername", c.getIndex("setPreferredUsername", new Class[]{ String.class }))                     
-            .put("profile.politicalViews", c.getIndex("setPoliticalViews", new Class[]{ String.class }))                     
-            .put("profile.profileVideo", c.getIndex("setProfileVideo", new Class[]{ Url.class }))                     
-            .put("profile.profileSong", c.getIndex("setProfileSong", new Class[]{ Url.class }))                     
-            .put("profile.relationshipStatus", c.getIndex("setRelationshipStatus", new Class[]{ String.class }))                     
-            .put("profile.religion", c.getIndex("setReligion", new Class[]{ String.class }))                     
-            .put("profile.scaredOf", c.getIndex("setScaredOf", new Class[]{ String.class }))                     
-            .put("profile.romance", c.getIndex("setRomance", new Class[]{ String.class }))                     
-            .put("profile.sexualOrientation", c.getIndex("setSexualOrientation", new Class[]{ String.class }))                     
-            .put("profile.status", c.getIndex("setStatus", new Class[]{ String.class }))                     
-            .put("profile.utcOffset", c.getIndex("setUtcOffset", new Class[]{ Long.class }))                                 
-            .put("profile.profileUrl", c.getIndex("setProfileUrl", new Class[]{ String.class }))                                          
-            .put("profile.thumbnailUrl", c.getIndex("setThumbnailUrl", new Class[]{ String.class}))                     
-            .put("profile.owner", c.getIndex("setIsOwner", new Class[]{ boolean.class }))
-            .put("profile.viewer", c.getIndex("setIsViewer", new Class[]{ boolean.class }))                     
-            .put("profile.nicotine", c.getIndex("setSmoker", new Class[]{ Enum.class }))                     
-            .put("profile.alcohol", c.getIndex("setDrinker", new Class[]{ Enum.class }))                     
-            .put("profile.currentLocation", c.getIndex("setCurrentLocation", new Class[]{ Address.class }))                     
-            .put("profile.type", c.getIndex("setType", new Class[]{ ProfileType.class }))                     
-            .put("profile.profileManagers", c.getIndex("setProfileManagers", new Class[]{ List.class }))                     
-            .put("profile.defaultProfile", c.getIndex("setDefaultProfile", new Class[]{ Boolean.class }))                     
-            .put("profile.presence", c.getIndex("setNetworkPresence", new Class[]{ Enum.class }))                             
-            .put("profile.seeking", c.getIndex("setLookingFor", new Class[]{ List.class }))                     
-            .put("profile.organizations", c.getIndex("setOrganizations", new Class[]{ List.class }))                     
-            .put("profile.phoneNumbers", c.getIndex("setPhoneNumbers", new Class[]{ List.class }))                     
-            .put("profile.photos", c.getIndex("setPhotos", new Class[]{ List.class }))                     
-            .put("profile.accounts", c.getIndex("setAccounts", new Class[]{ List.class }))                     
-            .put("profile.activities", c.getIndex("setActivities", new Class[]{ List.class }))                     
-            .put("profile.addresses", c.getIndex("setAddresses", new Class[]{ List.class }))                     
-            .put("profile.food", c.getIndex("setFood", new Class[]{ List.class }))                     
-            .put("profile.languagesSpoken", c.getIndex("setLanguagesSpoken", new Class[]{ List.class }))                     
-            .put("profile.heroes", c.getIndex("setHeroes", new Class[]{ List.class }))                     
-            .put("profile.ims", c.getIndex("setIms", new Class[]{ List.class }))                     
-            .put("profile.interests", c.getIndex("setInterests", new Class[]{ List.class }))                     
-            .put("profile.books", c.getIndex("setBooks", new Class[]{ List.class }))                     
-            .put("profile.cars", c.getIndex("setCars", new Class[]{ List.class }))                     
-            .put("profile.emails", c.getIndex("setEmails", new Class[]{ List.class }))                     
-            .put("profile.music", c.getIndex("setMusic", new Class[]{ List.class }))                     
-            .put("profile.movies", c.getIndex("setMovies", new Class[]{ List.class }))                     
-            .put("profile.quotes", c.getIndex("setQuotes", new Class[]{ List.class }))                     
-            .put("profile.sports", c.getIndex("setSports", new Class[]{ List.class }))                     
-            .put("profile.tags", c.getIndex("setTags", new Class[]{ List.class }))                     
-            .put("profile.turnOffs", c.getIndex("setTurnOffs", new Class[]{ List.class }))                     
-            .put("profile.turnOns", c.getIndex("setTurnOns", new Class[]{ List.class }))                     
-            .put("profile.tvShows", c.getIndex("setTvShows", new Class[]{ List.class }))                     
-            .put("profile.urls", c.getIndex("setUrls", new Class[]{ List.class })).build();
+            .put("id.pr.displayName", personClass.getIndex("setDisplayName", new Class[]{ String.class }))
+            .put("id.pr.displayName", personClass.getIndex("setDisplayName", new Class[]{ String.class }))                                          
+            .put("id.pr.aboutMe", personClass.getIndex("setAboutMe", new Class[]{ String.class }))            
+            .put("id.pr.age", personClass.getIndex("setAge", new Class[]{ Integer.class }))                     
+            .put("id.pr.bodyType", personClass.getIndex("setBodyType", new Class[]{ BodyType.class }))                     
+            .put("id.pr.birthday", personClass.getIndex("setBirthday", new Class[]{ Date.class }))                     
+            .put("id.pr.children", personClass.getIndex("setChildren", new Class[]{ String.class }))                     
+            .put("id.pr.ethnicity", personClass.getIndex("setEthnicity", new Class[]{ String.class }))                     
+            .put("id.pr.fashion", personClass.getIndex("setFashion", new Class[]{ String.class }))                     
+            .put("id.pr.gender", personClass.getIndex("setGender", new Class[]{ Gender.class }))                     
+            .put("id.pr.happiestWhen", personClass.getIndex("setHappiestWhen", new Class[]{ String.class }))                     
+            .put("id.pr.hasApp", personClass.getIndex("setHasApp", new Class[]{ Boolean.class }))                     
+            .put("id.pr.humor", personClass.getIndex("setHumor", new Class[]{ String.class }))                     
+            .put("id.pr.jobInterests", personClass.getIndex("setJobInterests", new Class[]{ String.class }))                     
+            .put("id.pr.updated", personClass.getIndex("setUpdated", new Class[]{ Date.class }))                     
+            .put("id.pr.livingArrangement", personClass.getIndex("setLivingArrangement", new Class[]{ String.class }))                     
+            .put("id.pr.name", personClass.getIndex("setName", new Class[]{ Name.class }))                     
+            .put("id.pr.nickname", personClass.getIndex("setNickname", new Class[]{ String.class }))                     
+            .put("id.pr.pets", personClass.getIndex("setPets", new Class[]{ String.class }))                     
+            .put("id.pr.preferredUsername", personClass.getIndex("setPreferredUsername", new Class[]{ String.class }))                     
+            .put("id.pr.politicalViews", personClass.getIndex("setPoliticalViews", new Class[]{ String.class }))                     
+            .put("id.pr.profileVideo", personClass.getIndex("setProfileVideo", new Class[]{ Url.class }))                     
+            .put("id.pr.profileSong", personClass.getIndex("setProfileSong", new Class[]{ Url.class }))                     
+            .put("id.pr.relationshipStatus", personClass.getIndex("setRelationshipStatus", new Class[]{ String.class }))                     
+            .put("id.pr.religion", personClass.getIndex("setReligion", new Class[]{ String.class }))                     
+            .put("id.pr.scaredOf", personClass.getIndex("setScaredOf", new Class[]{ String.class }))                     
+            .put("id.pr.romance", personClass.getIndex("setRomance", new Class[]{ String.class }))                     
+            .put("id.pr.sexualOrientation", personClass.getIndex("setSexualOrientation", new Class[]{ String.class }))                     
+            .put("id.pr.status", personClass.getIndex("setStatus", new Class[]{ String.class }))                     
+            .put("id.pr.utcOffset", personClass.getIndex("setUtcOffset", new Class[]{ Long.class }))                                 
+            .put("id.pr.profileUrl", personClass.getIndex("setProfileUrl", new Class[]{ String.class }))                                          
+            .put("id.pr.thumbnailUrl", personClass.getIndex("setThumbnailUrl", new Class[]{ String.class}))                     
+            .put("id.pr.owner", personClass.getIndex("setIsOwner", new Class[]{ boolean.class }))
+            .put("id.pr.viewer", personClass.getIndex("setIsViewer", new Class[]{ boolean.class }))                     
+            .put("id.pr.nicotine", personClass.getIndex("setSmoker", new Class[]{ Enum.class }))                     
+            .put("id.pr.alcohol", personClass.getIndex("setDrinker", new Class[]{ Enum.class }))                     
+            .put("id.pr.currentLocation", personClass.getIndex("setCurrentLocation", new Class[]{ Address.class }))                     
+            .put("id.pr.type", personClass.getIndex("setType", new Class[]{ ProfileType.class }))                     
+            .put("id.pr.profileManagers", personClass.getIndex("setProfileManagers", new Class[]{ List.class }))                     
+            .put("id.pr.defaultProfile", personClass.getIndex("setDefaultProfile", new Class[]{ Boolean.class }))                     
+            .put("id.pr.presence", personClass.getIndex("setNetworkPresence", new Class[]{ Enum.class }))                             
+            .put("id.pr.seeking", personClass.getIndex("setLookingFor", new Class[]{ List.class }))                     
+            .put("id.pr.organizations", personClass.getIndex("setOrganizations", new Class[]{ List.class }))                     
+            .put("id.pr.phoneNumbers", personClass.getIndex("setPhoneNumbers", new Class[]{ List.class }))                     
+            .put("id.pr.photos", personClass.getIndex("setPhotos", new Class[]{ List.class }))                     
+            .put("id.pr.accounts", personClass.getIndex("setAccounts", new Class[]{ List.class }))                     
+            .put("id.pr.activities", personClass.getIndex("setActivities", new Class[]{ List.class }))                     
+            .put("id.pr.addresses", personClass.getIndex("setAddresses", new Class[]{ List.class }))                     
+            .put("id.pr.food", personClass.getIndex("setFood", new Class[]{ List.class }))                     
+            .put("id.pr.languagesSpoken", personClass.getIndex("setLanguagesSpoken", new Class[]{ List.class }))                     
+            .put("id.pr.heroes", personClass.getIndex("setHeroes", new Class[]{ List.class }))                     
+            .put("id.pr.ims", personClass.getIndex("setIms", new Class[]{ List.class }))                     
+            .put("id.pr.interests", personClass.getIndex("setInterests", new Class[]{ List.class }))                     
+            .put("id.pr.books", personClass.getIndex("setBooks", new Class[]{ List.class }))                     
+            .put("id.pr.cars", personClass.getIndex("setCars", new Class[]{ List.class }))                     
+            .put("id.pr.emails", personClass.getIndex("setEmails", new Class[]{ List.class }))                     
+            .put("id.pr.music", personClass.getIndex("setMusic", new Class[]{ List.class }))                     
+            .put("id.pr.movies", personClass.getIndex("setMovies", new Class[]{ List.class }))                     
+            .put("id.pr.quotes", personClass.getIndex("setQuotes", new Class[]{ List.class }))                     
+            .put("id.pr.sports", personClass.getIndex("setSports", new Class[]{ List.class }))                     
+            .put("id.pr.tags", personClass.getIndex("setTags", new Class[]{ List.class }))                     
+            .put("id.pr.turnOffs", personClass.getIndex("setTurnOffs", new Class[]{ List.class }))                     
+            .put("id.pr.turnOns", personClass.getIndex("setTurnOns", new Class[]{ List.class }))                     
+            .put("id.pr.tvShows", personClass.getIndex("setTvShows", new Class[]{ List.class }))                     
+            .put("id.pr.urls", personClass.getIndex("setUrls", new Class[]{ List.class })).build();
              
              fse = Lists.newArrayList(personFields.keySet());
              
@@ -217,7 +225,8 @@ public class IdentityHandler {
         }
     }
 
-    final FastClass c = FastClass.create(SocialPerson.class);             
+    final FastClass personClass = FastClass.create(SocialPerson.class);             
+    final FastClass identityClass = FastClass.create(SocialIdentity .class);             
     private static ImmutableMap<String, Integer> personFields = null;
     private static final Logger LOG = Logger.getLogger(IdentityHandler.class.getCanonicalName());
     private static List<String> fse = null;
