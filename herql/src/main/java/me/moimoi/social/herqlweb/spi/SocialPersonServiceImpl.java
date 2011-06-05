@@ -64,4 +64,5 @@ public class SocialPersonServiceImpl implements SocialPersonService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    
 }

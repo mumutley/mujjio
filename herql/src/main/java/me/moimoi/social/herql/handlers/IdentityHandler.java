@@ -62,7 +62,7 @@ public class IdentityHandler {
     private final IdentityService idService;
     private final SocialPersonService personService;
     private final ContainerConfig config;
-    private static final int ONLY = 0;
+    private static final int FIRST = 0;
     
     @Inject
     public IdentityHandler(SocialPersonService personService, IdentityService idService, ContainerConfig config) {
@@ -72,16 +72,40 @@ public class IdentityHandler {
     }
 
     @Operation(httpMethods = "POST", bodyParam = "entity")
-    public Future<?> add(RequestItem request) {
+    public Future<?> create(RequestItem request) {
         SocialIdentity identity = request.getTypedParameter("entity", SocialIdentity.class);
         identity.setJoined(new Date());
         //http://localhost:8080/social/rest/identity
         //{"profiles":[{"nickname":"ski","birthday":"1968-11-10T0:0:0.0Z","id":"suhail","defaultProfile":true}],"password":"password=","loginName":"suhail"}}        
-        Key<SocialPerson> spid = personService.register(identity.getProfiles().get(IdentityHandler.ONLY));
-        Key<SocialIdentity> id = idService.register(identity);
-        return ImmediateFuture.newInstance(identity.getProfiles().get(IdentityHandler.ONLY));
+        //TODO use task executor here.        
+        Key<SocialIdentity> id = idService.create(identity);
+        return ImmediateFuture.newInstance(identity.getProfiles().get(IdentityHandler.FIRST));
     }
+    
+    @Operation(httpMethods = "PUT", bodyParam = "entity", path = "/{userId}")
+    public Future<?> addProfile(RequestItem request) {
+        //http://localhost:8080/social/rest/identity/suhail
+        //{"profiles":[{"id":"moto"}]}}        
 
+        String userId = request.getParameter("userId");
+        SocialIdentity input = request.getTypedParameter("entity", SocialIdentity.class);
+        
+        idService.save(userId, input.getProfiles().get(IdentityHandler.FIRST));        
+        return ImmediateFuture.newInstance(input);
+    }
+    
+    @Operation(httpMethods = "PUT", bodyParam = "entity", path = "/{userId}/@move")
+    public Future<?> moveProfile(RequestItem request) {
+        //http://localhost:8080/social/rest/identity/suhail
+        //{"profiles":[{"id":"moto"}]}}        
+
+        String userId = request.getParameter("userId");
+        SocialIdentity input = request.getTypedParameter("entity", SocialIdentity.class);
+        
+        idService.save(userId, input.getProfiles().get(IdentityHandler.FIRST));        
+        return ImmediateFuture.newInstance(input);
+    }
+    
     @Operation(httpMethods = "GET", path = "/{userId}")
     public Future<?> get(RequestItem request) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         SocialIdentity sid = idService.get(request.getParameter("userId"));

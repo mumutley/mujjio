@@ -35,7 +35,7 @@ public class SocialIdentity {
     private Boolean active;
     private Date lastLogin;    
     private String password;
-    
+    private Boolean verified;
     
     @Reference
     private List<SocialPerson> profiles = new LinkedList<SocialPerson>();  
@@ -125,6 +125,20 @@ public class SocialIdentity {
      */
     public void setProfiles(List<SocialPerson> profiles) {
         this.profiles = profiles;
+    }
+
+    /**
+     * @return the verified
+     */
+    public Boolean getVerified() {
+        return verified;
+    }
+
+    /**
+     * @param verified the verified to set
+     */
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
     }
 
 }

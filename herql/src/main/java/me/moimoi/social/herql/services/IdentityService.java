@@ -17,6 +17,7 @@ package me.moimoi.social.herql.services;
 
 import com.google.code.morphia.Key;
 import me.moimoi.social.herql.domain.SocialIdentity;
+import me.moimoi.social.herql.domain.SocialPerson;
 
 /**
  *
@@ -24,7 +25,9 @@ import me.moimoi.social.herql.domain.SocialIdentity;
  */
 public interface IdentityService {
     
-    public Key<SocialIdentity> register(SocialIdentity identity);
+    Key<SocialIdentity> create(SocialIdentity identity);
     
-    public SocialIdentity get(String id);
+    SocialIdentity get(String id);   
+
+    void save(String id, SocialPerson person);
 }

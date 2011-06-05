@@ -26,7 +26,9 @@ import org.apache.shindig.social.opensocial.spi.PersonService;
 
 public interface SocialPersonService extends PersonService {
 
-    public Key<SocialPerson> register(SocialPerson person);
+    String ID = "_id";
+    
+    Key<SocialPerson> register(SocialPerson person);
 
-    public SocialPerson get(String id);
+    SocialPerson get(String id);
 }
