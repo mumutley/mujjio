@@ -31,11 +31,11 @@ import org.apache.shindig.social.opensocial.model.Url;
  * Implementing the Person Object
  * @author Suhail
  */
-@Entity(value="person")
+@Entity(value = "person")
 public class SocialPerson implements Person {
-    
-    @Id private String id;
-    
+
+    @Id
+    private String id;
     private String displayName;
     private String aboutMe;
     private Integer age;
@@ -47,7 +47,7 @@ public class SocialPerson implements Person {
     private Gender gender;
     private String happiestWhen;
     private Boolean hasApp;
-    private String humor;    
+    private String humor;
     private String jobInterests;
     private Date updated;
     private String livingArrangement;
@@ -69,26 +69,23 @@ public class SocialPerson implements Person {
     private String profileUrl;
     private String thumbnailUrl;
     private boolean owner;
-
     private Presence presence;
     private Nicotine nicotine;
     private Alcohol alcohol;
     private Address currentLocation;
-    
     private ProfileType type;
     private List<String> profileManagers;
     private Boolean defaultProfile;
-    
     @Embedded(concreteClass = LinkedList.class)
-    private List<Seeking> seeking = new LinkedList<Seeking>();     
+    private List<Seeking> seeking = new LinkedList<Seeking>();
     @Embedded(concreteClass = LinkedList.class)
     private List<Organization> organizations = new LinkedList<Organization>();
     @Embedded(concreteClass = LinkedList.class)
     private List<ListField> phoneNumbers = new LinkedList<ListField>();
     @Embedded(concreteClass = LinkedList.class)
-    private List<ListField> photos = new LinkedList<ListField>();    
+    private List<ListField> photos = new LinkedList<ListField>();
     @Embedded(concreteClass = LinkedList.class)
-    private List<Account> accounts = new LinkedList<Account>();    
+    private List<Account> accounts = new LinkedList<Account>();
     @Embedded(concreteClass = LinkedList.class)
     private List<String> activities = new LinkedList<String>();
     @Embedded(concreteClass = LinkedList.class)
@@ -116,7 +113,7 @@ public class SocialPerson implements Person {
     @Embedded(concreteClass = LinkedList.class)
     private List<String> quotes = new LinkedList<String>();
     @Embedded(concreteClass = LinkedList.class)
-    private List<String> sports = new LinkedList<String>(); 
+    private List<String> sports = new LinkedList<String>();
     @Embedded(concreteClass = LinkedList.class)
     private List<String> tags = new LinkedList<String>();
     @Embedded(concreteClass = LinkedList.class)
@@ -127,14 +124,20 @@ public class SocialPerson implements Person {
     private List<String> tvShows = new LinkedList<String>();
     @Embedded(concreteClass = LinkedList.class)
     private List<Url> urls = new LinkedList<Url>();
-    
+
     public static SocialPerson create() {
         return new SocialPerson();
     }
-        
+
     public SocialPerson() {
     }
-    
+
+    public SocialPerson(String id, String displayName, Name name) {
+        this.id = id;
+        this.displayName = displayName;
+        this.name = name;
+    }
+
     @Override
     public String getDisplayName() {
         return this.displayName;
@@ -267,7 +270,7 @@ public class SocialPerson implements Person {
 
     @Override
     public Enum<Drinker> getDrinker() {
-        if(alcohol != null) {
+        if (alcohol != null) {
             return new EnumImpl<Drinker>(Drinker.valueOf(alcohol.getKey()));
         }
         return null;
@@ -275,7 +278,10 @@ public class SocialPerson implements Person {
 
     @Override
     public void setDrinker(Enum<Drinker> newDrinker) {
-        if(newDrinker == null) {alcohol = null; return;}
+        if (newDrinker == null) {
+            alcohol = null;
+            return;
+        }
         alcohol = new Alcohol(newDrinker.getValue().name(), newDrinker.getDisplayValue());
     }
 
@@ -441,11 +447,13 @@ public class SocialPerson implements Person {
 
     @Override
     public List<Enum<LookingFor>> getLookingFor() {
-        if(seeking == null) return null;
-        
+        if (seeking == null) {
+            return null;
+        }
+
         Iterator<Seeking> ita = this.seeking.iterator();
         List<Enum<LookingFor>> values = new LinkedList<Enum<LookingFor>>();
-        while(ita.hasNext()) {
+        while (ita.hasNext()) {
             Seeking seek = ita.next();
             values.add(new EnumImpl<LookingFor>(LookingFor.valueOf(seek.getKey())));
         }
@@ -454,13 +462,16 @@ public class SocialPerson implements Person {
 
     @Override
     public void setLookingFor(List<Enum<LookingFor>> lookingFor) {
-        
-        if(lookingFor == null){seeking = null; return;}
-        
+
+        if (lookingFor == null) {
+            seeking = null;
+            return;
+        }
+
         seeking.clear();
         Iterator<Enum<LookingFor>> ita = lookingFor.iterator();
         Seeking seek = null;
-        while(ita.hasNext()) {
+        while (ita.hasNext()) {
             Enum<LookingFor> looking = ita.next();
             seek = new Seeking(looking.getValue().name(), looking.getDisplayValue());
             this.seeking.add(seek);
@@ -499,15 +510,18 @@ public class SocialPerson implements Person {
 
     @Override
     public Enum<NetworkPresence> getNetworkPresence() {
-        if(presence != null) {
+        if (presence != null) {
             return new EnumImpl<NetworkPresence>(NetworkPresence.valueOf(presence.getKey()));
-        }        
+        }
         return null;
     }
 
     @Override
     public void setNetworkPresence(Enum<NetworkPresence> networkPresence) {
-        if(networkPresence == null) {presence = null; return; }
+        if (networkPresence == null) {
+            presence = null;
+            return;
+        }
         presence = new Presence();
         presence.setDisplayName(networkPresence.getDisplayValue());
         presence.setKey(networkPresence.getValue().name());
@@ -665,17 +679,20 @@ public class SocialPerson implements Person {
 
     @Override
     public Enum<Smoker> getSmoker() {
-        if(nicotine != null) {
-            return new EnumImpl<Smoker>(Smoker.valueOf(nicotine.getKey()));        
+        if (nicotine != null) {
+            return new EnumImpl<Smoker>(Smoker.valueOf(nicotine.getKey()));
         }
-        
+
         return null;
     }
 
     @Override
     public void setSmoker(Enum<Smoker> smoker) {
-        if(smoker == null) { nicotine = null; return; }
-        this.nicotine = new Nicotine(smoker.getValue().name(), smoker.getDisplayValue());        
+        if (smoker == null) {
+            nicotine = null;
+            return;
+        }
+        this.nicotine = new Nicotine(smoker.getValue().name(), smoker.getDisplayValue());
     }
 
     @Override
@@ -796,9 +813,9 @@ public class SocialPerson implements Person {
     @Override
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
-    } 
-    
-    public Presence getPresence () {
+    }
+
+    public Presence getPresence() {
         return this.presence;
     }
 
@@ -843,6 +860,5 @@ public class SocialPerson implements Person {
     public void setDefaultProfile(Boolean defaultProfile) {
         this.defaultProfile = defaultProfile;
     }
-    
     public static final String KEY = "_id";
 }
