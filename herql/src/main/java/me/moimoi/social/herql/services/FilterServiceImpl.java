@@ -30,4 +30,10 @@ public class FilterServiceImpl implements FilterService {
         return null;
     }
     
+    @Override
+    public SocialPerson filterProfile(List<String> fields, SocialPerson object) {
+        return null;
+    }
+    
+    
 }

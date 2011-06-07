@@ -25,4 +25,6 @@ import me.moimoi.social.herql.domain.SocialPerson;
 public interface FilterService {
     
     SocialPerson filterIdentity(List<String> fields, SocialPerson object);
+
+    SocialPerson filterProfile(List<String> fields, SocialPerson object);
 }

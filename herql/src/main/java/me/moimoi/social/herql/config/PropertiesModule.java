@@ -42,7 +42,7 @@ public class PropertiesModule extends AbstractModule {
     @Override
     protected void configure() {
         this.binder().bindConstant().annotatedWith(Names.named("shindig.contextroot")).to(getContextRoot());
-        Names.bindProperties(this.binder(), getProperties());
+        Names.bindProperties(this.binder(), getProperties());        
         // This could be generalized to inject any system property...
         this.binder().bindConstant().annotatedWith(Names.named("shindig.port")).to(getServerPort());
         this.binder().bindConstant().annotatedWith(Names.named("shindig.host")).to(getServerHostname());
