@@ -19,7 +19,6 @@ import com.google.code.morphia.Key;
 import com.google.code.morphia.query.Query;
 import com.google.code.morphia.query.UpdateOperations;
 import com.google.inject.Inject;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.data.IdentityDao;
 import me.moimoi.social.herql.data.PersonDao;
