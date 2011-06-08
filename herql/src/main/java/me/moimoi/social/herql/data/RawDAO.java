@@ -15,11 +15,13 @@
  */
 package me.moimoi.social.herql.data;
 
+import com.mongodb.DBObject;
+
 /**
  *
  * @author ManzoorS
  */
-public interface RawDAO<T, K> {
+public interface RawDAO {
     
-    public T findOne(String key, Object value, String[] fieldNames);
+    public DBObject findOne(String key, Object value, String[] fieldNames);
 }

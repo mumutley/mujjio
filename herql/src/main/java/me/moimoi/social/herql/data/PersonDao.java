@@ -16,7 +16,6 @@
 package me.moimoi.social.herql.data;
 
 import com.google.code.morphia.Morphia;
-import com.google.code.morphia.dao.BasicDAO;
 import com.google.inject.Inject;
 import com.mongodb.Mongo;
 import me.moimoi.social.herql.domain.SocialPerson;
@@ -27,10 +26,10 @@ import org.bson.types.ObjectId;
  *
  * @author ManzoorS
  */
-public class PersonDao extends BasicDAO<SocialPerson, ObjectId> implements DataAccess {
+public class PersonDao extends HerqlDAO<SocialPerson, ObjectId> implements DataAccess {
 
     @Inject
     public PersonDao(Morphia morphia, Mongo mongo) {
-        super(mongo, morphia, "social");
+        super(morphia, mongo);
     }
 }

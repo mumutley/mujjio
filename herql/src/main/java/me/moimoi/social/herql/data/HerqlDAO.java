@@ -22,26 +22,36 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author ManzoorS
  */
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class HerqlDAO<T, K> extends BasicDAO<T, K> implements RawDAO<T, K> {
+public class HerqlDAO<T, K> extends BasicDAO<T, K> implements RawDAO {
 
-    @Inject
+    
     public HerqlDAO(Morphia morphia, Mongo mongo) {
         super(mongo, morphia, "social");
     }
 
     @Override
-    public T findOne(String key, Object value, String[] fieldNames) {
+    public DBObject findOne(String key, Object value, String[] fieldNames) {
         
         DBCollection collection =  this.ds.getCollection(entityClazz);
-        DBObject lookup = new BasicDBObject(key, value);
+        DBObject lookup = new BasicDBObject("_id", "suhail");
         
-        collection.findOne(lookup, null);
-        throw new UnsupportedOperationException("Not supported yet.");
+        Map<String, Integer> ids = new HashMap<String, Integer>();
+        ids.put("className", 0);
+        ids.put("joined", 1);
+        ids.put("password", 1);
+        ids.put("profiles", 0);        
+        
+        DBObject a = new BasicDBObject("className", ids);
+        
+        return collection.findOne(lookup, a);
+        
     }
 }

@@ -24,6 +24,8 @@ import com.mongodb.Mongo;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import me.moimoi.social.herql.data.HerqlDAO;
+import me.moimoi.social.herql.data.PersonDao;
 import me.moimoi.social.herql.domain.SocialPerson;
 import org.apache.shindig.protocol.model.EnumImpl;
 import org.apache.shindig.social.opensocial.model.LookingFor;
@@ -97,8 +99,13 @@ public class AccountServicesTest {
         UpdateOperations<SocialPerson> ops = ds.createUpdateOperations(SocialPerson.class).removeAll("seeking", looking);
         ds.update(updateQuery, ops);
     }
-
+    
     @Test
+    public void testBasicObject() {
+        PersonDao dao = new PersonDao(morphia, mongo);
+        System.out.println(dao.findOne("_id", "suhail", null));                
+    }
+    
     public void encryptPassword() throws NoSuchAlgorithmException, UnsupportedEncodingException {
         String plaintext = "password";
         
