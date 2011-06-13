@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+  <head>
+
+    <title>m u j j i o</title>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <meta name="description" content="Social Marketplace" />
+    <meta name="keywords" content="mujjio, social, network, friend, auction, expert, share" />
+    <meta name="author" content="mujjio" />
+
+    <link rel="stylesheet" href="css/global-style.css" type="text/css" />
+    <link rel="stylesheet" href="video/sv/style.css" type="text/css" >
+
+    <script src='js/lib/jquery-1.6.1.min.js' type='text/javascript' ></script>
+    <script src="js/lib/jquery.corner.js" type="text/javascript"></script> 
+    <script type="text/javascript" src="video/fp/flowplayer-3.2.6.min.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.validate.js"></script>
+    
+      
+    <script type="text/javascript">
+      
+      $(function() {
+        
+        $( "#muj-container-login-form").corner("round 10px");
+
+        function loadRegistration() {
+    
+          $( "#muj-container-login-promo" ).hide();
+
+          $( "#muj-container-login-form" ).animate({
+            width: 960,
+            height: 520
+          }, 500 );
+      
+          $( "#muj-container-login-form" ).html("").load("register.html");
+        }
+
+        $("A#muj-link-register").click((function(){
+          loadRegistration();
+        }));
+
+
+      });
+
+    </script>
+    
+  </head>
+
+
+    <script type="text/javascript"> 
+       
+      $.validator.setDefaults({
+        //if form validates contstuct JSON
+        submitHandler: function() { 
+                
+          alert(JSON.stringify($('#muj-form-login').serializeObject()));
+          return false; 
+  
+        }
+      
+      });
+  
+      // this one requires the value to be the same as the first parameter
+      $.validator.methods.equal = function(value, param) {
+        return value == param;
+      };
+	
+      $().ready(function() {
+        var validator = $("#muj-form-login").bind("invalid-form.validate", function() {
+          $("#summary").html("Oops! We have " + validator.numberOfInvalids() + " fields to fix");
+        }).validate({
+          debug: true,
+          errorElement: "muj-form-460-error-holder",
+          errorContainer: $("#muj-form-460-warning"),
+          errorPlacement: function(error, element) {
+            error.appendTo( element.parent("div").next("div") );
+          },
+          success: function(label) {
+            label.text("Ok.  Thank You.").addClass("success");
+          },
+          rules: {
+            password: {
+              required: true,
+              minlength: 5
+            },
+			
+            email: {
+              required: true,
+              email: true
+            }
+          }
+        });
+		
+      });
+      
+      //construct JSON
+      $.fn.serializeObject = function()
+      {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+          if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+              o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+          } else {
+            o[this.name] = this.value || '';
+          }
+        });
+        return o;
+      };
+      
+    </script>
+  
+  <body>
+
+    <div id="muj-container-login-logo">
+      <a href="login.html"><img src="images/logos/mujjio-logo-large.png" border="0" alt="mujjio" /></a>
+    </div>
+
+    <div id="muj-wrapper-main">
+
+      <div id="muj-container-login-form">
+
+        <div class="muj-container-form-header-large">Login</div>
+        <div id="muj-button-login-register"><a id="muj-link-register" href="#">Sign Up - It's Free</a></div>
+
+        <form class="muj-form-460" id="muj-form-login" method="get" action="#"> 
+
+          <div class="muj-form-label-large" style="width:440px" ><label for="email">Email Address</label></div> 
+
+          <div style="width:440px;height:35px">
+            <div class="muj-form-input-large"><input id="email" name="email" title="A Valid email address is required" /></div> 
+            <div class="muj-form-460-error-back"></div> 
+          </div> 
+
+          <div class="muj-form-label-large" style="width:440px; margin-top: 30px" ><label for="password">Password</label></div> 
+
+          <div style="width:440px;height:35px">
+            <div class="muj-form-input-large"><input id="password" name="password" type="password" title="Minimum is 5 characters" /></div> 
+            <div class="muj-form-460-error-back"></div> 
+          </div> 
+
+          <div style="width:460px;height:35px; margin: 30px 0 20px 0; float: left">
+
+            <input type="submit" value="Log In" class="grey-button"/> 
+
+          </div>
+
+          <div style="width:460px;float: left;position:relative; top:-25px;"><h4 id="summary" style="font-size:12px; color:#ddd"></h4> </div>
+
+        </form> 
+
+
+
+      </div>
+
+      <div id="muj-container-login-promo">
+
+        <a  
+          href="http://pseudo01.hddn.com/vod/demo.flowplayervod/flowplayer-700.flv"
+          style="display:block;width:475px;height:340px"  
+          id="player"> 
+        </a> 
+
+        <script type="text/javascript">
+          $f("player","video/fp/flowplayer.commercial-3.2.7.swf", 
+				
+          {
+            // product key from your account
+            key: '#$4e50a83caf33e529375'
+          }
+					
+        );
+                                    
+        </script>
+
+      </div>
+      
+    </div>
+
+</body>
+
+</html>

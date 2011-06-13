@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<simpleviewergallery
+			
+	title="SimpleViewer Gallery"
+	textColor="FFFFFF"
+	frameColor="FFFFFF"
+	thumbPosition="LEFT"
+	galleryStyle="MODERN"
+	thumbColumns="3"
+	thumbRows="4"
+	showOpenButton="TRUE"
+	showFullscreenButton="TRUE"
+	frameWidth="20"
+	maxImageWidth="300"
+	maxImageHeight="200"
+	imagePath="images/photo/music/"
+	thumbPath="images/photo/music/"
+	useFlickr="false"
+	flickrUserName=""
+	flickrTags=""
+	languageCode="AUTO"
+	languageList=""	
+	enableAPI="TRUE"	
+	
+>
+
+
+<image imageURL="music1.jpg" thumbURL="music1-thumb.jpg" linkURL="" linkTarget="" >
+	<caption><![CDATA[Welcome to <u><a href="http://www.simpleviewer.net/simpleviewer/pro" target="_blank">SimpleViewer-Pro</a></u>.]]></caption>	
+</image>
+
+</simpleviewergallery>

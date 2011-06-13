@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<simpleviewergallery 
+
+	resizeOnImport="true"
+	cropToFit="true"
+	maxImageWidth="590"
+	maxImageHeight="420"
+	imageQuality="80"
+	thumbWidth="50"
+	thumbHeight="50"
+	thumbQuality="90"
+	navPosition="top"
+	thumbnailColumns="8"
+	thumbnailRows="1"
+	vAlign="top"
+	stagePadding="0"
+	showFullscreenButton="false"
+	showOpenButton="false"
+	useFlickr="false"
+	galleryWidth="570px"
+	galleryHeight="700px"
+	backgroundColor="FFFFFF"
+	backgroundTransparent="true"
+	indexPageName="index.html"
+
+>
+  <image imageURL="images/photo/music/music4.jpg"
+	thumbURL="thumbs/music4.jpg"
+	linkURL="images/music/music4.jpg"
+	linkTarget="_blank">
+    <caption><![CDATA[]]></caption>
+  </image>
+  <image imageURL="images/photo/music/music2.jpg"
+	thumbURL="thumbs/music2.jpg"
+	linkURL="images/music/music2.jpg"
+	linkTarget="_blank">
+    <caption><![CDATA[]]></caption>
+  </image>
+  <image imageURL="images/photo/music/music3.jpg"
+	thumbURL="thumbs/music3.jpg"
+	linkURL="images/music/music3.jpg"
+	linkTarget="_blank">
+    <caption><![CDATA[]]></caption>
+  </image>
+  <image imageURL="images/photo/music/music1.jpg"
+	thumbURL="thumbs/music1.jpg"
+	linkURL="images/music/music1.jpg"
+	linkTarget="_blank">
+    <caption><![CDATA[]]></caption>
+  </image>
+  <image imageURL="images/photo/music/music5.jpg"
+	thumbURL="thumbs/music5.jpg"
+	linkURL="images/music/music5.jpg"
+	linkTarget="_blank">
+    <caption><![CDATA[]]></caption>
+  </image>
+  <image imageURL="images/photo/music/music6.jpg"
+	thumbURL="thumbs/music6.jpg"
+	linkURL="images/music/music6.jpg"
+	linkTarget="_blank">
+    <caption><![CDATA[]]></caption>
+  </image>
+  <image imageURL="images/photo/music/music7.jpg"
+	thumbURL="thumbs/music7.jpg"
+	linkURL="images/music/music7.jpg"
+	linkTarget="_blank">
+    <caption><![CDATA[]]></caption>
+  </image>
+  <image imageURL="images/photo/music/music8.jpg"
+	thumbURL="thumbs/music8.jpg"
+	linkURL="images/music/music8.jpg"
+	linkTarget="_blank">
+    <caption><![CDATA[]]></caption>
+  </image>
+   <image imageURL="images/photo/music/music1.jpg"
+  	thumbURL="thumbs/music1.jpg"
+  	linkURL="images/music/music1.jpg"
+  	linkTarget="_blank">
+      <caption><![CDATA[]]></caption>
+    </image>
+    <image imageURL="images/photo/music/music2.jpg"
+  	thumbURL="thumbs/music2.jpg"
+  	linkURL="images/music/music2.jpg"
+  	linkTarget="_blank">
+      <caption><![CDATA[]]></caption>
+    </image>
+    <image imageURL="images/photo/music/music3.jpg"
+  	thumbURL="thumbs/music3.jpg"
+  	linkURL="images/music/music3.jpg"
+  	linkTarget="_blank">
+      <caption><![CDATA[]]></caption>
+    </image>
+    <image imageURL="images/photo/music/music4.jpg"
+  	thumbURL="thumbs/music4.jpg"
+  	linkURL="images/music/music4.jpg"
+  	linkTarget="_blank">
+      <caption><![CDATA[]]></caption>
+    </image>
+    <image imageURL="images/photo/music/music5.jpg"
+  	thumbURL="thumbs/music5.jpg"
+  	linkURL="images/music/music5.jpg"
+  	linkTarget="_blank">
+      <caption><![CDATA[]]></caption>
+    </image>
+    <image imageURL="images/photo/music/music6.jpg"
+  	thumbURL="thumbs/music6.jpg"
+  	linkURL="images/music/music6.jpg"
+  	linkTarget="_blank">
+      <caption><![CDATA[]]></caption>
+    </image>
+    <image imageURL="images/photo/music/music7.jpg"
+  	thumbURL="thumbs/music7.jpg"
+  	linkURL="images/music/music7.jpg"
+  	linkTarget="_blank">
+      <caption><![CDATA[]]></caption>
+    </image>
+    <image imageURL="images/photo/music/music8.jpg"
+  	thumbURL="thumbs/music8.jpg"
+  	linkURL="images/music/music8.jpg"
+  	linkTarget="_blank">
+      <caption><![CDATA[]]></caption>
+  </image>
+</simpleviewergallery>
