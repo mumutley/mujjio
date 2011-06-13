@@ -104,7 +104,8 @@
         
         email: {
           required: true,
-          email: true
+          email: true,
+          remote : "/social/rest/validator/email"
         },
         
         confirm_email: {
@@ -128,9 +129,16 @@
            
          birthday_year: {
           required: true
-        }
-        
+        }       
+      },
+      messages: {
+         email: { 
+             remote: "already subscribed",
+             email : "A valid email address is required",
+             required : "please enter an email"
+         }
       }
+      
     });
 		
   });
