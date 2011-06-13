@@ -55,50 +55,50 @@ public class AccountHandler {
         //http://localhost:8084/social/rest/account/email@example.com/moimoi.com
         String userId = request.getParameter("userId");
         String gourpId = request.getParameter("groupId");
-        if(gourpId != null) {
+        if (gourpId != null) {
             Account account = accountService.find(userId, gourpId);
             return ImmediateFuture.newInstance(account);
         }
-        
+
         List<Account> accounts = accountService.find(userId);
-        RestfulCollection<Account> restfulAccount = new RestfulCollection<Account>(accounts); 
+        RestfulCollection<Account> restfulAccount = new RestfulCollection<Account>(accounts);
         return ImmediateFuture.newInstance(restfulAccount);
     }
-        
+
     @Operation(httpMethods = "POST", bodyParam = "entity")
-    public Future<?> create(SocialRequestItem request) throws ProtocolException {        
+    public Future<?> create(SocialRequestItem request) throws ProtocolException {
         //{"id": "suhailski", "languagesSpoken":["EN"],"birthday":"2011-05-28T18:43:22.038Z","accounts":[{"username":"ski","userId":"email@example.com","domain":"moimoi.com","password":"password"}], "emails":[{"value":"email@example.com","type":"home"}]}
         //http://localhost:8084/social/rest/account
         //Content-Type:application/json
         //Accept:application/json        
-        Person register = request.getTypedParameter("entity", SocialPerson.class);                
-        Key<Person> key =  accountService.register(register);
+        Person register = request.getTypedParameter("entity", SocialPerson.class);
+        Key<Person> key = accountService.register(register);
         return ImmediateFuture.newInstance(key.toString());
     }
-    
+
     @Operation(httpMethods = "PUT", bodyParam = "entity")
     public Future<?> update(SocialRequestItem request) throws ProtocolException {
         //{"username":"ski","userId":"email@example.com","domain":"moimoi.com","password":"password"}
         //http://localhost:8084/social/rest/account/suhailski
         String userId = request.getParameter("userId");
-        Account account = request.getTypedParameter("entity", SocialAccount.class);        
+        Account account = request.getTypedParameter("entity", SocialAccount.class);
         Boolean outcome = accountService.add(userId, account);
         return ImmediateFuture.newInstance(outcome);
     }
-    
+
     @Operation(httpMethods = "DELETE", bodyParam = "entity")
     public Future<?> deleteAccount(SocialRequestItem request) throws ProtocolException {
         //http://localhost:8084/social/rest/account/suhailski
         //{"userId":"email@example.com","domain":"moimoi.com"}
         String userId = request.getParameter("userId");
-        Account account = request.getTypedParameter("entity", SocialAccount.class);  
+        Account account = request.getTypedParameter("entity", SocialAccount.class);
         Boolean outcome = accountService.delete(userId, account);
         return ImmediateFuture.newInstance(outcome);
     }
-    
+
     @Operation(httpMethods = "GET", path = "/@supportedFields")
     public List<Object> supportedFields(RequestItem request) {
         String container = Objects.firstNonNull(request.getToken().getContainer(), ContainerConfig.DEFAULT_CONTAINER);
-        return config.getList(container,"${Cur['gadgets.features'].opensocial.supportedFields.account}");
+        return config.getList(container, "${Cur['gadgets.features'].opensocial.supportedFields.account}");
     }
 }

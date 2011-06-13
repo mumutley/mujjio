@@ -100,7 +100,7 @@ public class AccountServicesTest {
         ds.update(updateQuery, ops);
     }
     
-    @Test
+    
     public void testBasicObject() {
         PersonDao dao = new PersonDao(morphia, mongo);
         System.out.println(dao.findOne("_id", "suhail", null));                

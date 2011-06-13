@@ -10,6 +10,7 @@ import java.util.Set;
 import me.moimoi.social.herql.handlers.AccountHandler;
 import me.moimoi.social.herql.handlers.IdentityHandler;
 import me.moimoi.social.herql.handlers.ProfileHandler;
+import me.moimoi.social.herql.handlers.ValidationHandler;
 import me.moimoi.social.herql.mongo.services.MongoDataSource;
 import me.moimoi.social.herql.services.AccountService;
 import me.moimoi.social.herql.services.DataAccess;
@@ -87,6 +88,6 @@ public class HerqlGuiceModule extends SocialApiGuiceModule {
         return ImmutableSet.of(ActivityHandler.class, AppDataHandler.class,
                 PersonHandler.class, MessageHandler.class, AlbumHandler.class,
                 MediaItemHandler.class, ActivityStreamHandler.class, AccountHandler.class,
-                ProfileHandler.class, IdentityHandler.class);
+                ProfileHandler.class, IdentityHandler.class, ValidationHandler.class);
     }
 }
