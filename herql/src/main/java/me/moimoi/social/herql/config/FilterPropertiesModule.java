@@ -18,8 +18,6 @@ package me.moimoi.social.herql.config;
 import com.google.inject.AbstractModule;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.Object;
-import java.util.Hashtable;
 import java.util.Properties;
 import org.apache.commons.io.IOUtils;
 import org.apache.shindig.common.util.ResourceLoader;

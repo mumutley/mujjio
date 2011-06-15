@@ -15,13 +15,17 @@
  */
 package me.moimoi.social.herql.handlers;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import me.moimoi.social.herql.services.SocialPersonService;
 import org.apache.shindig.common.util.ImmediateFuture;
 import org.apache.shindig.protocol.Operation;
 import org.apache.shindig.protocol.RequestItem;
 import org.apache.shindig.protocol.Service;
+import org.apache.shindig.social.opensocial.model.Account;
 
 /**
  *
@@ -30,10 +34,20 @@ import org.apache.shindig.protocol.Service;
 @Service(name = "validator")
 public class ValidationHandler {
 
+    private final SocialPersonService accounts;
+    private final String defaultDomain;
+    
+    @Inject
+    public ValidationHandler(final SocialPersonService accounts, @Named("default.domain") String domain) {
+        this.accounts = accounts;
+        this.defaultDomain = domain;
+    }
+    
     @Operation(httpMethods = "GET", path = "/email")
     public Future<?>  validateRegistration(RequestItem request) {        
-        LOG.log(Level.INFO, "email validation requested {0}", request.getParameter("email"));
-        return ImmediateFuture.newInstance(Boolean.FALSE);
+        LOG.log(Level.INFO, "email validation requested {0} {1}", new Object[]{request.getParameter("email"), defaultDomain});        
+        Boolean found = accounts.exists(request.getParameter("email"));        
+        return ImmediateFuture.newInstance(!found);
     }
     
     private static final Logger LOG = Logger.getLogger(ValidationHandler.class.getCanonicalName());

@@ -45,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
                 q.criteria("accounts.userId").equal(userId),
                 q.criteria("accounts.domain").equal(domain));
         SocialPerson person = q.get();
-
+        
         if (person == null) {
             return null;
         }

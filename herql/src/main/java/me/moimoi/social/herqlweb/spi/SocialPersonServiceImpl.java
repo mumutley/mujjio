@@ -63,6 +63,11 @@ public class SocialPersonServiceImpl implements SocialPersonService {
     public Future<Person> getPerson(UserId id, Set<String> fields, SecurityToken token) throws ProtocolException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public Boolean exists(String id) {
+        return dao.exists("_id", id);
+    }
     
     
 }

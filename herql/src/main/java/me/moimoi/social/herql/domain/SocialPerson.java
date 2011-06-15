@@ -34,8 +34,7 @@ import org.apache.shindig.social.opensocial.model.Url;
 @Entity(value = "person")
 public class SocialPerson implements Person {
 
-    @Id
-    private String id;
+    @Id private String id;
     private String displayName;
     private String aboutMe;
     private Integer age;

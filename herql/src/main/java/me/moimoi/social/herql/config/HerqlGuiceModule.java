@@ -55,7 +55,8 @@ public class HerqlGuiceModule extends SocialApiGuiceModule {
     @Override
     protected void configure() {        
         bind(String.class).annotatedWith(Names.named("json.db")).toInstance("WEB-INF/canonicaldb.json");
-
+        bind(String.class).annotatedWith(Names.named("default.domain")).toInstance("mujjio");
+        
         bind(String.class).annotatedWith(Names.named("mongo.db.host")).toInstance("localhost");
         bind(String.class).annotatedWith(Names.named("mongo.db.name")).toInstance("social");
         bind(String.class).annotatedWith(Names.named("oauth.base-url")).toInstance("http://localhost/");

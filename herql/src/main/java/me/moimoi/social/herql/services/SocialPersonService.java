@@ -31,4 +31,6 @@ public interface SocialPersonService extends PersonService {
     Key<SocialPerson> register(SocialPerson person);
 
     SocialPerson get(String id);
+    
+    Boolean exists(String id);
 }
