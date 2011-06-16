@@ -31,4 +31,6 @@ public interface ProfileService {
     
     public boolean removeLookingFor(String id, Enum<LookingFor> looking);
     
+    
+    
 }
