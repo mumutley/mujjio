@@ -37,25 +37,23 @@
       
   $(function() {
         
-    $( "#muj-container-login-form").corner("round 10px");
+    $("#muj-container-login-form").corner("round 10px");
 
     function loadRegistration() {
     
-      $( "#muj-container-login-promo" ).hide();
+      $("#muj-container-login-promo").hide();
 
-      $( "#muj-container-login-form" ).animate({
+      $("#muj-container-login-form").animate({
         width: 960,
         height: 500
       }, 500 );
       
-      $( "#muj-container-login-form" ).html("").load("register.html");
+      $("#muj-container-login-form").html("").load("register.html");
     }
 
     $("A#muj-link-register").click((function(){
       loadRegistration();
     }));
-
-
   });
 
 </script>
@@ -64,13 +62,11 @@
        
   $.validator.setDefaults({
     //if form validates contstuct JSON
-    submitHandler: function() { 
-                
+    submitHandler: function() {
+      $.post("http://localhost:8084/social/rest/signup", $("#muj-form-signup").serialize());          
       alert(JSON.stringify($('#muj-form-signup').serializeObject()));
-      return false; 
-  
-    }
-      
+      return false;   
+    }      
   });
   
   // this one requires the value to be the same as the first parameter
