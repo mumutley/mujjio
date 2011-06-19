@@ -17,6 +17,7 @@
             org.apache.shindig.common.cache.ehcache.EhCacheModule:     
             org.apache.shindig.sample.container.SampleContainerGuiceModule:                        
             me.moimoi.social.herqlweb.shiro.ShiroModule:
+            com.mujjio.web.mu.config.MuModule:
             me.moimoi.social.herql.config.HerqlGuiceModule:                        
             org.apache.shindig.sample.commoncontainer.auth.CommonContainerAuthGuiceModule
         </param-value>
@@ -72,4 +73,18 @@
         <servlet-name>jsonRpcServlet</servlet-name>
         <url-pattern>/social/rpc/*</url-pattern>
     </servlet-mapping>
+    
+    <resource-ref>
+        <res-ref-name>jms/emailFactory</res-ref-name>
+        <res-type>javax.jms.ConnectionFactory</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+
+    <message-destination-ref>
+        <message-destination-ref-name>jms/mail</message-destination-ref-name>
+        <message-destination-type>javax.jms.Queue</message-destination-type>
+        <message-destination-usage>Consumes</message-destination-usage>
+        <message-destination-link>jms/email</message-destination-link>
+    </message-destination-ref>
 </web-app>
