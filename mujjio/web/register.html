@@ -66,10 +66,10 @@
       var form = JSON.stringify($('#muj-form-signup').serializeObject());
       $.ajax({
         type : "POST",
-        url : "http://localhost:8084/social/rest/signup",
+        url : "http://localhost:8080/social/rest/signup",
         data : form,
         dataType : "json",
-        contentType : "application/json",              
+        contentType : "application/json",          
         success : function(data) {
             console.log(data);
         }
@@ -110,7 +110,7 @@
         email: {
           required: true,
           email: true,
-          remote : "/social/rest/validator/email"
+          remote : "http://localhost:8080/social/rest/validator/email"
         },
         
         confirm_email: {
