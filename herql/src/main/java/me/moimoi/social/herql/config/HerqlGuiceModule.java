@@ -12,6 +12,8 @@ import me.moimoi.social.herql.handlers.IdentityHandler;
 import me.moimoi.social.herql.handlers.ProfileHandler;
 import me.moimoi.social.herql.handlers.SignupHandler;
 import me.moimoi.social.herql.handlers.ValidationHandler;
+import me.moimoi.social.herql.integration.MessangerService;
+import me.moimoi.social.herql.integration.spi.MessangerServiceImpl;
 import me.moimoi.social.herql.mongo.services.MongoDataSource;
 import me.moimoi.social.herql.services.AccountService;
 import me.moimoi.social.herql.services.SocialIdentityService;
@@ -61,6 +63,8 @@ public class HerqlGuiceModule extends SocialApiGuiceModule {
         bind(String.class).annotatedWith(Names.named("mongo.db.name")).toInstance("social");
         bind(String.class).annotatedWith(Names.named("oauth.base-url")).toInstance("http://localhost/");
 
+        bind(MessangerService.class).to(MessangerServiceImpl.class);
+        
         //TODO need to deprecate in favour of the dao pattern
         bind(SimpleDatasource.class).toProvider(MongoDataSource.class);
 

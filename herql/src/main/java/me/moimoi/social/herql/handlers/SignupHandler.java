@@ -23,6 +23,7 @@ import me.moimoi.social.herql.domain.ProfileType;
 import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.domain.form.JoinForm;
+import me.moimoi.social.herql.integration.MessangerService;
 import me.moimoi.social.herql.services.AccountService;
 import me.moimoi.social.herql.services.SocialIdentityService;
 import me.moimoi.social.herql.services.SocialPersonService;
@@ -47,12 +48,18 @@ public class SignupHandler {
     private final SocialIdentityService identityService;
     private final ContainerConfig config;
     private final SocialPersonService personService;
+    private final MessangerService messanger;
     
     @Inject
-    public SignupHandler(SocialIdentityService identityService, SocialPersonService personService, ContainerConfig config) {
+    public SignupHandler(SocialIdentityService identityService, 
+            SocialPersonService personService,
+            MessangerService messanger,
+            ContainerConfig config) {
+        
         this.config = config;
         this.identityService = identityService;
         this.personService = personService;
+        this.messanger = messanger;
     }
 
     @Operation(httpMethods = "POST", bodyParam = "entity")
@@ -89,6 +96,8 @@ public class SignupHandler {
         
         this.personService.register(person);
         this.identityService.create(identity);
+        
+        this.messanger.send("this needs to end today");
         
         return ImmediateFuture.newInstance(identity);
     }
