@@ -20,7 +20,7 @@ package me.moimoi.social.herql.domain;
  * @author ManzoorS
  */
 public enum ProfileType {
-    MANAGED, DELEGATED, PROXY
+    MANAGED, DELEGATED, PROXY, DIRECT
     
     //managed is for child profiles
     //delegated is where a person has authorized someone else to manage

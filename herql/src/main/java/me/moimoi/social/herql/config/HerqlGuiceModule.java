@@ -14,7 +14,7 @@ import me.moimoi.social.herql.handlers.SignupHandler;
 import me.moimoi.social.herql.handlers.ValidationHandler;
 import me.moimoi.social.herql.mongo.services.MongoDataSource;
 import me.moimoi.social.herql.services.AccountService;
-import me.moimoi.social.herql.services.IdentityService;
+import me.moimoi.social.herql.services.SocialIdentityService;
 import me.moimoi.social.herql.services.ProfileService;
 import me.moimoi.social.herql.services.SimpleDatasource;
 import me.moimoi.social.herql.services.SocialPersonService;
@@ -24,6 +24,7 @@ import me.moimoi.social.herqlweb.spi.OpenSocialDataService;
 import me.moimoi.social.herqlweb.spi.AccountServiceImpl;
 import me.moimoi.social.herqlweb.spi.IdentityServiceImpl;
 import me.moimoi.social.herqlweb.spi.ProfileServiceImpl;
+import me.moimoi.social.herqlweb.spi.SocialIdentityServiceImpl;
 import me.moimoi.social.herqlweb.spi.SocialPersonServiceImpl;
 import org.apache.shindig.social.core.config.SocialApiGuiceModule;
 import org.apache.shindig.social.opensocial.oauth.OAuthDataStore;
@@ -78,7 +79,7 @@ public class HerqlGuiceModule extends SocialApiGuiceModule {
         bind(ProfileService.class).to(ProfileServiceImpl.class); 
         bind(AccountService.class).to(AccountServiceImpl.class);
         
-        bind(IdentityService.class).to(IdentityServiceImpl.class);
+        bind(SocialIdentityService.class).to(IdentityServiceImpl.class);
         
         super.configure();
     }

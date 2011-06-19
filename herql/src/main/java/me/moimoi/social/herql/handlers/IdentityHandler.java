@@ -36,7 +36,7 @@ import java.util.logging.Logger;
 import me.moimoi.social.herql.domain.ProfileType;
 import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.domain.SocialPerson;
-import me.moimoi.social.herql.services.IdentityService;
+import me.moimoi.social.herql.services.SocialIdentityService;
 import me.moimoi.social.herql.services.SocialPersonService;
 import net.sf.cglib.reflect.FastClass;
 import org.apache.shindig.common.util.ImmediateFuture;
@@ -58,13 +58,13 @@ import org.apache.shindig.social.opensocial.model.Address;
 @Service(name = "identity")
 public class IdentityHandler {
 
-    private final IdentityService idService;
+    private final SocialIdentityService idService;
     private final SocialPersonService personService;
     private final ContainerConfig config;
     private static final int FIRST = 0;
     
     @Inject
-    public IdentityHandler(SocialPersonService personService, IdentityService idService, ContainerConfig config) {
+    public IdentityHandler(SocialPersonService personService, SocialIdentityService idService, ContainerConfig config) {
         this.idService = idService;
         this.personService = personService;
         this.config = config;

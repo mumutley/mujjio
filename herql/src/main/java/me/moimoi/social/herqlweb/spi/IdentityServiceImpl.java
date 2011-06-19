@@ -24,14 +24,14 @@ import me.moimoi.social.herql.data.IdentityDao;
 import me.moimoi.social.herql.data.PersonDao;
 import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.domain.SocialPerson;
-import me.moimoi.social.herql.services.IdentityService;
+import me.moimoi.social.herql.services.SocialIdentityService;
 import me.moimoi.social.herql.services.SocialPersonService;
 
 /**
  *
  * @author suhail
  */
-public class IdentityServiceImpl implements IdentityService {
+public class IdentityServiceImpl implements SocialIdentityService {
 
     private final IdentityDao dao;
     private final PersonDao pdao;

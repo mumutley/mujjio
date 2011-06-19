@@ -23,7 +23,7 @@ import me.moimoi.social.herql.domain.SocialPerson;
  *
  * @author ManzoorS
  */
-public interface IdentityService {
+public interface SocialIdentityService {
     
     Key<SocialIdentity> create(SocialIdentity identity);
     
