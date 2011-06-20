@@ -78,13 +78,19 @@
         <res-ref-name>jms/emailFactory</res-ref-name>
         <res-type>javax.jms.ConnectionFactory</res-type>
         <res-auth>Container</res-auth>
-        <res-sharing-scope>Shareable</res-sharing-scope>
+        <injection-target>
+            <injection-target-class>me.moimoi.social.herql.integration.spi.MessangerServiceImpl</injection-target-class>
+            <injection-target-name>factory</injection-target-name>
+        </injection-target>        
     </resource-ref>
 
-    <message-destination-ref>
-        <message-destination-ref-name>jms/mail</message-destination-ref-name>
-        <message-destination-type>javax.jms.Queue</message-destination-type>
-        <message-destination-usage>Consumes</message-destination-usage>
-        <message-destination-link>jms/email</message-destination-link>
-    </message-destination-ref>
+    <resource-env-ref>
+        <resource-env-ref-name>jms/emailQueue</resource-env-ref-name>
+        <resource-env-ref-type>javax.jms.Destination</resource-env-ref-type>
+        <injection-target>
+            <injection-target-class>me.moimoi.social.herql.integration.spi.MessangerServiceImpl</injection-target-class>
+            <injection-target-name>queue</injection-target-name>
+        </injection-target>    
+    </resource-env-ref>
+            
 </web-app>
