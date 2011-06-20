@@ -19,7 +19,7 @@ import javax.jms.TextMessage;
  *
  * @author suhail
  */
-@MessageDriven(mappedName = "jms/email", activationConfig = {
+@MessageDriven(mappedName = "jms/emailQueue", activationConfig = {
     @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
