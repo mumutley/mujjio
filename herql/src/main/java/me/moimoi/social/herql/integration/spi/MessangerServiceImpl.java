@@ -17,7 +17,9 @@ package me.moimoi.social.herql.integration.spi;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
@@ -35,22 +37,26 @@ import me.moimoi.social.herql.integration.MessangerService;
  */
 public class MessangerServiceImpl implements MessangerService {
 
-    /*@Resource(mappedName = "jms/email")
+    @Resource(mappedName = "jms/emailQueue")
     private Queue queue;
-    @Resource(mappedName = "jms/emailFactoryPool")
-    private ConnectionFactory factory;*/
+    @Resource(mappedName = "jms/emailFactory")
+    private ConnectionFactory factory;
 
     @Override
     public void send(String something) {
         Connection connection = null;
         try {
-            Context cxt = new InitialContext();
-            QueueConnectionFactory factory = (QueueConnectionFactory)cxt.lookup("java:comp/env/jms/emailFactory");
-            Queue queue = (Queue)cxt.lookup("java:comp/env/jms/emailQueue");
             
-            connection = factory.createConnection();
+            LOG.log(Level.INFO, "jndi lookup {0} {1}", new Object[]{queue, factory});
+            LOG.log(Level.INFO, "jndi lookup {0} {1}", new Object[]{(queue == null), (factory == null)});
+            
+            Context cxt = new InitialContext();
+            QueueConnectionFactory fac = (QueueConnectionFactory)cxt.lookup("java:comp/env/jms/emailFactory");
+            Queue que = (Queue)cxt.lookup("java:comp/env/jms/emailQueue");
+            
+            connection = fac.createConnection();
             Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
-            MessageProducer producer = session.createProducer(queue);
+            MessageProducer producer = session.createProducer(que);
             TextMessage message = session.createTextMessage();
             message.setText("Hello World");
             producer.send(message);
@@ -67,7 +73,7 @@ public class MessangerServiceImpl implements MessangerService {
                 }
             }
         }
-
+        //http://forums.oracle.com/forums/thread.jspa?threadID=2220105&tstart=0
     }
     
     private static final Logger LOG = Logger.getLogger(MessangerService.class.getName());
