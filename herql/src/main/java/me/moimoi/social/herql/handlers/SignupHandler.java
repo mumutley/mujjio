@@ -24,7 +24,6 @@ import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.domain.form.JoinForm;
 import me.moimoi.social.herql.integration.MessangerService;
-import me.moimoi.social.herql.services.AccountService;
 import me.moimoi.social.herql.services.SocialIdentityService;
 import me.moimoi.social.herql.services.SocialPersonService;
 import org.apache.shindig.common.util.ImmediateFuture;

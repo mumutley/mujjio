@@ -17,14 +17,16 @@ package me.moimoi.social.herql.integration.spi;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
+import javax.jms.QueueConnectionFactory;
 import javax.jms.Session;
 import javax.jms.TextMessage;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import me.moimoi.social.herql.integration.MessangerService;
 
 /**
@@ -33,24 +35,40 @@ import me.moimoi.social.herql.integration.MessangerService;
  */
 public class MessangerServiceImpl implements MessangerService {
 
-    @Resource(mappedName = "jms/email")
+    /*@Resource(mappedName = "jms/email")
     private Queue queue;
-    @Resource(mappedName = "jms/emailFactory")
-    private ConnectionFactory factory;
+    @Resource(mappedName = "jms/emailFactoryPool")
+    private ConnectionFactory factory;*/
 
     @Override
     public void send(String something) {
+        Connection connection = null;
         try {
-            Connection connection = factory.createConnection();
+            Context cxt = new InitialContext();
+            QueueConnectionFactory factory = (QueueConnectionFactory)cxt.lookup("java:comp/env/jms/emailFactory");
+            Queue queue = (Queue)cxt.lookup("java:comp/env/jms/emailQueue");
+            
+            connection = factory.createConnection();
             Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
             MessageProducer producer = session.createProducer(queue);
             TextMessage message = session.createTextMessage();
             message.setText("Hello World");
             producer.send(message);
+        } catch (NamingException ex) {
+            LOG.log(Level.SEVERE, null, ex);
         } catch (JMSException ex) {
             LOG.log(Level.SEVERE, ex.getMessage(), ex);
+        } finally {
+            if(connection != null) {
+                try {
+                    connection.close();
+                } catch (JMSException ex) {
+                    LOG.log(Level.SEVERE, null, ex);
+                }
+            }
         }
 
     }
+    
     private static final Logger LOG = Logger.getLogger(MessangerService.class.getName());
 }
