@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html>
-
   <head>
 
     <title>m u j j i o</title>
@@ -11,132 +10,44 @@
     <meta name="author" content="mujjio" />
 
     <link rel="stylesheet" href="css/global-style.css" type="text/css" />
-    <link rel="stylesheet" href="video/sv/style.css" type="text/css" >
-
     <script src='js/lib/jquery-1.6.1.min.js' type='text/javascript' ></script>
     <script src="js/lib/jquery.corner.js" type="text/javascript"></script> 
+    <script type="text/javascript" src="video/fp/flowplayer-3.2.6.min.js"></script>
     <script type="text/javascript" src="js/lib/jquery.validate.js"></script>
-    <script type="text/javascript" src="js/lib/jquery.vticker.1.4.js"></script>
-    <script type="text/javascript" src="js/lib/jquery.simplemodal.js"></script>
-
-    <script type="text/javascript"> 
-      $(function(){
-        $('#muj-container-login-updates-social').vTicker({ 
-          speed: 1000,
-          pause: 5000,
-          showItems: 6,
-          animation: 'fade',
-          mousePause: false,
-          height: 0,
-          direction: 'down'
-        });
-      });
+    
       
-      $(function(){
-        $('#muj-container-login-updates-marketplace').vTicker({ 
-          speed: 1000,
-          pause: 5000,
-          showItems: 6,
-          animation: 'fade',
-          mousePause: false,
-          height: 0,
-          direction: 'down'
-        });
-      });
-    </script>
-
-
-
     <script type="text/javascript">
       
       $(function() {
         
-        $("#email").focus(function() {
-          if( this.value == this.defaultValue ) {
-            this.value = "";
-          }
-        }).blur(function() {
-          if( !this.value.length ) {
-            this.value = this.defaultValue;
-          }
-        });
-  
-        $("#password").focus(function() {
-          if( this.value == this.defaultValue ) {
-            this.value = "";
-          }
-        }).blur(function() {
-          if( !this.value.length ) {
-            this.value = this.defaultValue;
-          }
-        });
-        
-        function loadVideo() {
-    
-          $( "#muj-container-login-banner" ).hide();
-          $( "#muj-container-login-explore-social" ).hide();
-          $( "#muj-container-login-explore-marketplace" ).hide();
-          
-          $( "#muj-container-login-top-banner" ).animate({
-            width: 930,
-            height: 620
-          }, 500 );
-      
-      
-          $( "#muj-container-login-top-banner" ).html("").load('videotest.html');
-        }
-        
+        $( "#muj-container-login-form").corner("round 10px");
+
         function loadRegistration() {
     
-          $( "#muj-container-login-banner" ).hide();
-          $( "#muj-container-login-explore-social" ).hide();
-          $( "#muj-container-login-explore-marketplace" ).hide();
-          
-          $( "#muj-container-login-top-banner" ).animate({
-            width: 930,
-            height: 550
+          $( "#muj-container-login-promo" ).hide();
+
+          $( "#muj-container-login-form" ).animate({
+            width: 960,
+            height: 520
           }, 500 );
       
-      
-          $( "#muj-container-login-top-banner" ).html("").load('register.html');
-        }
-        
-        function loadForgot() {
-          var src = "forgot_password.html";
-          $.modal('<iframe src="' + src + '" height="300" width="830" style="border:0" scrolling="no">', {
-            closeHTML:"",
-            containerCss:{
-              backgroundColor:"#fff",
-              borderColor:"#fff",
-              height:300,
-              padding:0,
-              width:830
-            },
-            overlayClose:true
-          });
+          $( "#muj-container-login-form" ).html("").load("register.html");
         }
 
-        $("A#muj-link-login-video").click((function(){
-          loadVideo();
-        }));
-        
-        $("A#muj-link-login-sign-up").click((function(){
+        $("A#muj-link-register").click((function(){
           loadRegistration();
-        }));
-        
-        $("A#muj-link-login-forgot").click((function(){
-          loadForgot();
         }));
 
 
       });
 
     </script>
+    
+  </head>
 
 
-
-    <script type="text/javascript">
-      
+    <script type="text/javascript"> 
+       
       $.validator.setDefaults({
         //if form validates contstuct JSON
         submitHandler: function() { 
@@ -148,6 +59,36 @@
       
       });
   
+      
+	
+      $().ready(function() {
+        var validator = $("#muj-form-login").bind("invalid-form.validate", function() {
+          $("#summary").html("Oops! We have " + validator.numberOfInvalids() + " fields to fix");
+        }).validate({
+          debug: true,
+          errorElement: "muj-form-460-error-holder",
+          errorContainer: $("#muj-form-460-warning"),
+          errorPlacement: function(error, element) {
+            error.appendTo( element.parent("div").next("div") );
+          },
+          success: function(label) {
+            label.text("Ok.  Thank You.").addClass("success");
+          },
+          rules: {
+            password: {
+              required: true,
+              minlength: 5
+            },
+			
+            email: {
+              required: true,
+              email: true
+            }
+          }
+        });
+		
+      });
+      
       //construct JSON
       $.fn.serializeObject = function()
       {
@@ -165,302 +106,76 @@
         });
         return o;
       };
-  
       
-      $().ready(function() {
-        var validator = $("#muj-form-login").bind("invalid-form.validate", function() {
-          $("#summary").html("Your form contains " + validator.numberOfInvalids() + " errors, see details below.");
-        }).validate({
-          debug: true,
-          errorElement: "em",
-          errorContainer: $("#summary"),
-          errorPlacement: function(error, element) {
-            error.appendTo( element.parent("div").next("div") );
-          },
-          success: function(label) {
-            label.text("Thank You!").addClass("success");
-          },
-          rules: {
-            
-            password: {
-              required: true,
-              minlength: 5
-            },
-            
-            email: {
-              required: true,
-              email: true
-            }
-            
-            
-          }
-        });
-		
-      });
-      
-      
-    
-  
     </script>
+  
+  <body>
 
-    <style type="text/css" media="all"> 
-
-      #muj-container-login-updates-social
-      {
-
-        width: 445px; 
-        margin: auto;
-
-      }
-
-      #muj-container-login-updates-social ul li div
-      {
-
-        width: 445px; 
-        height: 55px;    
-        background: #ffffff;
-      }
-
-      #muj-container-login-updates-marketplace
-      {
-
-        width: 445px; 
-        margin: auto;
-
-      }
-
-      #muj-container-login-updates-marketplace ul li div
-      {
-
-        width: 445px; 
-        height: 55px;    
-        background: #ffffff;
-      }
-    </style> 
-
-
-
-  </head>
-  <body style="background: #fff url('images/furniture/body-back.jpg')">
-
-    <div id="muj-wrapper-main" style="height:1400px">
-
-      <div id="muj-container-login-logo">
-        <a href="login.html"><img src="images/logos/mujjio-logo-large.png" border="0" alt="mujjio" /></a>    
-      </div>
-
-      <form method="post" id="muj-form-login" method="post" action="#"> 
-
-
-        <div id="muj-container-login-form-left" style="width:280px; background-color: #fff; margin-top:40px; float:left;background-color:#fff">
-
-          <div class="muj-text-login-form-title" style="width:50px; color:#666666; margin-left: 5px; float:left"><h3>Login </h3></div>
-
-          
-          <div class="muj-form-input-large" style="width: 200px; height:55px; margin-right: 5px; float: left"><input id="email" name="email" value="email address" title="A valid email address is required" /></div> 
-          <div class="muj-form-login-error"></div>
-
-        </div>
-
-
-
-        <div id="muj-container-login-form-right" style="width:200px; background-color: #fff; margin-top:23px; float:left;background-color:#fff">
-
-          <div id="muj-container-login-form-forgot" style="margin:0 0 2px 7px"><a id="muj-link-login-forgot" href="#">Forgotten Your Password?</a></div> 
-          <div class="muj-form-input-large" style="width: 200px; height:55px; float: left; display:inline-block"><input id="password" name="password" value="password" title="Please enter at least 5 characters" /></div> 
-          <div class="muj-form-login-error" style="margin-left:4px"></div>
-
-        </div>
-
-        <div style="width:100px; height:55px; float:left;background-color:#fff; margin-top:42px; margin-left: 25px"><input type="submit" value="Log In" class="grey-button"/> </div>
-
-      </form>
-
-
-      <div class="muj-container-width-960">
-
-        <div id="muj-container-login-top-banner">
-
-          <div id="muj-container-login-banner" style="width:876px; margin: 40px 0 0 60px; float:left; background-color: #fff">
-
-            <img src="images/promos/login-banner-top-left.jpg" border="0" alt="mujjio" />
-            <a id="muj-link-login-video" href="#"><img src="images/promos/login-banner-video.jpg" border="0" alt="mujjio" /></a>
-            <a id="muj-link-login-sign-up" href="#"><img src="images/promos/login-banner-sign-up.jpg" border="0" alt="mujjio" /></a>
-            <img src="images/promos/login-banner-watch.jpg" border="0" alt="mujjio" />
-
-          </div>
-
-          <div id="muj-container-login-explore-social" style=" background-color: #fff;width:398px; margin: 60px 0 0 60px; float:left"><img src="images/furniture/login-explore-social.jpg" border="0" alt="mujjio" /></div>
-          <div id="muj-container-login-explore-marketplace" style=" background-color: #fff;width:358px; margin: 60px 0 0 65px; float:left"><img src="images/furniture/login-explore-marketplace.jpg" border="0" alt="mujjio" /></div>
-
-
-        </div>
-
-        <div id="muj-login-promo-1"><img src="images/promos/promo-login-social-240.jpg" border="0" alt="mujjio" style="margin: 0 5px 0 8px; float: left"/></div>
-        <div id="muj-login-promo-2"><img src="images/promos/promo-login-marketplace-240.jpg" border="0" alt="mujjio" style="margin: 0 7px 0 0; float: left"//></div>
-        <div id="muj-login-promo-3"><img src="images/promos/promo-login-content-240.jpg" border="0" alt="mujjio" style="margin: 0 5px 0 0; float: left"/  /></div>
-        <div id="muj-login-promo-4"><img src="images/promos/promo-login-value-240.jpg" border="0" alt="mujjio" style="margin: 0 0 0 0; float: left"/ /></div>
-
-        <div id="muj-container-login-updates">
-          <div id="muj-container-login-updates-left" style="width: 445px; margin: 10px 0 0 10px; float: left; background-color: #fff">
-
-            <img src="images/furniture/login-latest-social.jpg" border="0" alt="mujjio" />
-
-            <div id="muj-spacer-login" style="height:10px">&nbsp;</div>
-
-            <div id="muj-container-login-updates-social"> 
-              <ul> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend1.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Balacz Barnucs</a></div>
-                    <div style="width:400px; float:left height:15px; ">32ft of teak below my feet. Here comes happy sailing.</div>
-                  </div> 
-                </li>
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend2.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 2 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend3.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 3 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend4.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 4 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend5.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 5 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend6.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 6 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend7.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 7 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend8.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 8 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend9.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 9 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-
-
-
-              </ul> 
-            </div> 
-
-          </div>
-          <div id="muj-container-login-updates-right" style="width: 445px;  margin: 10px 0 0 20px; float: left; background-color: #fff">
-
-            <img src="images/furniture/login-latest-marketplace.jpg" border="0" alt="mujjio" />
-
-            <div id="muj-spacer-login" style="height:10px">&nbsp;</div>
-
-            <div id="muj-container-login-updates-marketplace"> 
-              <ul> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend1.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Balacz Barnucs</a></div>
-                    <div style="width:400px; float:left height:15px; ">32ft of teak below my feet. Here comes happy sailing.</div>
-                  </div> 
-                </li>
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend2.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 2 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend3.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 3 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend4.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 4 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend5.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 5 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend6.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 6 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend7.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 7 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend8.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 8 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-                <li> 
-                  <div> 
-                    <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend9.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                    <div style="width:400px; height:15px; float:left"><a href="#">Friend 9 Name</a></div>
-                    <div style="width:400px; float:left height:15px; ">Hey guys, it's beer o'clock, who fancies a cold one?</div>
-                  </div> 
-                </li> 
-              </ul> 
-
-            </div> 
-
-          </div>
-
-        </div>
-      </div>
-
+    <div id="muj-container-login-logo">
+      <a href="login.html"><img src="images/logos/mujjio-logo-large.png" border="0" alt="mujjio" /></a>
     </div>
 
-  </body>
+    <div id="muj-wrapper-main">
+
+      <div id="muj-container-login-form">
+
+        <div class="muj-container-form-header-large">Login</div>
+        <div id="muj-button-login-register"><a id="muj-link-register" href="#">Sign Up - It's Free</a></div>
+
+        <form class="muj-form-460" id="muj-form-login" method="get" action="#"> 
+
+          <div class="muj-form-label-large" style="width:440px" ><label for="email">Email Address</label></div> 
+
+          <div style="width:440px;height:35px">
+            <div class="muj-form-input-large"><input id="email" name="email" title="A Valid email address is required" /></div> 
+            <div class="muj-form-460-error-back"></div> 
+          </div> 
+
+          <div class="muj-form-label-large" style="width:440px; margin-top: 30px" ><label for="password">Password</label></div> 
+
+          <div style="width:440px;height:35px">
+            <div class="muj-form-input-large"><input id="password" name="password" type="password" title="Minimum is 5 characters" /></div> 
+            <div class="muj-form-460-error-back"></div> 
+          </div> 
+
+          <div style="width:460px;height:35px; margin: 30px 0 20px 0; float: left">
+ 
+            <input type="submit" value="Log In" class="grey-button"/> 
+
+          </div>
+
+          <div style="width:460px;float: left;position:relative; top:-25px;"><h4 id="summary" style="font-size:12px; color:#ddd"></h4> </div>
+
+        </form> 
+
+
+
+      </div>
+
+      <div id="muj-container-login-promo">
+
+        <a  
+          href="http://pseudo01.hddn.com/vod/demo.flowplayervod/flowplayer-700.flv"
+          style="display:block;width:475px;height:340px"  
+          id="player"> 
+        </a> 
+
+        <script type="text/javascript">
+          $f("player","video/fp/flowplayer.commercial-3.2.7.swf", 
+				
+          {
+            // product key from your account
+            key: '#$4e50a83caf33e529375'
+          }
+					
+        );
+                                    
+        </script>
+
+      </div>
+      
+    </div>
+
+</body>
+
 </html>

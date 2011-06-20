@@ -492,7 +492,7 @@ $.extend($.validator, {
 			var rules = $(element).rules();
 			var dependencyMismatch = false;
 			for (var method in rules ) {
-				var rule = {method: method, parameters: rules[method]};
+				var rule = { method: method, parameters: rules[method] };
 				try {
 					var result = $.validator.methods[method].call( this, element.value.replace(/\r/g, ""), element, rule.parameters );
 
@@ -950,8 +950,8 @@ $.extend($.validator, {
 				dataType: "json",
 				data: data,
 				success: function(response) {
-					validator.settings.messages[element.name].remote = previous.originalMessage;                                        
-					var valid = response.entry === true;
+					validator.settings.messages[element.name].remote = previous.originalMessage;
+					var valid = response === true;
 					if ( valid ) {
 						var submitted = validator.formSubmitted;
 						validator.prepareElement(element);
@@ -960,7 +960,7 @@ $.extend($.validator, {
 						validator.showErrors();
 					} else {
 						var errors = {};
-						var message = validator.defaultMessage( element, "remote" );                                                
+						var message = response || validator.defaultMessage( element, "remote" );
 						errors[element.name] = previous.message = $.isFunction(message) ? message(value) : message;
 						validator.showErrors(errors);
 					}

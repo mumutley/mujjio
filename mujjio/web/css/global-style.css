@@ -67,6 +67,10 @@ color: #ddd;
 color: #666666;
 }
 
+.primary-highlight-colour{
+color: #999933;
+}
+
 .input-text{
 color: #666666;
 border: 1px solid #ddd;
@@ -96,6 +100,11 @@ border: 0;
 }
 
 /* general containers */
+.muj-container-width-960{
+width: 960px;
+float:left;
+} 
+
 .muj-container-width-480{
 width: 480px;
 float:left;
@@ -109,14 +118,23 @@ float:left;
 /* login page */
 
 #muj-container-login-logo{
-position:absolute;
-left:280px;
-top:20px;
-margin: 0 0 20px 0;
+width:260px;
+height:90px;
+margin: 20px 0 20px 70px;
 background-color: #fff;
 float:left;
 }
 
+#muj-container-login-top-banner{
+ width:936px;
+height:400px;
+margin: 0 10px 10px 10px;
+border: 1px solid #ddd;
+background-color: #fff;
+float:left;
+-moz-border-radius:12px 12px 12px 12px;
+-webkit-border-radius: 12px 12px 12px 12px;
+}
 
 #muj-container-login-promo{
 position: absolute;
@@ -129,17 +147,24 @@ background-color:#ccc;
 float:left;
 }
 
-.muj-container-promo-240{
-width: 230px;
-height:150px;
-background-color:#eee;
+.muj-container-login-promo-240{
+width: 234px;
+background-color:#fff;
+border: 2px solid #fff;
 float:left;
 -moz-border-radius:12px 12px 12px 12px;
 -webkit-border-radius: 12px 12px 12px 12px;
-background-color:#91a939;
+}
 
-
-  
+#muj-container-login-updates{
+width:936px;
+height:375px;
+margin: 10px 10px 10px 10px;
+border: 1px solid #ccc;
+background-color: #fff;
+float:left;
+-moz-border-radius:12px 12px 12px 12px;
+-webkit-border-radius: 12px 12px 12px 12px;
 }
 
 #muj-container-login-form{
@@ -151,11 +176,25 @@ background-color:#ddd;
 float:left;
 -moz-border-radius:12px 12px 12px 12px;
 -webkit-border-radius: 12px 12px 12px 12px;
-background-color:#91a939;
+
+}
+
+.muj-form-login-error{
+width:200px;
+height:15px;
+margin-left: 60px;
+color:#cc3333; 
+float:left;
+}
+
+.muj-form-login-error .success{
+
+color:#666666; 
+
 }
 
 .muj-login-form-title{
-width:480px;
+width:400px;
 font-size:18px;
 color:#eee;
 margin-bottom:4px;
@@ -175,8 +214,10 @@ width: 920px;
 float:left 
 }
 
-.muj-form-460-error-back{
-width:205px;
+
+
+.muj-form-460-error-holder{
+width:200px;
 height:38px;
 margin: 0 0 0 17px;
 background: #91a939 url("../images/furniture/diagonal-back.png") repeat;
@@ -187,7 +228,7 @@ float: left;
 }
 
 
-muj-form-460-error-holder.error {
+.muj-form-460-error-holder .error {
 width:195px;
 height:27px;
 padding: 11px 0 0 10px;
@@ -200,7 +241,7 @@ vertical-align:middle;
 display: inline-block;
 float:left;
 }
-muj-form-460-error-holder.success {
+.muj-form-460-error-holder .success {
 width:195px;
 height:27px;
 padding: 11px 0 0 10px;
@@ -220,7 +261,6 @@ margin-left: 20px;
 color:#eee;
 }
 
-#muj-form-460-warning { display: none; color:#ddd}
 
 .muj-container-form-header-large{
 width:175px;
@@ -247,28 +287,30 @@ background: #fff url("../images/furniture/register-back.png") repeat;
 
 }
 
-.muj-container-form-item-large{
-float:left;
-}
 
 .muj-form-label-large{
-color: #eee;
+color: #666;
+width:400px;
 font-size:16px;
 font-weight: 700;
+height:15px;
+margin: 10px 0 0 0;
+padding: 0 0 4px 2px;
 float:left;
 text-align:left;
 }
 
 .muj-form-input-large input { 
 width:195px;
+height: 23px;
 padding: 8px;
-border: solid 1px #E5E5E5;
+border: solid 1px #ddd;
 font-size:16px;
 color:#ccc;
 background: #fff;
-box-shadow: rgba(0,0,0, 0.1) 0px 0px 4px;
--moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 4px;
--webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 4px;
+box-shadow: rgba(204,204,204, 0.1) 0px 0px 4px;
+-moz-box-shadow: rgba(204,204,204, 0.1) 0px 0px 4px;
+-webkit-box-shadow: rgba(204,204,204, 0.1) 0px 0px 4px;
 -moz-border-radius: 4px;
 -webkit-border-radius: 4px;
 float:left;
@@ -278,17 +320,18 @@ float:left;
 .muj-form-input-large input:hover, textarea:hover,
 input:focus, textarea:focus { 
 color:#666666;
--moz-box-shadow:0 0 6px #5a6e13;
--webkit-box-shadow:0 0 6px #5a6e13;
-box-shadow:0 0 6px #5a6e13;
+box-shadow: rgba(204,204,204, 0.1) 0px 0px 6px;
+-moz-box-shadow: rgba(204,204,204, 0.1) 0px 0px 6px;
+-webkit-box-shadow: rgba(204,204,204, 0.1) 0px 0px 6px;
+box-shadow:0 0 6px #ccc;
 float:left;
 }
 
 .muj-form-input-date-large input { 
-width:33px;
-padding: 8px 8px 8px 10px;
+width:37px;
+padding: 8px;
 margin-right: 10px;
-border: solid 1px #E5E5E5;
+border: solid 1px #ccc;
 font-size:16px;
 color:#ccc;
 background: #fff;
@@ -309,16 +352,30 @@ box-shadow:0 0 6px #5a6e13;
 float:left;
 }
 
-#muj-form-register-gender-select{
-width:210px; 
-height: 28px;
-padding:7px 0 0 4px;
+.muj-form-register-select{
+width:198px; 
+height: 23px;
+padding:8px;
 background-color: #fff;
-font-size: 14px;
+font-size: 16px;
 color:#666666;
+border: 1px solid #ccc;
+box-shadow: rgba(0,0,0, 0.1) 0px 0px 4px;
+-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 4px;
+-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 4px;
 -moz-border-radius: 4px;
 -webkit-border-radius: 4px;
 float: left; 
+}
+
+.muj-form-register-select:hover, textarea:hover,
+input:focus, textarea:focus { 
+color:#666666;
+box-shadow: rgba(204,204,204, 0.1) 0px 0px 6px;
+-moz-box-shadow: rgba(204,204,204, 0.1) 0px 0px 6px;
+-webkit-box-shadow: rgba(204,204,204, 0.1) 0px 0px 6px;
+box-shadow:0 0 6px #ccc;
+float:left;
 }
 
 .muj-form-select-large{
@@ -333,35 +390,40 @@ select:focus, select:focus{
 width:200px;
 color:#666;
 font-size: 16px;
-border: 0;  
+border: 0;   
 }
 #muj-container-register-left{
-width: 460px;
+width: 245px;
 margin-top: 20px;
-margin-left: 20px;
+margin-left: 210px;
 float:left;
 }
-
 #muj-container-register-right{
-width: 460px;
+width: 435px;
 margin-top: 20px;
 margin-left: 20px;
 float:left;
 }
-
 
 
 .muj-container-register-form-header{
-width:930px;
-margin: 20px 10px 10px 20px;
-font-size:32px;
+width:730px;
+margin: 20px 0 10px 210px;
+font-size:28px;
 text-align:left;
-color:#eee;
+color:#91a939;
+font-weight: 600;
+float:left;
+}
+.muj-form-register-error{
+width:435px;
+height:15px;
+text-align:left;
+color:#cc3333; 
 float:left;
 }
 
 /* main pages */
-
 #muj-wrapper-main{
 width: 960px;
 min-height:700px;
@@ -374,7 +436,7 @@ position: absolute;
 top: 10px;
 width: 960px;  
 height:45px;
-background-color:#91a939;
+background-color:#999933;
 -webkit-border-radius: 4px;
 -moz-border-radius: 4px;
 border-radius: 4px;
