@@ -25,6 +25,9 @@ import javax.jms.TextMessage;
 })
 public class EmailMessangerBean implements MessageListener {
     
+    @Resource(name = "mail/google")
+    javax.mail.Session mail;
+    
     @Resource
     private MessageDrivenContext context;
     
@@ -34,7 +37,7 @@ public class EmailMessangerBean implements MessageListener {
     @Override
     public void onMessage(Message message) {
         try {
-            LOG.log(Level.INFO, "{0}", ((TextMessage)message).getText());
+            LOG.log(Level.INFO, "message {0} --%-- session {1}", new Object[]{((TextMessage)message).getText(), mail});
         } catch (JMSException ex) {
             LOG.log(Level.SEVERE, null, ex);
         }
