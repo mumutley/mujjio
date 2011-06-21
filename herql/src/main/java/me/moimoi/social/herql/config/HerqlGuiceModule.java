@@ -12,8 +12,6 @@ import me.moimoi.social.herql.handlers.IdentityHandler;
 import me.moimoi.social.herql.handlers.ProfileHandler;
 import me.moimoi.social.herql.handlers.SignupHandler;
 import me.moimoi.social.herql.handlers.ValidationHandler;
-import me.moimoi.social.herql.integration.MessangerService;
-import me.moimoi.social.herql.integration.spi.MessangerServiceImpl;
 import me.moimoi.social.herql.mongo.services.MongoDataSource;
 import me.moimoi.social.herql.services.AccountService;
 import me.moimoi.social.herql.services.SocialIdentityService;

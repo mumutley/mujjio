@@ -36,13 +36,12 @@ import org.apache.shindig.social.opensocial.spi.UserId;
  */
 public class SocialPersonServiceImpl implements SocialPersonService {
 
-    
     private final PersonDao dao;
-    
+
     @Inject
-    public SocialPersonServiceImpl(PersonDao dao) {        
+    public SocialPersonServiceImpl(PersonDao dao) {
         this.dao = dao;
-    }   
+    }
 
     @Override
     public Key<SocialPerson> register(SocialPerson person) {
@@ -53,8 +52,8 @@ public class SocialPersonServiceImpl implements SocialPersonService {
     public SocialPerson get(String id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-     @Override
+
+    @Override
     public Future<RestfulCollection<Person>> getPeople(Set<UserId> userIds, GroupId groupId, CollectionOptions collectionOptions, Set<String> fields, SecurityToken token) throws ProtocolException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -68,6 +67,4 @@ public class SocialPersonServiceImpl implements SocialPersonService {
     public Boolean exists(String id) {
         return dao.exists("_id", id);
     }
-    
-    
 }

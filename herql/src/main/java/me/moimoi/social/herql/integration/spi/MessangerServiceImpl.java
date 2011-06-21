@@ -36,7 +36,7 @@ import me.moimoi.social.herql.integration.MessangerService;
  * @author suhail
  */
 public class MessangerServiceImpl implements MessangerService {
-
+   
     @Resource(mappedName = "jms/emailQueue")
     private Queue queue;
     @Resource(mappedName = "jms/emailFactory")
@@ -45,10 +45,7 @@ public class MessangerServiceImpl implements MessangerService {
     @Override
     public void send(String something) {
         Connection connection = null;
-        try {
-            
-            LOG.log(Level.INFO, "jndi lookup {0} {1}", new Object[]{queue, factory});
-            LOG.log(Level.INFO, "jndi lookup {0} {1}", new Object[]{(queue == null), (factory == null)});
+        try {            
             
             Context cxt = new InitialContext();
             QueueConnectionFactory fac = (QueueConnectionFactory)cxt.lookup("java:comp/env/jms/emailFactory");
