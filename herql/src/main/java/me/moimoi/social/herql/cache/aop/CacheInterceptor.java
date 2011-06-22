@@ -30,6 +30,7 @@ public class CacheInterceptor implements MethodInterceptor {
 
     private CacheManager cacheManager;
     private CacheKeyGenerator cacheKeyGenerator;
+    private CacheProvider provider;
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -105,9 +106,7 @@ public class CacheInterceptor implements MethodInterceptor {
     public CacheKeyGenerator getCacheKeyGenerator() {
         return cacheKeyGenerator;
     }
-    
-    private CacheProvider provider;
-    
+        
     @Inject
     public void setCacheProvider(CacheProvider provider) {
         this.provider = provider;
