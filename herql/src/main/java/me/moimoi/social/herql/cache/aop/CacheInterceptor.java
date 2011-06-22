@@ -16,6 +16,7 @@
 package me.moimoi.social.herql.cache.aop;
 
 import com.google.inject.Inject;
+import me.moimoi.social.herql.cache.annotation.Cached;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -23,6 +24,7 @@ import net.sf.ehcache.Element;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.apache.shindig.common.cache.CacheProvider;
 
 public class CacheInterceptor implements MethodInterceptor {
 
@@ -32,7 +34,8 @@ public class CacheInterceptor implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         setupCacheIfNecessary(invocation);
-
+        Cached c = invocation.getMethod().getAnnotation(Cached.class);
+        System.out.println("cache name " + c.cache());
         return getResultFromCacheOrMethod(invocation);
 
     }
@@ -81,7 +84,7 @@ public class CacheInterceptor implements MethodInterceptor {
         return getCacheManager().getCache(getCacheName(invocation));
     }
 
-    private String getCacheName(MethodInvocation invocation) {
+    private String getCacheName(MethodInvocation invocation) {        
         return invocation.getMethod().toString();
     }
 
@@ -89,7 +92,7 @@ public class CacheInterceptor implements MethodInterceptor {
     public void setCacheManager(CacheManager cacheManager) {
         this.cacheManager = cacheManager;
     }
-
+    
     public CacheManager getCacheManager() {
         return cacheManager;
     }
@@ -101,5 +104,16 @@ public class CacheInterceptor implements MethodInterceptor {
 
     public CacheKeyGenerator getCacheKeyGenerator() {
         return cacheKeyGenerator;
+    }
+    
+    private CacheProvider provider;
+    
+    @Inject
+    public void setCacheProvider(CacheProvider provider) {
+        this.provider = provider;
+    }
+    
+    public CacheProvider getCacheProvider() {
+        return null;
     }
 }

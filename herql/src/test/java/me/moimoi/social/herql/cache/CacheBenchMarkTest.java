@@ -27,6 +27,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.config.CacheModule;
+import me.moimoi.social.herql.config.PropertiesModule;
+import org.apache.shindig.common.cache.ehcache.EhCacheModule;
 
 public class CacheBenchMarkTest {
 
@@ -37,7 +39,7 @@ public class CacheBenchMarkTest {
 
     @Before
     public void beforeTest() {
-        injector = Guice.createInjector(new CacheModule(), new GuiceModule());
+        injector = Guice.createInjector(new EhCacheModule(), new PropertiesModule(), new CacheModule(), new GuiceModule());
         cacheCalculator = injector.getInstance(Calculator.class);
     }
 

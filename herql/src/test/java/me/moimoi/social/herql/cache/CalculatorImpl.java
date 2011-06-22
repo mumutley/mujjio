@@ -23,7 +23,7 @@ import me.moimoi.social.herql.cache.annotation.Cached;
  */
 public class CalculatorImpl implements Calculator {
 
-    @Cached
+    @Cached(cache="numbers")
     @Override
     public int calculateSomethingWild(Integer number)
             throws InterruptedException {
@@ -31,7 +31,7 @@ public class CalculatorImpl implements Calculator {
         return number;
     }
 
-    @Cached
+    @Cached(cache="words")
     @Override
     public int calculateSomethingWild(Integer number, Integer number2)
             throws InterruptedException {

@@ -25,7 +25,6 @@ public class GuiceModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(Calculator.class).to(CalculatorImpl.class);
-
+        bind(Calculator.class).to(CalculatorImpl.class);        
     }
 }
