@@ -26,6 +26,7 @@ import me.moimoi.social.herql.domain.form.JoinForm;
 import me.moimoi.social.herql.integration.MessangerService;
 import me.moimoi.social.herql.services.SocialIdentityService;
 import me.moimoi.social.herql.services.SocialPersonService;
+import me.moimoi.social.herqlweb.business.services.RegistrationService;
 import org.apache.shindig.common.util.ImmediateFuture;
 import org.apache.shindig.config.ContainerConfig;
 import org.apache.shindig.protocol.Operation;
@@ -48,17 +49,19 @@ public class SignupHandler {
     private final ContainerConfig config;
     private final SocialPersonService personService;
     private final MessangerService messanger;
-    
+    private final RegistrationService registration;
     @Inject
     public SignupHandler(SocialIdentityService identityService, 
             SocialPersonService personService,
             MessangerService messanger,
-            ContainerConfig config) {
+            ContainerConfig config,
+            RegistrationService register) {
         
         this.config = config;
         this.identityService = identityService;
         this.personService = personService;
         this.messanger = messanger;
+        this.registration = register;
     }
 
     @Operation(httpMethods = "POST", bodyParam = "entity")
@@ -93,10 +96,10 @@ public class SignupHandler {
         identity.setVerified(Boolean.FALSE);
         identity.getProfiles().add(person);
         
-        this.personService.register(person);
-        this.identityService.create(identity);
-        
-        this.messanger.send("this needs to end today");
+        registration.register(identity);
+        //this.personService.register(person);
+        //this.identityService.create(identity);        
+        //this.messanger.send("this needs to end today");
         
         return ImmediateFuture.newInstance(identity);
     }

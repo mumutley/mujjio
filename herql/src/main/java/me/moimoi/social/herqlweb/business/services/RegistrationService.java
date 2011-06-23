@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.moimoi.social.herql.services;
+package me.moimoi.social.herqlweb.business.services;
+
+import me.moimoi.social.herql.domain.SocialIdentity;
 
 /**
  *
  * @author suhail
  */
-public interface TemplateService {
+public interface RegistrationService {
 
-    String getTemplate(String domain, String template);
+    void register(SocialIdentity identity);
     
 }

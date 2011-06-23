@@ -19,8 +19,8 @@ package me.moimoi.social.herql.services;
  *
  * @author suhail
  */
-public interface TemplateService {
+public interface ContentServices {
 
-    String getTemplate(String domain, String template);
+    String getSimple(String node, String property);
     
 }
