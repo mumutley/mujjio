@@ -27,6 +27,18 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+         <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>stringtemplate</artifactId>
+            <version>4.0.2</version>
+        </dependency>
+        
         <dependency>
             <groupId>com.mujjio.server</groupId>
             <artifactId>socialdomain</artifactId>
