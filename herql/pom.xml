@@ -118,11 +118,21 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-web</artifactId>
+        </dependency>                
+        <dependency>
+            <groupId>me.moimoi.opensocial</groupId>
+            <artifactId>herql</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>stringtemplate</artifactId>
-            <version>4.0.2</version>
+            <groupId>com.mujjio.server</groupId>
+            <artifactId>services</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mujjio.server</groupId>
+            <artifactId>socialdomain</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <build>
