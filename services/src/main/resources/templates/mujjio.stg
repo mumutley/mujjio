@@ -1,0 +1,5 @@
+verify(name,email,uuid) ::= <%
+<html>
+    <p> <name> </p>
+</html>
+%>
