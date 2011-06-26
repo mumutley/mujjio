@@ -18,7 +18,10 @@
             org.apache.shindig.sample.container.SampleContainerGuiceModule:                        
             me.moimoi.social.herqlweb.shiro.ShiroModule:
             com.mujjio.web.mu.config.MuModule:
-            me.moimoi.social.herql.config.HerqlGuiceModule:                        
+            me.moimoi.social.herql.config.PropertiesModule:                                                
+            me.moimoi.social.herql.config.CacheModule:                                    
+            me.moimoi.social.herql.config.HerqlModule:                                    
+            me.moimoi.social.herqlweb.config.HerqlwebModule:                        
             org.apache.shindig.sample.commoncontainer.auth.CommonContainerAuthGuiceModule
         </param-value>
     </context-param>
