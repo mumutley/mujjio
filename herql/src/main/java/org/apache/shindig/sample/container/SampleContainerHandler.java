@@ -19,8 +19,7 @@ import java.util.Map;
 
 import com.google.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
-import me.moimoi.social.herqlweb.spi.OpenSocialDataService;
-
+import me.moimoi.social.herql.spi.OpenSocialDataService;
 
 @Service(name = "samplecontainer", path = "/{type}/{doevil}")
 public class SampleContainerHandler {

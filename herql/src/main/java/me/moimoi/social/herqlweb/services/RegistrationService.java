@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.moimoi.social.herql.cache;
+package me.moimoi.social.herqlweb.services;
 
-import com.google.inject.AbstractModule;
+import me.moimoi.social.herql.domain.SocialIdentity;
 
 /**
  *
  * @author suhail
  */
-public class GuiceModule extends AbstractModule {
+public interface RegistrationService {
 
-    @Override
-    protected void configure() {
-        bind(Calculator.class).to(CalculatorImpl.class);        
-    }
+    void register(SocialIdentity identity);
+    
 }

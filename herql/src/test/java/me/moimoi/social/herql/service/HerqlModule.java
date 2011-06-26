@@ -6,7 +6,7 @@ package me.moimoi.social.herql.service;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
-import me.moimoi.social.herqlweb.spi.HerqlOAuthDataStore;
+import me.moimoi.social.herql.spi.HerqlOAuthDataStore;
 import org.apache.shindig.social.opensocial.oauth.OAuthDataStore;
 
 /**

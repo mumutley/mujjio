@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package me.moimoi.social.herqlweb.shiro;
+package me.moimoi.social.herqlweb.security;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Inject;

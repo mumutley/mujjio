@@ -27,9 +27,9 @@ import org.apache.shindig.social.opensocial.spi.MessageService;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
-import me.moimoi.social.herqlweb.spi.HerqlOAuthDataStore;
-import me.moimoi.social.herqlweb.spi.OpenSocialDataService;
-import me.moimoi.social.herqlweb.spi.OpenSocialActivityStreamService;
+import me.moimoi.social.herql.spi.HerqlOAuthDataStore;
+import me.moimoi.social.herql.spi.OpenSocialDataService;
+import me.moimoi.social.herql.spi.OpenSocialActivityStreamService;
 
 /**
  * Provides bindings for sample-only implementations of social API
