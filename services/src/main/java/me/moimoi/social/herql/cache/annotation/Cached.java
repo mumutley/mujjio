@@ -28,6 +28,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME) @Target(ElementType.METHOD)
 public @interface Cached {
     
-    String cache() default "general";
+    String name();
     
 }

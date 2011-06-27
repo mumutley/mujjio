@@ -15,12 +15,18 @@
  */
 package me.moimoi.social.herql.templates;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -50,7 +56,15 @@ public class TemplateTests {
     // The methods must be annotated with annotation @Test. For example:
     //
      @Test
-     public void hello() {
-     
+     public void getTemplateCache() throws FileNotFoundException {
+         InputStream fis = new FileInputStream(new File("src/main/resources/ehcacheConfig.xml").getAbsolutePath());
+         CacheManager manager = new CacheManager(fis);
+         
+         Cache c = manager.getCache("templates");
+         c.put(new Element("verify", "give me a break"));
+         
+         System.out.println(c.getName());
+         
+         System.out.println(c.get("verify").getValue());
      }
 }

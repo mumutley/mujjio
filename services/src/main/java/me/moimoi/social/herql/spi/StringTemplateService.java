@@ -39,7 +39,7 @@ public class StringTemplateService implements TemplateService {
         
     }
     
-    @Cached(cache="templates")
+    @Cached(name="templates")
     @Override
     public String getTemplate(String domain, String template) {
         ST sta = st.getInstanceOf(template);
