@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.moimoi.social.herql.spi;
+package me.moimoi.social.herql.spi.templates;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -34,7 +34,6 @@ public class StringTemplateService implements TemplateService {
     
     @Inject
     public StringTemplateService(@Named("herql.template.dir") String configPath) throws IOException {
-        //InputStream configStream = ResourceLoader.open(configPath);
         st = new STGroupDir(configPath);
         
     }

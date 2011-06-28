@@ -1,5 +1,17 @@
-verify(name,email,uuid) ::= <%
+verification(name) ::= <<
 <html>
-    <p> <name> </p>
+    <p> $name$ </p>
 </html>
-%>
+>>
+
+something(name) ::= <<
+Example 7:
+\<html\>
+  \<body\>
+    \<h1\>Original X-Men\</h1\>
+    \<ul\>
+        nothing $name$
+    \</ul\>
+  \</body\>
+\</html\>
+>>

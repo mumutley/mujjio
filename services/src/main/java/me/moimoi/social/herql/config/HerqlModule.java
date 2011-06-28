@@ -25,7 +25,7 @@ import me.moimoi.social.herql.spi.OpenSocialActivityStreamService;
 import me.moimoi.social.herql.spi.OpenSocialDataService;
 import me.moimoi.social.herql.spi.SimpleContentServiceImpl;
 import me.moimoi.social.herql.spi.SocialPersonServiceImpl;
-import me.moimoi.social.herql.spi.StringTemplateService;
+import me.moimoi.social.herql.spi.templates.StringTemplateService;
 import org.apache.shindig.social.core.config.SocialApiGuiceModule;
 import org.apache.shindig.social.opensocial.spi.ActivityService;
 import org.apache.shindig.social.opensocial.spi.ActivityStreamService;
