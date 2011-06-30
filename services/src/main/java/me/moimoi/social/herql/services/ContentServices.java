@@ -15,12 +15,14 @@
  */
 package me.moimoi.social.herql.services;
 
+import java.util.Map;
+
 /**
  *
  * @author suhail
  */
 public interface ContentServices {
 
-    String getSimple(String node, String property);
+    String getSimple(String node, String property, Map<String, Object> params);
     
 }

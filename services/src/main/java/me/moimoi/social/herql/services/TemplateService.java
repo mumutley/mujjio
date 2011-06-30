@@ -15,12 +15,14 @@
  */
 package me.moimoi.social.herql.services;
 
+import java.util.Map;
+
 /**
  *
  * @author suhail
  */
 public interface TemplateService {
 
-    String getTemplate(String domain, String template);
+    String getTemplate(String domain, String template, Map<String, Object> params);
     
 }

@@ -18,6 +18,8 @@ package me.moimoi.social.herql.spi.templates;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 import me.moimoi.social.herql.cache.annotation.Cached;
 import me.moimoi.social.herql.services.TemplateService;
 import org.stringtemplate.v4.ST;
@@ -34,14 +36,19 @@ public class StringTemplateService implements TemplateService {
     
     @Inject
     public StringTemplateService(@Named("herql.template.dir") String configPath) throws IOException {
-        st = new STGroupDir(configPath);
-        
+        st = new STGroupDir(configPath);        
     }
     
     @Cached(name="templates")
     @Override
-    public String getTemplate(String domain, String template) {
-        ST sta = st.getInstanceOf(template);
+    public String getTemplate(String domain, String template, Map<String, Object> params) {
+        ST sta = st.getInstanceOf(domain + "/" + template);
+        Iterator<String> keys = params.keySet().iterator();
+        while (keys.hasNext()) {    
+            String key = keys.next();
+            Object value = params.get(key);
+            sta.add(key, value);
+        }
         return sta.render();
     }
 }

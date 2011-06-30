@@ -20,8 +20,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
-import me.moimoi.social.herql.spi.templates.HtmlEncodedRenderer;
+import java.util.HashMap;
+import java.util.Map;
+import javax.jms.Message;
+import me.moimoi.social.herql.spi.templates.StringTemplateService;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -30,11 +32,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.stringtemplate.v4.AttributeRenderer;
-import org.stringtemplate.v4.NoIndentWriter;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupDir;
-import org.stringtemplate.v4.StringRenderer;
 
 /**
  *
@@ -61,7 +60,7 @@ public class TemplateTests {
     public void tearDown() {
     }   
 
-    @Test
+    
     public void getTemplateCache() throws FileNotFoundException, IOException {
         InputStream fis = new FileInputStream(new File("src/main/resources/ehcacheConfig.xml").getAbsolutePath());
         CacheManager manager = new CacheManager(fis);
@@ -73,10 +72,10 @@ public class TemplateTests {
         System.out.println(c.get("verify").getValue());
         
         
-        String dir = "/Users/suhail/NetBeansProjects/Herql/services/src/main/resources/templates";
-        STGroupDir std = new STGroupDir(dir);
+        String dir = "src/main/resources/templates";
+        STGroupDir std = new STGroupDir(dir);        
         ST st = std.getInstanceOf("mujjio/something");
-        
+        System.out.println(st.getAttributes());
         //AttributeRenderer htmlEncodedRenderer = new HtmlEncodedRenderer();
         //std.registerRenderer(String.class,  htmlEncodedRenderer);
         
@@ -86,12 +85,21 @@ public class TemplateTests {
         //String result = sw.toString();
 
         st.add("name", "suhail");
-        
-        //System.out.println(result);
-        System.out.println();
+        Message msg;
+       
         
         System.out.println(st.render());
         //TemplateService ts = new StringTemplateService(dir);
         //ts.getTemplate("", "verify");
+    }
+    
+    @Test
+    public void getThroughTemplateService() throws IOException{
+        String dir = "src/main/resources/templates";
+        
+        StringTemplateService sts = new StringTemplateService(dir);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("name", "suhail");
+        System.out.println(sts.getTemplate("mujjio", "something", params));
     }
 }

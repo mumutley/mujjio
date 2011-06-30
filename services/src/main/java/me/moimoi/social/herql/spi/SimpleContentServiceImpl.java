@@ -16,6 +16,7 @@
 package me.moimoi.social.herql.spi;
 
 import com.google.inject.Inject;
+import java.util.Map;
 import me.moimoi.social.herql.services.ContentServices;
 import me.moimoi.social.herql.services.TemplateService;
 
@@ -32,8 +33,9 @@ public class SimpleContentServiceImpl implements ContentServices {
         this.tempaltes = templates;
     }
     
-    public String getSimple(String node, String property) {
-        return tempaltes.getTemplate(node, property);
+    @Override
+    public String getSimple(String node, String property, Map<String, Object> params) {
+        return tempaltes.getTemplate(node, property, params);
     }
     
 }
