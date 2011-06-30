@@ -94,10 +94,11 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1</version>
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>                    
+                    <failOnMissingWebXml>false</failOnMissingWebXml>   
+                    <warName>mu</warName>
                 </configuration>
             </plugin>            
-        </plugins>
+        </plugins>        
         <finalName>mu</finalName>
     </build>
     <!-- dependency versions -->    
