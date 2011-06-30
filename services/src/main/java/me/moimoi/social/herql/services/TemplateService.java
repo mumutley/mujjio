@@ -23,6 +23,6 @@ import java.util.Map;
  */
 public interface TemplateService {
 
-    String getTemplate(String domain, String template, Map<String, Object> params);
+    String apply(String domain, String template, Map<String, Object> params);
     
 }

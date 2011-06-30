@@ -26,16 +26,17 @@ import me.moimoi.social.herql.services.TemplateService;
  */
 public class SimpleContentServiceImpl implements ContentServices {
  
-    private final TemplateService tempaltes;
+    private final TemplateService templates;
     
     @Inject
     public SimpleContentServiceImpl(TemplateService templates) {
-        this.tempaltes = templates;
+        this.templates = templates;
     }
     
     @Override
-    public String getSimple(String node, String property, Map<String, Object> params) {
-        return tempaltes.getTemplate(node, property, params);
+    public String transform(String node, String property, Map<String, Object> params) {
+        System.out.println("class is " + templates.getClass().getName());
+        return templates.apply(node, property, params);
     }
     
 }

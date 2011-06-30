@@ -15,22 +15,19 @@
  */
 package me.moimoi.social.herql.templates;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
+import java.util.logging.Level;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineFactory;
+import javax.script.ScriptEngineManager;
 import java.util.HashMap;
 import java.util.Map;
-import javax.jms.Message;
+import java.util.logging.Logger;
 import me.moimoi.social.herql.spi.templates.StringTemplateService;
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.apache.commons.lang.time.StopWatch;
+import org.junit.Assert;
 import org.junit.Test;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupDir;
@@ -41,65 +38,99 @@ import org.stringtemplate.v4.STGroupDir;
  */
 public class TemplateTests {
 
+    private static final String dir = "src/main/resources/templates";
+    private static final Logger LOG = Logger.getAnonymousLogger();
+    
     public TemplateTests() {
     }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }   
-
     
-    public void getTemplateCache() throws FileNotFoundException, IOException {
-        InputStream fis = new FileInputStream(new File("src/main/resources/ehcacheConfig.xml").getAbsolutePath());
-        CacheManager manager = new CacheManager(fis);
+    public void testRhino() {
+        ScriptEngineManager sem = new ScriptEngineManager();
+        List list = sem.getEngineFactories();
+        ScriptEngineFactory f;
+        for (int i = 0; i < list.size(); i++) {
+            f = (ScriptEngineFactory) list.get(i);
+            String engineName = f.getEngineName();
+            String engineVersion = f.getEngineVersion();
+            String langName = f.getLanguageName();
+            String langVersion = f.getLanguageVersion();
+            LOG.log(Level.INFO, "{0} {1} {2} {3}", new Object[]{engineName, engineVersion, langName, langVersion});
+        }
+        ScriptEngine se = sem.getEngineByName("rhino-nonjdk");
+        f = se.getFactory();
+        String engineName = f.getEngineName();
+        String engineVersion = f.getEngineVersion();
+        String langName = f.getLanguageName();
+        String langVersion = f.getLanguageVersion();
+        LOG.log(Level.INFO, "-> {0} {1} {2} {3}", new Object[]{engineName, engineVersion, langName, langVersion});
 
-        Cache c = manager.getCache("templates");
-        c.put(new Element("verify", "give me a break"));
 
-        System.out.println(c.getName());
-        System.out.println(c.get("verify").getValue());
-        
-        
-        String dir = "src/main/resources/templates";
-        STGroupDir std = new STGroupDir(dir);        
-        ST st = std.getInstanceOf("mujjio/something");
-        System.out.println(st.getAttributes());
-        //AttributeRenderer htmlEncodedRenderer = new HtmlEncodedRenderer();
-        //std.registerRenderer(String.class,  htmlEncodedRenderer);
-        
-        //StringWriter sw = new StringWriter();
-        //NoIndentWriter w = new NoIndentWriter(sw);
-        //st.write(w); // same as render() except with a different writer
-        //String result = sw.toString();
-
-        st.add("name", "suhail");
-        Message msg;
-       
-        
-        System.out.println(st.render());
-        //TemplateService ts = new StringTemplateService(dir);
-        //ts.getTemplate("", "verify");
     }
-    
+
     @Test
-    public void getThroughTemplateService() throws IOException{
-        String dir = "src/main/resources/templates";
-        
+    public void applyWithoutCache() throws FileNotFoundException, IOException {
+        StopWatch stopwatch = new StopWatch();
+        stopwatch.start();
+        STGroupDir std = new STGroupDir(dir);
+        ST st = std.getInstanceOf("mujjio/something");
+        st.add("name", "suhail");        
+        stopwatch.stop();
+        LOG.log(Level.INFO, "time t0 {0}", stopwatch.toString());
+    }
+
+    @Test
+    public void applyWithCaching() throws IOException {
+        StopWatch stopwatch = new StopWatch();
+        stopwatch.start();
+
         StringTemplateService sts = new StringTemplateService(dir);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", "suhail");
-        System.out.println(sts.getTemplate("mujjio", "something", params));
+        sts.apply("mujjio", "something", params);
+        stopwatch.stop();
+        LOG.log(Level.INFO, "time t1 {0}", stopwatch.toString());
+
+        stopwatch.reset();
+        stopwatch.start();
+        params = new HashMap<String, Object>();
+        params.put("name", "suhail");
+
+        sts.apply("mujjio", "something", params);
+        stopwatch.stop();
+        LOG.log(Level.INFO, "time t2 {0}", stopwatch.toString());
+    }
+
+    @Test
+    public void applyNormal() throws IOException {
+        StringTemplateService sts = new StringTemplateService(dir);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("name", "suhail");
+        params.put("url", "http://localhost:8080/verification/something");
+        String content = sts.apply("mujjio", "verification", params);
+        LOG.log(Level.INFO, "content {0}", content);
+        Assert.assertTrue("template has not been applied", (content.indexOf("suhail") > -1));
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void templateGroupNotFound() throws IOException {
+        StringTemplateService sts = new StringTemplateService(dir + "/wrongplace");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("name", "suhail");
+        String content = sts.apply("mujjio", "something", params);
+        Assert.assertTrue("template has not been applied", (content.indexOf("suhail") > -1));        
+    }
+    
+    @Test(expected=RuntimeException.class)
+    public void templateNotFound() throws IOException {
+        StringTemplateService sts = new StringTemplateService(dir);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("name", "suhail");
+        String content = sts.apply("mujsjio", "something", params);        
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void paramsNotFound() throws IOException {
+        StringTemplateService sts = new StringTemplateService(dir);
+        String content = sts.apply("mujsjio", "something", null);                
     }
 }

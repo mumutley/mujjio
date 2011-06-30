@@ -23,6 +23,6 @@ import java.util.Map;
  */
 public interface ContentServices {
 
-    String getSimple(String node, String property, Map<String, Object> params);
+    String transform(String node, String property, Map<String, Object> params);
     
 }
