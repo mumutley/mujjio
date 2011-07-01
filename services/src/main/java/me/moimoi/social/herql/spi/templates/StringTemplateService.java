@@ -42,6 +42,7 @@ public class StringTemplateService implements TemplateService {
     public StringTemplateService(@Named("herql.template.dir") String configPath) throws IOException {
         LOG.log(Level.INFO, "dir {0}", configPath);
         st = new STGroupDir(configPath);
+        LOG.log(Level.INFO, " --%-- dir {0}", configPath);
     }
 
     @Cached(name = "templates")

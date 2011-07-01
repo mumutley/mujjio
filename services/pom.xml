@@ -65,11 +65,11 @@
             <groupId>rhino</groupId>
             <artifactId>js</artifactId>
         </dependency>  
-        <dependency>
+        <!--dependency>
             <groupId>javax.scripting</groupId>
             <artifactId>rhino</artifactId>
             <version>1.0.0</version>
-        </dependency>
+        </dependency-->
     </dependencies>
    
     <repositories>
