@@ -17,8 +17,11 @@ package me.moimoi.social.herqlweb.handlers;
 
 import com.google.inject.Inject;
 import java.net.ProtocolException;
+import java.net.URL;
 import java.util.Date;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import me.moimoi.social.herql.domain.ProfileType;
 import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.domain.SocialPerson;
@@ -54,7 +57,7 @@ public class SignupHandler {
     @Operation(httpMethods = "POST", bodyParam = "entity")
     public Future<?> create(SocialRequestItem request) throws ProtocolException {
         JoinForm member = request.getTypedParameter("entity", JoinForm.class);
-        //{"email":"suhail"foobar.be","password":"password","givenName":"Suhail","familyName":"Manzoor","gender":"male","language":"english","dd":"10","mm":"11","yyyy":"1968","noage":"true"}
+        //{"email":"suhail@foobar.be","password":"password","givenName":"Suhail","familyName":"Manzoor","gender":"male","language":"english","dd":"10","mm":"11","yyyy":"1968","noage":"true"}
         NameImpl name = new NameImpl(member.getGivenName() + " " + member.getFamilyName());
         name.setFamilyName(member.getFamilyName());
         name.setGivenName(member.getGivenName());
@@ -84,7 +87,9 @@ public class SignupHandler {
         identity.getProfiles().add(person);
         
         registration.register(identity);
-        
+                
         return ImmediateFuture.newInstance(identity);
     }
+    
+    private static final Logger LOG = Logger.getLogger(SignupHandler.class.getName());
 }
