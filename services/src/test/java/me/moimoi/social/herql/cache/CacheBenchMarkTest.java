@@ -37,13 +37,13 @@ public class CacheBenchMarkTest {
     private Calculator nonCacheCalculator = new CalculatorImpl();
     private static final Logger logger = Logger.getLogger(CacheBenchMarkTest.class.getName());
 
-    @Before
+    //@Before
     public void beforeTest() {
         injector = Guice.createInjector(new EhCacheModule(), new PropertiesModule(), new CacheModule(), new GuiceModule());
         cacheCalculator = injector.getInstance(Calculator.class);
     }
 
-    @Test
+    //@Test
     public void minimalTest() throws InterruptedException {
 
         StopWatch stopwatch = new StopWatch();
@@ -68,7 +68,7 @@ public class CacheBenchMarkTest {
 
     }
 
-    @Test
+    //@Test
     public void checkingCacheCollision() throws InterruptedException {
 
         minimalTest();
@@ -96,7 +96,7 @@ public class CacheBenchMarkTest {
 
     }
 
-    @After
+    //@After
     public void afterTest() {
     }
 }

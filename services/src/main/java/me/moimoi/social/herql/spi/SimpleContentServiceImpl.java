@@ -19,6 +19,7 @@ import com.google.inject.Inject;
 import java.util.Map;
 import me.moimoi.social.herql.services.ContentServices;
 import me.moimoi.social.herql.services.TemplateService;
+import me.moimoi.social.herql.spi.templates.TemplateCacheKey;
 
 /**
  *
@@ -35,8 +36,8 @@ public class SimpleContentServiceImpl implements ContentServices {
     
     @Override
     public String transform(String node, String property, Map<String, Object> params) {
-        System.out.println("class is " + templates.getClass().getName());
-        return templates.apply(node, property, params);
+        TemplateCacheKey key = new TemplateCacheKey(node, property);
+        return templates.apply(key, params);
     }
     
 }

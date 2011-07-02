@@ -13,17 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.moimoi.social.herql.services;
-
-import java.util.Map;
-import me.moimoi.social.herql.spi.templates.TemplateCacheKey;
+package me.moimoi.social.herql.cache.aop;
 
 /**
  *
  * @author suhail
  */
-public interface TemplateService {
-
-    String apply(TemplateCacheKey key, Map<String, Object> params);
+public interface CacheKey {
     
+    String getKey();
 }

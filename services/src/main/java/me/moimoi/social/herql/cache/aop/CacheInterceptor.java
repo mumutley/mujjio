@@ -16,14 +16,15 @@
 package me.moimoi.social.herql.cache.aop;
 
 import com.google.inject.Inject;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import me.moimoi.social.herql.cache.annotation.Cached;
 
-import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.apache.shindig.common.cache.Cache;
 import org.apache.shindig.common.cache.CacheProvider;
 
 public class CacheInterceptor implements MethodInterceptor {
@@ -31,77 +32,28 @@ public class CacheInterceptor implements MethodInterceptor {
     private CacheManager cacheManager;
     private CacheKeyGenerator cacheKeyGenerator;
     private CacheProvider provider;
-
+    private static final Logger LOG = Logger.getLogger(CacheInterceptor.class.getName());
+    private Cache<String, String> cache;
+    
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        setupCacheIfNecessary(invocation);
-
-        Cached c = invocation.getMethod().getAnnotation(Cached.class);
-        Cache cache = null;
-        if (c.name().equals("null")) {
-            return getResultFromCacheOrMethod(invocation);
-        }
         
-        cache = getCache(c.name());
-        return getResultFromCacheOrMethod(invocation, cache);
+        LOG.log(Level.INFO, "cache name {0}", provider.getClass().getName());        
+        
+        Cached c = invocation.getMethod().getAnnotation(Cached.class);        
+        cache = getCacheProvider().createCache(c.name());  
+                
+        CacheKey key = (CacheKey)invocation.getArguments()[0];
+        String cached = cache.getElement(key.getKey()) ;
+        if(cached == null) {
+            Object o =  invocation.proceed();
+            cache.addElement(key.getKey(), (String)o);
+            return o;
+        }                
+        
+        return cached;
     }
-
-    private Object getResultFromCacheOrMethod(MethodInvocation invocation, Cache c) {
-        return null;
-    }
-
-    private Object getResultFromCacheOrMethod(MethodInvocation invocation) throws Throwable {
-        Cache cache = getCache(invocation);
-        String cacheKey = getCacheKey(invocation);
-        Element element = cache.get(cacheKey);
-        if (element != null) {
-            return element.getValue();
-        } else {
-            return getResultAndCache(invocation, cache, cacheKey);
-        }
-
-    }
-
-    private Object getResultAndCache(MethodInvocation invocation, Cache cache,
-            String cacheKey) throws Throwable {
-        Object methodResult = invocation.proceed();
-        Element elementResult = new Element(cacheKey, methodResult);
-        cache.put(elementResult);
-        return methodResult;
-    }
-
-    private String getCacheKey(MethodInvocation invocation) {
-
-        return getCacheKeyGenerator().getCacheKey(invocation);
-    }
-
-    private void setupCacheIfNecessary(MethodInvocation invocation) {
-        if (!cacheCreated(invocation)) {
-            createCache(invocation);
-
-        }
-    }
-
-    private void createCache(MethodInvocation invocation) {
-        getCacheManager().addCache(getCacheName(invocation));
-    }
-
-    private boolean cacheCreated(MethodInvocation invocation) {
-        return getCacheManager().cacheExists(getCacheName(invocation));
-    }
-
-    private Cache getCache(MethodInvocation invocation) {
-        return getCacheManager().getCache(getCacheName(invocation));
-    }
-
-    private Cache getCache(String cacheName) {
-        return getCacheManager().getCache(cacheName);
-    }
-
-    private String getCacheName(MethodInvocation invocation) {
-        return invocation.getMethod().toString();
-    }
-
+        
     @Inject
     public void setCacheManager(CacheManager cacheManager) {
         this.cacheManager = cacheManager;
@@ -126,6 +78,6 @@ public class CacheInterceptor implements MethodInterceptor {
     }
 
     public CacheProvider getCacheProvider() {
-        return null;
+        return this.provider;
     }
 }

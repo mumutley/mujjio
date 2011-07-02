@@ -105,4 +105,11 @@ under the License.
     diskPersistent="false"
     memoryStoreEvictionPolicy="LFU"/>
     
+ <cache name="null"
+    maxElementsInMemory="1000"
+    eternal="true"
+    overflowToDisk="false"
+    diskPersistent="false"
+    memoryStoreEvictionPolicy="LFU"/>    
+    
 </ehcache>

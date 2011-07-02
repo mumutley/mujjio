@@ -30,7 +30,7 @@ public class CacheModule extends AbstractModule {
     @Override
     protected void configure() {
 
-        bind(CacheManager.class).toInstance(CacheManager.create());
+        //bind(CacheManager.class).toInstance(CacheManager.create());
         bind(CacheKeyGenerator.class).to(getCacheKeyGeneratorClass());
         CacheInterceptor cacheInterceptor = new CacheInterceptor();
         requestInjection(cacheInterceptor);

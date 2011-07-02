@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.spi.templates.StringTemplateService;
+import me.moimoi.social.herql.spi.templates.TemplateCacheKey;
 import org.apache.commons.lang.time.StopWatch;
 import org.junit.Assert;
 import org.junit.Test;
@@ -40,6 +41,7 @@ public class TemplateTests {
 
     private static final String dir = "src/main/resources/templates";
     private static final Logger LOG = Logger.getAnonymousLogger();
+    private TemplateCacheKey key = new TemplateCacheKey("mujjio", "verification");
     
     public TemplateTests() {
     }
@@ -72,8 +74,9 @@ public class TemplateTests {
         StopWatch stopwatch = new StopWatch();
         stopwatch.start();
         STGroupDir std = new STGroupDir(dir);
-        ST st = std.getInstanceOf("mujjio/something");
-        st.add("name", "suhail");        
+        ST st = std.getInstanceOf("mujjio/verification");
+        st.add("name", "test");        
+        st.add("url", "test");                
         stopwatch.stop();
         LOG.log(Level.INFO, "time t0 {0}", stopwatch.toString());
     }
@@ -86,7 +89,8 @@ public class TemplateTests {
         StringTemplateService sts = new StringTemplateService(dir);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", "suhail");
-        sts.apply("mujjio", "something", params);
+        params.put("url", "test");                
+        sts.apply(key, params);
         stopwatch.stop();
         LOG.log(Level.INFO, "time t1 {0}", stopwatch.toString());
 
@@ -95,7 +99,7 @@ public class TemplateTests {
         params = new HashMap<String, Object>();
         params.put("name", "suhail");
 
-        sts.apply("mujjio", "something", params);
+        sts.apply(key, params);
         stopwatch.stop();
         LOG.log(Level.INFO, "time t2 {0}", stopwatch.toString());
     }
@@ -106,7 +110,7 @@ public class TemplateTests {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", "suhail");
         params.put("url", "http://localhost:8080/verification/something");
-        String content = sts.apply("mujjio", "verification", params);
+        String content = sts.apply(key, params);
         LOG.log(Level.INFO, "content {0}", content);
         Assert.assertTrue("template has not been applied", (content.indexOf("suhail") > -1));
     }
@@ -116,7 +120,7 @@ public class TemplateTests {
         StringTemplateService sts = new StringTemplateService(dir + "/wrongplace");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", "suhail");
-        String content = sts.apply("mujjio", "something", params);
+        String content = sts.apply(key, params);
         Assert.assertTrue("template has not been applied", (content.indexOf("suhail") > -1));        
     }
     
@@ -125,12 +129,13 @@ public class TemplateTests {
         StringTemplateService sts = new StringTemplateService(dir);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", "suhail");
-        String content = sts.apply("mujsjio", "something", params);        
+        TemplateCacheKey k = new TemplateCacheKey("mujjio", "two-tonnes");
+        String content = sts.apply(k, params);        
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void paramsNotFound() throws IOException {
         StringTemplateService sts = new StringTemplateService(dir);
-        String content = sts.apply("mujsjio", "something", null);                
+        String content = sts.apply(key, null);                
     }
 }
