@@ -21,6 +21,8 @@
     <script type="text/javascript" src="js/kwicks/jquery.kwicks-1.5.1.pack.js"></script>
     <script type="text/javascript" src="js/swfobject/swfobject.js"></script>
     <script type="text/javascript" src="js/vticker/jquery.vticker.1.4.js"></script>
+    <script type="text/javascript" src="js/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+
 
   </head>
   <body>
@@ -38,24 +40,14 @@
       <!-- updates tab-->
       <div id="updates_tab" class="socialcontent">
 
-        <div id="updates-tab-header" class="one">
-          <div class="three">
-            <div class="socialtab-title">Social<br/><span class="socialtab-subtitle">Updates</span></div>
-
-            <div id="social-updates-add-menu">
-              <a href="#" id="link-social-add-comment" class="comment" title="Add Comment" class="active">&nbsp;</a>
-              <a href="#" id="link-social-add-photo" class="photo" title="Add Photo">&nbsp;</a>
-              <a href="#" id="link-social-add-video" class="video" title="Add Video">&nbsp;</a>
-              <a href="#" id="link-social-add-music" class="music" title="Add Music">&nbsp;</a>
-              <a href="#" id="link-social-add-link" class="link" title="Add Link">&nbsp;</a>
+          <div class="social-left-content">
+            
+          <div class="horizontal-line-small-margin"></div>
+            <div style="float:left;background-color: #fff">
+            <h4>Social Updates</h4>
             </div>
 
-          </div>
-        </div>
-
-        <div class="socialtab-content">
-
-          <div class="social-left-content">
+            
             <p>				
               <img src="images/profile/suhail_large.jpg" alt=" " width="200" height="145" class=" portfolio-img pretty-box"/>		
             </p>
@@ -93,14 +85,23 @@
             Mujjio Developer<br/>
             Questions<br/>
             Scrabble
- 
+
             <div class="horizontal-line-small-margin"></div>
 
           </div>
 
           <div class="social-right-content">
+            
+            <div class="horizontal-line-small-margin"></div>
+            <div id="social-updates-add-menu" style="float:left;background-color: #fff">
+              <a href="#" id="link-social-add-comment" class="comment" title="Add Comment" class="active">&nbsp;</a>
+              <a href="#" id="link-social-add-photo" class="photo" title="Add Photo">&nbsp;</a>
+              <a href="#" id="link-social-add-video" class="video" title="Add Video">&nbsp;</a>
+              <a href="#" id="link-social-add-music" class="music" title="Add Music">&nbsp;</a>
+              <a href="#" id="link-social-add-link" class="link" title="Add Link">&nbsp;</a>
+            </div>
 
-       <div id="social-content-add-container">
+            <div id="social-content-add-container">
 
               <blockquote class="comment">
                 <div class="comment">
@@ -117,12 +118,25 @@
 
             <div id="social-comment-add-container" style="display: none"></div>
 
+            
+            <!--blockquote class="photo">
+              <div class="photo">
+                <img src="images/profile/suhail.jpg" alt=" " width="60" height="60" class="img-align-left"/>
+
+                <h6>Add a new Photograph</h6>
+                <div class="link-file" style="width:140px; margin-left: 60px; float:left"><a href="#">Choose file</a></div>
+                <div class="link-computer" style="width:140px; margin-left: 10px; float:left"><a href="#">Take from webcam</a></div> 
+                <input type="file" id="file_upload" name="file_upload" />
+                <a href="javascript:jQuery('#file_upload').uploadifyUpload();">Upload Files</a>
+
+              </div>
+            </blockquote-->
 
             <blockquote class="photo">
               <div class="photo">
                 <img src="images/profile/suhail.jpg" alt=" " width="60" height="60" class="img-align-left"/>
                 <div class="social-add-photo-container">
-                  <a href="images/gallery/grid-img-003.jpg" class="portfolio-item-preview" title="Indescretion" data-rel="prettyPhoto"><img src="images/gallery/grid-img-003.jpg" alt=" " width="210" height="145" class="portfolio-img pretty-box""/></a>
+                  <a href="images/gallery/grid-img-003.jpg" class="portfolio-item-preview" title="Indescretion" data-rel="prettyPhoto"><img src="images/gallery/grid-img-003.jpg" alt=" " width="210" height="145" class="portfolio-img pretty-box"/></a>
                 </div>
                 <a href="#">Suhail Manzoor</a> Added a Photograph<div style="float: right">1 minute ago</div>
                 <p>
@@ -238,7 +252,7 @@
             </blockquote>
 
             <div class="spacer-20"></div>
-            <a href="#">more updates</a>
+            <!--a href="#">more updates</a-->
             <div class="spacer-20"></div>
           </div>
 
@@ -249,6 +263,169 @@
 
       <!-- wall tab-->
       <div id="wall_tab" class="socialcontent">
+        
+        
+          <div class="social-left-content">
+            
+          <div class="horizontal-line-small-margin"></div>
+            <div style="float:left;background-color: #fff">
+            <h4>My Wall</h4>
+            </div>
+
+            
+            <p>				
+              <img src="images/profile/suhail_large.jpg" alt=" " width="200" height="145" class=" portfolio-img pretty-box"/>		
+            </p>
+            <h4>Suhail Manzoor</h4>
+            <h4><span class="colored">Mojo : 300</span></h4>
+
+            <div class="horizontal-line-small-margin"></div>
+            <h4>My Network Tags</h4>
+
+            <div class="social-left-content-inner">
+
+              <fieldset style="float: left">
+                <input class="tag-input" type="text" onblur="if(this.value=='')this.value='Add a tag';" onfocus="if(this.value=='Add a tag')this.value='';" value="Add a tag"/>
+              </fieldset>
+
+              <div class="sidebar-tag-item"><a href="#">Media</a></div>
+              <div class="sidebar-tag-item"><a href="#">Music</a></div>
+              <div class="sidebar-tag-item"><a href="#">Photography</a></div>
+              <div class="sidebar-tag-item"><a href="#">Video</a></div>
+              <div class="sidebar-tag-item"><a href="#">Clip</a></div>
+              <div class="sidebar-tag-item"><a href="#">Blog</a></div>
+              <div class="sidebar-tag-item"><a href="#">Portfolio</a></div>
+              <div class="sidebar-tag-item"><a href="#">Tag</a></div>
+              <div class="sidebar-tag-item"><a href="#">Sound</a></div>
+              <div class="sidebar-tag-item"><a href="#">Movie</a></div>
+            </div>
+
+            <div class="spacer-20"></div>
+
+            <div class="horizontal-line-small-margin"></div>
+            <h4>My Apps</h4>
+
+            Sky News<br/>
+            TripAdvisor<br/>
+            Mujjio Developer<br/>
+            Questions<br/>
+            Scrabble
+
+            <div class="horizontal-line-small-margin"></div>
+
+          </div>
+
+          <div class="social-right-content">
+            
+            <div class="horizontal-line-small-margin"></div>
+            <div id="social-updates-add-menu" style="float:left;background-color: #fff">
+              <a href="#" id="link-social-add-comment" class="comment" title="Add Comment" class="active">&nbsp;</a>
+              <a href="#" id="link-social-add-photo" class="photo" title="Add Photo">&nbsp;</a>
+              <a href="#" id="link-social-add-video" class="video" title="Add Video">&nbsp;</a>
+              <a href="#" id="link-social-add-music" class="music" title="Add Music">&nbsp;</a>
+              <a href="#" id="link-social-add-link" class="link" title="Add Link">&nbsp;</a>
+            </div>
+
+            <div id="social-content-add-container">
+
+              <blockquote class="comment">
+                <div class="comment">
+                  <img src="images/profile/suhail.jpg" alt=" " width="60" height="60" class="img-align-left"/>
+                  <a href="#">Suhail Manzoor</a>
+                  <p style="margin-top: -9px">
+                  <fieldset style="float: left">
+                    <input id="social-comment-input" class="comment-input" type="text" onblur="if(this.value=='')this.value='Add a news update';" onfocus="if(this.value=='Add a news update')this.value='';" value="Add a news update"/>
+                  </fieldset>
+                  </p>
+                </div>
+              </blockquote>
+            </div>
+
+            <div id="social-comment-add-container" style="display: none"></div>
+
+            
+            <!--blockquote class="photo">
+              <div class="photo">
+                <img src="images/profile/suhail.jpg" alt=" " width="60" height="60" class="img-align-left"/>
+
+                <h6>Add a new Photograph</h6>
+                <div class="link-file" style="width:140px; margin-left: 60px; float:left"><a href="#">Choose file</a></div>
+                <div class="link-computer" style="width:140px; margin-left: 10px; float:left"><a href="#">Take from webcam</a></div> 
+                <input type="file" id="file_upload" name="file_upload" />
+                <a href="javascript:jQuery('#file_upload').uploadifyUpload();">Upload Files</a>
+
+              </div>
+            </blockquote-->
+
+  
+            <blockquote>
+              <div class="comment">
+                <img src="images/profile/muttley.jpg" alt=" " width="60" height="60" class="img-align-left"/>
+                <a href="#">Muttley</a> Added a Comment<div style="float: right">1 minute ago</div>
+                <p>
+									Hey dude, I reckon we should add a main picture to your profile.<a href="#"> Click here</a> and let's do it.
+                </p>
+              </div>
+            </blockquote>
+            <blockquote>
+              <div class="comment">
+                <img src="images/profile/muttley.jpg" alt=" " width="60" height="60" class="img-align-left"/>
+                <a href="#">Muttley</a> Added a Comment<div style="float: right">2 minute ago</div>
+                <p>
+									Do you know you can make money from Companies without buying anything.<a href="#"> Click here</a> to find out how.
+                </p>
+              </div>
+            </blockquote>
+           <blockquote class="photo">
+              <div class="photo">
+                <img src="images/profile/suhail.jpg" alt=" " width="60" height="60" class="img-align-left"/>
+                <div class="social-add-photo-container">
+                  <a href="images/gallery/grid-img-003.jpg" class="portfolio-item-preview" title="Indescretion" data-rel="prettyPhoto"><img src="images/gallery/grid-img-003.jpg" alt=" " width="210" height="145" class="portfolio-img pretty-box"/></a>
+                </div>
+                <a href="#">Suhail Manzoor</a> Added a Photograph<div style="float: right">1 minute ago</div>
+                <p>
+                  Just taken with my new Nikon D7000. Enjoy!
+                </p>
+                <p>
+                <div class="link-more-info" style="width:270px"><a href="#">More info...</a></div>
+                <div class="link-buy" style="width:270px"><a href="#">Buy</a></div>
+                <div class="link-bid" style="width:270px"><a href="#">Bid</a></div>                
+                </p>              
+              </div>
+           </blockquote>         
+            <blockquote class="comment">
+              <div class="comment">
+                <img src="images/profile/friend6.jpg" alt=" " width="60" height="60" class="img-align-left"/>
+                <a href="#">Balacz Barnucs</a> Added a Comment<div style="float: right">2 minutes ago</div>
+                <p>
+									32ft of teak below my feet, here comes happy sailing.
+                </p>
+              </div>
+            </blockquote>
+            <blockquote class="comment">
+              <div class="comment">
+                <img src="images/profile/friend7.jpg" alt=" " width="60" height="60" class="img-align-left"/>
+                <a href="#">Balacz Barnucs</a> Added a Comment<div style="float: right">2 minutes ago</div>
+                <p>
+									32ft of teak below my feet, here comes happy sailing.
+                </p>
+              </div>
+            </blockquote>
+            <blockquote class="comment">
+              <div class="comment">
+                <img src="images/profile/friend8.jpg" alt=" " width="60" height="60" class="img-align-left"/>
+                <a href="#">Balacz Barnucs</a> Added a Comment<div style="float: right">2 minutes ago</div>
+                <p>
+									32ft of teak below my feet, here comes happy sailing.
+                </p>
+              </div>
+            </blockquote>
+           
+
+            <div class="spacer-20"></div>
+            <!--a href="#">more updates</a-->
+            <div class="spacer-20"></div>
+          </div>
 
       </div>
 
@@ -404,7 +581,7 @@
 
       <!-- photographs tab-->
       <div id="photographs_tab" class="socialcontent">
-
+ 
       </div>
 
       <!-- video tab-->
