@@ -18,9 +18,9 @@ package me.moimoi.social.herqlweb.spi;
 import com.google.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.domain.SocialIdentity;
+import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.integration.MessangerService;
 import me.moimoi.social.herql.services.ContentServices;
 import me.moimoi.social.herql.services.SocialIdentityService;
@@ -55,13 +55,16 @@ public class RegistrationServiceImpl implements RegistrationService {
     
     @Override
     public void register(SocialIdentity identity) {        
-        this.personService.register(identity.getProfiles().get(RegistrationServiceImpl.FIRST));
+        SocialPerson person = identity.getProfiles().get(RegistrationServiceImpl.FIRST);
+        this.personService.register(person);
         this.identityService.create(identity);
         Map<String,Object> map = new HashMap<String, Object>();
-        String message = content.transform("mujjio", "verification", map);      
-        LOG.log(Level.INFO, "Email verification sent {0}", message);        
-        messanger.send(message);
+        map.put("name", person.getDisplayName());
+        map.put("url", "http://www.google.com");                        
+        String message = content.transform("mujjio", "verification", map);   
+        messanger.send(message,identity.getLoginName(), WELCOME + person.getDisplayName());
     }
     
+    private static final String WELCOME = "Welcome to mujjio ";
     private static final Logger LOG = Logger.getLogger(RegistrationServiceImpl.class.getName());
 }

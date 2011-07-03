@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.inject.name.Names;
 import java.util.Set;
 import me.moimoi.social.herql.integration.MessangerService;
-import me.moimoi.social.herql.integration.spi.MessangerServiceImpl;
+import me.moimoi.social.herql.integration.spi.EmailMessangerServiceImpl;
 import me.moimoi.social.herql.spi.HerqlOAuthDataStore;
 import me.moimoi.social.herqlweb.handlers.AccountHandler;
 import me.moimoi.social.herqlweb.handlers.IdentityHandler;
@@ -44,7 +44,7 @@ public class HerqlwebModule extends SocialApiGuiceModule {
         //TODO need to deprecate in favour of the dao pattern
         //bind(SimpleDatasource.class).toProvider(MongoDataSource.class);
         bind(RegistrationService.class).to(RegistrationServiceImpl.class);
-        bind(MessangerService.class).to(MessangerServiceImpl.class);
+        bind(MessangerService.class).to(EmailMessangerServiceImpl.class);
         
         bind(OAuthDataStore.class).to(HerqlOAuthDataStore.class);
 
