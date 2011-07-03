@@ -4,6 +4,7 @@
  */
 package com.mujjio.server.arc.mail;
 
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -11,9 +12,13 @@ import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.ejb.MessageDrivenContext;
 import javax.jms.JMSException;
+import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.TextMessage;
+import javax.mail.MessagingException;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -37,11 +42,29 @@ public class EmailMessangerBean implements MessageListener {
     @Override
     public void onMessage(Message message) {
         try {
-            LOG.log(Level.INFO, "message {0} --%-- session {1}", new Object[]{((TextMessage)message).getText(), mail});
+            MapMessage map = (MapMessage)message;
+            String msg = map.getString("MESSAGE");
+            String subject = map.getString("SUBJECT");
+            String recipient = map.getString("RECIPIENT");
+
+            MimeMessage email = new MimeMessage(mail);
+            email.setFrom(new InternetAddress(FROM));
+            email.setRecipient(javax.mail.Message.RecipientType.TO, new InternetAddress(recipient));
+            email.setSubject(subject);
+            email.setText(msg);        
+            
+            email.setHeader("X-Mailer", "My Mailer");
+            email.setSentDate(new Date());
+            
+            //Transport.send(email);
+            
+        } catch (MessagingException ex) {
+            Logger.getLogger(EmailMessangerBean.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JMSException ex) {
             LOG.log(Level.SEVERE, null, ex);
         }
     }
     
+    private static final String FROM = "suhailski@gmail.com";    
     private static final Logger LOG = Logger.getLogger(EmailMessangerBean.class.getName());
 }
