@@ -1,210 +1,75 @@
-<script type="text/javascript">
-  
-  $("#birthday_day").focus(function() {
-    if( this.value == this.defaultValue ) {
-      this.value = "";
-    }
-  }).blur(function() {
-    if( !this.value.length ) {
-      this.value = this.defaultValue;
-    }
-  });
-  
-  $("#birthday_month").focus(function() {
-    if( this.value == this.defaultValue ) {
-      this.value = "";
-    }
-  }).blur(function() {
-    if( !this.value.length ) {
-      this.value = this.defaultValue;
-    }
-  });
-  
-  $("#birthday_year").focus(function() {
-    if( this.value == this.defaultValue ) {
-      this.value = "";
-    }
-  }).blur(function() {
-    if( !this.value.length ) {
-      this.value = this.defaultValue;
-    }
-  });
-  
-</script>
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.js"></script>
+    <script type="text/javascript" src="js/signup.js"></script>
+
+    <link rel="stylesheet" id="skins-switcher" href="css/style.css" type="text/css" media="screen"/>
 
 
-<script type="text/javascript"> 
-  
-  $.validator.setDefaults({      
-    //if form validates contstuct JSON
-    submitHandler: function() {
-      var form = JSON.stringify($('#signup_form').serializeObject());
-      $.ajax({
-        type : "POST",
-        url : "http://localhost:8080/social/rest/signup",
-        data : form,
-        dataType : "json",
-        contentType : "application/json",          
-        success : function(data) {
-          console.log(data);
-        }
-      });            
-      return false;   
- 
-    }     
+  </head>
 
-  });
-  
-  //construct JSON
-  $.fn.serializeObject = function()
-  {
-    var o = {};
-    var a = this.serializeArray();
-    $.each(a, function() {
-      if (o[this.name] !== undefined) {
-        if (!o[this.name].push) {
-          o[this.name] = [o[this.name]];
-        }
-        o[this.name].push(this.value || '');
-      } else {
-        o[this.name] = this.value || '';
-      }
-    });
-    return o;
-  };
-  
-
-  $().ready(function() {
-    var validator = $("#signup_form").bind("invalid-form.validate", function() {
-      $("#summary").html("Your form contains " + validator.numberOfInvalids() + " errors, see details below.");
-    }).validate({
-      debug: true,
-      errorElement: "em",
-      errorContainer: $("#warning, #summary"),
-      errorPlacement: function(error, element) {
-        error.appendTo( element.parent("div").next("div") );
-      },
-      success: function(label) {
-        label.text("").addClass("success");
-      },
-      rules: {
-        givenName: {
-          required:true,
-          minlength:3,
-          maxlength:25
-		
-        },
-        familyName: {
-          required:true,
-          minlength:3,
-          maxlength:25	
-        },
-        email2: {
-          required: true,
-          email: true,
-          remote : "http://localhost:8080/social/rest/validator/email"
-        },
-        confirmEmail: {
-          required: true,
-          email2: true,
-          equalTo: "#email"
-        },
-        password: {
-          required:true,
-          minlength:5
-        },
-        gender: {
-          required:true       
-        },
-        language: {
-          required:true
-        },
-        messages: {
-          email: { 
-            remote: "Email address already in use",
-            email : "A valid email address is required",
-            required : "Please enter a valid email address"
-          }
-        }
-      }
-    });
-		
-  });
-</script> 
-
-<style type="text/css"> 
-  form.muj-form-register { width: 940px; }
-
-  em.error {
-    margin-top: 3px;
-    padding:3px;
-    color: #ff0000;
-  }
-  em.success {
-    margin-top: 3px;
-    padding:3px;
-    color: #666666;
-  }
-
-  form.cmxform label.error {
-    margin-left: auto;
-    width: 250px;
-  }
-  em.error { color: #cc0000; }
-  #warning { display: none; }
-</style> 
-
-
-<div id="main"> 
-
-  <form class="muj-form-register" id="signup_form" method="post" action="#"> 
-
-    <div class="muj-container-register-form-header">Sign Up</div>
-
-    <div id="muj-container-register-left">
-
-      <label for="givenName" class="muj-form-label-large">First Name</label>
-      <div class="muj-form-input-large"><input id="givenName" name="givenName" title="First name is required" /></div> 
-      <div class="muj-form-register-error"></div>
-
-      <label for="familyName" class="muj-form-label-large">Last Name</label>
-      <div class="muj-form-input-large"><input id="familyName" name="familyName" title="Last name is required" /></div> 
-      <div class="muj-form-register-error"></div>
-
-      <label for="email2" class="muj-form-label-large">Email Address</label>
-      <div class="muj-form-input-large"><input id="email2" name="email2" title="A valid email address is required" /></div> 
-      <div class="muj-form-register-error"></div>
-
-      <label for="confirmEmail" class="muj-form-label-large">Confirm Email Address</label>
-      <div class="muj-form-input-large"><input id="confirmEmail" name="confirmEmail" title="Email addresses must match" /></div> 
-      <div class="muj-form-register-error"></div>
-
-    </div>
-
-    <div id="muj-container-register-right">
-
-      <label for="password" class="muj-form-label-large">New Password</label>
-      <div class="muj-form-input-large"><input id="password" name="password" title="Minimum of 5 characters required" /></div> 
-      <div class="muj-form-register-error"></div>
-
-      <label for="gender" class="muj-form-label-large">I am</label>
-      <div class="muj-form-register-select"><select id="gender" class="muj-form-select-large" name="gender" id="gender"><option value="female">Female</option><option value="male">Male</option></select></div> 
-      <div class="muj-form-register-error"></div>
-
-      <label for="language" class="muj-form-label-large">Language</label>
-      <div class="muj-form-register-select"><select id="language" class="muj-form-select-large" name="language" id="gender"><option value="English">English</option><option value="French">French</option><option value="Spanish">Spanish</option></select></div> 
-      <div class="muj-form-register-error"></div>
-
-      <label for="birthday_day" class="muj-form-label-large">Birthday</label>
-      <div class="muj-form-input-date-large"><input id="birthday_day" name="dd" title="" value="dd" /></div> 
-      <div class="muj-form-input-date-large"><input id="birthday_month" name="mm" title="" value="mm"  /></div> 
-      <div class="muj-form-input-date-large"><input id="birthday_year" name="yyyy" title=""  value="yyyy" maxlength="4"  /></div> 
-      <div style="width:435px; margin-top:5px; float:left"><input type="checkbox" name="noage" id="birthday_noyear" style="vertical-align: middle; float: left" /><div style=" color:#666666; float:left; margin: 2px 0 0 5px;">Don't show the year on my profile</div></div>
-
-      <div style="width:440px; margin-top: 30px;float: left"><input type="submit" value="Sign Up" class="grey-button"/> </div>
-
-    </div>
+  <body>
     
-  </form> 
+    <div id="signup-main" class="one"> 
 
-</div>
+      <div class="horizontal-line"></div>
+
+      <form id="signup_form" method="post" action="#"> 
+
+        <div class="one-third">       
+          <img src="images/promos/promo-sign-up.png" width="258" height="341"/>  
+        </div>
+
+        <div id="muj-container-register-left" class="one-third">
+
+          <label for="givenName" class="muj-form-label-large">First Name</label>
+          <div class="muj-form-input-large"><input id="givenName" name="givenName" title="First name is required" /></div> 
+          <div class="muj-form-register-error"></div>
+
+          <label for="familyName" class="muj-form-label-large">Last Name</label>
+          <div class="muj-form-input-large"><input id="familyName" name="familyName" title="Last name is required" /></div> 
+          <div class="muj-form-register-error"></div>
+
+          <label for="email2" class="muj-form-label-large">Email Address</label>
+          <div class="muj-form-input-large"><input id="email2" name="email2" title="A valid email address is required" /></div> 
+          <div class="muj-form-register-error"></div>
+
+          <label for="confirmEmail" class="muj-form-label-large">Confirm Email Address</label>
+          <div class="muj-form-input-large"><input id="confirmEmail" name="confirmEmail" title="Email addresses must match" /></div> 
+          <div class="muj-form-register-error"></div>
+
+        </div>
+
+        <div id="muj-container-register-right" class="one-third last">
+
+          <label for="password" class="muj-form-label-large">New Password</label>
+          <div class="muj-form-input-large"><input id="password" name="password" title="Minimum of 5 characters required" /></div> 
+          <div class="muj-form-register-error"></div>
+
+          <label for="gender" class="muj-form-label-large">I am</label>
+          <div class="muj-form-register-select"><select id="gender" class="muj-form-select-large" name="gender" id="gender"><option value="female">Female</option><option value="male">Male</option></select></div> 
+          <div class="muj-form-register-error"></div>
+
+          <label for="language" class="muj-form-label-large">Language</label>
+          <div class="muj-form-register-select"><select id="language" class="muj-form-select-large" name="language" id="gender"><option value="English">English</option><option value="French">French</option><option value="Spanish">Spanish</option></select></div> 
+          <div class="muj-form-register-error"></div>
+
+          <label for="birthday_day" class="muj-form-label-large">Birthday</label>
+          <div class="muj-form-input-date-large"><input id="birthday_day" name="dd" title="" value="dd" /></div> 
+          <div class="muj-form-input-date-large"><input id="birthday_month" name="mm" title="" value="mm"  /></div> 
+          <div class="muj-form-input-date-large"><input id="birthday_year" name="yyyy" title=""  value="yyyy" maxlength="4"  /></div> 
+          <div style="width:270px; margin-top:5px; float:left"><input type="checkbox" name="noage" id="birthday_noyear" style="vertical-align: middle; float: left" /><div style=" color:#666666; float:left; margin: 2px 0 0 5px;">Don't show the year on my profile</div></div>
+
+          <div style="width:300px; margin-top: 30px;float: left"><input type="submit" value="Sign Up" class="grey-button"/> </div>
+
+        </div>
+
+      </form> 
+
+    </div>
+
+  </body>
+</html>
