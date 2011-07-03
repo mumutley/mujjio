@@ -15,17 +15,18 @@
  */
 package me.moimoi.social.herql.integration.spi;
 
+import com.google.inject.Singleton;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
+import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
 import javax.jms.QueueConnectionFactory;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -35,7 +36,7 @@ import me.moimoi.social.herql.integration.MessangerService;
  *
  * @author suhail
  */
-public class MessangerServiceImpl implements MessangerService {
+public class EmailMessangerServiceImpl implements MessangerService {
    
     @Resource(mappedName = "jms/emailQueue")
     private Queue queue;
@@ -43,7 +44,7 @@ public class MessangerServiceImpl implements MessangerService {
     private ConnectionFactory factory;
 
     @Override
-    public void send(String something) {
+    public void send(String msg, String recipient, String subject) {
         Connection connection = null;
         try {            
             
@@ -54,8 +55,11 @@ public class MessangerServiceImpl implements MessangerService {
             connection = fac.createConnection();
             Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
             MessageProducer producer = session.createProducer(que);
-            TextMessage message = session.createTextMessage();
-            message.setText("Hello World");
+            MapMessage message = session.createMapMessage();
+            message.setString(MESSAGE, msg);
+            message.setString(SUBJECT, subject);
+            message.setString(RECIPIENT, recipient);
+            
             producer.send(message);
         } catch (NamingException ex) {
             LOG.log(Level.SEVERE, null, ex);
@@ -70,8 +74,11 @@ public class MessangerServiceImpl implements MessangerService {
                 }
             }
         }
-        //http://forums.oracle.com/forums/thread.jspa?threadID=2220105&tstart=0
     }
     
+    private static final String MESSAGE = "MESSAGE";
+    private static final String SUBJECT = "SUBJECT";
+    private static final String RECIPIENT = "RECIPIENT";
+    //http://forums.oracle.com/forums/thread.jspa?threadID=2220105&tstart=0    
     private static final Logger LOG = Logger.getLogger(MessangerService.class.getName());
 }

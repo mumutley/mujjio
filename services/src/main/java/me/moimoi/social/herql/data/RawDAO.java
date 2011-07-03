@@ -24,4 +24,5 @@ import com.mongodb.DBObject;
 public interface RawDAO {
     
     public DBObject findOne(String key, Object value, String[] fieldNames);
+    public void close();
 }

@@ -37,7 +37,8 @@ public class SocialIdentityServiceImpl implements SocialIdentityService {
     
     @Override
     public Key<SocialIdentity> create(SocialIdentity identity) {
-        return dao.save(identity);        
+        Key<SocialIdentity> keys = dao.save(identity);
+        return keys;
     }
 
     @Override

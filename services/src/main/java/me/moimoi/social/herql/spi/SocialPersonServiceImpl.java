@@ -45,7 +45,8 @@ public class SocialPersonServiceImpl implements SocialPersonService {
 
     @Override
     public Key<SocialPerson> register(SocialPerson person) {
-        return dao.save(person);
+        Key<SocialPerson> key = dao.save(person);
+        return key;
     }
 
     @Override

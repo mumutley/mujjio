@@ -20,7 +20,6 @@ import com.google.inject.name.Named;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.cache.annotation.Cached;
 import me.moimoi.social.herql.cache.aop.CacheKey;

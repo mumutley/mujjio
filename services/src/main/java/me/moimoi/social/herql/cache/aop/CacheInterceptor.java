@@ -42,16 +42,21 @@ public class CacheInterceptor implements MethodInterceptor {
         
         Cached c = invocation.getMethod().getAnnotation(Cached.class);        
         cache = getCacheProvider().createCache(c.name());  
-                
-        CacheKey key = (CacheKey)invocation.getArguments()[0];
-        String cached = cache.getElement(key.getKey()) ;
-        if(cached == null) {
-            Object o =  invocation.proceed();
-            cache.addElement(key.getKey(), (String)o);
-            return o;
-        }                
         
-        return cached;
+        //this is a requirement.               
+        Object cachable = invocation.getArguments()[0];
+        if(cachable instanceof CacheKey){
+            CacheKey key = (CacheKey)cachable;
+            String cached = cache.getElement(key.getKey()) ;
+            if(cached == null) {
+                Object object =  invocation.proceed();
+                cache.addElement(key.getKey(), (String)object);
+                return object;
+            }
+            return cached;
+        }         
+        throw new IllegalArgumentException("The first argument of " 
+                + invocation.getMethod().getName() + " is not an instance of CacheKey.class");                        
     }
         
     @Inject

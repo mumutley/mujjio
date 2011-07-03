@@ -21,5 +21,5 @@ package me.moimoi.social.herql.integration;
  */
 public interface MessangerService {
     
-    public void send(String something);
+    public void send(String msg, String subject, String recipient);
 }

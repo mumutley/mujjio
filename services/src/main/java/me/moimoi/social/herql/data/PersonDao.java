@@ -17,6 +17,7 @@ package me.moimoi.social.herql.data;
 
 import com.google.code.morphia.Morphia;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.mongodb.Mongo;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.DataAccess;
@@ -26,6 +27,7 @@ import org.bson.types.ObjectId;
  *
  * @author ManzoorS
  */
+@Singleton
 public class PersonDao extends HerqlDAO<SocialPerson, ObjectId> implements DataAccess {
 
     @Inject

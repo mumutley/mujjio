@@ -16,8 +16,8 @@
 package me.moimoi.social.herql.data;
 
 import com.google.code.morphia.Morphia;
-import com.google.code.morphia.dao.BasicDAO;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.mongodb.Mongo;
 import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.services.DataAccess;
@@ -27,10 +27,11 @@ import org.bson.types.ObjectId;
  *
  * @author ManzoorS
  */
-public class IdentityDao extends BasicDAO<SocialIdentity, ObjectId> implements DataAccess {
+@Singleton
+public class IdentityDao extends HerqlDAO<SocialIdentity, ObjectId> implements DataAccess {
     
     @Inject
     public IdentityDao(Morphia morphia, Mongo mongo ) {
-        super(mongo, morphia, "social");
+        super(morphia, mongo, "social");
     }       
 }

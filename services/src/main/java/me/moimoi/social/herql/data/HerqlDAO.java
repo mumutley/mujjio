@@ -37,6 +37,10 @@ public class HerqlDAO<T, K> extends BasicDAO<T, K> implements RawDAO {
         super(mongo, morphia, "social");
     }
 
+    public HerqlDAO(Morphia morphia, Mongo mongo, String db) {
+        super(mongo, morphia, db);
+    }
+     
     @Override
     public DBObject findOne(String key, Object value, String[] fieldNames) {
         
@@ -51,7 +55,11 @@ public class HerqlDAO<T, K> extends BasicDAO<T, K> implements RawDAO {
         
         DBObject a = new BasicDBObject("className", ids);
         
-        return collection.findOne(lookup, a);
-        
+        return collection.findOne(lookup, a);        
+    }
+
+    @Override
+    public void close() {
+        this.getDatastore().getMongo().close();
     }
 }
