@@ -44,7 +44,6 @@ public class OpenSocialDataService implements ActivityService, PersonService, Ap
     
     @Inject
     public OpenSocialDataService(@Named("json.db") String jsonLocation) throws Exception {
-        System.out.println(" ---->>>> HerqlOpensocialService ");
         
     }
 

@@ -48,7 +48,7 @@ public class IdentityServiceImpl implements SocialIdentityService {
         SocialPerson existing = pdao.findOne(SocialPersonService.ID, identity.getProfiles().get(FIRST));
         if (this.get(identity.getLoginName()) == null && existing == null) {
             Key<SocialPerson> pkey = pdao.save(identity.getProfiles().get(0));
-            identity.setActive(Boolean.TRUE);
+            identity.setActive(Boolean.FALSE);
             Key<SocialIdentity> key = dao.save(identity);            
             return key;
         }        
