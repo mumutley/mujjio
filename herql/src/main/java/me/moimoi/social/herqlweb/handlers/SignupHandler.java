@@ -19,6 +19,7 @@ import com.google.inject.Inject;
 import java.net.ProtocolException;
 import java.util.Date;
 import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.domain.ProfileType;
 import me.moimoi.social.herql.domain.SocialIdentity;
@@ -85,7 +86,7 @@ public class SignupHandler {
         identity.getProfiles().add(person);
         
         registration.register(identity);
-                
+        FutureTask a =null;
         return ImmediateFuture.newInstance(identity);
     }
     

@@ -25,6 +25,7 @@ import me.moimoi.social.herql.integration.MessangerService;
 import me.moimoi.social.herql.services.ContentServices;
 import me.moimoi.social.herql.services.SocialIdentityService;
 import me.moimoi.social.herql.services.SocialPersonService;
+import me.moimoi.social.herql.services.WorkerPool;
 import me.moimoi.social.herqlweb.services.RegistrationService;
 
 /**
@@ -37,6 +38,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final SocialPersonService personService;
     private final MessangerService messanger;
     private final ContentServices content;
+    private final WorkerPool pool;
     private static final int FIRST = 0;
     
     @Inject
@@ -44,13 +46,14 @@ public class RegistrationServiceImpl implements RegistrationService {
             SocialIdentityService identityService,
             SocialPersonService personService,
             MessangerService messanger,
-            ContentServices content) {
+            ContentServices content,
+            WorkerPool pool) {
         
         this.identityService = identityService;
         this.personService = personService;
         this.messanger = messanger;
         this.content = content;
-        
+        this.pool = pool;
     }
     
     @Override
@@ -61,8 +64,13 @@ public class RegistrationServiceImpl implements RegistrationService {
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("name", person.getDisplayName());
         map.put("url", "http://www.google.com");                        
-        String message = content.transform("mujjio", "verification", map);   
-        messanger.send(message,identity.getLoginName(), WELCOME + person.getDisplayName());
+        String message = content.transform("mujjio", "verification", map); 
+        messanger.setMsg(message);
+        messanger.setRecipient(identity.getLoginName());
+        messanger.setSubject(WELCOME + person.getDisplayName());
+        messanger.send();
+        //pool.submit(messanger);
+        
     }
     
     private static final String WELCOME = "Welcome to mujjio ";
