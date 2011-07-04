@@ -13,30 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.moimoi.social.herql.integration;
-
-import me.moimoi.social.herql.util.OutputWorker;
+package me.moimoi.social.herql.util;
 
 /**
  *
  * @author suhail
  */
-public interface MessangerService extends OutputWorker {        
-
-    /**
-     * @param msg the msg to set
-     */
-    void setMsg(String msg);
+public interface OutputWorker {
     
-    /**
-     * @param subject the subject to set
-     */
-    void setSubject(String subject);    
-
-    /**
-     * @param recipient the recipient to set
-     */
-    void setRecipient(String recipient);
-    
-    void send();
+    public void work();
 }

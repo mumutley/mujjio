@@ -20,12 +20,14 @@ import me.moimoi.social.herql.services.ContentServices;
 import me.moimoi.social.herql.services.SocialIdentityService;
 import me.moimoi.social.herql.services.SocialPersonService;
 import me.moimoi.social.herql.services.TemplateService;
+import me.moimoi.social.herql.services.WorkerPool;
 import me.moimoi.social.herql.spi.IdentityServiceImpl;
 import me.moimoi.social.herql.spi.OpenSocialActivityStreamService;
 import me.moimoi.social.herql.spi.OpenSocialDataService;
 import me.moimoi.social.herql.spi.SimpleContentServiceImpl;
 import me.moimoi.social.herql.spi.SocialPersonServiceImpl;
 import me.moimoi.social.herql.spi.templates.StringTemplateService;
+import me.moimoi.social.herql.util.OutputWorkerPool;
 import org.apache.shindig.social.core.config.SocialApiGuiceModule;
 import org.apache.shindig.social.opensocial.spi.ActivityService;
 import org.apache.shindig.social.opensocial.spi.ActivityStreamService;
@@ -60,6 +62,7 @@ public class HerqlModule extends SocialApiGuiceModule {
         bind(SocialPersonService.class).to(SocialPersonServiceImpl.class);
         bind(PersonService.class).to(SocialPersonServiceImpl.class);
 
+        bind(WorkerPool.class).to(OutputWorkerPool.class);
         //bind(ProfileService.class).to(ProfileServiceImpl.class);
         //bind(AccountService.class).to(AccountServiceImpl.class);
 

@@ -15,7 +15,6 @@
  */
 package me.moimoi.social.herql.config;
 
-import net.sf.ehcache.CacheManager;
 
 
 import com.google.inject.AbstractModule;
