@@ -53,9 +53,10 @@ public class EmailMessangerBean implements MessageListener {
             email.setSubject(subject);
             email.setText(msg);        
             
-            email.setHeader("X-Mailer", "My Mailer");
+            email.setHeader("X-Mailer", "mu-mail");
             email.setSentDate(new Date());
             
+            //LOG.log(Level.INFO, "message is {0}", msg);
             //Transport.send(email);
             
         } catch (MessagingException ex) {
