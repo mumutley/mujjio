@@ -16,6 +16,7 @@
 package me.moimoi.social.herqlweb.handlers;
 
 import com.google.inject.Inject;
+import com.sun.xml.internal.ws.developer.UsesJAXBContext;
 import java.net.ProtocolException;
 import java.util.Date;
 import java.util.concurrent.Future;

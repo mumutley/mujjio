@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import me.moimoi.social.herql.domain.SocialIdentity;
@@ -37,40 +38,34 @@ import me.moimoi.social.herqlweb.services.RegistrationService;
  * @author suhail
  */
 public class RegistrationServiceImpl implements RegistrationService {
-    
+
     private final SocialIdentityService identityService;
     private final SocialPersonService personService;
     private final MessangerService messanger;
     private final ContentServices content;
     private static final int FIRST = 0;
-    
+
     @Inject
     public RegistrationServiceImpl(
             SocialIdentityService identityService,
             SocialPersonService personService,
             MessangerService messanger,
             ContentServices content) {
-        
+
         this.identityService = identityService;
         this.personService = personService;
         this.messanger = messanger;
         this.content = content;
     }
-    
+
     @Override
-    public void register(SocialIdentity identity) {        
+    public void register(SocialIdentity identity) {
         SocialPerson person = identity.getProfiles().get(RegistrationServiceImpl.FIRST);
-        this.personService.register(person);
-        this.identityService.create(identity);
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put("name", person.getDisplayName());
-        map.put("url", "http://www.google.com");                        
-        String message = content.transform("mujjio", "verification", map); 
-        
-        try {            
-            UUIDGenerator generator = (UUIDGenerator)new InitialContext().lookup("ejb/UUIDGenerator");
+
+        try {
+            UUIDGenerator generator = (UUIDGenerator) new InitialContext().lookup("java:comp/env/UUIDGeneratorBean");
             String uuid = generator.getUUID().get();
-            LOG.log(Level.INFO, "uuid generator {0}", uuid);
+            identity.setActivationCode(uuid);
         } catch (InterruptedException ex) {
             LOG.log(Level.SEVERE, ex.getMessage(), ex);
         } catch (ExecutionException ex) {
@@ -78,13 +73,23 @@ public class RegistrationServiceImpl implements RegistrationService {
         } catch (NamingException ex) {
             LOG.log(Level.SEVERE, ex.getMessage(), ex);
         }
+
+        //save data
+        this.personService.register(person);
+        this.identityService.create(identity);        
         
+        //send off activation email
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name", person.getDisplayName());
+        map.put("url", "http://localhost:8080/social/rest/activate?uuid"+identity.getActivationCode());
+        //get the template
+        String message = content.transform("mujjio", "verification", map);
+        //construct message
         messanger.setMsg(message);
         messanger.setRecipient(identity.getLoginName());
         messanger.setSubject(WELCOME + person.getDisplayName());
-        messanger.send();        
+        messanger.send();
     }
-    
     private static final String WELCOME = "Welcome to mujjio ";
     private static final Logger LOG = Logger.getLogger(RegistrationServiceImpl.class.getName());
 }
