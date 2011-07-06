@@ -4,5 +4,22 @@
         <property name="Name" value="PhysicalQueue"/>
     </admin-object-resource>
     <connector-connection-pool name="jms/emailFactoryPool"  connection-definition-name="javax.jms.QueueConnectionFactory"  resource-adapter-name="jmsra"/>
-    <connector-resource enabled="true" jndi-name="jms/emailFactory" pool-name="jms/emailFactoryPool"  />
+    <connector-resource enabled="true" jndi-name="jms/emailFactory" pool-name="jms/emailFactoryPool" />
+    
+    <mail-resource debug="true" 
+            enabled="true" 
+            from="suhailski@gmail.com" 
+            host="smtp.google.com" 
+            jndi-name="mail/google" 
+            object-type="user" store-protocol="imap" 
+            store-protocol-class="com.sun.mail.imap.IMAPStore" 
+            transport-protocol="smtps" 
+            transport-protocol-class="com.sun.mail.smtp.SMTPSSLTransport" 
+            user="suhailski@gmail.com">
+        <description/>
+        <property name="mail-smtps-auth" value="true"/>
+        <property name="mail-smtps-password" value="sw+d7d+1"/>
+        <property name="mail.smtps.starttls.enable" value="true"/>
+    </mail-resource>
+    
 </resources>
