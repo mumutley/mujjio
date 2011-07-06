@@ -86,11 +86,7 @@ public class EmailMessangerServiceImpl implements MessangerService {
             }
         }
     }
-
-    @Override
-    public void work() {
-        this.send();
-    }
+    
 
     /**
      * @return the msg

@@ -15,13 +15,11 @@
  */
 package me.moimoi.social.herql.integration;
 
-import me.moimoi.social.herql.util.OutputWorker;
-
 /**
  *
  * @author suhail
  */
-public interface MessangerService extends OutputWorker {        
+public interface MessangerService  {        
 
     /**
      * @param msg the msg to set
