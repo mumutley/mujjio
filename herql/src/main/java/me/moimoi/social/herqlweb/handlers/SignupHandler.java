@@ -19,14 +19,13 @@ import com.google.inject.Inject;
 import java.net.ProtocolException;
 import java.util.Date;
 import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.logging.Logger;
+import javax.ejb.AsyncResult;
 import me.moimoi.social.herql.domain.ProfileType;
 import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herqlweb.forms.JoinForm;
 import me.moimoi.social.herqlweb.services.RegistrationService;
-import org.apache.shindig.common.util.ImmediateFuture;
 import org.apache.shindig.config.ContainerConfig;
 import org.apache.shindig.protocol.Operation;
 import org.apache.shindig.protocol.Service;
@@ -86,8 +85,7 @@ public class SignupHandler {
         identity.getProfiles().add(person);
         
         registration.register(identity);
-        FutureTask a =null;
-        return ImmediateFuture.newInstance(identity);
+        return new AsyncResult<SocialIdentity>(identity);
     }
     
     private static final Logger LOG = Logger.getLogger(SignupHandler.class.getName());

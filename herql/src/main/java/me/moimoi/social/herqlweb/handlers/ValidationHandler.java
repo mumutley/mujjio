@@ -18,7 +18,6 @@ package me.moimoi.social.herqlweb.handlers;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.moimoi.social.herql.services.SocialPersonService;
 import org.apache.shindig.common.util.ImmediateFuture;
@@ -44,10 +43,10 @@ public class ValidationHandler {
     
     @Operation(httpMethods = "GET", path = "/email")
     public Future<?>  validateRegistration(RequestItem request) {        
-        LOG.log(Level.INFO, "email validation requested {0} {1}", new Object[]{request.getParameter("email"), defaultDomain});        
-        Boolean found = accounts.exists(request.getParameter("email"));        
+        Boolean found = accounts.exists(request.getParameter(ValidationHandler.EMAIL));        
         return ImmediateFuture.newInstance(!found);
     }
     
+    private static final String EMAIL = "email";
     private static final Logger LOG = Logger.getLogger(ValidationHandler.class.getCanonicalName());
 }

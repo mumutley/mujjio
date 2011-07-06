@@ -16,16 +16,20 @@
 package me.moimoi.social.herqlweb.spi;
 
 import com.google.inject.Inject;
+import me.moimoi.social.herqlweb.util.UUIDGenerator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.integration.MessangerService;
 import me.moimoi.social.herql.services.ContentServices;
 import me.moimoi.social.herql.services.SocialIdentityService;
 import me.moimoi.social.herql.services.SocialPersonService;
-import me.moimoi.social.herql.services.WorkerPool;
 import me.moimoi.social.herqlweb.services.RegistrationService;
 
 /**
@@ -38,7 +42,6 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final SocialPersonService personService;
     private final MessangerService messanger;
     private final ContentServices content;
-    private final WorkerPool pool;
     private static final int FIRST = 0;
     
     @Inject
@@ -46,14 +49,12 @@ public class RegistrationServiceImpl implements RegistrationService {
             SocialIdentityService identityService,
             SocialPersonService personService,
             MessangerService messanger,
-            ContentServices content,
-            WorkerPool pool) {
+            ContentServices content) {
         
         this.identityService = identityService;
         this.personService = personService;
         this.messanger = messanger;
         this.content = content;
-        this.pool = pool;
     }
     
     @Override
@@ -65,12 +66,23 @@ public class RegistrationServiceImpl implements RegistrationService {
         map.put("name", person.getDisplayName());
         map.put("url", "http://www.google.com");                        
         String message = content.transform("mujjio", "verification", map); 
+        
+        try {            
+            UUIDGenerator generator = (UUIDGenerator)new InitialContext().lookup("ejb/UUIDGenerator");
+            String uuid = generator.getUUID().get();
+            LOG.log(Level.INFO, "uuid generator {0}", uuid);
+        } catch (InterruptedException ex) {
+            LOG.log(Level.SEVERE, ex.getMessage(), ex);
+        } catch (ExecutionException ex) {
+            LOG.log(Level.SEVERE, ex.getMessage(), ex);
+        } catch (NamingException ex) {
+            LOG.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        
         messanger.setMsg(message);
         messanger.setRecipient(identity.getLoginName());
         messanger.setSubject(WELCOME + person.getDisplayName());
-        messanger.send();
-        //pool.submit(messanger);
-        
+        messanger.send();        
     }
     
     private static final String WELCOME = "Welcome to mujjio ";
