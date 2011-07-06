@@ -36,6 +36,7 @@ public class SocialIdentity {
     private Date lastLogin;    
     private String password;
     private Boolean verified;
+    private String activationCode;
     
     @Reference
     private List<SocialPerson> profiles = new LinkedList<SocialPerson>();  
@@ -139,6 +140,20 @@ public class SocialIdentity {
      */
     public void setVerified(Boolean verified) {
         this.verified = verified;
+    }
+
+    /**
+     * @return the activationCode
+     */
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    /**
+     * @param activationCode the activationCode to set
+     */
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
     }
 
 }
