@@ -95,5 +95,11 @@
             <injection-target-name>queue</injection-target-name>
         </injection-target>    
     </resource-env-ref>
-            
+        
+    <ejb-local-ref>
+        <ejb-ref-name>UUIDGeneratorBean</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>me.moimoi.social.herqlweb.util.UUIDGenerator</local>
+        <ejb-link>UUIDGeneratorBean</ejb-link>        
+    </ejb-local-ref>
 </web-app>
