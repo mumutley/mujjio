@@ -18,7 +18,6 @@ package me.moimoi.social.herql.integration.spi;
 import com.google.inject.Singleton;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.jms.Connection;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
@@ -45,10 +44,6 @@ public class EmailMessangerServiceImpl implements MessangerService {
     private Queue que;
 
     public EmailMessangerServiceImpl() {
-    }
-
-    @PostConstruct
-    public void setUp() {
         try {
             LOG.log(Level.INFO, "this should be a singleton {0}", this.toString());
             Context cxt = new InitialContext();
@@ -57,7 +52,7 @@ public class EmailMessangerServiceImpl implements MessangerService {
         } catch (NamingException ex) {
             LOG.log(Level.SEVERE, ex.getMessage(), ex);
         }
-    }
+    }    
 
     @Override
     public void send() {
@@ -86,7 +81,6 @@ public class EmailMessangerServiceImpl implements MessangerService {
             }
         }
     }
-    
 
     /**
      * @return the msg
@@ -132,7 +126,6 @@ public class EmailMessangerServiceImpl implements MessangerService {
     public void setSubject(String subject) {
         this.subject = subject;
     }
-    
     private static final String MESSAGE = "MESSAGE";
     private static final String SUBJECT = "SUBJECT";
     private static final String RECIPIENT = "RECIPIENT";
