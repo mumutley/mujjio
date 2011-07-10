@@ -60,9 +60,6 @@ public class HerqlModule extends SocialApiGuiceModule {
         bind(SocialPersonService.class).to(SocialPersonServiceImpl.class);
         bind(PersonService.class).to(SocialPersonServiceImpl.class);
 
-        //bind(ProfileService.class).to(ProfileServiceImpl.class);
-        //bind(AccountService.class).to(AccountServiceImpl.class);
-
         bind(SocialIdentityService.class).to(IdentityServiceImpl.class);       
     }
 }

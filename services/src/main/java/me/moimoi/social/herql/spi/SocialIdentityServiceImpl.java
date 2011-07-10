@@ -16,6 +16,7 @@
 package me.moimoi.social.herql.spi;
 
 import com.google.code.morphia.Key;
+import com.google.code.morphia.query.Query;
 import com.google.inject.Inject;
 import me.moimoi.social.herql.data.IdentityDao;
 import me.moimoi.social.herql.domain.SocialIdentity;
@@ -49,5 +50,12 @@ public class SocialIdentityServiceImpl implements SocialIdentityService {
     @Override
     public void save(String id, SocialPerson person) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Boolean validate(String code) {
+        Query<SocialIdentity> q = dao.createQuery().disableValidation();
+        SocialIdentity id =  q.field("activationCode").equal(code).get();
+        return (id == null);
     }
 }

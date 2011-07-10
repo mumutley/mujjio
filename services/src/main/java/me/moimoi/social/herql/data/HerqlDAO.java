@@ -17,7 +17,6 @@ package me.moimoi.social.herql.data;
 
 import com.google.code.morphia.Morphia;
 import com.google.code.morphia.dao.BasicDAO;
-import com.google.inject.Inject;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -39,6 +38,7 @@ public class HerqlDAO<T, K> extends BasicDAO<T, K> implements RawDAO {
 
     public HerqlDAO(Morphia morphia, Mongo mongo, String db) {
         super(mongo, morphia, db);
+        super.ensureIndexes();
     }
      
     @Override

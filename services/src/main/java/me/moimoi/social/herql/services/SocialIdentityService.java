@@ -29,5 +29,7 @@ public interface SocialIdentityService {
     
     SocialIdentity get(String id);   
 
+    Boolean validate(String code);
+    
     void save(String id, SocialPerson person);
 }

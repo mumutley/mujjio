@@ -36,7 +36,7 @@ public class IdentityServiceImpl implements SocialIdentityService {
     private final IdentityDao dao;
     private final PersonDao pdao;
     private static final int FIRST = 0;
-    
+
     @Inject
     public IdentityServiceImpl(IdentityDao dao, PersonDao pdao) {
         this.dao = dao;
@@ -49,9 +49,9 @@ public class IdentityServiceImpl implements SocialIdentityService {
         if (this.get(identity.getLoginName()) == null && existing == null) {
             Key<SocialPerson> pkey = pdao.save(identity.getProfiles().get(0));
             identity.setActive(Boolean.FALSE);
-            Key<SocialIdentity> key = dao.save(identity);            
+            Key<SocialIdentity> key = dao.save(identity);
             return key;
-        }        
+        }
         return null;
     }
 
@@ -71,6 +71,13 @@ public class IdentityServiceImpl implements SocialIdentityService {
             ops.add("profiles", person);
             dao.update(q, ops);
         }
+    }
+
+    @Override
+    public Boolean validate(String code) {
+        Query<SocialIdentity> q = dao.createQuery().disableValidation();
+        SocialIdentity id = q.field("activationCode").equal(code).get();
+        return (id != null);
     }
     
     private static final String IDENTITY_KEY = "loginName";
