@@ -67,6 +67,16 @@
         </init-param>
     </servlet>
   
+    <servlet>
+        <servlet-name>sampleOAuth</servlet-name>
+        <servlet-class>org.apache.shindig.social.sample.oauth.SampleOAuthServlet</servlet-class>
+    </servlet>
+  
+    <servlet-mapping>
+        <servlet-name>sampleOAuth</servlet-name>
+        <url-pattern>/oauth/*</url-pattern>
+    </servlet-mapping>
+  
     <servlet-mapping>
         <servlet-name>restapiServlet</servlet-name>
         <url-pattern>/social/rest/*</url-pattern>
