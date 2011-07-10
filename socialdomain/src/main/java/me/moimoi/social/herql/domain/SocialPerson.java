@@ -35,6 +35,7 @@ import org.apache.shindig.social.opensocial.model.Url;
 public class SocialPerson implements Person {
 
     @Id private String id;
+    
     private String displayName;
     private String aboutMe;
     private Integer age;
