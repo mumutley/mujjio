@@ -25,4 +25,6 @@ public interface RegistrationService {
 
     void register(SocialIdentity identity);
     
+    Boolean getCode(String code);
+    
 }

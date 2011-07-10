@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import me.moimoi.social.herql.domain.SocialIdentity;
@@ -90,6 +89,12 @@ public class RegistrationServiceImpl implements RegistrationService {
         messanger.setSubject(WELCOME + person.getDisplayName());
         messanger.send();
     }
+
+    @Override
+    public Boolean getCode(String code) {
+        return identityService.validate(code);
+    }
+    
     private static final String WELCOME = "Welcome to mujjio ";
-    private static final Logger LOG = Logger.getLogger(RegistrationServiceImpl.class.getName());
+    private static final Logger LOG = Logger.getLogger(RegistrationServiceImpl.class.getName());    
 }

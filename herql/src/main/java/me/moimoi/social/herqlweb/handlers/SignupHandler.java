@@ -16,7 +16,6 @@
 package me.moimoi.social.herqlweb.handlers;
 
 import com.google.inject.Inject;
-import com.sun.xml.internal.ws.developer.UsesJAXBContext;
 import java.net.ProtocolException;
 import java.util.Date;
 import java.util.concurrent.Future;
@@ -89,5 +88,12 @@ public class SignupHandler {
         return new AsyncResult<SocialIdentity>(identity);
     }
     
+    @Operation(httpMethods = "GET", path = "/activate")
+    public Future<?> validate(SocialRequestItem request) throws ProtocolException {        
+        String code = request.getParameter(SignupHandler.CODE);        
+        return new AsyncResult(registration.getCode(code));
+    }
+    
+    private static final String CODE = "code";
     private static final Logger LOG = Logger.getLogger(SignupHandler.class.getName());
 }
