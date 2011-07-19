@@ -14,14 +14,13 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 import net.oauth.OAuthConsumer;
 import net.oauth.OAuthServiceProvider;
+import net.oauth.signature.RSA_SHA1;
 import org.apache.shindig.auth.AuthenticationMode;
 import org.apache.shindig.auth.SecurityToken;
 import org.apache.shindig.common.crypto.Crypto;
 import org.apache.shindig.social.core.oauth.OAuthSecurityToken;
 import org.apache.shindig.social.opensocial.oauth.OAuthDataStore;
 import org.apache.shindig.social.opensocial.oauth.OAuthEntry;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  *
@@ -53,30 +52,44 @@ public class HerqlOAuthDataStore implements OAuthDataStore {
         return oauthEntries.get(oauthToken);
     }
 
+    //http://localhost:8080/oauth/requestToken?oauth_consumer_key=example.com&oauth_timestamp=1310817046&oauth_signature_method=RSA-SHA1&oauth_version=1.0&oauth_nonce=4572616e48616d6d65724c61686173&oauth_signature=wOJIO9A2W5mFwDgiDvZbTSMK%2FPY%3D
+    private final static String CERTIFICATE =
+       "-----BEGIN CERTIFICATE-----\n"
+           + "MIIC7zCCAlgCCQCRTBYbEuL58jANBgkqhkiG9w0BAQUFADCBuzELMAkGA1UEBhMC\n"
+           + "VUsxEjAQBgNVBAgTCU1pZGRsZXNleDETMBEGA1UEBxMKVHdpY2tlbmhhbTEZMBcG\n"
+           + "A1UEChMQU3VycmVuZGVyIE1vbmtleTEaMBgGA1UECxMRU29mdHdhcmUgU2Vydmlj\n"
+           + "ZXMxIzAhBgNVBAMTGnB1YmxpYy5zdXJyZW5kZXJtb25rZXkubmV0MScwJQYJKoZI\n"
+           + "hvcNAQkBFhhpbmZvQHN1cnJlbmRlcm1vbmtleS5uZXQwHhcNMTEwNzE2MTEyOTEw\n"
+           + "WhcNMTIwNzE1MTEyOTEwWjCBuzELMAkGA1UEBhMCVUsxEjAQBgNVBAgTCU1pZGRs\n"
+           + "ZXNleDETMBEGA1UEBxMKVHdpY2tlbmhhbTEZMBcGA1UEChMQU3VycmVuZGVyIE1v\n"
+           + "bmtleTEaMBgGA1UECxMRU29mdHdhcmUgU2VydmljZXMxIzAhBgNVBAMTGnB1Ymxp\n"
+           + "Yy5zdXJyZW5kZXJtb25rZXkubmV0MScwJQYJKoZIhvcNAQkBFhhpbmZvQHN1cnJl\n"
+           + "bmRlcm1vbmtleS5uZXQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANjQsTEh\n"
+           + "jFR+3B6dkng1UyGOwN2fbMZQe4j2NaTEoRQrm1bhFg22Vr2a+6LeD0AZxg9nJYHt\n"
+           + "bZ7XUGB2eAjZ8ZJ5SMyx9nebGeuQsP2sgFOwEockSIlbqgGE7faNgHjYVOuOphv1\n"
+           + "np2yFUvs0qeURCIWyTEZq70lqJv4E1BvbDJ5AgMBAAEwDQYJKoZIhvcNAQEFBQAD\n"
+           + "gYEAxEJ7neYg6QFPKDNW2fZNngkf6YvNXtoLWHtiB00g7Z4nXN0ywpEB9AzAYrIU\n"
+           + "AnlYN5cdxmK+nT4YTMvitoExh2gjsblDFiR2lJlcJnPAFh50fy8gKvwK5mB+h4Tq\n"
+           + "iyyeuyqf+WXJtb1ZXBjquBJKeLlqpYRGbURSe3vk4nyVwe4=\n"
+           + "-----END CERTIFICATE-----";
+    
+    //oauth_consumer_key=example.com&oauth_version=1.0&oauth_nonce=4572616e48616d6d65724c61686174&oauth_timestamp=1310766320&oauth_signature_method=RSA-SHA1&oauth_signature=wOJIO9A2W5mFwDgiDvZbTSMK%2FPY%3D
     public OAuthConsumer getConsumer(String consumerKey) {
-        try {
-            JSONObject app = service.getDb().getJSONObject("apps").getJSONObject(Preconditions.checkNotNull(consumerKey));
-            String consumerSecret = app.getString("consumerSecret");
+        //go to oauth datastore and use the consumerKey to lookup the consumerSecret
+        String consumerSecret = "consumerSecret";
 
-            if (consumerSecret == null) {
-                return null;
-            }
+        // null below is for the callbackUrl, which we don't have in the db
+        OAuthConsumer consumer = new OAuthConsumer(null, consumerKey, consumerSecret, SERVICE_PROVIDER);
 
-            // null below is for the callbackUrl, which we don't have in the db
-            OAuthConsumer consumer = new OAuthConsumer(null, consumerKey, consumerSecret, SERVICE_PROVIDER);
-
-            // Set some properties loosely based on the ModulePrefs of a gadget
-            for (String key : ImmutableList.of("title", "summary", "description", "thumbnail", "icon")) {
-                if (app.has(key)) {
-                    consumer.setProperty(key, app.getString(key));
-                }
-            }
-
-            return consumer;
-
-        } catch (JSONException e) {
-            return null;
+        
+        // Set some properties loosely based on the ModulePrefs of a gadget
+        for (String key : ImmutableList.of("title", "summary", "description", "thumbnail", "icon")) {
+            consumer.setProperty(key, key);
         }
+                        
+        consumer.setProperty(RSA_SHA1.X509_CERTIFICATE, CERTIFICATE);
+        
+        return consumer;
     }
 
     // Generate a valid requestToken for the given consumerKey

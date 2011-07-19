@@ -74,10 +74,13 @@ public class IdentityServiceImpl implements SocialIdentityService {
     }
 
     @Override
-    public Boolean validate(String code) {
-        Query<SocialIdentity> q = dao.createQuery().disableValidation();
-        SocialIdentity id = q.field("activationCode").equal(code).get();
-        return (id != null);
+    public SocialIdentity getRegistrationStatus(String code, Boolean status) {
+        Query<SocialIdentity> q = dao.createQuery().disableValidation();        
+        q.and(q.criteria("activationCode").equal(code),
+              q.criteria("active").equal(status));
+        SocialIdentity found = q.get();
+        if(q != null) return found;
+        return null;
     }
     
     private static final String IDENTITY_KEY = "loginName";

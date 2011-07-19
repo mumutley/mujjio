@@ -79,6 +79,7 @@ public class TemplateTests {
         st.add("url", "test");                
         stopwatch.stop();
         LOG.log(Level.INFO, "time t0 {0}", stopwatch.toString());
+        
     }
 
     @Test

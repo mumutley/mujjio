@@ -27,6 +27,7 @@ import me.moimoi.social.herql.services.SocialIdentityService;
  *
  * @author suhail
  */
+@Deprecated
 public class SocialIdentityServiceImpl implements SocialIdentityService {
     
     private final IdentityDao dao;
@@ -53,9 +54,9 @@ public class SocialIdentityServiceImpl implements SocialIdentityService {
     }
 
     @Override
-    public Boolean validate(String code) {
+    public SocialIdentity getRegistrationStatus(String code, Boolean status) {
         Query<SocialIdentity> q = dao.createQuery().disableValidation();
         SocialIdentity id =  q.field("activationCode").equal(code).get();
-        return (id == null);
+        return id;
     }
 }

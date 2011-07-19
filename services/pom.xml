@@ -64,12 +64,29 @@
         <dependency>
             <groupId>rhino</groupId>
             <artifactId>js</artifactId>
-        </dependency>  
+        </dependency>
+        
+        <dependency>
+            <groupId>net.oauth.core</groupId>
+            <artifactId>oauth</artifactId>
+            <version>20100601</version>
+        </dependency>        
+        <dependency>
+            <groupId>net.oauth.core</groupId>
+            <artifactId>oauth-provider</artifactId>
+            <version>20100601</version>
+        </dependency>
+        <dependency>
+            <groupId>net.oauth.core</groupId>
+            <artifactId>oauth-httpclient4</artifactId>
+            <version>20100601</version>
+        </dependency>
+       
         <!--dependency>
             <groupId>javax.scripting</groupId>
             <artifactId>rhino</artifactId>
             <version>1.0.0</version>
-        </dependency-->
+        </dependency-->        
     </dependencies>
    
     <repositories>
