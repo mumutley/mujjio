@@ -26,6 +26,7 @@ import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herqlweb.forms.JoinForm;
 import me.moimoi.social.herqlweb.services.RegistrationService;
+import org.apache.shindig.common.util.ImmediateFuture;
 import org.apache.shindig.config.ContainerConfig;
 import org.apache.shindig.protocol.Operation;
 import org.apache.shindig.protocol.Service;
@@ -88,11 +89,23 @@ public class SignupHandler {
         return new AsyncResult<SocialIdentity>(identity);
     }
     
-    @Operation(httpMethods = "GET", path = "/activate")
-    public Future<?> validate(SocialRequestItem request) throws ProtocolException {        
-        String code = request.getParameter(SignupHandler.CODE);        
-        return new AsyncResult(registration.getCode(code));
+    @Operation(httpMethods = "GET", path = "/inactive")
+    public Future<?> active(SocialRequestItem request) throws ProtocolException {        
+        String code = request.getParameter(SignupHandler.CODE);   
+        SocialIdentity identity  = new SocialIdentity();
+        SocialIdentity active = registration.isActive(code, Boolean.FALSE);
+        if(active != null) {
+            identity.setActivationCode(identity.getActivationCode());
+            identity.setActive(Boolean.TRUE);
+            return ImmediateFuture.newInstance(identity);
+        }        
+        return ImmediateFuture.newInstance(identity);
     }
+
+    @Operation(httpMethods = "GET", path = "/welcome")
+    public Future<?> login(SocialRequestItem request) throws ProtocolException {   
+        return null;
+    }    
     
     private static final String CODE = "code";
     private static final Logger LOG = Logger.getLogger(SignupHandler.class.getName());

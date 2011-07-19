@@ -13,18 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.moimoi.social.herqlweb.services;
-
-import me.moimoi.social.herql.domain.SocialIdentity;
+package me.moimoi.social.herqlweb.forms;
 
 /**
  *
  * @author suhail
  */
-public interface RegistrationService {
-
-    void register(SocialIdentity identity);
-    
-    SocialIdentity isActive(String code, java.lang.Boolean status);
+public class LoginForm {
     
 }

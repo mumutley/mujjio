@@ -91,8 +91,8 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public Boolean getCode(String code) {
-        return identityService.validate(code);
+    public SocialIdentity isActive(String code, Boolean status) {
+        return identityService.getRegistrationStatus(code, status);
     }
     
     private static final String WELCOME = "Welcome to mujjio ";
