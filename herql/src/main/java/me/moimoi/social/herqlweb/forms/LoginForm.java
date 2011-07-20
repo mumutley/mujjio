@@ -21,25 +21,11 @@ package me.moimoi.social.herqlweb.forms;
  */
 public class LoginForm {
     
-    private String userName;
+    private String email;
     private String password;
     private String activationCode;
     
-    public LoginForm() {}
-
-    /**
-     * @return the userName
-     */
-    public String getUserName() {
-        return userName;
-    }
-
-    /**
-     * @param userName the userName to set
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    public LoginForm() {}    
 
     /**
      * @return the password
@@ -67,5 +53,19 @@ public class LoginForm {
      */
     public void setActivationCode(String activationCode) {
         this.activationCode = activationCode;
-    }        
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

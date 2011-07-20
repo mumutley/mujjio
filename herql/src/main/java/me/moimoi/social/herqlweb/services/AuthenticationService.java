@@ -15,11 +15,20 @@
  */
 package me.moimoi.social.herqlweb.services;
 
+import me.moimoi.social.herqlweb.forms.LoginForm;
+
 /**
  *
  * @author ManzoorS
  */
 public interface AuthenticationService {
     
-    public Boolean authenticate();
+    /**
+     * 
+     * @param id
+     * @param password
+     * @param uuid
+     * @return 
+     */
+    public Boolean authenticate(LoginForm form);
 }

@@ -16,7 +16,9 @@
 package me.moimoi.social.herqlweb.spi;
 
 import com.google.inject.Inject;
+import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.services.SocialIdentityService;
+import me.moimoi.social.herqlweb.forms.LoginForm;
 import me.moimoi.social.herqlweb.services.AuthenticationService;
 
 /**
@@ -32,9 +34,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
     
     @Override
-    public Boolean authenticate() {
+    public Boolean authenticate(LoginForm form) {
         
-        throw new UnsupportedOperationException("Not supported yet.");
+        SocialIdentity loggedIn = identity.validateCredentials(
+                                    form.getActivationCode(), 
+                                    form.getEmail(), 
+                                    form.getPassword());
+        
+        return (loggedIn != null);
     }
     
 }

@@ -26,6 +26,7 @@ import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herqlweb.forms.JoinForm;
 import me.moimoi.social.herqlweb.forms.LoginForm;
+import me.moimoi.social.herqlweb.services.AuthenticationService;
 import me.moimoi.social.herqlweb.services.RegistrationService;
 import org.apache.shindig.common.util.ImmediateFuture;
 import org.apache.shindig.config.ContainerConfig;
@@ -47,11 +48,15 @@ public class SignupHandler {
 
     private final ContainerConfig config;
     private final RegistrationService registration;
+    private final AuthenticationService it;
     
     @Inject
-    public SignupHandler(ContainerConfig config, RegistrationService register) {        
+    public SignupHandler(ContainerConfig config, 
+                        RegistrationService register,
+                        AuthenticationService authenticate) {        
         this.config = config;
         this.registration = register;
+        this.it = authenticate;
     }
 
     @Operation(httpMethods = "POST", bodyParam = "entity")
@@ -90,8 +95,8 @@ public class SignupHandler {
         return new AsyncResult<SocialIdentity>(identity);
     }
     
-    @Operation(httpMethods = "GET", path = "/inactive")
-    public Future<?> active(SocialRequestItem request) throws ProtocolException {        
+    @Operation(httpMethods = "GET", path = "/status")
+    public Future<?> status(SocialRequestItem request) throws ProtocolException {        
         String code = request.getParameter(SignupHandler.CODE);   
         SocialIdentity identity  = new SocialIdentity();
         identity.setActive(Boolean.TRUE);
@@ -104,13 +109,10 @@ public class SignupHandler {
         return ImmediateFuture.newInstance(identity);
     }
 
-    @Operation(httpMethods = "POST", path = "/welcome")
+    @Operation(httpMethods = "POST", path = "/welcome", bodyParam = "entity")
     public Future<?> login(SocialRequestItem request) throws ProtocolException { 
-        LoginForm login = request.getTypedParameter("entity", LoginForm.class);
-        
-        
-        
-        return this.active(request);
+        LoginForm login = request.getTypedParameter("entity", LoginForm.class);                
+        return new AsyncResult<Boolean>(it.authenticate(login));
     }    
     
     private static final String CODE = "code";

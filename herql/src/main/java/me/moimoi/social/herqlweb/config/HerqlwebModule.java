@@ -12,7 +12,9 @@ import me.moimoi.social.herql.integration.spi.EmailMessangerServiceImpl;
 import me.moimoi.social.herql.spi.HerqlOAuthDataStore;
 import me.moimoi.social.herqlweb.handlers.SignupHandler;
 import me.moimoi.social.herqlweb.handlers.ValidationHandler;
+import me.moimoi.social.herqlweb.services.AuthenticationService;
 import me.moimoi.social.herqlweb.services.RegistrationService;
+import me.moimoi.social.herqlweb.spi.AuthenticationServiceImpl;
 import me.moimoi.social.herqlweb.spi.RegistrationServiceImpl;
 import org.apache.shindig.social.core.config.SocialApiGuiceModule;
 import org.apache.shindig.social.opensocial.oauth.OAuthDataStore;
@@ -41,6 +43,8 @@ public class HerqlwebModule extends SocialApiGuiceModule {
         //TODO need to deprecate in favour of the dao pattern
         //bind(SimpleDatasource.class).toProvider(MongoDataSource.class);
         bind(RegistrationService.class).to(RegistrationServiceImpl.class);
+        bind(AuthenticationService.class).to(AuthenticationServiceImpl.class);
+        
         bind(MessangerService.class).to(EmailMessangerServiceImpl.class);
         
         bind(OAuthDataStore.class).to(HerqlOAuthDataStore.class);
