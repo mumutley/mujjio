@@ -25,6 +25,7 @@ import me.moimoi.social.herql.domain.ProfileType;
 import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herqlweb.forms.JoinForm;
+import me.moimoi.social.herqlweb.forms.LoginForm;
 import me.moimoi.social.herqlweb.services.RegistrationService;
 import org.apache.shindig.common.util.ImmediateFuture;
 import org.apache.shindig.config.ContainerConfig;
@@ -93,18 +94,23 @@ public class SignupHandler {
     public Future<?> active(SocialRequestItem request) throws ProtocolException {        
         String code = request.getParameter(SignupHandler.CODE);   
         SocialIdentity identity  = new SocialIdentity();
+        identity.setActive(Boolean.TRUE);
         SocialIdentity active = registration.isActive(code, Boolean.FALSE);
         if(active != null) {
             identity.setActivationCode(identity.getActivationCode());
-            identity.setActive(Boolean.TRUE);
+            identity.setActive(Boolean.FALSE);
             return ImmediateFuture.newInstance(identity);
         }        
         return ImmediateFuture.newInstance(identity);
     }
 
-    @Operation(httpMethods = "GET", path = "/welcome")
-    public Future<?> login(SocialRequestItem request) throws ProtocolException {   
-        return null;
+    @Operation(httpMethods = "POST", path = "/welcome")
+    public Future<?> login(SocialRequestItem request) throws ProtocolException { 
+        LoginForm login = request.getTypedParameter("entity", LoginForm.class);
+        
+        
+        
+        return this.active(request);
     }    
     
     private static final String CODE = "code";
