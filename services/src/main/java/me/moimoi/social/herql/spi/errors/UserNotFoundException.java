@@ -17,11 +17,11 @@ package me.moimoi.social.herql.spi.errors;
 
 /**
  *
- * @author ManzoorS
+ * @author suhail
  */
-public class CredentialsException extends RuntimeException {
+public class UserNotFoundException extends CredentialsException {
     
-    public CredentialsException(String message) {
-        super (message);
+    public UserNotFoundException(String message) {
+        super(message);
     }
 }

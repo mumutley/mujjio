@@ -26,6 +26,10 @@ import me.moimoi.social.herql.domain.SocialIdentity;
 import me.moimoi.social.herql.domain.SocialPerson;
 import me.moimoi.social.herql.services.SocialIdentityService;
 import me.moimoi.social.herql.services.SocialPersonService;
+import me.moimoi.social.herql.spi.errors.InconsistentStateException;
+import me.moimoi.social.herql.spi.errors.InvalidAuthenticationCode;
+import me.moimoi.social.herql.spi.errors.InvalidPasswordException;
+import me.moimoi.social.herql.spi.errors.UserNotFoundException;
 
 /**
  *
@@ -88,24 +92,24 @@ public class IdentityServiceImpl implements SocialIdentityService {
     public SocialIdentity validateCredentials(String code, String userId, String password) {
         Query<SocialIdentity> q = dao.createQuery().disableValidation();  
         SocialIdentity id = dao.findOne("_id", userId);
-        if(id != null ) {
-            
-        }
-        //SocialIdentity id = q.field("activationCode").equal(code).get();
         
-        if(id == null) {
+        //a user by the given id exists
+        if(id != null ) {                        
+            //now check if the account has been activated. It shouldn't be
+            /*if(!id.getActive()) {
+                throw new InconsistentStateException("The user " + userId + " has already verified the account.");
+            } else */ if(!password.equals(id.getPassword())) {
+                throw new InvalidPasswordException("The user " + userId + " has given the wrong credentials.");
+            } else if(!code.equals(id.getActivationCode())) {
+                throw new InvalidAuthenticationCode("The user " + userId + " has given the wrong authentication code.");
+            }
             
-        }
-        
-        if(id.getActive()){
+            return id;
             
-        } else {
-            
-        }
-        //if(userId.equals(id.getLoginName()) && )
-        //if(id.getLoginName().equals(userId))
-        
-        return id;
+        } 
+        //{"email":"suhailski@gmail.com","password":"password","activationCode":"886e93dd-2063-43d8-8535-eef6eef86bf9"}
+        //http://localhost:8080/social/rest/signup/welcome
+        throw new UserNotFoundException("The user " + userId + " is not registered with mujjio");               
     }
     
     private static final String IDENTITY_KEY = "loginName";

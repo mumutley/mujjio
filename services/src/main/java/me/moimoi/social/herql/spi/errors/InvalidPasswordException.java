@@ -17,11 +17,11 @@ package me.moimoi.social.herql.spi.errors;
 
 /**
  *
- * @author ManzoorS
+ * @author suhail
  */
-public class CredentialsException extends RuntimeException {
+public class InvalidPasswordException extends CredentialsException {
     
-    public CredentialsException(String message) {
-        super (message);
+    public InvalidPasswordException(String message) {
+        super(message);
     }
 }
