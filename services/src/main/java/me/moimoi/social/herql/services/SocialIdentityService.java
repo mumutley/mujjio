@@ -25,11 +25,41 @@ import me.moimoi.social.herql.domain.SocialPerson;
  */
 public interface SocialIdentityService {
     
+    /**
+     * 
+     * @param identity
+     * @return 
+     */
     Key<SocialIdentity> create(SocialIdentity identity);
     
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     SocialIdentity get(String id);   
 
+    /**
+     * 
+     * @param code
+     * @param status
+     * @return 
+     */
     SocialIdentity getRegistrationStatus(String code, Boolean status);
     
+    /**
+     * 
+     * @param id
+     * @param person 
+     */
     void save(String id, SocialPerson person);
+    
+    /**
+     * 
+     * @param code
+     * @param userId
+     * @param password
+     * @return 
+     */
+    SocialIdentity validateCredentials(String code, String userId, String password);
 }

@@ -59,4 +59,9 @@ public class SocialIdentityServiceImpl implements SocialIdentityService {
         SocialIdentity id =  q.field("activationCode").equal(code).get();
         return id;
     }
+
+    @Override
+    public SocialIdentity validateCredentials(String code, String userId, String password) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

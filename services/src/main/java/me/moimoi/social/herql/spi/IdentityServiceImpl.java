@@ -63,7 +63,6 @@ public class IdentityServiceImpl implements SocialIdentityService {
     @Override
     public void save(String id, SocialPerson person) {
         SocialPerson existing = pdao.findOne(SocialPersonService.ID, person.getId());
-
         if (this.get(id) != null && existing != null) {
             Query<SocialIdentity> q = dao.getDatastore().createQuery(SocialIdentity.class);
             q.field(IDENTITY_KEY).equal(id);
@@ -75,12 +74,38 @@ public class IdentityServiceImpl implements SocialIdentityService {
 
     @Override
     public SocialIdentity getRegistrationStatus(String code, Boolean status) {
-        Query<SocialIdentity> q = dao.createQuery().disableValidation();        
+        Query<SocialIdentity> q = dao.createQuery().disableValidation();
         q.and(q.criteria("activationCode").equal(code),
-              q.criteria("active").equal(status));
+                q.criteria("active").equal(status));
         SocialIdentity found = q.get();
-        if(q != null) return found;
+        if (q != null) {
+            return found;
+        }
         return null;
+    }
+
+    @Override
+    public SocialIdentity validateCredentials(String code, String userId, String password) {
+        Query<SocialIdentity> q = dao.createQuery().disableValidation();  
+        SocialIdentity id = dao.findOne("_id", userId);
+        if(id != null ) {
+            
+        }
+        //SocialIdentity id = q.field("activationCode").equal(code).get();
+        
+        if(id == null) {
+            
+        }
+        
+        if(id.getActive()){
+            
+        } else {
+            
+        }
+        //if(userId.equals(id.getLoginName()) && )
+        //if(id.getLoginName().equals(userId))
+        
+        return id;
     }
     
     private static final String IDENTITY_KEY = "loginName";
