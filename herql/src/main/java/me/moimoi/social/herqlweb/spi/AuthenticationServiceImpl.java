@@ -39,9 +39,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         SocialIdentity loggedIn = identity.validateCredentials(
                                     form.getActivationCode(), 
                                     form.getEmail(), 
-                                    form.getPassword());
-        
+                                    form.getPassword());        
         return (loggedIn != null);
+    }
+    
+    @Override
+    public Boolean initailize(LoginForm form) {
+        
+        if(this.authenticate(form)) {            
+            identity.set("active", Boolean.TRUE, form.getEmail());
+            return Boolean.TRUE;
+        }        
+        return Boolean.FALSE;        
     }
     
 }

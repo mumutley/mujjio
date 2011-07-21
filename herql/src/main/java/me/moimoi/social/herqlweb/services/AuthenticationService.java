@@ -31,4 +31,6 @@ public interface AuthenticationService {
      * @return 
      */
     public Boolean authenticate(LoginForm form);
+
+    Boolean initailize(LoginForm form);
 }

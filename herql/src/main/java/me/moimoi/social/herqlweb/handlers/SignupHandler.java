@@ -111,8 +111,10 @@ public class SignupHandler {
 
     @Operation(httpMethods = "POST", path = "/welcome", bodyParam = "entity")
     public Future<?> login(SocialRequestItem request) throws ProtocolException { 
+        //http://localhost:8080/social/rest/signup/welcome
+        //{"email":"suhailski@gmail.com","password":"password","activationCode":"886e93dd-2063-43d8-8535-eef6eef86bf9"}
         LoginForm login = request.getTypedParameter("entity", LoginForm.class);                
-        return new AsyncResult<Boolean>(it.authenticate(login));
+        return new AsyncResult<Boolean>(it.initailize(login));
     }    
     
     private static final String CODE = "code";
