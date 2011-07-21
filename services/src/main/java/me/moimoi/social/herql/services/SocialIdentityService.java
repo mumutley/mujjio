@@ -62,4 +62,13 @@ public interface SocialIdentityService {
      * @return 
      */
     SocialIdentity validateCredentials(String code, String userId, String password);
+
+    
+    /**
+     * 
+     * @param field
+     * @param value
+     * @param key 
+     */
+    void set(String field, Object value, String key);
 }

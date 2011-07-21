@@ -65,6 +65,15 @@ public class IdentityServiceImpl implements SocialIdentityService {
     }
 
     @Override
+    public void set(String field, Object value, String key) {
+        UpdateOperations<SocialIdentity> ops = dao.getDatastore().createUpdateOperations(SocialIdentity.class);
+        ops.set(field, value);
+        Query<SocialIdentity> q = dao.getDatastore().createQuery(SocialIdentity.class);                
+        q.field(KEY).equal(key);
+        dao.update(q, ops);
+    }
+
+    @Override
     public void save(String id, SocialPerson person) {
         SocialPerson existing = pdao.findOne(SocialPersonService.ID, person.getId());
         if (this.get(id) != null && existing != null) {
@@ -79,8 +88,7 @@ public class IdentityServiceImpl implements SocialIdentityService {
     @Override
     public SocialIdentity getRegistrationStatus(String code, Boolean status) {
         Query<SocialIdentity> q = dao.createQuery().disableValidation();
-        q.and(q.criteria("activationCode").equal(code),
-                q.criteria("active").equal(status));
+        q.and(q.criteria("activationCode").equal(code), q.criteria("active").equal(status));
         SocialIdentity found = q.get();
         if (q != null) {
             return found;
@@ -90,29 +98,29 @@ public class IdentityServiceImpl implements SocialIdentityService {
 
     @Override
     public SocialIdentity validateCredentials(String code, String userId, String password) {
-        Query<SocialIdentity> q = dao.createQuery().disableValidation();  
+        Query<SocialIdentity> q = dao.createQuery().disableValidation();
         SocialIdentity id = dao.findOne("_id", userId);
-        
+
         //a user by the given id exists
-        if(id != null ) {                        
+        if (id != null) {
             //now check if the account has been activated. It shouldn't be
             /*if(!id.getActive()) {
-                throw new InconsistentStateException("The user " + userId + " has already verified the account.");
-            } else */ if(!password.equals(id.getPassword())) {
+            throw new InconsistentStateException("The user " + userId + " has already verified the account.");
+            } else */ if (!password.equals(id.getPassword())) {
                 throw new InvalidPasswordException("The user " + userId + " has given the wrong credentials.");
-            } else if(!code.equals(id.getActivationCode())) {
+            } else if (!code.equals(id.getActivationCode())) {
                 throw new InvalidAuthenticationCode("The user " + userId + " has given the wrong authentication code.");
             }
-            
+
             return id;
-            
-        } 
+
+        }
         //{"email":"suhailski@gmail.com","password":"password","activationCode":"886e93dd-2063-43d8-8535-eef6eef86bf9"}
         //http://localhost:8080/social/rest/signup/welcome
-        throw new UserNotFoundException("The user " + userId + " is not registered with mujjio");               
+        throw new UserNotFoundException("The user " + userId + " is not registered with mujjio");
     }
-    
-    private static final String IDENTITY_KEY = "loginName";
+    private static final String IDENTITY_KEY = "loginName";    
+    private static final String KEY = "_id";
     private static final Logger LOG = Logger.getLogger(IdentityServiceImpl.class.getCanonicalName());
 }
 //mencoder dvd://1 -vf crop=720:352:0:64,scale=704:304 -ovc xvid -xvidencopts bvhq=1:chroma_opt:quant_type=mpeg:bitrate=658:pass=1 -oac copy -o /dev/null

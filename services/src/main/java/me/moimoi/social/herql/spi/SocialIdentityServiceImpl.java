@@ -64,4 +64,10 @@ public class SocialIdentityServiceImpl implements SocialIdentityService {
     public SocialIdentity validateCredentials(String code, String userId, String password) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public void set(String field, Object value, String key) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
