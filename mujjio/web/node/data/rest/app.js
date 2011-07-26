@@ -6,7 +6,7 @@ var db = mongoose.connect('mongodb://localhost/social');
 var app = module.exports = express.createServer();
 
 app.mounted(function(other){
-  console.log('ive been mounted!');
+  console.log('controllers mounted!');
 });
 
 //http://localhost:8800/rest/people/signup
