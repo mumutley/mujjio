@@ -1,19 +1,18 @@
-var mongooseTypes = require('mongoose-types')
-  , mongoose = require('mongoose')
+var mongoose = require('mongoose')
+  , dbref = require("mongoose-dbref")
+  , utils = dbref.utils
   , Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId
-  , Email = mongoose.SchemaTypes.Email;
-  
+  , DBRef = mongoose.SchemaTypes.DBRef;
+
+
 var Person = new Schema({
-	nickName : ObjectId
+    id : ObjectId
+    , nickName : { type: String, index: { unique: true } }
     , primary : Boolean 
-    , language : { type : String
-       , enum : ['English', 'Dutch', 'German']
-       , default : 'English'}
+    , language : { type : String, enum : ['english', 'dutch', 'german'], default : 'english'}
     , birthday : { type: Date, default: '12/10/1990' }
-    , gender : { type: String
-       , enum: ['male', 'female']
-       , default : 'male'}
+    , gender : { type: String, enum: ['male', 'female'], default : 'male'}
     , givenName: String
     , familyName: String
     , displayName : String
@@ -27,8 +26,8 @@ var Account = new Schema({
    , status : {type : String, enum: ['registered', 'valid', 'expired', 'blocked'] } 
    , created : Date
    , update : { type: Date, default: Date.now }
-   , profiles : [Person]
+   , profiles : [DBRef]
 });
 
-mongoose.model('Person', Account);
+mongoose.model('Person', Person);
 mongoose.model('Account', Account);
