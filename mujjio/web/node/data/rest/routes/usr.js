@@ -1,19 +1,51 @@
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 var schema = require('../model/schema');
-var Account = mongoose.model('Account');
-var Person = mongoose.model('Person');
+var validations = require('../services/validations');
+var Account = require('../model/account').Account;
+    
 
 // Access the mongoose-dbref module
-var dbref = require("mongoose-dbref");
-var utils = dbref.utils;
+//var dbref = require("mongoose-dbref");
+//var utils = dbref.utils;
 
 // Install everything
-var loaded = dbref.install(mongoose);
+//var loaded = dbref.install(mongoose);
 
 module.exports = function(app){
 
+    //http://localhost:8800/rest/people/signup
+    //{"email":"suhailski@gmail.com","password":"password","givenName":"Suhail","familyName":"Manzoor","gender":"male","language":"english","dd":"10","mm":"11","yyyy":"1968","noage":"true"}
+
     app.post('/people/signup', function(req, res){
-                
+                                                             
+        try{
+            var account = new Account(req.body);
+            account.validate().save();
+            res.writeHead(200, {'Content-Type': 'application/json'})
+            res.end(JSON.stringify(account)); 
+        }catch(err){
+            res.writeHead(412, {'Content-Type': 'application/json'})
+            res.end(JSON.stringify(error));
+        }
+        
+        return;
+        
+        var account = validations.account(req.body);
+        if(account) {
+            console.log(account);
+            res.writeHead(200, {'Content-Type': 'application/json'})
+            res.end(JSON.stringify(account));
+            return;
+        }
+        
+        res.writeHead(412, {'Content-Type': 'application/json'})
+        var error = {};
+        error.message = "Account data is invalid";
+        error.code = "10001";
+        res.end(JSON.stringify(error));
+        
+        return;
+        
         var profile = new Person();
                         
         profile.primary = 'true'; 
