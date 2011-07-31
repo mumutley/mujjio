@@ -17,10 +17,5 @@ var Db = exports.Db = function() {
 util.inherits(Db, EventEmitter);
 
 exports.Db.prototype.save = function() {    
-    console.log("save called");
-    for(var prop in this) {
-        if(this.propertyIsEnumerable(prop)) {
-            console.log("property " + prop + " value is " + this[prop]);
-        }
-    }
+    console.log("save called");   
 }

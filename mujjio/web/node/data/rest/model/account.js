@@ -1,8 +1,6 @@
-var Db = require('../services/db').Db;
-var util = require("util");
+var Base = require('./base').Base;
 
 var Status = {};
-
 Status = {
     registered  : 'registered'
     , 
@@ -13,17 +11,6 @@ Status = {
     blocked   : 'blocked'
     , 
     initial   : 'initial'
-}
-
-//var F = function() {}
-var Base = exports.Base = function() {};
-Base.prototype.__proto__  = Db.prototype;
-exports.Base.prototype.print = function() {    
-    for(var prop in this) {
-        if(this.propertyIsEnumerable(prop)) {
-            console.log("property " + prop + " value is " + this[prop]);
-        }
-    }
 }
 
 /**
@@ -49,11 +36,11 @@ Account.prototype.constructor = Account
  * Password must be correct
  */
 exports.Account.prototype.validate = function() {
-    console.log("validation called");
-    var error = {};
+    console.log("account validation called");
+    /*var error = {};
     error.message = "Account data is invalid";
     error.code = "10001";
-    throw error;
+    throw error;*/
     return this;
 }
 
