@@ -1,17 +1,7 @@
-//var mongoose = require('mongoose');
-var schema = require('../model/schema');
 var validations = require('../services/validations');
 var Account = require('../model/account').Account;
 var Person = require('../model/person').Person;
     
-
-// Access the mongoose-dbref module
-//var dbref = require("mongoose-dbref");
-//var utils = dbref.utils;
-
-// Install everything
-//var loaded = dbref.install(mongoose);
-
 module.exports = function(app){
 
     //http://localhost:8800/rest/people/signup
@@ -25,11 +15,12 @@ module.exports = function(app){
             
             var person = new Person(req.body);
             person.validate().save();
-            person.print();
+            
             
             res.writeHead(200, {'Content-Type': 'application/json'})
             res.end(JSON.stringify(account));                        
         }catch(err){
+            console.log(err);
             res.writeHead(412, {'Content-Type': 'application/json'})
             res.end(JSON.stringify(err));
         }        

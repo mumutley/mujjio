@@ -17,5 +17,5 @@ var Db = exports.Db = function() {
 util.inherits(Db, EventEmitter);
 
 exports.Db.prototype.save = function() {    
-    console.log("save called");   
+    console.log(this.data);   
 }

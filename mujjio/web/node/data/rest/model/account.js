@@ -2,14 +2,10 @@ var Base = require('./base').Base;
 
 var Status = {};
 Status = {
-    registered  : 'registered'
-    , 
-    valid     : 'valid'
-    , 
-    expired   : 'expired'
-    , 
-    blocked   : 'blocked'
-    , 
+    registered  : 'registered', 
+    valid     : 'valid', 
+    expired   : 'expired', 
+    blocked   : 'blocked', 
     initial   : 'initial'
 }
 
@@ -18,30 +14,30 @@ Status = {
  * and converts it to its internal state.
  */
 var Account = exports.Account = function (request) {
-    this.email = request.email;
-    this.password = request.password;
-    this.status = Status.initial;
-    this.created = new Date();    
-    console.log("constructor called");
+    this.data = request
+    
+    this.email = {
+        value : request.email,
+        type : String,
+        validations : ['notNull','notEmpty','isEmail']
+    };        
+
+    
+    this.password = {
+        value : request.password,
+        type : String,
+        validations : ['notNull','notEmpty']
+    }
+    
+    this.data.status = Status.initial;
+    this.data.created = new Date();
+    
     return this;    
 }
 
 Account.prototype.__proto__ = Base.prototype;
 Account.prototype.constructor = Account
+Account.prototype.className = "Account";
 
-
-/**
- * Validates the state.
- * Email must be correct
- * Password must be correct
- */
-exports.Account.prototype.validate = function() {
-    console.log("account validation called");
-    /*var error = {};
-    error.message = "Account data is invalid";
-    error.code = "10001";
-    throw error;*/
-    return this;
-}
 
 
