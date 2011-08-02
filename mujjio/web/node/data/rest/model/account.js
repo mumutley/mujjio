@@ -14,7 +14,10 @@ Status = {
  * and converts it to its internal state.
  */
 var Account = exports.Account = function (request) {
-    this.data = request
+    
+    this.data = {};
+    this.data.email = request.email;
+    this.data.password = request.password;
     
     this.email = {
         value : request.email,
@@ -38,6 +41,3 @@ var Account = exports.Account = function (request) {
 Account.prototype.__proto__ = Base.prototype;
 Account.prototype.constructor = Account
 Account.prototype.className = "Account";
-
-
-

@@ -8,19 +8,19 @@ module.exports = function(app){
     //{"email":"suhailski@gmail.com","password":"password","givenName":"Suhail","familyName":"Manzoor","gender":"male","language":"english","dd":"10","mm":"11","yyyy":"1968","noage":"true", "primary":"true"}
 
     app.post('/people/signup', function(req, res){
-                                                             
+                                                           
         try{
-            var account = new Account(req.body);
-            account.validate().save();
+            //var account = new Account(req.body);
+            //account.validate().save();
             
             var person = new Person(req.body);
             person.validate().save();
             
             
             res.writeHead(200, {'Content-Type': 'application/json'})
-            res.end(JSON.stringify(account));                        
+            res.end(JSON.stringify(person));                        
         }catch(err){
-            console.log(err);
+           console.log(err);
             res.writeHead(412, {'Content-Type': 'application/json'})
             res.end(JSON.stringify(err));
         }        
