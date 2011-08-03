@@ -40,4 +40,4 @@ var Account = exports.Account = function (request) {
 
 Account.prototype.__proto__ = Base.prototype;
 Account.prototype.constructor = Account
-Account.prototype.className = "Account";
+Account.prototype.className = "account";

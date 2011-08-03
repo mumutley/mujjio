@@ -42,4 +42,4 @@ var Person = exports.Person = function (request) {
 
 Person.prototype.__proto__ = Base.prototype;
 Person.prototype.constructor = Person
-Person.prototype.className = "Person";
+Person.prototype.className = "people";

@@ -4,7 +4,7 @@ sanitize = require('validator').sanitize,
     Db = require('../services/db').Db;
 
 var Base = exports.Base = function() {};
-Base.prototype.__proto__  = Db.prototype;
+//Base.prototype.__proto__  = Db.prototype;
 
 Array.prototype.contains = function(obj) {
     var i = this.length;

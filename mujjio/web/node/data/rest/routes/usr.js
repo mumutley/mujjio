@@ -1,7 +1,7 @@
-var validations = require('../services/validations');
+var validations = require('../services/db').Db;
 var Account = require('../model/account').Account;
 var Person = require('../model/person').Person;
-    
+   
 module.exports = function(app){
 
     //http://localhost:8800/rest/people/signup
@@ -10,15 +10,17 @@ module.exports = function(app){
     app.post('/people/signup', function(req, res){
                                                            
         try{
-            //var account = new Account(req.body);
-            //account.validate().save();
+            var account = new Account(req.body);
+            account.validate();           
+            var db = new Db();
+            db.save(account.data, account.className);
             
             var person = new Person(req.body);
-            person.validate().save();
-            
+            person.validate();
+            db.save(person.data, person.className);
             
             res.writeHead(200, {'Content-Type': 'application/json'})
-            res.end(JSON.stringify(person));                        
+            res.end(JSON.stringify("person"));                        
         }catch(err){
            console.log(err);
             res.writeHead(412, {'Content-Type': 'application/json'})
