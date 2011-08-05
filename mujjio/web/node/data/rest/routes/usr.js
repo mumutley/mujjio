@@ -1,4 +1,3 @@
-var validations = require('../services/db').Storage;
 var Account = require('../model/account').Account;
 var Person = require('../model/person').Person;
 //BSON = require('mongodb').BSONNative;
@@ -39,20 +38,10 @@ module.exports = function(app){
 
     app.get('/people/:id', function(req, res){
         
-        Account.findOne({'email': req.params.id}, function(err, doc){
-            if (err) throw err;
-            
-            console.log('doc ' + doc.profiles.pop().toString());
-            console.log('err ' + err);
-            //res.writeHead(200, { 'Content-Type': 'application/json' })
-            
-            var objToJson = { };
-            objToJson.response = res;
-            
-            res.send(JSON.stringify(doc.profiles.pop()));
-            //res.end();
-        });
-        
-        //res.send('user ' + req.params.id);
+        db.fetch(null, 'people', function(error, perso){ 
+            res.writeHead(200, { 'Content-Type': 'application/json' })
+            var objToJson = { };          
+            res.end(JSON.stringify(objToJson));
+        });                                     
     });
 };

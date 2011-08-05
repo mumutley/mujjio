@@ -22,6 +22,7 @@ app.configure(function(){
 
 require('./routes/usr')(app);
 require('./routes/grp')(app);
+require('./routes/sys')(app);
 
 if (!module.parent) {
   app.listen(3000);
