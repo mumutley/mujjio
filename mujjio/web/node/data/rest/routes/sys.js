@@ -10,10 +10,15 @@ module.exports = function(app){
         setup.setupIndex('people','gender', false, function(err, indexName){
             //nop
         });
-        setup.setupIndex('accounts','email', true, function(err, indexName){
+        
+        setup.setupIndex('people','_id', false, function(err, indexName){
             //nop
         });
-        setup.setupIndex('accounts','password', false, function(err, indexName){
+        
+        setup.setupIndex('account','email', true, function(err, indexName){
+            //nop
+        });
+        setup.setupIndex('account','password', false, function(err, indexName){
             //nop
         });
         
