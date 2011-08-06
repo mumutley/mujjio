@@ -13,6 +13,5 @@ connection.on('ready', function () {
         q.subscribe(function (json, headers, deliveryInfo) {
             console.log(json);
         });
-
     });
 });

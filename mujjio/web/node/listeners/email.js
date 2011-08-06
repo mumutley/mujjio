@@ -9,7 +9,7 @@ var email   = require("emailjs/email");
     var headers = {
         text:       "i hope this works", 
         from:       "you <suhalski@gmail.com>", 
-        to:     "someone <avramlevinski@gmail.com>",
+        to:         "someone <avramlevinski@gmail.com>",
         subject:    "testing emailjs"
     };
 
@@ -27,9 +27,3 @@ var email   = require("emailjs/email");
 
     // send the message and get a callback with an error or details of the message that was sent
     server.send(message, function(err, message) { console.log(err || message); });
-
-    // you can continue to send more messages with successive calls to 'server.send', 
-    // they will be queued on the same smtp connection
-
-    // or you can create a new server connection with 'email.server.connect' 
-    // to asynchronously send individual emails instead of a queue
