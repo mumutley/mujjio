@@ -14,11 +14,25 @@ connection.addListener('close', function (e) {
 });
 
 
+var origMessage1 = {
+    two:2, 
+    one:1
+},
+origMessage2 = {
+    foo:'email', 
+    hello: 'world'
+},
+origMessage3 = {
+    coffee:'caf\u00E9', 
+    tea: 'th\u00E9'
+};
+
+
 connection.addListener('ready', function () {
     sys.puts("connected to " + connection.serverProperties.product);              
-    connection.exchange('search', {type: 'fanout'}, function(exchange) {
+    connection.exchange('data', {type: 'fanout'}, function(exchange) {
         sys.puts("connected to " + connection.serverProperties.product);   
-        connection.queue('solr', function(q) {
+        connection.queue('search', function(q) {
             q.bind(exchange, "*");            
             sys.puts("publishing 3 json messages");    
             exchange.publish('message.json1', origMessage1);

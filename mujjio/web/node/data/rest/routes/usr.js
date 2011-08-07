@@ -6,6 +6,7 @@ msg = require('../services/mq').MQ
 BSON = require('mongodb').BSONPure;
 
 
+//define two outcomes that are to run in parallel with Q
 var outcomes = {}
 outcomes.write = function(payload, res) {
     res.writeHead(200, {'Content-Type': 'application/json'})
