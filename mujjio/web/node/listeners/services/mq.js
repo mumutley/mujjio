@@ -1,15 +1,14 @@
 var sys =  require('sys');
 MQ = function() {}
 
-MQ.prototype.recieve = function(connection, exchangeName, queueName) {
+MQ.prototype.recieve = function(connection, command, queueName, exchangeName) {
     connection.on('ready', function () {
         var exchange = connection.exchange(exchangeName, {type: 'fanout'});
         var q = connection.queue(queueName, function() {
             q.bind(exchange, "*");
-            sys.puts("Listening to " + connection.serverProperties.product + ' for ' + queueName);  
             q.subscribe(function (json, headers, deliveryInfo) {
-                console.log("recieved on channel for " + queueName);
-                console.log(json);
+                console.log('message recieved for ' + queueName);
+                command.execute(json);
             });
         });
     });

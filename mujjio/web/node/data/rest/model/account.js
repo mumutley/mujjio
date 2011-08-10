@@ -4,15 +4,7 @@ var Connection = require('mongodb').Connection;
 var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
-
-var Status = {};
-Status = {
-    registered  : 'registered', 
-    valid     : 'valid', 
-    expired   : 'expired', 
-    blocked   : 'blocked', 
-    initial   : 'initial'
-}
+var config = require('../../../config').Configuration;
 
 /**
  * Account constructor that takes a request body
@@ -37,7 +29,7 @@ var Account = exports.Account = function (request) {
         validations : ['notNull','notEmpty']
     }
     
-    this.data.status = Status.initial;
+    this.data.status = config.Status.initial;
     this.data.created = new Date();
     
     return this;    

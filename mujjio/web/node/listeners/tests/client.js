@@ -30,7 +30,7 @@ origMessage3 = {
 
 connection.addListener('ready', function () {
     sys.puts("connected to " + connection.serverProperties.product);              
-    connection.exchange('data', {type: 'fanout'}, function(exchange) {
+    connection.exchange('rest', {type: 'fanout'}, function(exchange) {
         sys.puts("connected to " + connection.serverProperties.product);   
         connection.queue('search', function(q) {
             q.bind(exchange, "*");            
