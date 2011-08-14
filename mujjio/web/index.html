@@ -1,554 +1,821 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
     <title>m u j j i o</title>
-    <meta name="description" content="Clean &amp; Simple Template - Adventure"/>
     <meta name="keywords" content=""/>
     <!--META KEYWORDS-->
     <meta name="author" content="mujjio"/>
+
     <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE"/>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-    <!--CSS FILES STARTS-->
-    <link rel="shortcut icon" type="image/gif" href="images/favicon.gif"/>
-    <link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="css/nivo-slider.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" id="skins-switcher" href="css/style.css" type="text/css" media="screen"/>
-    <!--GOOGLE FONTS-->
-    <link href='http://fonts.googleapis.com/css?family=Crimson+Text:regular,regularitalic,600,600italic,bold,bolditalic' rel='stylesheet' type='text/css'/>
 
-    <!--GOOGLE FONTS-->
-    <!--JS FILES STARTS-->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/custom.js"></script>
-    <script type="text/javascript" src="js/slides/slides.min.jquery.js"></script>
-    <script type="text/javascript" src="js/cycle-slider/cycle.js"></script>
-    <script type="text/javascript" src="js/nivo-slider/jquery.nivo.slider.js"></script>
-    <script type="text/javascript" src="js/tabify/jquery.tabify.js"></script>
-    <script type="text/javascript" src="js/prettyPhoto/jquery.prettyPhoto.js"></script>
-    <script type="text/javascript" src="js/twitter/jquery.tweet.js"></script>
-    <script type="text/javascript" src="js/scrolltop/scrolltopcontrol.js"></script>
-    <script type="text/javascript" src="js/portfolio/filterable.js"></script>
-    <script type="text/javascript" src="js/modernizr/modernizr-2.0.3.js"></script>
-    <script type="text/javascript" src="js/easing/jquery.easing.1.3.js"></script>
-    <script type="text/javascript" src="js/kwicks/jquery.kwicks-1.5.1.pack.js"></script>
-    <script type="text/javascript" src="js/swfobject/swfobject.js"></script>
+    <link rel="stylesheet" href="css/global_style.css" type="text/css"/>
+    <link rel="stylesheet"  href="css/isotope.css" type="text/css"/> 
 
-    <script type="text/javascript" src="js/vticker/jquery.vticker.1.4.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/modernizr-transitions.js"></script> 
+    <script src="js/jquery.elastic.source.js"></script>
+
+    <script src="js/audio-player/audio-player.js"></script>  
+    <script src="js/video/player/jwplayer.js"></script>
+
+
+    <script> 
+  
+      $(function(){
+	
+        var $container = $('#container');
+        
+        $('#filters a').click(function(){
+          var selector = $(this).attr('data-filter');
+  
+          //$('#container').isotope({ filter: selector });
+  
+          $('#container').isotope({
+            filter: selector
+          });
+  
+  
+          return false;
+        });
+        
+      $container.isotope({
+        itemSelector: '.box',
+        transformsEnabled: false,
+        visibleStyle: { opacity: 1 },
+        hiddenStyle: { opacity: 0 }
+      });
+ 
+
+        // switches selected class on buttons
+        $('#left').find('.option-set a').click(function(){
+          var $this = $(this);
+ 
+          // don't proceed if already selected
+          if ( !$this.hasClass('selected') ) {
+            $this.parents('.option-set').find('.selected').removeClass('selected');
+            $this.addClass('selected');
+          }
+ 
+        });
+
+      });
+    </script> 
 
     <script type="text/javascript">
-      var flashvars = {};
-      flashvars.cssSource = "css/piecemaker.css";
-      flashvars.xmlSource = "js/piecemaker-2/piecemaker.xml";
-      var params = {};
-      params.play = "true";
-      params.menu = "false";
-      params.scale = "showall";
-      params.wmode = "transparent";
-      params.allowfullscreen = "true";
-      params.allowscriptaccess = "always";
-      params.allownetworking = "all";
-      swfobject.embedSWF('js/piecemaker-2/piecemaker.swf', 'piecemaker', '960', '430', '0', null, flashvars,    
-      params, null);
-      
-      jQuery.noConflict()(function($){
-        jQuery( document ).ready( function() {
-          jQuery( 'a.dynamicLoad' ).live('click', function(e)  {
-            e.preventDefault();   // prevent the browser from following the link
-            e.stopPropagation();  // prevent the browser from following the link
-
-            jQuery( '#content-main' ).load( jQuery( this ).attr( 'href' ) );
-          });
-        });
-      });
-
+      // <![CDATA[
+      $(document).ready(function(){			
+        $('textarea').elastic();
+        $('textarea').trigger('update');
+    
+      });	
+      // ]]>
     </script>
 
   </head>
+
   <body>
-    <div id="wrapper">
-      <div class="center">
-        <div id="container">
-          <!--WRAPPER-->
-          <div id="header">
-            <!-- HEADER  -->
-            <!-- LOGO -->
-            <a id="logo" title="Homepage" href="index.html"><img src="images/logo.png" alt="mujjio" width="129" height="60"/></a>
-            <!--LOGO ENDS  -->
-            <div id="main_navigation" class="main-menu ">
-              <!--  MAIN  NAVIGATION-->
-              <ul>
-                <li><a href="index.html" title="Home">Home</a></li>
-                <li><a href="#">Social</a>
-                  <ul>
-                    <li><a href="social.html" class="dynamicLoad">Social Home</a></li>
-                    <li><a href="#">Find a Friend</a></li>
-                    <li><a href="#">Find a Company</a></li>
-                    <li><a href="#">Find a Group</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Marketplace</a>
-                  <ul>
-                    <li><a href="#">Marketplace Home</a></li>
-                    <li><a href="#">Photography</a></li>
-                    <li><a href="#">Video</a></li>
-                    <li><a href="#">Music</a></li>
-                    <li><a href="#">Video</a></li>
-                    <li><a href="#">More...</a></li>
-                  </ul>
-                </li>     
-                <li><a href="#">Settings</a>
-                  <ul>
-                    <li><a href="#">My Profile</a></li>
-                    <li><a href="#">Privacy Settings</a></li>
-                    <li><a href="#">My Membership</a></li>
-                    <li><a href="#">Sign Out</a></li>                    
-                  </ul>
-                </li>     
-                <li><a href="#">Help</a></li>
-                <li>
-                  <fieldset class="search-place" style="float: left; margin-right: 20px">
-                    <input class="search-input" type="text" onblur="if(this.value=='')this.value='Search Mujjio';" onfocus="if(this.value=='Search Mujjio')this.value='';" value="Search Mujjio"/>
-                  </fieldset>
-                </li>
-              </ul>
-            </div>
-            <!-- MAIN NAVIGATION ENDS-->
 
-          </div>
-          <!-- HEADER ENDS-->
-
-          <!-- MAIN CONTAINER -->
-          <div id="content">
-            <div class="one">
-
-              <div class="horizontal-line"></div>
-
-              <div id="content-main">
-
-                <div class="one">
-
-                  <h3>Best from <span class="colored">The Marketplace</span></h3>
-                </div>
-
-                <div class="one">
-
-                  <div class="horizontal-line-small-margin"></div>
-                  <div id="grid">
-
-                    <div class="one-fourth">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text">
-                            <h4>Bid For Mujjio</h4>
-                            <p>
-											 Bid for the whole network, yep we are serious, make us an offer!
-                            </p>
-                            <a href="#">More info...</a>
-                            <br/>
-                            <a href="#">Bid</a>
-                          </div>
-                        </div>
-                        <img src="images/gallery/grid-img-002.jpg" alt=" " width="238" height="150"/>
-                      </div>
-                    </div>
-                    <div class="one-fourth">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text" style="width: 218px">
-                            <h4>Te espero</h4>
-                            <p>
-											 From <a href="#">Rosamar</a> in <a href="#">Photography</a>
-                            </p>       
-                            <a href="#">More info...</a>
-                            <br/>
-                            <a href="#">Buy</a>
-                            <br/>
-                            <a href="#">Bid</a>
-                          </div>
-                        </div>
-                        <img src="images/gallery/grid-img-003.jpg" alt=" " width="238" height="150"/>
-                      </div>
-                    </div>
-                    <div class="one-fourth">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text" style="width: 218px">
-                            <a href="#"><h4>Best Buy</h4></a>
-                            <p>
-                              Sony VAIO VPCEB4L1E/T Laptop
-                            </p>
-                            <h5>£599.00</h5>
-                            <a href="#">More info...</a><br/>
-                            <a href="#">Buy</a>
-                          </div>
-                        </div>
-                        <img src="images/gallery/grid-img-004.jpg" alt=" " width="238" height="150"/>
-                      </div>
-                    </div>
-                    <div class="one-fourth">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text" style="width: 218px">
-                            <h4>Cloud Kitchen</h4>
-                            <p>
-											 From <a href="#">Cloud Kitchen</a> in <a href="#">Video</a>
-                            </p>                      
-                            <a href="#">Watch</a>
-                            <br/>
-                            <a href="#">Bid</a><br/>
-                            <a href="#">Buy</a>
-                          </div>
-                        </div>
-                        <img src="images/gallery/video-thumb.jpg" alt=" " width="238" height="150"/>
-                      </div>
-                    </div>
-                    <div class="one-fourth">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text" style="width: 218px">
-                            <h4>Insidious</h4>
-                            <p>
-											 From <a href="#">Rosamar</a> in <a href="#">Photography</a>
-                            </p>  
-                            <a href="#">More info...</a>
-                            <br/>
-                            <a href="#">Buy</a>
-                            <br/>
-                            <a href="#">Bid</a>
-
-                          </div>
-                        </div>
-                        <img src="images/gallery/grid-img-005.jpg" alt=" " width="238" height="150"/>
-                      </div>
-                    </div>
-                    <div class="one-fourth">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text" style="width: 218px">
-                            <h4>Jessops</h4>
-                            <p>
-                              Nikon D7000
-                            </p>
-                            <h5>£766.00</h5>
-                            <a href="#">More info...</a><br/>
-                            <a href="#">Buy</a>
-                          </div>
-                        </div>
-                        <img src="images/gallery/grid-img-006.jpg" alt=" " width="238" height="150"/>
-                      </div>
-                    </div>
-                    <div class="one-fifth">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text">
-                            <h4>Indiscreta</h4>
-                            <p>
-                              From <a href="#">Rosamar</a> in Photography
-                            </p>
-                            <a href="#">More Info...</a>
-                            <a href="#">Buy</a>
-                          </div>
-                        </div>
-                        <img src="images/gallery/grid-img-001.jpg" alt=" " width="118" height="150"/>
-                      </div>
-                    </div>
-                    <div class="one-fifth">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text">
-                            <h5>Something That Is Light</h5>
-                            <p>
-                              From <a href="#">S V Giles</a> in Photography
-                            </p>
-                            <a href="#">More Info...</a>
-                            <a href="#">Buy</a>
-                          </div>
-                        </div>
-                        <img src="images/gallery/grid-img-007.jpg" alt=" " width="118" height="150"/>
-                      </div>
-                    </div>
-                    <div class="one-fifth">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text">
-                            <h5>Evening Grass</h5>
-                            <p>
-                              From <a href="#">Jon Black</a> in Photography
-                            </p>
-                            <a href="#">More Info...</a>
-                            <a href="#">Buy</a>
-                          </div>
-                        </div>
-                        <img src="images/gallery/grid-img-008.jpg" alt=" " width="118" height="150"/>
-                      </div>
-                    </div>
-                     <div class="one-fifth last-grid">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text">
-                            <h5>Something That Is Light</h5>
-                            <p>
-                              From <a href="#">S V Giles</a> in Photography
-                            </p>
-                            <a href="#">More Info...</a>
-                            <a href="#">Buy</a>
-                          </div>
-                        </div>
-                        <img src="images/gallery/grid-img-007.jpg" alt=" " width="118" height="150"/>
-                      </div>
-                    </div>
-                    
-                    <div class="one-fourth">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text" style="width: 218px">
-                            <a href="#"><h4>Best Buy</h4></a>
-                            <p>
-                              Sony VAIO VPCEB4L1E/T Laptop
-                            </p>
-                            <h5>£599.00</h5>
-                            <a href="#">More info...</a><br/>
-                            <a href="#">Buy</a>
-                          </div>
-                        </div>
-                        <img src="images/gallery/grid-img-004.jpg" alt=" " width="238" height="150"/>
-                      </div>
-                    </div>
-                    
-                    <div class="one-fourth">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text" style="width: 218px">
-                            <h4>Te espero</h4>
-                            <p>
-											 From <a href="#">Rosamar</a> in <a href="#">Photography</a>
-                            </p>       
-                            <a href="#">More info...</a>
-                            <br/>
-                            <a href="#">Buy</a>
-                            <br/>
-                            <a href="#">Bid</a>
-                          </div>
-                        </div>
-                        <img src="images/gallery/grid-img-003.jpg" alt=" " width="238" height="150"/>
-                      </div>
-                    </div>
-                    
-                    <div class="one-fourth">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text" style="width: 218px">
-                            <h4>Cloud Kitchen</h4>
-                            <p>
-											 From <a href="#">Cloud Kitchen</a> in <a href="#">Video</a>
-                            </p>                      
-                            <a href="#">Watch</a>
-                            <br/>
-                            <a href="#">Bid</a><br/>
-                            <a href="#">Buy</a>
-                          </div>
-                        </div>
-                        <img src="images/gallery/video-thumb.jpg" alt=" " width="238" height="150"/>
-                      </div>
-                    </div>
-                    
-                    <div class="one-fourth">
-                      <div class="item-hover">
-                        <div class="portfolio-thumbnail">
-                          <div class="thumb-text">
-                            <h4>Bid For Mujjio</h4>
-                            <p>
-											 Bid for the whole network, yep we are serious, make us an offer!
-                            </p>
-                            <a href="#">More info...</a>
-                            <br/>
-                            <a href="#">Bid</a>
-                          </div>
-                        </div>
-                        <img src="images/gallery/grid-img-002.jpg" alt=" " width="238" height="150"/>
-                      </div>
-                    </div>
-
-                    <div class="horizontal-line-small-margin"></div> 
-                    <h4><a href="#"><span class="colored">Bid to get your content here</span></a></h4>
-
-                  </div>
-                  <!--END grid-wrap-->
-
-                </div>
-
-                <div class="one">
-
-                  <div class="one-half">
-                    <div class="horizontal-line"></div>
-                    <h3>Latest from <a href="#"><span class="colored">Social</span></a></h3>
-
-                    <div class="horizontal-line"></div>
-
-                    <div id="updates-social" class="one-half">
-                      <ul> 
-                        <li> 
-                          <div> 
-                            <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend1.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                            <div style="width:380px; height:15px; float:left"><a href="#">Balacz Barnucs</a></div>
-                            <div style="width:380px; height:15px;  float:left ">32ft of teak below my feet. Here comes happy sailing.</div>
-                          </div> 
-                        </li>
-                        <li> 
-                          <div> 
-                            <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend1.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                            <div style="width:380px; height:15px; float:left"><a href="#">Balacz Barnucs</a></div>
-                            <div style="width:380px; height:15px;  float:left ">32ft of teak below my feet. Here comes happy sailing.</div>
-                          </div> 
-                        </li>
-                        <li> 
-                          <div> 
-                            <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend1.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                            <div style="width:380px; height:15px; float:left"><a href="#">Balacz Barnucs</a></div>
-                            <div style="width:380px; height:15px;  float:left ">32ft of teak below my feet. Here comes happy sailing.</div>
-                          </div> 
-                        </li>
-                        <li> 
-                          <div> 
-                            <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend1.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                            <div style="width:380px; height:15px; float:left"><a href="#">Balacz Barnucs</a></div>
-                            <div style="width:380px; height:15px;  float:left ">32ft of teak below my feet. Here comes happy sailing.</div>
-                          </div> 
-                        </li>
-                      </ul>
-                    </div>
-
-                  </div>
-                  <div class="one-half last">
-
-                    <div class="horizontal-line"></div>
-                    <h3><a href="#"><span class="colored">Auctions</span></a> Ending Soon</h3></code>
-                    <div class="horizontal-line"></div>
-
-                    <div id="updates-auctions" class="one-half last">
-                      <ul> 
-                        <li> 
-                          <div> 
-                            <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend1.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                            <div style="width:380px; height:15px; float:left"><a href="#">Balacz Barnucs</a></div>
-                            <div style="width:380px; height:15px;  float:left ">32ft of teak below my feet. Here comes happy sailing.</div>
-                          </div> 
-                        </li>
-                        <li> 
-                          <div> 
-                            <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend1.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                            <div style="width:380px; height:15px; float:left"><a href="#">Balacz Barnucs</a></div>
-                            <div style="width:380px; height:15px;  float:left ">32ft of teak below my feet. Here comes happy sailing.</div>
-                          </div> 
-                        </li>
-                        <li> 
-                          <div> 
-                            <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend1.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                            <div style="width:380px; height:15px; float:left"><a href="#">Balacz Barnucs</a></div>
-                            <div style="width:380px; height:15px;  float:left ">32ft of teak below my feet. Here comes happy sailing.</div>
-                          </div> 
-                        </li>
-                        <li> 
-                          <div> 
-                            <div style="width:40px; height:30px; display: inline-block; float:left"><img src="images/profile/friend1.jpg" width="30" height="30" border="0" alt="mujjio" /></div>
-                            <div style="width:380px; height:15px; float:left"><a href="#">Balacz Barnucs</a></div>
-                            <div style="width:380px; height:15px;  float:left ">32ft of teak below my feet. Here comes happy sailing.</div>
-                          </div> 
-                        </li>
-                      </ul>
-                    </div>
-
-                  </div>
-                </div>
-
-              </div>
-              <!--end content main-->
-            </div>
-
-            <div id="footer-wrapper">
-              <!-- FOOTER WRAPPER STARTS-->
-              <div id="footer-container">
-                <!-- FOOTER CONTAINER STARTS-->
-                <div id="footer">
-                  <!-- FOOTER STARTS-->
-                  <div class="one">
-                    <!-- COLUMN CONTAINER STARTS-->
-                    <div class="one-fourth">
-                      <!-- COLUMN STARTS-->
-                      <h4>About Us</h4>
-                      <p>
-                        Some narrative
-                      </p>
-                    </div>
-                    <!-- COLUMN ENDS-->
-                    <div class="one-fourth">
-                      <!-- COLUMN STARTS-->
-                      <h4>Latest Posts</h4>
-                      <ul>
-                        <!-- LATEST POSTS UL-->
-                        <li>
-                          <a href="blog.html">Mujjio launches new social marketplace</a>
-                          <p>
-											 July 04, 2011 · <a href="blog.html">14 Comments</a>
-                          </p>
-                        </li>
-                        <li>
-                          <a href="blog.html">New bid received for Mujjio</a>
-                          <p>
-											 July 05, 2011 · <a href="blog.html">68 Comments</a>
-                          </p>
-                        </li>
-                      </ul>
-                      <!--END UL-->
-                    </div>
-                    <!-- COLUMN ENDS-->
-                    <div class="one-fourth">
-                      <!-- COLUMN STARTS-->
-                      <h4>Stay in Touch</h4>
-                      <ul class="social-links">
-                        <!-- SOCIAL LINKS STARTS-->								
-                        <li><img src="images/icons/twitter.png" width="16" height="16" alt="#"/><a href="#">Follow us on Twitter</a></li>
-                        <li><img src="images/icons/rss.png" width="16" height="16" alt="#"/><a href="#">Our RSS Feeds</a></li>
-
-                      </ul>
-                      <!-- SOCIAL LINKS ENDS-->
-                    </div>
-                    <!-- COLUMN ENDS-->
-                    <div class="one-fourth last">
-                      <!-- COLUMN STARTS-->
-                      <h4>Latest Tweets</h4>
-                      <div class="tweet">
-                      </div>
-                    </div>
-                    <!-- COLUMN ENDS-->
-                  </div>
-                  <!-- COLUMN CONTAINER ENDS-->
-                </div>
-                <!-- FOOTER ENDS-->
-              </div>
-              <!-- FOOTER CONTAINER ENDS-->
-            </div>
-            <!-- FOOTER WRAPPER ENDS-->
-            <div id="copyright-wrapper">
-              <!-- COPYRIGHTS WRAPPER STARTS-->
-              <div id="copyright">
-                <a id="copyright-logo" title="Homepage" href="#"><img src="images/logo-bottom.png" alt=" " width="185" height="50"/></a>
-                <div class="right">
-                  <p>
-                    <a href="#">Home</a> / <a href="#">Help</a> / <a href="#">About Us</a> / <a href="#">Terms & Conditions</a> / <a href="#">Privacy</a> / <a href="#">Contact</a>
-                  </p>
-                  <span>© Copyright Mujjio Limited 2011. All rights reserved.</span>
-                </div>
-              </div>
-              <!-- COPYRIGHTS ENDS-->
-            </div>
-            <!-- COPYRIGHTS WRAPPER ENDS-->
-          </div>
-        </div>
-      </div>
+    <div id="top-bar">
+      <ul> 
+        <li><a href="#"><img src="images/icons/settings.png"/></a></li>
+        <li><a href="#">Gary McCarville</a></li> 
+      </ul>
     </div>
 
+    <div id="navigation"> 
+
+      <ul> 
+        <li><a href="#"><img src="images/icons/icon_comment_off.png"/>Updates</a></li> 
+        <li><a href="#"><img src="images/icons/icon_camera_off.png"/>Photographs</a></li> 
+        <li><a href="#"><img src="images/icons/icon_video_off.png"/>Videos</a></li> 
+        <li><a href="#"><img src="images/icons/icon_music_off.png"/>Music</a></li>  
+        <li><a href="#"><img src="images/icons/icon_products_off.png"/>Products</a></li> 
+        <li><a href="#"><img src="images/icons/icon_services_off.png"/>Services</a></li> 
+      </ul> 
+    </div>
+
+    <div id="main-search">
+      <fieldset>
+        <input class="search-input" type="text" onblur="if(this.value=='')this.value='Search Mujjio';" onfocus="if(this.value=='Search Mujjio')this.value='';" value="Search Mujjio"/>
+      </fieldset>
+    </div>
+
+
+    <div id="left" class="clearfix clear"> 
+      <div class="logo"><img src="images/logos/mujjio_logo.png" width="100" height="47" /></div> 
+      <ul id="filters" class="option-set floated clearfix"> 
+        <li>View</li>
+
+        <li><a href="#filter" data-filter="*" class="selected">Show All</a></li> 
+        <li><a href="#filter" data-filter=".updates">Updates</a></li> 
+        <li><a href="#filter" data-filter=".photo">Photographs</a></li>
+        <li><a href="#filter" data-filter=".music">Music</a></li> 
+        <li><a href="#filter" data-filter=".video">Video</a></li> 
+        <li><a href="#filter" data-filter=".products">Products</a></li>  
+        <li><a href="#filter" data-filter=".services">Services</a></li> 
+        <li><br/>Updates From</li>
+
+        <li><a href="#filter" data-filter="*">Show All</a></li> 
+        <li><a href="#filter" data-filter=".friends">Friends</a></li> 
+        <li><a href="#filter" data-filter=".family">Family</a></li> 
+        <li><a href="#filter" data-filter=".work">Work</a></li>          
+        <li><a href="#filter" data-filter=".following">Following</a></li>
+
+      </ul> 
+    </div><!-- #left --> 
+    <div id="container" class="clearfix clear"> 
+
+      <div class="box video following"> 
+        <div class="update-image">
+
+          <img src="images/profile/suhail.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Suhail Manzoor</a></h2> 
+          <p class="light">Added a video - 09:30 - Public</p> 
+          <div class="pad10"></div>
+          <div class="horizontal-pad-20">&nbsp;</div>
+          <div style="width:318px; height:210px;float: left"><div id="videospace1"></div></div>
+        </div>
+
+      </div><!-- .box --> 
+
+      <div class="box photo family"> 
+        <img src="images/gallery/gallery2.jpg" width="380" height="270" /></a>       
+        <h2><a href="#">Gary McCarville</a></h2> 
+        <p class="light">Added a photograph - 12:12 - Public</p> 
+        <div class="pad10"></div>
+        <h2><a href="#">Like</a> - <a href="#">Dislike</a> -<a href="#">Share</a> - <a href="#">Buy</a> - <a href="#">Bid</a></h2>
+      </div><!-- .box --> 
+
+      <div class="box updates friends following"> 
+        <div class="update-image">
+          <img src="images/profile/friend1.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Balazc Barnucz</a></h2> 
+          <p class="light">Added a comment - 12:12 - Public</p> 
+          <div class="pad10"></div>
+          <p>     
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+          </p>
+
+          <div class="pad10"></div>
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+
+          <div class="pad10"></div>
+
+          <div class="update-reply">
+            <div class="update-reply-image"><img src="images/profile/friend2.jpg" width="40" height="40" style="display: inline"/></div><h2><a href="#">Ronnie Goods</a></h2> 
+            <p>     
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>        
+          </div>
+
+          <div class="update-reply">
+            <div class="update-reply-image"><img src="images/profile/friend3.jpg" width="40" height="40" style="display: inline"/></div><h2><a href="#">Chuck Borris</a></h2> 
+            <p>     
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>  
+            <br/>
+            <a href="#">5 more comments</a>
+            <br/><br/>
+            <a href="#">4 Like this - </a><a href="#">2 Dislike this</a>
+
+          </div>
+
+          <div class="pad10"></div>          
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box photo friends"> 
+        <img src="images/gallery/gallery1.jpg" width="380" height="270" />
+        
+        <h2><a href="#">Gary McCarville</a></h2> 
+        <p class="light">Added a photograph - 12:12 - Public</p> 
+        <div class="pad10"></div>
+        <h2><a href="#">Like</a> - <a href="#">Dislike</a> -<a href="#">Share</a> - <a href="#">Buy</a> - <a href="#">Bid</a></h2>
+
+      </div><!-- .box --> 
+
+
+      <div class="box updates family"> 
+        <div class="update-image">
+          <img src="images/profile/friend2.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Ronnie Goods</a></h2> 
+          <p class="light">Added a comment - 12:12 - Public</p> 
+          <div class="pad10"></div>
+          <p>     
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+          </p>
+
+          <div class="pad10"></div>
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box music friends"> 
+        <div class="update-image">
+          <img src="images/profile/friend3.jpg" width="60" height="60" style="display: inline"/>
+
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Chuck Borris</a></h2> 
+          <p class="light">Added some music - 12:12 - Public</p> 
+          <div class="pad10"></div>         
+          <div class="horizontal-pad-20">&nbsp;</div>
+          <p id="audioplayer_1"></p>
+          <div class="clear"></div>
+          <div class="pad10"></div>
+
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box music family"> 
+        <div class="update-image">
+          <img src="images/profile/friend4.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+
+          <h2><a href="#">Christopher Cricklewood</a></h2> 
+          <p class="light">Added some music - 12:12 - Public</p> 
+          <div class="pad10"></div>         
+          <div class="horizontal-pad-20">&nbsp;</div>
+          <p id="audioplayer_2"></p>
+          <div class="clear"></div>
+          <div class="pad10"></div>
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box photo friends following"> 
+        <img src="images/gallery/gallery4.jpg" width="380" height="270" />
+        
+        <h2><a href="#">Suhail Manzoor</a></h2> 
+        <p>Added a photograph - 12:12 - Public</p> 
+        <div class="pad10"></div>   
+        <h2><a href="#">Like</a> - <a href="#">Dislike</a> -<a href="#">Share</a> - <a href="#">Buy</a> - <a href="#">Bid</a></h2>
+
+      </div><!-- .box --> 
+
+
+      <div class="box updates work"> 
+
+        <div class="update-image">
+          <img src="images/profile/friend5.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Sally Jones</a></h2> 
+          <p class="light">Added a comment - 12:12 - Public</p> 
+          <div class="pad10"></div>
+          <p>     
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+          </p>
+
+          <div class="pad10"></div>
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box photo friends following"> 
+        <img src="images/gallery/gallery5.jpg" width="380" height="270" /> 
+        
+        <h2><a href="#">Rory Bright</a></h2> 
+        <p>Added a photograph - 12:12 - Public</p> 
+        <div class="pad10"></div>
+
+        <h2><a href="#">Like</a> - <a href="#">Dislike</a> -<a href="#">Share</a> - <a href="#">Buy</a> - <a href="#">Bid</a></h2>
+      </div><!-- .box --> 
+
+      <div class="box updates friends"> 
+        <div class="update-image">
+
+          <img src="images/profile/friend1.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Balazc Barnucz</a></h2> 
+          <p class="light">Added a comment - 12:12 - Public</p> 
+          <div class="pad10"></div>
+          <p>     
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+          </p>
+          <div class="pad10"></div>
+
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+
+          <div class="pad10"></div>
+
+          <div class="update-reply">
+            <div class="update-reply-image"><img src="images/profile/friend2.jpg" width="40" height="40" style="display: inline"/></div><h2><a href="#">Ronnie Goods</a></h2> 
+            <p>     
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>        
+          </div>
+
+          <div class="update-reply">
+            <div class="update-reply-image"><img src="images/profile/friend3.jpg" width="40" height="40" style="display: inline"/></div><h2><a href="#">Chuck Borris</a></h2> 
+            <p>     
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>  
+            <br/>
+            <a href="#">5 more comments</a>
+            <br/><br/>
+            <a href="#">4 Like this - </a><a href="#">2 Dislike this</a>
+
+          </div>
+
+          <div class="pad10"></div>          
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box updates friends"> 
+        <div class="update-image">
+          <img src="images/profile/friend1.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Balazc Barnucz</a></h2> 
+          <p class="light">Added a comment - 12:12 - Public</p> 
+          <div class="pad10"></div>
+
+          <p>     
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+          </p>
+          <div class="pad10"></div>
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+
+          <div class="pad10"></div>
+
+          <div class="update-reply">
+
+            <div class="update-reply-image"><img src="images/profile/friend2.jpg" width="40" height="40" style="display: inline"/></div><h2><a href="#">Ronnie Goods</a></h2> 
+            <p>     
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>        
+          </div>
+
+          <div class="update-reply">
+            <div class="update-reply-image"><img src="images/profile/friend3.jpg" width="40" height="40" style="display: inline"/></div><h2><a href="#">Chuck Borris</a></h2> 
+            <p>     
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>  
+            <br/>
+
+            <a href="#">5 more comments</a>
+            <br/><br/>
+            <a href="#">4 Like this - </a><a href="#">2 Dislike this</a>
+          </div>
+
+          <div class="pad10"></div>          
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box video family"> 
+        <div class="update-image">
+
+          <img src="images/profile/suhail.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Suhail Manzoor</a></h2> 
+          <p class="light">Added a video - 09:30 - Public</p> 
+          <div class="pad10"></div>
+          <div class="horizontal-pad-20">&nbsp;</div>
+          <div style="width:318px; height:210px;float: left"><div id="videospace2"></div></div>
+          <div class="clear"></div>
+
+          <div class="pad10"></div>
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box video following"> 
+        <div class="update-image">
+          <img src="images/profile/suhail.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+
+        <div class="update-text">
+          <h2><a href="#">Suhail Manzoor</a></h2> 
+          <p class="light">Added a video - 09:30 - Public</p> 
+          <div class="pad10"></div>
+          <div class="horizontal-pad-20">&nbsp;</div>
+          <div style="width:318px; height:210px;float: left"><div id="videospace3"></div></div>
+          <div class="clear"></div>
+          <div class="pad10"></div>
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box photo family"> 
+        <img src="images/gallery/gallery2.jpg" width="380" height="270" />
+        
+        <h2><a href="#">Gary McCarville</a></h2> 
+        <p class="light">Added a photograph - 12:12 - Public</p> 
+        <div class="pad10"></div>
+        <h2><a href="#">Like</a> - <a href="#">Dislike</a> -<a href="#">Share</a> - <a href="#">Buy</a> - <a href="#">Bid</a></h2>
+
+      </div><!-- .box --> 
+
+      <div class="box updates friends"> 
+        <div class="update-image">
+          <img src="images/profile/friend1.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Balazc Barnucz</a></h2> 
+          <p class="light">Added a comment - 12:12 - Public</p> 
+          <div class="pad10"></div>
+          <p>     
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+          </p>
+
+          <div class="pad10"></div>
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+
+          <div class="pad10"></div>
+
+          <div class="update-reply">
+            <div class="update-reply-image"><img src="images/profile/friend2.jpg" width="40" height="40" style="display: inline"/></div><h2><a href="#">Ronnie Goods</a></h2> 
+            <p>     
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>        
+          </div>
+
+          <div class="update-reply">
+            <div class="update-reply-image"><img src="images/profile/friend3.jpg" width="40" height="40" style="display: inline"/></div><h2><a href="#">Chuck Borris</a></h2> 
+            <p>     
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>  
+            <br/>
+            <a href="#">5 more comments</a>
+            <br/><br/>
+            <a href="#">4 Like this - </a><a href="#">2 Dislike this</a>
+
+          </div>
+
+          <div class="pad10"></div>          
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box photo friends"> 
+        <img src="images/gallery/gallery1.jpg" width="380" height="270" />
+        
+        <h2><a href="#">Gary McCarville</a></h2> 
+        <p class="light">Added a photograph - 12:12 - Public</p> 
+        <div class="pad10"></div>
+        <h2><a href="#">Like</a> - <a href="#">Dislike</a> -<a href="#">Share</a> - <a href="#">Buy</a> - <a href="#">Bid</a></h2>
+
+      </div><!-- .box --> 
+
+
+      <div class="box updates family"> 
+        <div class="update-image">
+          <img src="images/profile/friend2.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Ronnie Goods</a></h2> 
+          <p class="light">Added a comment - 12:12 - Public</p> 
+          <div class="pad10"></div>
+          <p>     
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+          </p>
+
+          <div class="pad10"></div>
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box music friends"> 
+        <div class="update-image">
+          <img src="images/profile/friend3.jpg" width="60" height="60" style="display: inline"/>
+
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Chuck Borris</a></h2> 
+          <p class="light">Added some music - 12:12 - Public</p> 
+          <div class="pad10"></div>         
+          <div class="horizontal-pad-20">&nbsp;</div>
+          <p id="audioplayer_3"></p>
+          <div class="clear"></div>
+          <div class="pad10"></div>
+
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box music family"> 
+        <div class="update-image">
+          <img src="images/profile/friend4.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+
+          <h2><a href="#">Christopher Cricklewood</a></h2> 
+          <p class="light">Added some music - 12:12 - Public</p> 
+          <div class="pad10"></div>         
+          <div class="horizontal-pad-20">&nbsp;</div>
+          <p id="audioplayer_4"></p>
+          <div class="clear"></div>
+          <div class="pad10"></div>
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box photo friends following"> 
+        <img src="images/gallery/gallery4.jpg" width="380" height="270" /> 
+        
+        <h2><a href="#">Suhail Manzoor</a></h2> 
+        <p>Added a photograph - 12:12 - Public</p> 
+        <div class="pad10"></div>  
+        <h2><a href="#">Like</a> - <a href="#">Dislike</a> -<a href="#">Share</a> - <a href="#">Buy</a> - <a href="#">Bid</a></h2>
+
+      </div><!-- .box --> 
+
+
+      <div class="box updates work"> 
+
+        <div class="update-image">
+          <img src="images/profile/friend5.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Sally Jones</a></h2> 
+          <p class="light">Added a comment - 12:12 - Public</p> 
+          <div class="pad10"></div>
+          <p>     
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+          </p>
+
+          <div class="pad10"></div>
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box photo friends following"> 
+        <img src="images/gallery/gallery5.jpg" width="380" height="270" />
+        
+        <h2><a href="#">Rory Bright</a></h2> 
+        <p>Added a photograph - 12:12 - Public</p> 
+        <div class="pad10"></div>
+
+        <h2><a href="#">Like</a> - <a href="#">Dislike</a> -<a href="#">Share</a> - <a href="#">Buy</a> - <a href="#">Bid</a></h2>
+      </div><!-- .box --> 
+
+      <div class="box products friends following"> 
+        <img src="images/products/product1.jpg" width="270" height="380" /> 
+        
+        <h2><a href="#">IOU Project</a></h2> 
+        <p class="light">Added a product - 12:12 - Public</p> 
+        <p>Retro Dress <span class="highlight">£98.00</span></p> 
+        <div class="pad10"></div>
+
+        <h2><a href="#">Like</a> - <a href="#">Dislike</a> -<a href="#">Share</a> - <a href="#">Buy</a> - <a href="#">Bid</a></h2>
+      </div><!-- .box --> 
+
+
+
+      <div class="box updates friends"> 
+        <div class="update-image">
+
+          <img src="images/profile/friend1.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Balazc Barnucz</a></h2> 
+          <p class="light">Added a comment - 12:12 - Public</p> 
+          <div class="pad10"></div>
+          <p>     
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+          </p>
+          <div class="pad10"></div>
+
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+
+          <div class="pad10"></div>
+
+          <div class="update-reply">
+            <div class="update-reply-image"><img src="images/profile/friend2.jpg" width="40" height="40" style="display: inline"/></div><h2><a href="#">Ronnie Goods</a></h2> 
+            <p>     
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>        
+          </div>
+
+
+
+          <div class="update-reply">
+            <div class="update-reply-image"><img src="images/profile/friend3.jpg" width="40" height="40" style="display: inline"/></div><h2><a href="#">Chuck Borris</a></h2> 
+            <p>     
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>  
+            <br/>
+            <a href="#">5 more comments</a>
+            <br/><br/>
+
+            <a href="#">4 Like this - </a><a href="#">2 Dislike this</a>
+          </div>
+
+          <div class="pad10"></div>          
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box products following"> 
+        <img src="images/products/product2.jpg" width="270" height="270" /> 
+        
+        <h2><a href="#">IOU Project</a></h2> 
+        <p class="light">Added a product - 12:12 - Public</p> 
+        <p>Madras Scarf <span class="highlight">£38.00</span></p> 
+        <div class="pad10"></div>
+
+        <h2><a href="#">Like</a> - <a href="#">Dislike</a> -<a href="#">Share</a> - <a href="#">Buy</a> - <a href="#">Bid</a></h2>
+      </div><!-- .box --> 
+
+      <div class="box updates friends"> 
+        <div class="update-image">
+
+          <img src="images/profile/friend1.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Balazc Barnucz</a></h2> 
+          <p class="light">Added a comment - 12:12 - Public</p> 
+          <div class="pad10"></div>
+          <p>     
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+          </p>
+          <div class="pad10"></div>
+
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+
+          <div class="pad10"></div>
+
+          <div class="update-reply">
+            <div class="update-reply-image"><img src="images/profile/friend2.jpg" width="40" height="40" style="display: inline"/></div><h2><a href="#">Ronnie Goods</a></h2> 
+            <p>     
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>        
+          </div>
+
+          <div class="update-reply">
+            <div class="update-reply-image"><img src="images/profile/friend3.jpg" width="40" height="40" style="display: inline"/></div><h2><a href="#">Chuck Borris</a></h2> 
+            <p>     
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>  
+            <br/>
+            <a href="#">5 more comments</a>
+            <br/><br/>
+            <a href="#">4 Like this - </a><a href="#">2 Dislike this</a>
+
+          </div>
+
+          <div class="pad10"></div>          
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box video family"> 
+        <div class="update-image">
+          <img src="images/profile/suhail.jpg" width="60" height="60" style="display: inline"/>
+        </div>
+        <div class="update-text">
+          <h2><a href="#">Suhail Manzoor</a></h2> 
+          <p class="light">Added a video - 09:30 - Public</p> 
+          <div class="pad10"></div>
+
+          <div class="horizontal-pad-20">&nbsp;</div>
+          <div style="width:318px; height:210px;float: left"><div id="videospace4"></div></div>
+          <div class="clear"></div>
+          <div class="pad10"></div>
+          <h2><a href="#">Like - </a><a href="#">Dislike - </a><a href="#">Comment - </a><a href="#">Share</a></h2>
+        </div>
+      </div><!-- .box --> 
+
+      <div class="box products following"> 
+        <img src="images/products/product3.jpg" width="270" height="380" /> 
+        
+        <h2><a href="#">IOU Project</a></h2> 
+        <p class="light">Added a product - 12:12 - Public</p> 
+        <p>The Work Shirt <span class="highlight">£62.00</span></p> 
+        <div class="pad10"></div>
+
+        <h2><a href="#">Like</a> - <a href="#">Dislike</a> -<a href="#">Share</a> - <a href="#">Buy</a> - <a href="#">Bid</a></h2>
+      </div><!-- .box --> 
+
+      <div class="box services work"> 
+        <img src="images/services/service2.png" width="203" height="70" /> 
+        
+        <h2><a href="#">Just Answer</a></h2> 
+        <p class="light">Added a service - 12:12 - Public</p> 
+        <p>Online Legal Help and Advice</p> 
+        <div class="pad10"></div>
+
+        <h2><a href="#">Like</a> - <a href="#">Dislike</a> -<a href="#">Share</a></h2>
+      </div><!-- .box --> 
+
+      <div class="box services work"> 
+        <img src="images/services/service1.jpg" width="70" height="70" /> 
+        
+        <h2><a href="#">Rosetta Translation Services</a></h2> 
+        <p class="light">Added a service - 12:12 - Public</p> 
+        <p>Translation of documents, websites, brochures, reports</p> 
+        <div class="pad10"></div>
+
+        <h2><a href="#">Like</a> - <a href="#">Dislike</a> -<a href="#">Share</a></h2>
+      </div><!-- .box --> 
+
+
+    </div><!-- #container --> 
+
+    <div class="footer clearfix clear"> 
+      <p>&copy; 2011 Mujjio.</p> 
+    </div><!-- .footer --> 
+
+
+
+    <script type='text/javascript'>
+      jwplayer('videospace1').setup({
+        'flashplayer': 'js/video/player/player.swf',
+        'file': 'http://www.youtube.com/watch?v=Yybe3hB3Ix4',
+        'provider': 'youtube',
+        'controlbar': 'bottom',
+        'width': '320',
+        'height': '205'
+      });
+  
+      jwplayer('videospace2').setup({
+        'flashplayer': 'js/video/player/player.swf',
+        'file': 'http://www.youtube.com/watch?v=DX1iplQQJTo',
+        'provider': 'youtube',
+        'controlbar': 'bottom',
+        'width': '320',
+        'height': '205'
+      });
+  
+      jwplayer('videospace3').setup({
+        'flashplayer': 'js/video/player/player.swf',
+        'file': 'http://www.youtube.com/watch?v=Yybe3hB3Ix4',
+        'provider': 'youtube',
+        'controlbar': 'bottom',
+        'width': '320',
+        'height': '205'
+      });
+  
+      jwplayer('videospace4').setup({
+        'flashplayer': 'js/video/player/player.swf',
+        'file': 'http://www.youtube.com/watch?v=DX1iplQQJTo',
+        'provider': 'youtube',
+        'controlbar': 'bottom',
+        'width': '320',
+        'height': '205'
+      });
+      
+
+    </script>
+
+    <script type="text/javascript">  
+      AudioPlayer.setup("js/audio-player/player.swf", {  
+        width: 300,  
+        initialvolume: 100,  
+        transparentpagebg: "yes",  
+        left: "000000",  
+        lefticon: "FFFFFF"  
+      });  
+    </script>  
+
+    <script type="text/javascript">  
+      AudioPlayer.embed("audioplayer_1", {
+        soundFile: "http://www.graniteforme.com/media/06_-Paolo_Nutini-_New_Shoes.mp3",  
+        titles: "New Shoes",  
+        artists: "Paolo Nutini",  
+        autostart: "no"  
+      });  
+      
+      AudioPlayer.embed("audioplayer_2", { 
+        soundFile: "http://www.graniteforme.com/media/06_-Paolo_Nutini-_New_Shoes.mp3",  
+        titles: "New Shoes",  
+        artists: "Paolo Nutini",  
+        autostart: "no"  
+      });  
+      
+      AudioPlayer.embed("audioplayer_3", {
+        soundFile: "http://www.graniteforme.com/media/06_-Paolo_Nutini-_New_Shoes.mp3",  
+        titles: "New Shoes",  
+        artists: "Paolo Nutini",  
+        autostart: "no"  
+      });  
+      
+      AudioPlayer.embed("audioplayer_4", { 
+        soundFile: "http://www.graniteforme.com/media/06_-Paolo_Nutini-_New_Shoes.mp3",  
+        titles: "New Shoes",  
+        artists: "Paolo Nutini",  
+        autostart: "no"  
+      });  
+    </script>
+
+
   </body>
-  <!--BODY ENDS  -->
 </html>
