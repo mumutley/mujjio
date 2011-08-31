@@ -3,12 +3,15 @@ var Person = require('../model/person').Person;
 Q = require("q");
 msg = require('../services/mq').MQ
 BSON = require('mongodb').BSONPure,
+ObjectID = require('mongodb').BSONPure.ObjectID,
 config = require('../../../config').Configuration;
 
 //define two outcomes that are to run in parallel with Q
 var outcomes = {
     write : function(payload, res) {
-        res.writeHead(200, {'Content-Type': 'application/json'})
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        })
         res.end(JSON.stringify(payload)); 
         return this;
     },
@@ -20,15 +23,14 @@ var outcomes = {
     }
 }
 
-
 module.exports = function(app){
     var db = new Storage();        
-    //http://localhost:8800/rest/people/signup
+    //http://localhost:8800/rest/people
     //{"email":"suhailski@gmail.com","password":"password","givenName":"Suhail","familyName":"Manzoor","gender":"male","language":"english","dd":"10","mm":"11","yyyy":"1968","noage":"true", "primary":"true"}
 
     app.post('/people', function(req, res){
                                                            
-        //try{
+        try{
             var account = new Account(req.body);
             //it looks strange but its used for Q
             account = account.validate();           
@@ -63,28 +65,65 @@ module.exports = function(app){
                     });
                 });                                       
             });                       
-        //}catch(err){
-        //   console.log(err);
-        //    res.writeHead(412, {'Content-Type': 'application/json'})
-        //    res.end(JSON.stringify(err));
-        //}        
+        }catch(err){
+            console.log(err);
+            res.writeHead(412, {
+                'Content-Type': 'application/json'
+            })
+            res.end(JSON.stringify(err));
+        }        
     });
 
-    app.get('/people/:id/:profile', function(req, res){
-        
+    //{"email":"suhailski@gmail.com","password":"password"}
+    //http://localhost:8800/rest/people/initial
+    app.post('/people/initial', function(req, res){    
+        db.fetch(req.body, 'account', function(err, account){    
+            if(err) {
+                res.writeHead(404, {'Content-Type': 'application/json'})            
+                res.end(JSON.stringify(err));
+            } else {
+                var data = {
+                    status : config.Status.registered
+                }
+                
+                db.update('account', account._id, data, function(err, result){
+                    if(err) {
+                        res.writeHead(500, {'Content-Type': 'application/json'})            
+                        res.end(JSON.stringify({}));                                        
+                    }
+                    res.writeHead(200, {'Content-Type': 'application/json'})
+                    res.end(JSON.stringify(err));
+                });                
+            }
+        });        
+    });    
+    
+    app.get('/people/:id/:profile', function(req, res){        
         db.fetch(null, 'people', function(error, perso){ 
-            res.writeHead(200, {'Content-Type': 'application/json'})
-            var objToJson = { };          
+            res.writeHead(200, {'Content-Type': 'application/json'});       
             res.end(JSON.stringify(perso));
         });                                     
     });
     
+    /**
+     * Checks the activation status based on the uid and status that is 'initial'
+     * This link is used when the user clicks on the the link given in the email
+     */
     app.get('/people/activate', function(req, res){
         
-        db.fetch(null, 'people', function(error, perso){ 
-            res.writeHead(200, {'Content-Type': 'application/json'})
-            var objToJson = { };          
-            res.end(JSON.stringify(perso));
+        var query = {
+            _id : ObjectID.createFromHexString(req.query.uid),
+            status : config.Status.initial
+        }
+        
+        db.fetch(query, 'account', function(error, account){    
+            if(account) {
+                res.writeHead(200, {'Content-Type': 'application/json'});            
+                res.end(JSON.stringify(account));
+            } else {
+                res.writeHead(404, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({}));                
+            }
         });                                     
-    });
+    });          
 };

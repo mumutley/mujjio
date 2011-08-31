@@ -2,7 +2,7 @@ var Mongo = require('mongodb').Db;
 var Connection = require('mongodb').Connection;
 var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
-var ObjectID = require('mongodb').ObjectID;
+
 
 var host = process.env['MONGO_NODE_DRIVER_HOST'] != null ? process.env['MONGO_NODE_DRIVER_HOST'] : 'localhost';
 var port = process.env['MONGO_NODE_DRIVER_PORT'] != null ? process.env['MONGO_NODE_DRIVER_PORT'] : Connection.DEFAULT_PORT;  
@@ -34,9 +34,31 @@ Storage.prototype.save = function(row, name, callback) {
     });                 
 }
 
-Storage.prototype.fetch = function(row, name, callback) { 
-    console.log("fetch called");
-    callback(null, row);
+Storage.prototype.update = function(name, id, data, callback){   
+    this.mongo.collection(name, function(err, collection) {
+        if(err) {            
+            console.log(err);
+            callback(err, null);
+        } else {
+
+            collection.update({_id : id}, {"$set" : data}, function(error, doc){
+                    if( error ) {
+                        console.log(error);
+                        callback(error);
+                    }
+                    else callback(null, doc);
+            });
+        }
+    });
+}
+
+Storage.prototype.fetch = function(query, name, callback) { 
+    this.mongo.collection(name, function(err, collection) {        
+        collection.findOne(query, function(err, doc) {
+            if(err) console.log(err);
+            callback(null, doc);
+        });
+    });
 }
 
 exports.Storage = Storage;
