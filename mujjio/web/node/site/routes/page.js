@@ -29,10 +29,9 @@ module.exports = function(app){
         });        
     });
     
-    app.post('/login', function(req, res){
-            
-            //res.writeHead(200, {'Content-Type': 'text/html'});             
-            //res.end('login');                    
+    app.post('/login', function(req, res){            
+        //res.writeHead(200, {'Content-Type': 'text/html'});             
+        //res.end('login');                    
         res.writeHead(200, {'Content-Type': 'text/plain'})
         var name = req.body.username;
         console.log(name);

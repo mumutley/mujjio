@@ -22,16 +22,13 @@ var Person = exports.Person = function (request) {
     this.givenName = {
         value : request.givenName,
         type : String,
-        validations : ['notNull','notEmpty']
-        
-    };
-    
+        validations : ['notNull','notEmpty']        
+    };    
     this.familyName = {
         value : request.familyName,
         type : String,
         validations : ['notNull','notEmpty']        
-    }
-    
+    }    
     this.language = {
         value : request.language,
         type : String,
