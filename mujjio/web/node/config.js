@@ -34,7 +34,7 @@ Configuration = {
     web : {
         templates : {
             base : 'templates/',
-            layout : 'basic.jade'            
+            layout : 'isotope.jade'            
         },
         
         meta : {

@@ -1,1 +1,70 @@
 #container
+    .box.video.following
+        .update-image
+            img(src="/public/images/profile/suhail.jpg", width="60", height="60", style="display: inline")
+        .update-text
+            h2
+                a(href="#") Suhail Manzoor
+            p.light Added a video - 09:30 - Public
+            .pad10
+            .horizontal-pad-20 &nbsp;
+            div(style="width:318px; height:210px;float: left")
+                div#videospace1
+
+    .box.updates.friends.following
+        .update-image
+            img(src="/public/images/profile/friend1.jpg", width="60", height="60", style="display: inline")
+        .update-text
+            h2
+                a(href="#") Balazc Barnucz 
+            p.light
+                Added a comment - 12:12 - Public
+            .pad10
+            p
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+            .pad10
+            h2
+                span.cmd
+                    a(href="#") Like
+                span.cmd
+                    a(href="#") Dislike
+                span.cmd
+                    a(href="#") Comment
+                span.cmd
+                    a(href="#") Share
+            .pad10
+
+            .update-reply
+                .update-reply-image
+                    img(src="/public/images/profile/friend2.jpg", width="40", height="40", style="display: inline")
+                h2.name
+                    a(href="#") Ronnie Goods
+                p.text
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+
+            .update-reply
+                .update-reply-image
+                    img(src="/public/images/profile/friend3.jpg", width="40", height="40", style="display: inline")
+                h2.name
+                    a(href="#") Chuck Borris
+                p.text
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+
+                br
+                a(href="#") 5 more comments
+                br
+                br
+                span.cmd
+                    a(href="#") 4 Like this
+                span.cmd
+                    a(href="#") 3 Like this
+
+script(type='text/javascript')
+    jwplayer('videospace1').setup({
+        'flashplayer': '/public/js/video/player/player.swf',
+        'file': 'http://www.youtube.com/watch?v=Yybe3hB3Ix4',
+        'provider': 'youtube',
+        'controlbar': 'bottom',
+        'width': '320',
+        'height': '205'
+      });
