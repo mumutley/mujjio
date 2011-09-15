@@ -1,15 +1,122 @@
 #container
+
     .box.video.following
         .update-image
             img(src="/public/images/profile/suhail.jpg", width="60", height="60", style="display: inline")
         .update-text
             h2
-                a(href="#") Suhail Manzoor
+                a(href="#") Birdy Num Nim
             p.light Added a video - 09:30 - Public
             .pad10
             .horizontal-pad-20 &nbsp;
             div(style="width:318px; height:210px;float: left")
                 div#videospace1
+
+
+    .box.photo.family
+        .update-image
+            img(width="60", height="60", style="display: inline", src="/public/images/profile/friend4.jpg")
+        .update-text
+            h2
+                a(href="#") Birdy Nim Num
+            p.light Added a video - 09:30 - Public
+            .pad10
+
+        img(width="380", height="270", src="/public/images/photo/music/music1.jpg")
+
+        h2
+            span.cmd
+                a(href="#") Like
+            span.cmd
+                a(href="#") Dislike
+            span.cmd
+                a(href="#") Comment
+            span.cmd
+                a(href="#") Share
+        .pad10
+
+    .box.music.family
+        .update-image
+            img(width="60", height="60", style="display: inline", src="/public/images/profile/friend4.jpg")
+        .update-text
+            h2
+                a(href="#") Birdy Birdy Num
+            p.light
+                Added a comment - 12:12 - Public
+            .pad10
+            div.horizontal-pad-20
+                &nbsp;
+            object(width="300", height="24", type="application/x-shockwave-flash", name="audioplayer_2", style="outline: none", data="/public/js/audio-player/player.swf", id="audioplayer_2")
+                param(name="bgcolor", value="#FFFFFF")
+                param(name="wmode", value="transparent")
+                param(name="menu", value="false")
+                param(name="flashvars", value="initialvolume=100&amp;left=000000&amp;lefticon=FFFFFF&amp;soundFile=http://www.graniteforme.com/media/06_-Paolo_Nutini-_New_Shoes.mp3&amp;titles=New Shoes&amp;artists=Paolo Nutini&amp;autostart=no&amp;playerID=audioplayer_2")
+            .clear
+            .pad10
+            h2
+                span.cmd
+                    a(href="#") Like
+                span.cmd
+                    a(href="#") Dislike
+                span.cmd
+                    a(href="#") Comment
+                span.cmd
+                    a(href="#") Share
+            .pad10
+
+    .box.updates.friends.following
+        .update-image
+            img(src="/public/images/profile/friend1.jpg", width="60", height="60", style="display: inline")
+
+        .update-text
+            h2
+                a(href="#") Birdy Num Num 
+            p.light Added a comment - 12:12 - Public
+            .pad10
+
+            p I think this is an important milestone. So far the trajectory of the two platforms are generally flowing past platform wars: PC v/s Mac, OS/2 v/s Windows. In the end what determined the outcome is developer mindshare. I would argue that Android has a much compelling proposition here. What I would generally like to see is Google breaking away from its Java origins and pitch its tent as far away from Oracle as possible. 
+            .pad10
+            
+            h2
+                a(href="http://goo.gl/hPtz9") Android to overtake iPhone for app downloads
+                .pad10
+                img(style="display:block; float: left;", height="100", width="120", src="http://static.guim.co.uk/sys-images/Media/Pix/pictures/2011/9/8/1315508669629/Samsung-Nexus-S-007.jpg")
+                p Telecoms analyst Ovum says 18bn applications will be downloaded this year, of which 8.1bn will be for Apple product. By Juliette Garside
+
+            .pad10
+                h2
+                    span.cmd
+                        a(href="#") Like
+                    span.cmd
+                        a(href="#") Dislike
+                    span.cmd
+                        a(href="#") Comment
+                    span.cmd
+                        a(href="#") Share                
+            .pad10
+            .update-reply
+                .update-reply-image
+                    img(src="/public/images/profile/friend2.jpg", width="40", height="40", style="display: inline")
+                h2.name
+                    a(href="#") Ronnie Goods
+                p.text Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+
+            .update-reply
+                .update-reply-image
+                    img(src="/public/images/profile/friend3.jpg", width="40", height="40", style="display: inline")
+                h2.name
+                    a(href="#") Chuck Borris
+                p.text
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+
+                br
+                a(href="#") 5 more comments
+                br
+                br
+                span.cmd
+                    a(href="#") 4 Like this
+                span.cmd
+                    a(href="#") 3 Like this
 
     .box.updates.friends.following
         .update-image
@@ -17,8 +124,7 @@
         .update-text
             h2
                 a(href="#") Balazc Barnucz 
-            p.light
-                Added a comment - 12:12 - Public
+            p.light Added a comment - 12:12 - Public
             .pad10
             p
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
@@ -39,16 +145,14 @@
                     img(src="/public/images/profile/friend2.jpg", width="40", height="40", style="display: inline")
                 h2.name
                     a(href="#") Ronnie Goods
-                p.text
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                p.text Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 
             .update-reply
                 .update-reply-image
                     img(src="/public/images/profile/friend3.jpg", width="40", height="40", style="display: inline")
                 h2.name
                     a(href="#") Chuck Borris
-                p.text
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                p.text Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 
                 br
                 a(href="#") 5 more comments
@@ -58,6 +162,9 @@
                     a(href="#") 4 Like this
                 span.cmd
                     a(href="#") 3 Like this
+
+            
+
 
 script(type='text/javascript')
     jwplayer('videospace1').setup({

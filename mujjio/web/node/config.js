@@ -34,7 +34,7 @@ Configuration = {
     web : {
         templates : {
             base : 'templates/',
-            layout : 'isotope.jade'            
+            layout : 'yui.jade'            
         },
         
         meta : {
