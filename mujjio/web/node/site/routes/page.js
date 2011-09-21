@@ -1,19 +1,22 @@
 var config = require('../../config').Configuration;
 var meta = require('../services/metatemplate').JadeTemplate;
+var enrollment = require('../services/enrollment').Enrollment;
 var jade = require('jade');
+var pages = require('./config').Pages;
 
 module.exports = function(app){    
-    ///Users/suhail/NetBeansProjects/Herql/mujjio/web/node/site/servicesdefaults.jazz
-    app.get('/', function(req, res){                        
-        var layout = config.web.templates.base + config.web.templates.layout;
-                
+    ///Users/suhail/NetBeansProjects/Herql/mujjio/web/node/site/servicesdefaults.jazz  
+    enrollment = new Enrollment();
+    
+    app.get('/', function(req, res){ 
+        var page = config.web.templates.base + config.web.templates.layout;
         var options = {
             debug : false,
             locals : {
                 name : 'Suhail Manzoor',
                 url : 'http://localhost:8080/suhail',
                 container : 'main',
-                head : 'include includes/head',
+                head : 'main',
                 includes : [
                     'include includes/head',
                     'include includes/mast',
@@ -22,11 +25,46 @@ module.exports = function(app){
             }            
         };
         
-        jade.renderFile(layout, options , function(err, html){
+        jade.renderFile(page, options , function(err, html){
             if(err) throw err;
             res.writeHead(200, {'Content-Type': 'text/html'});             
             res.end(html);            
         });        
+    });
+    
+    app.get('/join', function(req, res){
+        var test = pages.base + pages.join.main;
+        console.log("test is " + test);
+        
+        var days = ['Day'];
+        
+        for(var i=0; i < 31; i++){ 
+            days.push(i++);
+        }
+        
+        var options = {
+            debug : false,
+            locals : {
+                name : 'Suhail Manzoor',
+                day : days
+            }            
+        };
+        
+        var page = config.web.templates.base + config.web.templates.layout;
+        jade.renderFile(test, options , function(err, html){
+            if(err) throw err;
+            res.writeHead(200, {'Content-Type': 'text/html'});             
+            res.end(html);            
+        });        
+    });
+        
+    
+    app.post('/join', function(req, res){        
+        enrollment.register(req, function(data){
+            console.log(data);
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end(data);            
+        });
     });
     
     app.post('/login', function(req, res){            

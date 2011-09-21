@@ -12,8 +12,8 @@ input, select, textarea, button {vertical-align:middle; font-weight:inherit; fon
 
 textarea {
     border: 1px solid #eee; padding: 5px; width: 100%;
-
 }
+
 /* Layout
 ****************************************/
 * {margin:0; padding:0;}
@@ -129,4 +129,131 @@ div.box {
     margin: 1em;
     padding: 20px;
     
+}
+
+form#join fieldset {
+    border: none;
+    margin-bottom: 10px;
+}
+
+form#join fieldset:last-of-type {
+    margin-bottom: 0;
+}
+
+form#join legend {
+    color: #384313;
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 30px;    
+}
+
+
+form#join fieldset fieldset legend {
+    color: #111111;
+    font-size: 13px;
+    font-weight: normal;
+    padding-bottom: 0;
+}
+
+form#join {
+    background: #b9cf6a;
+    background: rgba(255,255,255,.3);
+    border-color: #e3ebc3;
+    border-color: rgba(255,255,255,.6);
+    border-width: 2px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    line-height: 30px;
+}
+
+form#join ol li {
+    list-style: none;
+    padding: 5px 10px;
+    margin-bottom: 2px;
+}
+
+.title {
+    padding: 0 0 10px 5px;
+}
+
+
+form#join ol ol li {
+    background: none;
+    border: none;
+    float: left;
+}
+
+form#join label {
+    float: left;
+    font-size: 13px;
+    width: 110px;
+}
+form#join fieldset fieldset label {
+    background:none no-repeat left 50%;
+    line-height: 20px;
+    padding: 0 0 0 30px;
+    width: auto;
+}
+form#join label[for=visa] {
+    background-image: url(visa.gif);
+}
+form#join label[for=amex] {
+    background-image: url(amex.gif);
+}
+form#join label[for=mastercard] {
+    background-image: url(mastercard.gif);
+}
+form#join fieldset fieldset label:hover {
+    cursor: pointer;
+}
+
+form#join input:not([type=radio]),
+form#join textarea {
+    background: #ffffff;
+    border: none;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+    font: italic 13px Georgia, "Times New Roman", Times, serif;
+    outline: none;
+    padding: 5px;
+    width: 200px;
+}
+
+form#join input:not([type=submit]):focus,
+form#join textarea:focus {
+    background: #eaeaea;
+}
+form#join input[type=radio] {
+    float: left;
+    margin-right: 5px;
+}
+
+form#join button {
+    background: #66AAFF;
+    border: none;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    border-radius: 20px;
+    color: #ffffff;
+    display: block;    
+    letter-spacing: 1px;
+    margin: auto;
+    padding: 7px 25px;
+    text-shadow: 0 1px 1px #000000;
+    text-transform: uppercase;
+    float: right;
+}
+
+form#join button:hover {
+    background: #1e2506;
+    cursor: pointer;
+}
+
+fieldset#controls {
+    padding-bottom: 10px;
+    padding-right: 10px;
 }

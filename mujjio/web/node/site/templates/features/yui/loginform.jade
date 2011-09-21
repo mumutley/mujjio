@@ -1,0 +1,54 @@
+#container
+    
+    .box.video.following
+        h2.title Join Mujjio
+
+        form(id='join', method='post', action='/join')
+            fieldset                
+                ol
+                    li
+                        label(for='firstName') First Name
+                        input(id='firstName', type='text', name='firstName', required, autofocus)
+                    li
+                        label(for='lastName') Last Name
+                        input(id='lastName', type='text', name='lastName', required)
+                    li
+                        label(for='email') Your email
+                        input(id='email', type='email', name='email', required)
+                    li
+                        label(for='email2') Re-enter email
+                        input(id='email2', type='email', name='emailCopy', required)
+                    li
+                        label(for='password') Password
+                        input(id='email2', type='password', name='password', required)
+                    li
+                        label(for='day') Birthday
+                        select(name='birthday')
+                            option(value='null') Day
+                            - var days = 1;
+                            - for(var i=0; i < 31; i++)
+                              option(value=i)= days++
+                        select(name='birthmonth')
+                            option(value='null') Month
+                            - var months = 1;
+                            - for(var j=0; j < 12; j++)
+                              option(value=j)= months++
+                        select(name='birthyear')
+                            option(value='null') Year
+                            - var date = new Date();
+                            - var currentYear = date.getFullYear();
+                            - for(var k=currentYear; k > 1904; k--)
+                              option(value=k)= k
+                    li
+                        label(for='gender') Gender
+                        select
+                            option(value='female', name='gender') Female
+                            option(value='male') Male
+                    li
+                        label(for='language', name='language') Language
+                        select
+                            option(value='en') English
+                            option(value='fr') French
+                            option(value='hi') Hindi
+            fieldset(id='controls')
+                button(type='submit') Join
