@@ -6,7 +6,7 @@ Pages = {
     
     join : {
         layout : '',
-        main : 'login.jade'        
+        main : 'enroll.jade'        
     }
 }
 
