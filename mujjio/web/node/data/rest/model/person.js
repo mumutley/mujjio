@@ -2,38 +2,40 @@ var Base = require('./base').Base;
 
 var Person = exports.Person = function (request) {  
     
-    this.data = {};
-    this.data.primary = request.primary;
+    this.data = {};    
     this.data.gender = request.gender;
-    this.data.givenName = request.givenName;
-    this.data.familyName = request.familyName;
-    this.data.displayName = request.givenName + " " + request.familyName;
+    this.data.firstName = request.firstName;
+    this.data.lastName = request.lastName;
+    this.data.displayName = request.firstName + " " + request.lastName;
     this.data.joined = new Date();
-    this.data.language = request.language;        
+    this.data.language = request.language;     
     var idex = request.email.indexOf("@");
     this.data.nickName = request.email.substring(0, idex);
-
+    
+    this.firstName = {
+        value : request.firstName,
+        type : String,
+        validations : ['notNull','notEmpty']        
+    };    
+    
+    this.lastName = {
+        value : request.lastName,
+        type : String,
+        validations : ['notNull','notEmpty']        
+    }        
+    
     this.gender = {
         value : request.gender,
         type : String,
         validations : ['contains'],
         collect : ['male','female']
     };
-    this.givenName = {
-        value : request.givenName,
-        type : String,
-        validations : ['notNull','notEmpty']        
-    };    
-    this.familyName = {
-        value : request.familyName,
-        type : String,
-        validations : ['notNull','notEmpty']        
-    }    
+    
     this.language = {
         value : request.language,
         type : String,
         validations : ['contains'],
-        collect : ['english','french', 'german', 'malayalam']
+        collect : ['english','french','german','hindi']
     };
 }
 

@@ -58,8 +58,7 @@ module.exports = function(app){
                             template : 'welcome',
                             url : config.endpoints.activate + '?uid=' + perso._id
                         };
-                        console.log(emalMessage);
-                        
+                        console.log(emalMessage);                        
                         var email =  outcomes.message(config.email.queue, config.email.exchange, account.className, emalMessage);
                         Q.join(render, search, email);
                     });
