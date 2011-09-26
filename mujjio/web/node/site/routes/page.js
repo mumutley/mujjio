@@ -1,6 +1,6 @@
 var config = require('../../config').Configuration;
 var meta = require('../services/metatemplate').JadeTemplate;
-var enrollment = require('../services/enrollment').Enrollment;
+var enrollment = require('../../shared/services/enrollment').Enrollment;
 var jade = require('jade');
 var pages = require('./config').Pages;
 
@@ -33,8 +33,7 @@ module.exports = function(app){
     });
     
     app.get('/join.html', function(req, res){
-        var test = pages.base + pages.join.main;
-        console.log("test is " + test);
+        var test = pages.base + pages.join.main;        
         
         var days = ['Day'];
         
@@ -60,7 +59,7 @@ module.exports = function(app){
         
     
     app.post('/join', function(req, res){        
-        enrollment.register(req, function(data){
+        enrollment.register(req, res, function(data){
             console.log(data);
             res.writeHead(200, {'Content-Type': 'application/json'});       
             res.end(JSON.stringify(data));
