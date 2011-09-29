@@ -24,7 +24,7 @@ var outcomes = {
 }
 
 module.exports = function(app){
-    var db = new Storage();        
+    var db = new Storage();       
     //http://localhost:8800/rest/people
     //{"email":"suhailski@gmail.com","password":"password","givenName":"Suhail","familyName":"Manzoor","gender":"male","language":"english","dd":"10","mm":"11","yyyy":"1968","noage":"true", "primary":"true"}
 

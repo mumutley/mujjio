@@ -1,14 +1,13 @@
-var config = require('../../config').Configuration;
 var email   = require("emailjs/email");
 var jade = require('jade');
 
 var server = {}
 
-Emailer = function(config) {
+Emailer = function(config) {       
     server  = email.server.connect({
-        user        : config.user, 
-        password    : config.password, 
-        host        : config.host, 
+        user        : config.smtp.user, 
+        password    : config.smtp.password, 
+        host        : config.smtp.host, 
         ssl         : true
     });
 }
