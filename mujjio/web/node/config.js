@@ -1,17 +1,17 @@
 Configuration = {
     
-    search : {
-        exchange : 'rest',
-        queue    : 'search'
-    },
-        
     Status : {
         registered  : 'active', 
         valid       : 'valid', 
         expired     : 'expired', 
         blocked     : 'blocked', 
         initial     : 'initial'
-    },        
+    },  
+    
+    search : {
+        exchange : 'rest',
+        queue    : 'search'
+    },                  
     
     email : {
         exchange : 'data',
