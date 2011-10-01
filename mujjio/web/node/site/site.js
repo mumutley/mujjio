@@ -14,6 +14,7 @@ app.configure(function(){
     app.use(express.session({ secret: 'keyboard cat' }));    
 });    
 
+console.log(__dirname + '/');
 app.use('/', site);
 
 app.listen(8080);

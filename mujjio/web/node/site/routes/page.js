@@ -50,18 +50,11 @@ module.exports = function(app){
         };
         
         var page = config.web.templates.base + config.web.templates.layout;
-        var str = require('fs').readFileSync(page, 'utf8');
-		var fn = jade.compile(str, { filename: page, pretty: true });
-		console.log(fn({ options: options }));
-
-		res.writeHead(200, {'Content-Type': 'text/html'});             
-		res.end(fn({ options: options }));            
-		
-        /*jade.renderFile(test, options , function(err, html){
+        jade.renderFile(test, options , function(err, html){
             if(err) throw err;
             res.writeHead(200, {'Content-Type': 'text/html'});             
             res.end(html);            
-        });*/        
+        });        
     });
         
     
