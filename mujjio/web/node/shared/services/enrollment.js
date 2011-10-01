@@ -1,10 +1,8 @@
-
+var Q = require("q");
 var scramble = require('./crypto').Crypto
 var db = require('./db').Storage
 var Account = require('../../data/rest/model/account').Account;
 var Person = require('../../data/rest/model/person').Person;
-
-Q = require("q");
 
 Enrollment = function() {      
 }
@@ -37,9 +35,7 @@ Enrollment.prototype.register = function(req, res, callback) {
         res.end(JSON.stringify(err));
         return;
     }       
-    
-    
-    
+     
     Q.join(account, person, function (account, person) {
         var db = new Storage();        
         db.save(person.data, person.className, function(error, perso){                
