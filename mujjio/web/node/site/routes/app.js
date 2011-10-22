@@ -1,5 +1,6 @@
 var express = require('express')
-  , messages = require('express-messages');
+  , messages = require('express-messages')
+  , form = require('connect-form');
 
 //var mongoose = require('mongoose');
 //var db = mongoose.connect('mongodb://localhost/social');
@@ -20,7 +21,13 @@ app.configure(function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
-require('./page')(app);
+form({ keepExtensions: true })
+
+require('./start')(app); //routes to display the postings
+require('./enrollment')(app); //routes to enroll and login
+require('./relations')(app); //route to display relationship management
+require('./photos')(app); //route to display relationship management
+
 
 if (!module.parent) {
   app.listen(3000);

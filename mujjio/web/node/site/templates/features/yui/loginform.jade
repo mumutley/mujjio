@@ -1,0 +1,19 @@
+#container
+    .box.video.following
+        h2.title Login to mujjio
+        form(id='join', method='post', action='/login.htm')
+            fieldset                
+                ol
+                    li
+                        label(for='email') Email Address
+                        input(id='email', type='email', name='email', required, autofocus)
+                    li
+                        label(for='password') Password
+                        input(id='password', type='password', name='password', required, autofocus)
+                    li
+                        label(for="cookie") Keep me logged in
+                        input(id='cookie', type='checkbox', name='cookie') 
+                    li
+                        a(href='/rest.htm') Forgot my Password
+            fieldset(id='controls')
+                button(type='submit') Login

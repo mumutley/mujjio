@@ -1,3 +1,0 @@
-.search input.box {
-	background: url(../images/search_input_box_focus.jpg) no-repeat right bottom; height:31px;/* Unique Input Box background image specifically for IE, and the background position must be aligned to the right*/
-}

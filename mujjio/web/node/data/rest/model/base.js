@@ -1,7 +1,6 @@
 var check = require('validator').check,
 Validator = require('validator').Validator;
-sanitize = require('validator').sanitize,
-    Db = require('../services/db').Db;
+sanitize = require('validator').sanitize;
 
 var Base = exports.Base = function() {};
 //Base.prototype.__proto__  = Db.prototype;

@@ -1,63 +1,97 @@
-var Mongo = require('mongodb').Db;
-var Connection = require('mongodb').Connection;
-var Server = require('mongodb').Server;
-var BSON = require('mongodb').BSON;
+var mongo = require('mongodb'),
+  Db = mongo.Db,
+  Connection = mongo.Connection,
+  Server = mongo.Server,
+  BSON = mongo.BSON,
+  ObjectId = mongo.ObjectId,
+  GridStore = mongo.GridStore,
+  BSONPure = mongo.BSONPure;
 
 
 var host = process.env['MONGO_NODE_DRIVER_HOST'] != null ? process.env['MONGO_NODE_DRIVER_HOST'] : 'localhost';
 var port = process.env['MONGO_NODE_DRIVER_PORT'] != null ? process.env['MONGO_NODE_DRIVER_PORT'] : Connection.DEFAULT_PORT;  
 
-Storage = function() {  
-    //fetch = true causes problems with mongo
-    this.mongo = new Mongo('socials', new Server(host, port, {}), {native_parser:false});
-    this.mongo.open(function(){});
-}
+Storage = function() { }
 
-Storage.prototype.getCollection= function(name,callback) {
+Storage.prototype.getCollection = function(name,callback) {
   this.db.collection(name, function(error, article_collection) {
     if( error ) callback(error);
     else callback(null, article_collection);
   });
 };
 
-Storage.prototype.save = function(row, name, callback) {            
-    this.mongo.collection(name, function(err, collection) { 
-        if(err) throw err;
-        
-        row.created = new Date();
-        row.updated = new Date();
-        
-        collection.insert(row, function(){            
-            callback(null, row);
-        });            
-    });                 
+Storage.prototype.save = function(row, name, callback) {       
+	var db = new Db('social', new Server(host, port, {}), {native_parser:false});	
+	db.open(function(err, db) {   
+		db.collection(name, function(err, collection) {
+	        if(err) throw err;	
+			row.created = new Date();
+			row.updated = new Date();        
+			console.log("collection name " + row);
+			collection.insert(row, function(){            
+    	        callback(null, row);
+	        }); 
+		});
+	});
 }
 
-Storage.prototype.update = function(name, id, data, callback){   
-    this.mongo.collection(name, function(err, collection) {
-        if(err) {            
-            console.log(err);
-            callback(err, null);
-        } else {
+Storage.prototype.update = function(coll, id, data, callback){  
+	var db = new Db('social', new Server(host, port, {}), {native_parser:false});		
+	db.open(function(err, db) {   
+		db.collection(coll, function(err, collection) {
+	        if(err) {            
+				console.log(err);
+				callback(err, null);
+			} else {
+				collection.update({_id : id}, {"$set" : data}, function(error, doc){
+					if( error ) {
+						console.log(error);
+						callback(error);
+					}
+					else callback(null, doc);
+				});
+			}
+		});
+	});
+}
 
-            collection.update({_id : id}, {"$set" : data}, function(error, doc){
-                    if( error ) {
-                        console.log(error);
-                        callback(error);
-                    }
-                    else callback(null, doc);
-            });
-        }
-    });
+Storage.prototype.find = function(id, name, callback) {
+	var db = new Db('social', new Server(host, port, {}), {native_parser:true});
+	var query = {"_id" : BSONPure.ObjectID(id)};	
+	db.open(function(err, db){
+		db.collection(name, function(err, collection) {
+			collection.findOne(query, function(err, doc) {
+           	 	if(err) console.log(err);
+            	callback(err, doc);
+	        });
+		});
+	});
+}
+
+Storage.prototype.fetchAll = function(query, name, callback) { 
+	var db = new Db('social', new Server(host, port, {}), {native_parser:true});
+	db.open(function(err, db){
+		db.collection(name, function(err, collection) {
+			collection.find(query, function(err, cursor) {
+				cursor.toArray(function(err, items) {
+					if(err) console.log(err);
+					callback(err, items);
+				});
+	        });
+		});
+	})
 }
 
 Storage.prototype.fetch = function(query, name, callback) { 
-    this.mongo.collection(name, function(err, collection) {        
-        collection.findOne(query, function(err, doc) {
-            if(err) console.log(err);
-            callback(null, doc);
-        });
-    });
+	var db = new Db('social', new Server(host, port, {}), {native_parser:true});	
+	db.open(function(err, db){
+		db.collection(name, function(err, collection) {
+			collection.findOne(query, function(err, doc) {
+           	 	if(err) console.log(err);
+            	callback(err, doc);
+	        });
+		});
+	})
 }
 
 exports.Storage = Storage;

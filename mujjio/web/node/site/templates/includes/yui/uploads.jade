@@ -1,0 +1,21 @@
+head
+    title Welcome to mujjio #{name}
+    link(rel="stylesheet", type="text/css", media='screen', href="/public/css/prettyPhoto.css")
+    link(rel="stylesheet", type="text/css", media='screen', href="/public/css/nivo-slider.css")
+    link(rel="stylesheet", type="text/css", media='screen', href="/public/upload/uploadify.css")    
+    link(rel="stylesheet", type="text/css", media='screen', href="http://fonts.googleapis.com/css?family=Crimson+Text:regular,regularitalic,600,600italic,bold,bolditalic")
+
+    script(type="text/javascript", src="/public/js/jquery-1.6.1.min.js")
+    script(type="text/javascript", src="/public/upload/swfobject.js")
+    script(type="text/javascript", src="/public/upload/upload.js")
+    
+    script(type='text/javascript')
+      $(document).ready(function() {
+      $('#file_upload').uploadify({
+      'uploader'  : '/public/upload/uploadify.swf',
+      'script'    : '/upload.htm',
+      'cancelImg' : '/public/upload/cancel.png',
+      'folder'    : '/uploads',
+      'auto'      : true
+      });
+      });
