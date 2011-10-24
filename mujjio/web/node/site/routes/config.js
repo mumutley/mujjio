@@ -1,7 +1,9 @@
 Pages = {
     base : 'templates/',
     
-    home : {
+    root : {
+    	layout : '',
+    	main : 'root.jade'
     },
     
     join : {

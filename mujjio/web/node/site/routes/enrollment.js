@@ -8,6 +8,7 @@ var renderer = require('../../shared/services/renderer').Renderer;
 
 module.exports = function(app){    
     enrollment = new Registration();
+    renderer = new Renderer()
     users = new User();
     
     app.get('/join.htm', function(req, res){
@@ -84,16 +85,26 @@ module.exports = function(app){
 		}
     });
     
-    app.post('/login.htm', function(req, res){            
-        users.login(req, res, function(err, data){
-			var code = 200;        	
-        	if(err) { code = 404; }
-			
-			req.session.regenerate(function(err){
-				var idex = data.email.indexOf("@");
-				nickName = data.email.substring(0, idex);
-				res.redirect('/' + nickName + '/home.htm');
-			});		
-        });
+    app.post('/login.htm', function(req, res) {
+        	
+    	if(!req.session.authenticated) {
+			users.login(req, res, function(err, data) {
+				var code = 200;        	
+				if(err) { code = 404; }
+				
+				req.session.regenerate(function(err) {
+					req.session.principle = data.email;
+					req.session.authenticated = true;
+					var idex = data.email.indexOf("@");
+					nickName = data.email.substring(0, idex);
+					res.redirect('/' + nickName + '/home.htm');
+				});
+				
+			});    	
+    	} else {
+			var idex = req.session.principle.indexOf("@");
+			nickName = req.session.principle.substring(0, idex);
+    		res.redirect('/' + nickName + '/home.htm');
+    	}     
     });
 }

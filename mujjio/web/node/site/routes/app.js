@@ -24,6 +24,7 @@ app.configure(function(){
 form({ keepExtensions: true })
 
 require('./start')(app); //routes to display the postings
+require('./person')(app); //route to display person management
 require('./enrollment')(app); //routes to enroll and login
 require('./relations')(app); //route to display relationship management
 require('./photos')(app); //route to display relationship management
