@@ -50,7 +50,6 @@ User.prototype.login = function(req, res, callback) {
 	var query = {'email' : req.body.email, 'password' : req.body.password};	
 	console.log(query)
 	store.fetch(query, 'account', function(err, doc) {
-		console.log(doc.password);
 		callback(err, doc);
 	});
 }

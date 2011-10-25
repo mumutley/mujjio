@@ -1,3 +1,4 @@
+include mixin/conds
 #container
     .box.video.following
         .update-image
@@ -22,6 +23,8 @@
                 span.cmd
                     a(href="#") Share
             .pad10
+        .test
+            mixin dialog
             
 script(type='text/javascript')
     $('.box').corner();

@@ -31,9 +31,8 @@ module.exports = function(app){
     	renderer.generate(path, 200, 'text/html', options, res);
     });
         
-    
     app.post('/join.htm', function(req, res){        
-        registration.register(req, res, function(data){
+        enrollment.register(req, res, function(data){
             return;
         });
     });
@@ -97,14 +96,14 @@ module.exports = function(app){
 					req.session.authenticated = true;
 					var idex = data.email.indexOf("@");
 					nickName = data.email.substring(0, idex);
-					res.redirect('/' + nickName + '/home.htm');
+					res.redirect('/u/' + nickName);
 				});
 				
 			});    	
     	} else {
 			var idex = req.session.principle.indexOf("@");
 			nickName = req.session.principle.substring(0, idex);
-    		res.redirect('/' + nickName + '/home.htm');
+    		res.redirect('/u/' + nickName);
     	}     
     });
 }

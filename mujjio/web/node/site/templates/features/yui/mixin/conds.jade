@@ -1,0 +1,7 @@
+mixin dialog
+	.dialog
+		h1 whoop
+		p #{data.principle}
+		if data.principle == 'anonymous'
+			p world hello
+		p #{(data.principle == 'anonymous')}
