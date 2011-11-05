@@ -20,10 +20,10 @@ app.configure(function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
-require('./routes/usr')(app);
-require('./routes/grp')(app);
-require('./routes/sys')(app);
-require('./routes/cntnt')(app);
+require('./routes/enrollment')(app);
+//require('./routes/grp')(app);
+//require('./routes/sys')(app);
+//require('./routes/cntnt')(app);
 
 if (!module.parent) {
   app.listen(3000);

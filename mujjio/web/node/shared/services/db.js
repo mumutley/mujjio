@@ -56,7 +56,7 @@ Storage.prototype.update = function(coll, id, data, callback){
 }
 
 Storage.prototype.find = function(id, name, callback) {
-	var db = new Db('social', new Server(host, port, {}), {native_parser:true});
+	var db = new Db('social', new Server(host, port, {}), {native_parser:false});
 	var query = {"_id" : BSONPure.ObjectID(id)};	
 	db.open(function(err, db){
 		db.collection(name, function(err, collection) {
@@ -69,7 +69,7 @@ Storage.prototype.find = function(id, name, callback) {
 }
 
 Storage.prototype.fetchAll = function(query, name, callback) { 
-	var db = new Db('social', new Server(host, port, {}), {native_parser:true});
+	var db = new Db('social', new Server(host, port, {}), {native_parser:false});
 	db.open(function(err, db){
 		db.collection(name, function(err, collection) {
 			collection.find(query, function(err, cursor) {
@@ -83,7 +83,7 @@ Storage.prototype.fetchAll = function(query, name, callback) {
 }
 
 Storage.prototype.fetch = function(query, name, callback) { 
-	var db = new Db('social', new Server(host, port, {}), {native_parser:true});	
+	var db = new Db('social', new Server(host, port, {}), {native_parser:false});	
 	db.open(function(err, db){
 		db.collection(name, function(err, collection) {
 			collection.findOne(query, function(err, doc) {

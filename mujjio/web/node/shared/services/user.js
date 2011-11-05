@@ -17,6 +17,12 @@ User.prototype.getInitial = function(req, res, callback) {
 }
 
 User.prototype.activate = function(req, res, callback) {
+
+	if(req.body.email.length <= 0 || req.body.password.length <= 0) {
+		callback({"error" : "validations failed"}, null);
+		return;
+	}
+
 	var query = {'_id' : BSONPure.ObjectID(req.body.uid), 'status' : 'initial', 'email' : req.body.email, 'password' : req.body.password};	
 	store.fetch(query, 'account', function(err, doc) {
 		var outcomes = {
@@ -31,17 +37,23 @@ User.prototype.activate = function(req, res, callback) {
 				//save object in search
 			},
 			update : function() {
-				store.update('account',doc._id, {'status':'registered'}, function(err){
-					console.log('document updated');
-				});
+				if(doc) {
+					store.update('account',doc._id, {'status':'registered'}, function(err){
+						console.log('document updated');
+						callback(null, doc);
+					});
+				} else {
+					callback({"error" : "document not found"}, null);
+				}
 				return this;
 			}			
 		}
-		var email =  outcomes.message('data', 'email', null, null);
-		var write = outcomes.write(err, doc);
+		//var email =  outcomes.message('data', 'email', null, null);
+		//var write = outcomes.write(err, doc);
 		var update = outcomes.update();
 		
-		Q.join(email, write, update);		
+		Q.join(update);		
+//		Q.join(email, write, update);		
 	});	
 }
 
