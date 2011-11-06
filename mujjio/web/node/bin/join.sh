@@ -1,1 +1,1 @@
-curl -v -X POST "http://localhost:3000/p/jn" -H "Content-Type: application/json" -d @../data/inputs/yael.json
+curl -v -X POST "http://ram:3000/p/jn" -H "Content-Type: application/json" -d @../data/inputs/yael.json

@@ -60,7 +60,6 @@ User.prototype.activate = function(req, res, callback) {
 //login the user
 User.prototype.login = function(req, res, callback) {
 	var query = {'email' : req.body.email, 'password' : req.body.password};	
-	console.log(query)
 	store.fetch(query, 'account', function(err, doc) {
 		callback(err, doc);
 	});

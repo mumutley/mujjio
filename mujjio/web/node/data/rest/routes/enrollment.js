@@ -7,7 +7,7 @@ module.exports = function(app) {
    	users = new User();
 
    	//submit new user data
-	app.post('/p/jn', function(req, res){
+	app.post('/p/jn', function(req, res) {
 		enrollment.register(req, res, function(data){
             return;
         });
