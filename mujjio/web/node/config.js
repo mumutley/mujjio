@@ -1,6 +1,27 @@
 Configuration = {
     
-    Status : {
+ 
+    //private > personal > shared > public
+    access {
+        private : 'private', //this is only for me
+        personal : 'personal', //this is only for bi directional relationships
+        shared : 'shared', //this can be for community relationships
+        public : 'public' //this is the universe
+    }, 
+
+   //default relationship groups
+    relationships : {
+        en {  
+            elements : {
+                {name : 'Family', visibility : access.personal},
+                {name : 'Friends' , visibility : access.personal},
+                {name : 'Collegues' , visibility : access.personal},
+                {name : 'Acquaintences', visibility : access.personal},
+            }
+        }
+    },
+
+    status : {
         registered  : 'active', 
         valid       : 'valid', 
         expired     : 'expired', 

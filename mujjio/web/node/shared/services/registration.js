@@ -65,9 +65,10 @@ Registration.prototype.register = function(req, res, callback) {
 	
     var db = new Storage();
     Q.join(account, person, function (account, person) {
-		db.save(person.data, person.className, function(error, perso){                
+        
+		db.save(person.data, person.className, function(error, perso) {
+                        
 			// save a reference to the default profile to the account.
-			
 			account.data.profiles = [];		
 			var ref = new BSON.DBRef(person.className, perso._id);		        	
 			account.data.profiles.push(ref);				

@@ -11,6 +11,7 @@ var Person = exports.Person = function (request) {
     this.data.language = request.language;     
     var idex = request.email.indexOf("@");
     this.data.nickName = request.email.substring(0, idex);
+    this.data.relationships = {};
     
     this.firstName = {
         value : request.firstName,

@@ -14,4 +14,10 @@ module.exports = function(app) {
 			res.end(JSON.stringify({'status' : doc}));
 		});
 	});
+
+	app.get('/ac/dauth', function(req, res) {
+		console.log("logging out");
+		res.writeHead('200', {'Content-Type': 'application/json'});
+		res.end(JSON.stringify({'status' : "ok"}));
+	});
 }

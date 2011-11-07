@@ -1,5 +1,6 @@
 var Base = require('./base').Base;
 
+//currently unuses
 var Profile = exports.Profile = function (request) { 
 
     this.data = {}; 

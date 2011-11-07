@@ -8,7 +8,7 @@ module.exports = function(app) {
 
    	//submit new user data
 	app.post('/p/jn', function(req, res) {
-		enrollment.register(req, res, function(data){
+		enrollment.register(req, res, function(data) {
             return;
         });
 	});
