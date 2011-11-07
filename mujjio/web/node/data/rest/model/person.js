@@ -1,4 +1,6 @@
 var Base = require('./base').Base;
+var config = require('../../../config').Configuration;
+var group = require('./group').Group;
 
 var Person = exports.Person = function (request) {  
     
@@ -11,8 +13,14 @@ var Person = exports.Person = function (request) {
     this.data.language = request.language;     
     var idex = request.email.indexOf("@");
     this.data.nickName = request.email.substring(0, idex);
-    this.data.relationships = {};
+    this.data.relationships = [];
     
+    for(var i = 0; i < config.relationships.en.elements.length; i++) {
+        var rel = config.relationships.en.elements[i];
+        group = new Group(rel.name, this.data.nickName, rel.visibility);
+        this.data.relationships.push(group);
+    }
+
     this.firstName = {
         value : request.firstName,
         type : String,
