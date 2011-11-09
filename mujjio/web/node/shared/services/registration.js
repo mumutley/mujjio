@@ -37,6 +37,7 @@ Registration.prototype.register = function(req, res, callback) {
     try {
         //it looks strange but its used for Q
         person = person.validate();
+        person.relate();        
     } catch(err){
         console.log(err);
         res.writeHead(412, {
@@ -74,7 +75,10 @@ Registration.prototype.register = function(req, res, callback) {
 			account.data.profiles.push(ref);				
 			
 			db.save(account.data, account.className, function(error, acco){                        						    
-				//execute the http response and message to the search
+				
+
+
+                //execute the http response and message to the search
 				//queue in parallel
 				var render = outcomes.write(acco, res);
 				var search = outcomes.message('rest', 'search', person.className, perso);

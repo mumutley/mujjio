@@ -2,7 +2,7 @@ Configuration = {
     
  
     //private > personal > shared > public
-    access {
+    access : {
         private : 'private', //this is only for me
         personal : 'personal', //this is only for bi directional relationships
         shared : 'shared', //this can be for community relationships
@@ -11,13 +11,13 @@ Configuration = {
 
    //default relationship groups
     relationships : {
-        en {  
-            elements : {
-                {name : 'Family', visibility : access.personal},
-                {name : 'Friends' , visibility : access.personal},
-                {name : 'Collegues' , visibility : access.personal},
-                {name : 'Acquaintences', visibility : access.personal},
-            }
+        en : {
+            elements : [
+                { name : 'Family', visibility : 'personal' },
+                { name : 'Friends' , visibility : 'personal' },
+                { name : 'Collegues' , visibility : 'personal' },
+                { name : 'Acquaintences', visibility : 'personal' }
+            ]
         }
     },
 

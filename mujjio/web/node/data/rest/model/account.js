@@ -24,7 +24,7 @@ var Account = exports.Account = function (request) {
         validations : ['notNull','notEmpty']
     }
     
-    this.data.status = config.Status.initial;
+    this.data.status = config.status.initial;
     this.data.created = new Date();
     
     return this;    

@@ -1,30 +1,13 @@
 var Base = require('./base').Base;
 var config = require('../../../config').Configuration;
 
-var Group = exports.Group = function (request) {
-
+var Group = exports.Group = function (name, owner, visibility) {
 	this.data = {};
  	//the name of the group
- 	this.name = {
-    	value : request.name,
-        type : String,
-        validations : ['notNull','notEmpty'] 		
- 	},
-
- 	//the owner of group
- 	this.owner - {
- 		value : request.uid,
- 		type : String,
- 		validations : []
- 	}
-
- 	this.data.status = config.Access.private;
-    this.data.created = new Date();
-}
-
-var Group = exports.Group = function (name, owner) {
-	this.data = {};
- 	//the name of the group
+ 	this.data.name = name;
+ 	this.data.owner = owner;
+ 	this.data.status = visibility;
+ 	
  	this.name = {
     	value : name,
         type : String,
@@ -38,9 +21,13 @@ var Group = exports.Group = function (name, owner) {
  		validations : []
  	}
 
- 	this.data.status = config.Access.private;
     this.data.created = new Date();	
+    return this; 
 }
+
+Group.prototype.__proto__ = Base.prototype;
+Group.prototype.constructor = Group
+Group.prototype.className = "group";
 
 /*
 A Group is made of zero or more members. A member has the following structure:
