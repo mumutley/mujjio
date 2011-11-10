@@ -20,20 +20,20 @@ var Person = exports.Person = function (request) {
         value : request.firstName,
         type : String,
         validations : ['notNull','notEmpty']        
-    },    
+    };
     
     this.lastName = {
         value : request.lastName,
         type : String,
         validations : ['notNull','notEmpty']        
-    },       
+    };   
     
     this.gender = {
         value : request.gender,
         type : String,
         validations : ['contains'],
         collect : ['male','female']
-    },
+    };
     
     this.language = {
         value : request.language,
@@ -48,9 +48,9 @@ var Person = exports.Person = function (request) {
             var group = new Group(rel.name, this.data.nickName, rel.visibility);
             this.data.relationships.push(group.data);
         }   
-    }
-}
+    };
+};
 
 Person.prototype.__proto__ = Base.prototype;
-Person.prototype.constructor = Person
+Person.prototype.constructor = Person;
 Person.prototype.className = "people";

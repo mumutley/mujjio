@@ -62,8 +62,8 @@ Registration.prototype.register = function(req, res, callback) {
 			msgr.send(exch, que, name, message);                                                    
 			return this;
 		}
-	}
-	
+    }
+    
     var db = new Storage();
     Q.join(account, person, function (account, person) {
         
@@ -71,13 +71,18 @@ Registration.prototype.register = function(req, res, callback) {
                         
 			// save a reference to the default profile to the account.
 			account.data.profiles = [];		
-			var ref = new BSON.DBRef(person.className, perso._id);		        	
+            var ref = new BSON.DBRef(person.className, perso._id);
 			account.data.profiles.push(ref);				
 			
-			db.save(account.data, account.className, function(error, acco){                        						    
-				
-
-
+			db.save(account.data, account.className, function(error, acco){ 
+                
+                
+                for(var i = 0; i < config.relationships.en.elements.length; i++) {
+                    var rel = config.relationships.en.elements[i];
+                    var group = new Group(rel.name, this.data.nickName, rel.visibility);
+                    console.log(group);
+                }
+                
                 //execute the http response and message to the search
 				//queue in parallel
 				var render = outcomes.write(acco, res);
