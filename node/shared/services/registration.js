@@ -14,8 +14,7 @@ var BSON = mongodb.BSONPure;
 
 var Q = require("q");
 
-Registration = function() {      
-}
+Registration = function() {}
 
 Registration.prototype.register = function(req, res, callback) {
 
@@ -71,9 +70,10 @@ Registration.prototype.register = function(req, res, callback) {
 			// save a reference to the default profile to the account.
 			account.data.profiles = [];		
             var ref = new BSON.DBRef(person.className, perso._id);
-			account.data.profiles.push(ref);				
+			account.data.profiles.push(ref);
+            
 			db.save(account.data, account.className, function(error, acco) { 
-                //get the default relationships
+                //get the default groups
     			var groups = person.relate();
     		    for(var i = 0; i < groups.length; i++) {
     				db.save(groups[i], 'groups', function(error, grp) {	

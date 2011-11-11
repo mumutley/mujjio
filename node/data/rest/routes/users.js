@@ -16,7 +16,10 @@ module.exports = function(app){
             res.end(JSON.stringify(perso));
         });                                     
     });
-            
+    
+    app.post('/me/:uid/disable', function(req, res) {
+    });
+    
     //update a profile
     app.post('/me/:uid', function(req, res) {
     });
