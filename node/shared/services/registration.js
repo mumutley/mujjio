@@ -72,17 +72,14 @@ Registration.prototype.register = function(req, res, callback) {
 			account.data.profiles = [];		
             var ref = new BSON.DBRef(person.className, perso._id);
 			account.data.profiles.push(ref);				
-			
-			db.save(account.data, account.className, function(error, acco){ 
-                	//get the default relationships
-			var groups = person.relate();
-		
-                	for(var i = 0; i < groups.length; i++) {
-				console.log(groups[i]);
-				db.save(groups[i], 'groups', function(error, grp) {
-					
-				});
-			}
+			db.save(account.data, account.className, function(error, acco) { 
+                //get the default relationships
+    			var groups = person.relate();
+    		    for(var i = 0; i < groups.length; i++) {
+    				db.save(groups[i], 'groups', function(error, grp) {	
+                        //no operations
+    				});
+    			}
                
                 //execute the http response and message to the search
 				//queue in parallel
