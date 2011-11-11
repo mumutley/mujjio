@@ -79,9 +79,9 @@ Registration.prototype.register = function(req, res, callback) {
 		
                 	for(var i = 0; i < groups.length; i++) {
 				console.log(groups[i]);
-				db.save(groups[i], 'groups', function(error, grp) {
+//				db.save(groups[i].data, 'groups', function(error, grp) {
 					
-				});
+//				});
 			}
                
                 //execute the http response and message to the search

@@ -43,13 +43,11 @@ var Person = exports.Person = function (request) {
     };
 
     exports.Person.prototype.relate = function() { 
-	var groups = []
         for(var i = 0; i < config.relationships.en.elements.length; i++) {
             var rel = config.relationships.en.elements[i];
             var group = new Group(rel.name, this.data.nickName, rel.visibility);
-            groups.push(group.data);
+            this.data.relationships.push(group.data);
         }   
-	return groups;
     };
 };
 
