@@ -6,7 +6,7 @@ module.exports = function(app) {
 	enrollment = new Registration();
    	users = new User();
 
-   	//submit new user data
+   	//submit new user data for join
 	app.post('/p/jn', function(req, res) {
 		enrollment.register(req, res, function(data) {
             return;
@@ -26,6 +26,7 @@ module.exports = function(app) {
 		});
 	});
 
+	//activate the user
 	app.post('/p/ac', function(req, res){
 		users.activate(req, res, function(err, doc) {
 			if(err) {
@@ -37,9 +38,4 @@ module.exports = function(app) {
 			res.end(JSON.stringify({'status' : 'ok'}));            				
 		});	
 	});
-
-	app.get('/p/jn', function(req, res){
-		res.end(JSON.stringify("hello world"));
-	});
-
 }

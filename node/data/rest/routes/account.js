@@ -29,6 +29,7 @@ module.exports = function(app) {
     
     //disable the account
     app.get('/ac/:uid/off', function(req, res) {
+
     });
     
     //disable and delete the account
@@ -36,6 +37,7 @@ module.exports = function(app) {
     });
     
     //update the account
-    app.post('/ac/:uid', function(req, res) {        
+    app.post('/ac/:uid', function(req, res) {
+           
     });
 }
