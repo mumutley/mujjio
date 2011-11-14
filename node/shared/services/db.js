@@ -43,7 +43,7 @@ Storage.prototype.update = function(coll, id, data, callback){
 				console.log(err);
 				callback(err, null);
 			} else {
-				collection.update({_id : id}, {"$set" : data}, function(error, doc){
+				collection.update({_id : id}, {"$set" : data}, function(error, doc) {
 					if( error ) {
 						console.log(error);
 						callback(error);
@@ -55,6 +55,7 @@ Storage.prototype.update = function(coll, id, data, callback){
 	});
 }
 
+//find a document by id, from a collection named
 Storage.prototype.find = function(id, name, callback) {
 	var db = new Db('social', new Server(host, port, {}), {native_parser:false});
 	var query = {"_id" : BSONPure.ObjectID(id)};	
@@ -68,6 +69,7 @@ Storage.prototype.find = function(id, name, callback) {
 	});
 }
 
+//find a collection
 Storage.prototype.fetchAll = function(query, name, callback) { 
 	var db = new Db('social', new Server(host, port, {}), {native_parser:false});
 	db.open(function(err, db){
@@ -82,6 +84,7 @@ Storage.prototype.fetchAll = function(query, name, callback) {
 	})
 }
 
+//find a document
 Storage.prototype.fetch = function(query, name, callback) { 
 	var db = new Db('social', new Server(host, port, {}), {native_parser:false});	
 	db.open(function(err, db){

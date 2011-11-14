@@ -65,6 +65,7 @@ User.prototype.login = function(req, res, callback) {
 	});
 }
 
+//find a user by nickname
 User.prototype.find = function(req, res, callback) {
 	var query = {'nickName' : req.params.person };
 	store.fetch(query, 'people', function(err, doc) {
