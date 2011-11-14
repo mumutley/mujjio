@@ -27,6 +27,6 @@ require('./routes/account')(app);
 //require('./routes/cntnt')(app);
 
 if (!module.parent) {
-  app.listen(3000);
-  console.log('Express started on port 3000');
+  app.listen(process.env.C9_PORT);
+  console.log('Express started on port ' + process.env.C9_PORT);
 }
