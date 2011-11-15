@@ -1,0 +1,1 @@
+curl -v -X POST "http://localhost:3000/ac/4ec18b19f569f6ae7f000002/off" -H "Content-Type: application/json" --data @../data/inputs/suhail.off.json

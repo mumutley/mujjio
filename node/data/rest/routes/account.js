@@ -24,12 +24,30 @@ module.exports = function(app) {
 	});
     
     //reset password.
-    app.get('/ac/:uid/pwd', function(req, res) {
+    app.post('/ac/:uid/pwd', function(req, res) {
+    	users.setPassword(req, res, function(err, doc) {
+			if(err){
+				res.writeHead('403', {'Content-Type': 'application/json'});
+				res.end(JSON.stringify({'status' : 'error in creating authentication token'}));
+				return;
+			}
+			res.writeHead('200', {'Content-Type': 'application/json'});
+			res.end(JSON.stringify({'status' : doc}));               		
+    	});
     });
     
     //disable the account
-    app.get('/ac/:uid/off', function(req, res) {
+    app.post('/ac/:uid/off', function(req, res) {
 
+		users.disable(req, res, function(err, doc) {
+			if(err){
+				res.writeHead('403', {'Content-Type': 'application/json'});
+				res.end(JSON.stringify({'status' : 'error in creating authentication token'}));
+				return;
+			}
+			res.writeHead('200', {'Content-Type': 'application/json'});
+			res.end(JSON.stringify({'status' : doc}));               		
+    	});
     });
     
     //disable and delete the account
@@ -38,6 +56,7 @@ module.exports = function(app) {
     
     //update the account
     app.post('/ac/:uid', function(req, res) {
-           
     });
+
+
 }

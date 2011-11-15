@@ -16,8 +16,7 @@ var Q = require("q");
 
 Registration = function() {}
 
-Registration.prototype.register = function(req, res, callback) {
-
+Registration.prototype.register = function(req, res, callback) {    
     var account = new Account(req.body);
     var person = new Person(req.body);
 
@@ -64,43 +63,41 @@ Registration.prototype.register = function(req, res, callback) {
     }
     
     var db = new Storage();
-    Q.join(account, person, function (account, person) {
-		db.save(person.data, person.className, function(error, perso) {
-                        
-			// save a reference to the default profile to the account.
-			account.data.profiles = [];		
-            var ref = new BSON.DBRef(person.className, perso._id);
-			account.data.profiles.push(ref);
-            
-			db.save(account.data, account.className, function(error, acco) { 
-                //get the default groups
-    			var groups = person.relate();
-    		    for(var i = 0; i < groups.length; i++) {
-    				db.save(groups[i], 'groups', function(error, grp) {	
-                        //no operations
-    				});
-    			}
-               
-                //execute the http response and message to the search
-				//queue in parallel
-				var render = outcomes.write(acco, res);
-				var search = outcomes.message('rest', 'search', person.className, perso);
-				var payload = {
-					to : acco.email,
-					type : 'initial',
-					name : perso.displayName,
-					uuid : perso._id,
-					locale : 'en',
-					template : 'welcome',
-					url : 'http://localhost:8080/login.htm' + '?uid=' + acco._id
-				};
-				console.log(payload);                        
-				var email =  outcomes.message('data', 'email', account.className, payload);
-				Q.join(render, search, email);				
-				callback(person);
-		});     
-    });   
-	  
+
+
+	db.save(person.data, person.className, function(error, perso) {
+        console.log(db);
+		// save a reference to the default profile to the account.
+		account.data.profiles = [];		
+        var ref = new BSON.DBRef(person.className, perso._id);
+		account.data.profiles.push(ref);
+        
+		db.save(account.data, account.className, function(error, acco) { 
+            //get the default groups
+			var groups = person.relate();
+		    for(var i = 0; i < groups.length; i++) {
+				db.save(groups[i], 'groups', function(error, grp) {	
+                    //no operations
+				});
+			}
+           
+            //execute the http response and message to the search
+			//queue in parallel
+			var render = outcomes.write(acco, res);
+			var search = outcomes.message('rest', 'search', person.className, perso);
+			var payload = {
+				to : acco.email,
+				type : 'initial',
+				name : perso.displayName,
+				uuid : perso._id,
+				locale : 'en',
+				template : 'welcome',
+				url : 'http://localhost:8080/login.htm' + '?uid=' + acco._id
+			};
+			console.log(payload);                        
+			//var email =  outcomes.message('data', 'email', account.className, payload);
+			callback(error, person);
+	   });     	  
 });    
     
     /*scramble =  new Crypto();

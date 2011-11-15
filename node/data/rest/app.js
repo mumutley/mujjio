@@ -1,8 +1,6 @@
 var express = require('express')
   , messages = require('express-messages');
 
-//var mongoose = require('mongoose');
-//var db = mongoose.connect('mongodb://localhost/social');
 var app = module.exports = express.createServer();
 
 app.mounted(function(other){
@@ -27,6 +25,6 @@ require('./routes/account')(app);
 //require('./routes/cntnt')(app);
 
 if (!module.parent) {
-  app.listen(process.env.C9_PORT);
-  console.log('Express started on port ' + process.env.C9_PORT);
+  app.listen(3000);
+  console.log('Express started on port ' + 3000);
 }

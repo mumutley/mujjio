@@ -16,6 +16,21 @@ User.prototype.getInitial = function(req, res, callback) {
 	});
 }
 
+//update user password
+User.prototype.setPassword = function(req, res, callback) {
+	store.update("account", req.body.uid, { "password" : req.body.password }, function(err, doc) {
+		callback(err, doc);
+	});
+}
+
+//update user password
+User.prototype.disable = function(req, res, callback) {
+	store.update("account", req.body.uid, { "status" : "disable" }, function(err, doc) {
+		callback(err, doc);
+	});
+}
+
+//activate user account
 User.prototype.activate = function(req, res, callback) {
 
 	if(req.body.email.length <= 0 || req.body.password.length <= 0) {

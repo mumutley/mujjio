@@ -8,8 +8,8 @@ var mongo = require('mongodb'),
   BSONPure = mongo.BSONPure;
 
 
-var host = process.env['MONGO_NODE_DRIVER_HOST'] !== null ? process.env['MONGO_NODE_DRIVER_HOST'] : '';
-var port = process.env['MONGO_NODE_DRIVER_PORT'] !== null ? process.env['MONGO_NODE_DRIVER_PORT'] : 27017;
+var host = process.env['MONGO_NODE_DRIVER_HOST'] != null ? process.env['MONGO_NODE_DRIVER_HOST'] : 'localhost';
+var port = process.env['MONGO_NODE_DRIVER_PORT'] != null ? process.env['MONGO_NODE_DRIVER_PORT'] : 27017;
 
 Storage = function() { }
 
@@ -20,7 +20,8 @@ Storage.prototype.getCollection = function(name,callback) {
   });
 };
 
-Storage.prototype.save = function(row, name, callback) {       
+Storage.prototype.save = function(row, name, callback)  {
+      
 	var db = new Db('social', new Server(host, port, {}), {native_parser:false});	
 	db.open(function(err, db) {   
 		db.collection(name, function(err, collection) {
@@ -35,15 +36,16 @@ Storage.prototype.save = function(row, name, callback) {
 	});
 }
 
-Storage.prototype.update = function(coll, id, data, callback){  
+Storage.prototype.update = function(coll, id, data, callback) {
+	console.log("coll " + coll + " id " + id + " data " + data);
 	var db = new Db('social', new Server(host, port, {}), {native_parser:false});		
 	db.open(function(err, db) {   
 		db.collection(coll, function(err, collection) {
 	        if(err) {            
 				console.log(err);
 				callback(err, null);
-			} else {
-				collection.update({_id : id}, {"$set" : data}, function(error, doc) {
+			} else {				
+				collection.update({"_id" : BSONPure.ObjectID(id)}, {"$set" : data}, function(error, doc) {
 					if( error ) {
 						console.log(error);
 						callback(error);
