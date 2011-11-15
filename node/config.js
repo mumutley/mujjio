@@ -21,6 +21,19 @@ Configuration = {
         }
     },
 
+    //the content type
+    mime : {
+        JSON : {'Content-Type': 'application/json'}
+    },
+
+    //status code
+    codes : {
+        INVALID : '412',
+        FORBIDDEN : '403',
+        OK : '200',
+        NOTFOUND : '404'
+    },
+
     status : {
         registered  : 'active', 
         valid       : 'valid', 

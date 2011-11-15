@@ -42,7 +42,7 @@ var Person = exports.Person = function (request) {
         collect : ['english','french','german','hindi']
     };
 
-    exports.Person.prototype.relate = function() { 
+    exports.Person.prototype.getDefaultRelations = function() { 
 	var groups = []
         for(var i = 0; i < config.relationships.en.elements.length; i++) {
             var rel = config.relationships.en.elements[i];

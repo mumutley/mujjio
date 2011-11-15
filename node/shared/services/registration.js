@@ -1,10 +1,13 @@
 var scramble = require('./crypto').Crypto;
 var store = require('./db').Storage;
 var msg = require('./mq').MQ;
-var config = require('../../config');
+var config = require('../../config').Configuration;
+var codes = config.codes;
+var mime = config.mime;
 
 var Account = require('../../data/rest/model/account').Account;
 var Person = require('../../data/rest/model/person').Person;
+var session = require('./session').Session;
 
 var mongodb = require('mongodb');
 var BSON = mongodb.BSON;
@@ -14,7 +17,10 @@ var BSON = mongodb.BSONPure;
 
 var Q = require("q");
 
-Registration = function() {}
+Registration = function() {
+    
+    session = new Session();
+}
 
 Registration.prototype.register = function(req, res, callback) {    
     var account = new Account(req.body);
@@ -25,33 +31,24 @@ Registration.prototype.register = function(req, res, callback) {
         account = account.validate();           
     } catch(err){
         console.log(err);
-        res.writeHead(412, {
-            'Content-Type': 'application/json'
-        })
-        res.end(JSON.stringify(err));
+        session.write(codes.INVALID, mime.JSON, err, res);
         return;
     }
     
     try {
         //it looks strange but its used for Q
         person = person.validate();
-        person.relate();        
+        person.getDefaultRelations();        
     } catch(err){
         console.log(err);
-        res.writeHead(412, {
-            'Content-Type': 'application/json'
-        })
-        res.end(JSON.stringify(err));
+        session.write(codes.INVALID, mime.JSON, err, res);
         return;
     }       
      
      
     var outcomes = {
 		write : function(payload, res) {
-			res.writeHead(200, {
-				'Content-Type': 'application/json'
-			})
-			res.end(JSON.stringify(payload)); 
+            session.write(codes.OK, mime.JSON, payload, res);
 			return this;
 		},
 		message : function(que, exch, name, message) {
@@ -62,11 +59,10 @@ Registration.prototype.register = function(req, res, callback) {
 		}
     }
     
-    var db = new Storage();
-
+    var db = new Storage();    
 
 	db.save(person.data, person.className, function(error, perso) {
-        console.log(db);
+
 		// save a reference to the default profile to the account.
 		account.data.profiles = [];		
         var ref = new BSON.DBRef(person.className, perso._id);
@@ -74,16 +70,16 @@ Registration.prototype.register = function(req, res, callback) {
         
 		db.save(account.data, account.className, function(error, acco) { 
             //get the default groups
-			var groups = person.relate();
+			var groups = person.getDefaultRelations();
 		    for(var i = 0; i < groups.length; i++) {
 				db.save(groups[i], 'groups', function(error, grp) {	
                     //no operations
 				});
-			}
-           
+			}        
+
             //execute the http response and message to the search
-			//queue in parallel
-			var render = outcomes.write(acco, res);
+			var render = outcomes.write(acco, res);            
+
 			var search = outcomes.message('rest', 'search', person.className, perso);
 			var payload = {
 				to : acco.email,
@@ -93,9 +89,9 @@ Registration.prototype.register = function(req, res, callback) {
 				locale : 'en',
 				template : 'welcome',
 				url : 'http://localhost:8080/login.htm' + '?uid=' + acco._id
-			};
-			console.log(payload);                        
+			};                     
 			//var email =  outcomes.message('data', 'email', account.className, payload);
+            //session.write(codes.OK, mime.JSON, res.end(JSON.stringify(payload)), res);            
 			callback(error, person);
 	   });     	  
 });    

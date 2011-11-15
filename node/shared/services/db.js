@@ -37,7 +37,7 @@ Storage.prototype.save = function(row, name, callback)  {
 }
 
 Storage.prototype.update = function(coll, id, data, callback) {
-	console.log("coll " + coll + " id " + id + " data " + data);
+	
 	var db = new Db('social', new Server(host, port, {}), {native_parser:false});		
 	db.open(function(err, db) {   
 		db.collection(coll, function(err, collection) {

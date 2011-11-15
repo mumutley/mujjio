@@ -39,36 +39,15 @@ User.prototype.activate = function(req, res, callback) {
 	}
 
 	var query = {'_id' : BSONPure.ObjectID(req.body.uid), 'status' : 'initial', 'email' : req.body.email, 'password' : req.body.password};	
+	
 	store.fetch(query, 'account', function(err, doc) {
-		var outcomes = {
-			write : function(err, doc) {
-				console.log("write called");
-				callback(err, doc); //return to the view layer
-				return this;
-			},
-			message : function(que, exch, name, message) {
-				console.log("message called");
-				return this;
-				//save object in search
-			},
-			update : function() {
-				if(doc) {
-					store.update('account',doc._id, {'status':'registered'}, function(err){
-						console.log('document updated');
-						callback(null, doc);
-					});
-				} else {
-					callback({"error" : "document not found"}, null);
-				}
-				return this;
-			}			
+		if(doc) {
+			store.update('account', doc._id.toString(), {'status':'registered'}, function(err){
+				callback(null, doc);
+			});
+		} else {
+			callback({"error" : "document not found"}, null);
 		}
-		//var email =  outcomes.message('data', 'email', null, null);
-		//var write = outcomes.write(err, doc);
-		var update = outcomes.update();
-		
-		Q.join(update);		
-//		Q.join(email, write, update);		
 	});	
 }
 

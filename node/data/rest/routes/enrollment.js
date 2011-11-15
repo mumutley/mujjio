@@ -1,16 +1,21 @@
 var enrollment = require('../../../shared/services/registration').Registration;
 var users = require('../../../shared/services/user').User;
+var codes = require('../../../config.js').Configuration.codes;
+var mime = require('../../../config.js').Configuration.mime;
+var session = require('../../../shared/services/session').Session;
 
 module.exports = function(app) {  
 
 	enrollment = new Registration();
    	users = new User();
+   	session = new Session();
 
    	//submit new user data for join
 	app.post('/p/jn', function(req, res) {
 		enrollment.register(req, res, function(err, data) {
 			console.log(data);
-            return;
+			//session is rended in the registration function
+			return;
         });
 	});
 
@@ -18,11 +23,9 @@ module.exports = function(app) {
 	app.get('/p/ac', function(req, res){
 		users.getInitial(req, res, function(err, data) {
 			if(data === null) {
-				res.writeHead('404', {'Content-Type': 'application/json'});
-				res.end(JSON.stringify({'status' : "error"}));
+				session.write(codes.NOTFOUND, mime.JSON, {'status' : "error"}, res);
 			} else {
-				res.writeHead('200', {'Content-Type': 'application/json'});
-				res.end(JSON.stringify({'status' : data.status}));
+				session.write(codes.OK, mime.JSON, {'status' : data.status}, res);
 			}
 		});
 	});
@@ -31,12 +34,10 @@ module.exports = function(app) {
 	app.post('/p/ac', function(req, res){
 		users.activate(req, res, function(err, doc) {
 			if(err) {
-				res.writeHead(402, {'Content-Type': 'text/json'}) ;	
-				res.end(JSON.stringify(err));    
+				session.write(codes.FORBIDDEN, mime.JSON, err, res);
 				return;        				
-			}				
-			res.writeHead(200, {'Content-Type': 'text/json'}) ;
-			res.end(JSON.stringify({'status' : 'ok'}));            				
+			}
+			session.write(codes.OK, mime.JSON, {'status' : 'ok'}, res);			
 		});	
 	});
 }

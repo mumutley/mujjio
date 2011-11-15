@@ -1,4 +1,6 @@
 var users = require('../../../shared/services/user').User;
+var session = require('../../../shared/services/session').Session;
+var codes = require('../../../config.js').Configuration.codes;
 
 module.exports = function(app) {
   	users = new User();
