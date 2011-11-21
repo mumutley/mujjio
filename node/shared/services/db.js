@@ -28,7 +28,6 @@ Storage.prototype.save = function(row, name, callback)  {
 	        if(err) throw err;	
 			row.created = new Date();
 			row.updated = new Date();        
-			console.log("collection name " + row);
 			collection.insert(row, function(){            
     	        callback(null, row);
 	        }); 
@@ -87,7 +86,7 @@ Storage.prototype.fetchAll = function(query, name, callback) {
 }
 
 //find a document
-Storage.prototype.fetch = function(query, name, callback) { 
+Storage.prototype.fetch = function(id, name, callback) { 
 	var db = new Db('social', new Server(host, port, {}), {native_parser:false});	
 	db.open(function(err, db){
 		db.collection(name, function(err, collection) {

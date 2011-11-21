@@ -1,31 +1,32 @@
 var Account = require('../model/account').Account;
 var Person = require('../model/person').Person;
-Q = require("q");
-msg = require('../services/mq').MQ
-BSON = require('mongodb').BSONPure,
-ObjectID = require('mongodb').BSONPure.ObjectID,
-config = require('../../../config').Configuration;
+var config = require('../../../config.js').Configuration;
+var codes = config.codes;
+var mime = config.mime;
+
+var session = require('../../../shared/services/session').Session;
 
 module.exports = function(app){
     var db = new Storage();       
-    
+    session = new Session();
+
     //Get the user profile
-    app.get('/me/:uid', function(req, res){        
-        db.fetch(null, 'people', function(error, perso){ 
-            res.writeHead(200, {'Content-Type': 'application/json'});       
-            res.end(JSON.stringify(perso));
+    app.get('/me/:uid', function(req, res){
+        console.log(req.params.uid);    
+        db.find(req.params.uid, 'people', function(error, perso){ 
+            
+            if(perso === null || error) {
+                session.write(codes.NOTFOUND, mime.JSON, 
+                    {'status' : 'person with id ' + req.params.uid + ' not found'}, res);
+                return;
+            }
+            session.write(codes.OK, mime.JSON, perso, res);
         });                                     
-    });
-    
-    app.post('/me/:uid/disable', function(req, res) {
-    });
-    
-    //update a profile
-    app.post('/me/:uid', function(req, res) {
     });
     
     //get a list of groups for a specific user.
     app.get('/me/:uid/ls', function(req, res) {
+
     });
     
     //add a list to the collection of lists

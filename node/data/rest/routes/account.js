@@ -4,61 +4,43 @@ var codes = require('../../../config.js').Configuration.codes;
 
 module.exports = function(app) {
   	users = new User();
+   	session = new Session();
 
     //login
 	app.post('/ac/auth', function(req, res) {
 		users.login(req, res, function(err, doc) {
 			if(err){
-				res.writeHead('403', {'Content-Type': 'application/json'});
-				res.end(JSON.stringify({'status' : 'error in creating authentication token'}));
+				session.write(codes.FORBIDDEN, mime.JSON, {'status' : 'error in creating authentication token'}, res);
 				return;
 			}
-			res.writeHead('200', {'Content-Type': 'application/json'});
-			res.end(JSON.stringify({'status' : doc}));
+			session.write(codes.OK, mime.JSON, doc, res);			
 		});
 	});        
     
     //log out
 	app.get('/ac/dauth', function(req, res) {
-		console.log("logging out");
-		res.writeHead('200', {'Content-Type': 'application/json'});
-		res.end(JSON.stringify({'status' : "ok"}));
+		session.write(codes.FORBIDDEN, mime.JSON, {'status' : 'To be implemented'}, res);		
 	});
     
     //reset password.
     app.post('/ac/:uid/pwd', function(req, res) {
     	users.setPassword(req, res, function(err, doc) {
 			if(err){
-				res.writeHead('403', {'Content-Type': 'application/json'});
-				res.end(JSON.stringify({'status' : 'error in creating authentication token'}));
+				session.write(codes.FORBIDDEN, mime.JSON, {'status' : 'error in creating authentication token'}, res);				
 				return;
 			}
-			res.writeHead('200', {'Content-Type': 'application/json'});
-			res.end(JSON.stringify({'status' : doc}));               		
+			session.write(codes.OK, mime.JSON, doc, res);			
     	});
     });
     
     //disable the account
     app.post('/ac/:uid/off', function(req, res) {
-
 		users.disable(req, res, function(err, doc) {
 			if(err){
-				res.writeHead('403', {'Content-Type': 'application/json'});
-				res.end(JSON.stringify({'status' : 'error in creating authentication token'}));
+				session.write(codes.FORBIDDEN, mime.JSON, {'status' : 'error in creating authentication token'}, res);
 				return;
 			}
-			res.writeHead('200', {'Content-Type': 'application/json'});
-			res.end(JSON.stringify({'status' : doc}));               		
+			session.write(codes.OK, mime.JSON, doc, res);			
     	});
     });
-    
-    //disable and delete the account
-    app.get('/ac/:uid/die', function(req, res) {
-    });
-    
-    //update the account
-    app.post('/ac/:uid', function(req, res) {
-    });
-
-
 }

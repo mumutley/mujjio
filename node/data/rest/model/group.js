@@ -1,26 +1,19 @@
 var Base = require('./base').Base;
 var config = require('../../../config').Configuration;
 
-var Group = exports.Group = function (name, owner, visibility) {
+var Group = exports.Group = function (name, visibility) {
 	this.data = {};
  	//the name of the group
  	this.data.name = name;
- 	this.data.owner = owner;
  	this.data.status = visibility;
- 	
+ 	this.data.owners = [];
+
  	this.name = {
     	value : name,
         type : String,
         validations : ['notNull','notEmpty'] 		
- 	},
-
- 	//the owner of group
- 	this.owner - {
- 		value : owner,
- 		type : String,
- 		validations : []
  	}
-	
+ 	
     return this; 
 }
 

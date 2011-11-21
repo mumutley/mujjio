@@ -20,6 +20,8 @@ app.configure(function(){
 
 require('./routes/enrollment')(app);
 require('./routes/account')(app);
+require('./routes/users')(app);
+
 //require('./routes/grp')(app);
 //require('./routes/sys')(app);
 //require('./routes/cntnt')(app);

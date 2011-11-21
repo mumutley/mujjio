@@ -19,34 +19,38 @@ var Person = exports.Person = function (request) {
     this.firstName = {
         value : request.firstName,
         type : String,
-        validations : ['notNull','notEmpty']        
+        validations : ['notNull','notEmpty'],
+        update : false    
     };
     
     this.lastName = {
         value : request.lastName,
         type : String,
-        validations : ['notNull','notEmpty']        
+        validations : ['notNull','notEmpty'],
+        update : false    
     };   
     
     this.gender = {
         value : request.gender,
         type : String,
         validations : ['contains'],
-        collect : ['male','female']
+        collect : ['male','female'],
+        update : false
     };
     
     this.language = {
         value : request.language,
         type : String,
         validations : ['contains'],
-        collect : ['english','french','german','hindi']
+        collect : ['english','french','german','hindi'],
+        update : false
     };
 
     exports.Person.prototype.getDefaultRelations = function() { 
 	var groups = []
         for(var i = 0; i < config.relationships.en.elements.length; i++) {
             var rel = config.relationships.en.elements[i];
-            var group = new Group(rel.name, this.data.nickName, rel.visibility);
+            var group = new Group(rel.name, rel.visibility);
             groups.push(group.data);
         }   
 	return groups;

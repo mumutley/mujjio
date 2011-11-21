@@ -12,8 +12,8 @@ module.exports = function(app) {
 
    	//submit new user data for join
 	app.post('/p/jn', function(req, res) {
-		enrollment.register(req, res, function(err, data) {
-			console.log(data);
+		enrollment.register(req, res, function(err, person) {
+			console.log(person.data._id + " is saved.");
 			//session is rended in the registration function
 			return;
         });

@@ -38,7 +38,6 @@ Registration.prototype.register = function(req, res, callback) {
     try {
         //it looks strange but its used for Q
         person = person.validate();
-        person.getDefaultRelations();        
     } catch(err){
         console.log(err);
         session.write(codes.INVALID, mime.JSON, err, res);
@@ -71,7 +70,8 @@ Registration.prototype.register = function(req, res, callback) {
 		db.save(account.data, account.className, function(error, acco) { 
             //get the default groups
 			var groups = person.getDefaultRelations();
-		    for(var i = 0; i < groups.length; i++) {
+		    for(var i = 0; i < groups.length; i++) {                                
+                groups[i].owners.push(perso._id);
 				db.save(groups[i], 'groups', function(error, grp) {	
                     //no operations
 				});
