@@ -90,7 +90,7 @@ Storage.prototype.fetch = function(id, name, callback) {
 	var db = new Db('social', new Server(host, port, {}), {native_parser:false});	
 	db.open(function(err, db){
 		db.collection(name, function(err, collection) {
-			collection.findOne(query, function(err, doc) {
+			collection.findOne(id, function(err, doc) {
            	 	if(err) console.log(err);
             	callback(err, doc);
 	        });

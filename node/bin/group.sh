@@ -1,0 +1,1 @@
+curl -v -X POST "http://localhost:3000/gr/4ecad77ffd53034e5600000d" -H "Content-Type: application/json" --data @../data/inputs/suhail.grp.json

@@ -31,7 +31,8 @@ Configuration = {
         INVALID : '412',
         FORBIDDEN : '403',
         OK : '200',
-        NOTFOUND : '404'
+        NOTFOUND : '404',
+        ERROR : '500'
     },
 
     status : {
