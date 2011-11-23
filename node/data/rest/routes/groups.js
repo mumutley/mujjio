@@ -32,7 +32,17 @@ module.exports = function(app) {
     });
 
     //delete a group, @grid is the group id
-    app.delete('/gr/:id/:grid', function(req, res) {        
+    app.delete('/gr/:id/:grid', function(req, res) {
+        
+        console.log("delete " + req.params.grid);
+
+        storage.delete('groups', req.params.grid, function(err, data) {
+            if(err) {
+                session.write(codes.ERROR, mime.JSON, err, res);
+                return;
+            }
+            session.write(codes.OK, mime.JSON, {}, res);
+        });
     });
 
     //update a group, @grid is the group id 4ecc2a2c38ea968210000001

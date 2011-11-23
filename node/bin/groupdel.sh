@@ -1,0 +1,1 @@
+curl -v -X DELETE "http://localhost:3000/gr/4ecad77ffd53034e5600000d/4ecc4a15d9c64c4c15000001"

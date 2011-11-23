@@ -56,6 +56,25 @@ Storage.prototype.update = function(coll, id, data, callback) {
 	});
 }
 
+//delete the document by its id
+Storage.prototype.delete = function(coll, id, callback) {
+	var db = new Db('social', new Server(host, port, {}), {native_parser:false});
+	db.open(function(err, db) {   
+		db.collection(coll, function(err, collection) {
+	        if(err) {            
+				callback(err, null);
+			} else {				
+				collection.remove({"_id" : BSONPure.ObjectID(id)}, {safe:true}, function(error, doc) {
+					if( error ) {
+						callback(error, null);
+					}
+					else callback(err, doc);
+				});
+			}
+		});
+	});	
+}
+
 //find a document by id, from a collection named
 Storage.prototype.find = function(id, name, callback) {
 	var db = new Db('social', new Server(host, port, {}), {native_parser:false});
@@ -85,7 +104,7 @@ Storage.prototype.fetchAll = function(query, name, callback) {
 	})
 }
 
-//find a document
+//find a document deprecated
 Storage.prototype.fetch = function(id, name, callback) { 
 	var db = new Db('social', new Server(host, port, {}), {native_parser:false});	
 	db.open(function(err, db){
