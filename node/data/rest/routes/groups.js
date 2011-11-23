@@ -33,9 +33,6 @@ module.exports = function(app) {
 
     //delete a group, @grid is the group id
     app.delete('/gr/:id/:grid', function(req, res) {
-        
-        console.log("delete " + req.params.grid);
-
         storage.delete('groups', req.params.grid, function(err, data) {
             if(err) {
                 session.write(codes.ERROR, mime.JSON, err, res);
@@ -67,6 +64,18 @@ module.exports = function(app) {
         });
     });
 
+    //creates the union of two groups. The body will contain the two group ids, the new name
+    //and the visibility setting. Once merged, the old groups will be deleted.
+    app.post('/gr/add/:id', function(req, res) {
+        console.log(req.body);
+        session.write(codes.OK, mime.JSON, req.body, res);
+    });
+
+    //add a new subscriber to the group
+    app.post('/gr/shr/:id/:grid', function(req, res) {
+        
+    });
+
 };
 
-exports.Registration = Registration;
+exports.Group = Group;

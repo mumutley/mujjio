@@ -22,6 +22,7 @@ require('./routes/enrollment')(app);
 require('./routes/account')(app);
 require('./routes/users')(app);
 require('./routes/groups')(app);
+require('./routes/relationships')(app);
 
 //require('./routes/grp')(app);
 //require('./routes/sys')(app);

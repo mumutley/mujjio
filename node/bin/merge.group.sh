@@ -1,0 +1,1 @@
+curl -v -X POST "http://localhost:3000/gr/add/4ecad771fd53034e56000007" -H "Content-Type: application/json" --data @../data/inputs/suhail.grp.merge.json
