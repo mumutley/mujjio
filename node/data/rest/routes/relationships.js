@@ -9,24 +9,29 @@ var mongo = require('mongodb'),
 
 module.exports = function(app) { 
 
-	storage = new Storage();
+	db = new Storage();
 	session = new Session();
 
-	//add a person to a group creating a relationship
-	app.post('/rel/:grid/:pid', function(req, res) {
-
+	//add a person to a group creating a relationship. The body has a relationship
+	//document that needs to be added to the system
+	app.put('/rel/:grid', function(req, res) {
+		console.log(req.params.grid);
+		console.log(req.body);
+		var row = {"members" : req.body};
+		db.push("groups", req.params.grid, row, function(err, doc){
+			session.write(codes.OK, mime.JSON, req.body, res);	
+		});		
 	});
 
 	//remove a person to a group creating a relationship
 	app.delete('/rel/:grid/:pid', function(req, res) {
-
 	});
 
 	//update a relationship
 	app.put('/rel/:grid/:pid', function(req, res) {
-
 	});
 
-
-
+	//get all relationship a user has
+	app.get('/rel/:pid', function(req, res) { 
+	});
 }

@@ -7,6 +7,8 @@ var mime = config.mime;
 
 var Account = require('../../data/rest/model/account').Account;
 var Person = require('../../data/rest/model/person').Person;
+var Member = require('../../data/rest/model/rel').Relationship;
+
 var session = require('./session').Session;
 
 var mongodb = require('mongodb');
@@ -70,11 +72,28 @@ Registration.prototype.register = function(req, res, callback) {
 		db.save(account.data, account.className, function(error, acco) { 
             //get the default groups
 			var groups = person.getDefaultRelations();
-		    for(var i = 0; i < groups.length; i++) {                                
-                groups[i].owners.push(perso._id);
-				db.save(groups[i], 'groups', function(error, grp) {	
-                    //no operations
-				});
+		    for(var i = 0; i < groups.length; i++) {   
+                var group = groups[i];                             
+                group.owners.push(perso._id);
+                //now add the default relationsips to the newly creaded group
+                if (group.name === config.mutley.group && perso.nickName !== 'mumutleymu') {                    
+                    //find mutley (todo : this should be cached);
+                    db.findOne({'nickName' : 'mumutleymu'}, 'people', function(err, mut){  
+
+                        var rel = new Member(mut._id, config.relationships.strength.WEAK, 
+                                                config.access.private,
+                                                config.relationships.transferable.NONE,
+                                                0.0);
+
+                        group.members.push(rel);      
+                        db.save(group, 'groups', function(error, grp) {                                              
+                            //group saved with the defaul relationship
+                        });
+                    });
+                } else {
+                    db.save(group, 'groups', function(error, grp) {                                              
+                    });                    
+                }
 			}        
 
             //execute the http response and message to the search

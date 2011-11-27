@@ -1,0 +1,1 @@
+curl -v -X PUT "http://localhost:3000/rel/4ed27368ff72897003000005" -H "Content-Type: application/json" --data @../data/inputs/suhail.yael.family.rel.json

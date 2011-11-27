@@ -12,7 +12,6 @@ module.exports = function(app){
 
     //Get the user profile
     app.get('/me/:uid', function(req, res){
-        console.log(req.params.uid);    
         db.find(req.params.uid, 'people', function(error, perso){ 
             
             if(perso === null || error) {
@@ -26,7 +25,6 @@ module.exports = function(app){
     
     //get a list of groups for a specific user.
     app.get('/me/:uid/ls', function(req, res) {
-
     });
     
     //add a list to the collection of lists

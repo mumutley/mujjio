@@ -1,6 +1,10 @@
 Configuration = {
     
  
+    mutley : {
+        group : 'Acquaintences'
+    },
+
     //private > personal > shared > public
     access : {
         private : 'private', //this is only for me
@@ -18,8 +22,21 @@ Configuration = {
                 { name : 'Collegues' , visibility : 'personal' },
                 { name : 'Acquaintences', visibility : 'personal' }
             ]
-        }
+        },
+        //different transfer types
+        transferable : { 
+            AUTOMATIC : 'automatic', //relationships are tranferable when the group or community is shared, is the default
+            MONITISED : 'monitised', //the owning relationship must be paid money when tranferred.
+            NONE : 'none', //The relationship is not transferrable
+        },
+        
+        //the strength of the relationship
+        strength : {
+            STRONG : '10',
+            WEAK : '1'
+        }        
     },
+
 
     //the content type
     mime : {

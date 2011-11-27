@@ -35,6 +35,27 @@ Storage.prototype.save = function(row, name, callback)  {
 	});
 }
 
+//add to the array
+Storage.prototype.push = function(col, id, data, callback) {
+	var db = new Db('social', new Server(host, port, {}), {native_parser:false});		
+	db.open(function(err, db) {   
+		db.collection(col, function(err, collection) {
+	        if(err) {            
+				console.log(err);
+				callback(err, null);
+			} else {				
+				collection.update({"_id" : BSONPure.ObjectID(id)}, {"$push" : data}, function(error, doc) {
+					if( error ) {
+						console.log(error);
+						callback(error);
+					}
+					else callback(null, doc);
+				});
+			}
+		});
+	});		
+}
+
 Storage.prototype.update = function(coll, id, data, callback) {
 	
 	var db = new Db('social', new Server(host, port, {}), {native_parser:false});		
@@ -104,17 +125,16 @@ Storage.prototype.fetchAll = function(query, name, callback) {
 	})
 }
 
-//find a document deprecated
-Storage.prototype.fetch = function(id, name, callback) { 
-	var db = new Db('social', new Server(host, port, {}), {native_parser:false});	
+//find oen document in the given collection
+Storage.prototype.findOne = function(query, name, callback) {
+	var db = new Db('social', new Server(host, port, {}), {native_parser:false});
 	db.open(function(err, db){
 		db.collection(name, function(err, collection) {
-			collection.findOne(id, function(err, doc) {
-           	 	if(err) console.log(err);
-            	callback(err, doc);
+			collection.findOne(query, function(err, doc) {				
+				callback(err, doc);
 	        });
 		});
-	})
+	})	
 }
 
 exports.Storage = Storage;
