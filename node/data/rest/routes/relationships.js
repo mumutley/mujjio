@@ -15,12 +15,14 @@ module.exports = function(app) {
 	//add a person to a group creating a relationship. The body has a relationship
 	//document that needs to be added to the system
 	app.put('/rel/:grid', function(req, res) {
-		console.log(req.params.grid);
-		console.log(req.body);
-		var row = {"members" : req.body};
-		db.push("groups", req.params.grid, row, function(err, doc){
+		req.body.to = db.bson(req.body.to);
+		req.body.from = db.bson(req.params.grid);
+		db.save(req.body, "members", function(err, doc){
 			session.write(codes.OK, mime.JSON, req.body, res);	
-		});		
+		});
+		//var row = {"members" : req.body};
+		//db.push("groups", req.params.grid, row, function(err, doc){			
+		//});		
 	});
 
 	//remove a person to a group creating a relationship

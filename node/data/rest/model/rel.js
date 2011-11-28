@@ -16,5 +16,3 @@ var Relationship = exports.Relationship = function (from, strenght, visibility, 
 Relationship.prototype.__proto__ = Base.prototype;
 Relationship.prototype.constructor = Relationship
 Relationship.prototype.className = "relationship";
-
-

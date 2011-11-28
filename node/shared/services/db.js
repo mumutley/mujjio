@@ -20,8 +20,11 @@ Storage.prototype.getCollection = function(name,callback) {
   });
 };
 
-Storage.prototype.save = function(row, name, callback)  {
-      
+Storage.prototype.bson = function(id) {
+	return BSONPure.ObjectID(id);
+}
+
+Storage.prototype.save = function(row, name, callback)  {      
 	var db = new Db('social', new Server(host, port, {}), {native_parser:false});	
 	db.open(function(err, db) {   
 		db.collection(name, function(err, collection) {
@@ -33,6 +36,10 @@ Storage.prototype.save = function(row, name, callback)  {
 	        }); 
 		});
 	});
+}
+
+Storage.prototype.pullOne = function() {
+	
 }
 
 //add to the array
